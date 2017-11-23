@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MainService } from '../../services/main.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -6,10 +7,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  openSideNav: boolean;
 
-  constructor() { }
+  constructor(private mainService: MainService) {}
 
-  ngOnInit() {
-  }
+  ngOnInit(): void {
+    this.mainService.onSideNavToggle().subscribe(
+        (opening) => {
+            if (opening) {
+              console.log("dashboard open");
+                this.openSideNav = true;
+            } else {
+              console.log("dashboard close");
+                this.openSideNav = false;
+            }
+        }
+    );
+} 
 
 }
