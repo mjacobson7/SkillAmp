@@ -1,8 +1,9 @@
 #header-wrapper {
     height: 46px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     border-bottom: 1px solid #DDDDDD;
+    background-color: #FFFFFF;
 }
 
 #hamburger-menu {
@@ -17,7 +18,12 @@
     user-select: none;
 }
 
-#log-out {
+#my-account {
     line-height: 46px;
-    align-self: flex-end;
+    cursor: pointer;
+    float: right;
+    border-right: 1px solid #F1F1F1;
+    border-left: 1px solid #F1F1F1;
+    padding: 0 15px;
+    margin-left: auto;
 }

@@ -4,8 +4,8 @@
     width: 56px;
     height: 100%;
     overflow-y: hidden;
-    background: #2C3E50;
-    opacity: 0.9;
+    background: #23272D;
+    transition: width 0.5s;
 }
 
 .sidebar-nav {
@@ -21,13 +21,18 @@
 .sidebar-nav li a {
     display: block;
     text-decoration: none;
-    color: #ddd;
+    color: #808b9c;
+    font-size: 14px;
+    transition: color 0.5s;
+    border-left: 3px solid transparent;
 }
 
 .sidebar-nav li a:hover {
-    background-color: #16A085;
+    color: #FFFFFF;
+    border-left: 3px solid #00B6EE;
 }
 
 #sidebar-wrapper.sideBar {
     width: 250px;
+    transition: width 0.5s;
 }
