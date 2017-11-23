@@ -1,0 +1,10 @@
+#page-content-wrapper {
+    width: 100%;
+    position: absolute;
+    padding: 15px;
+    border: 5px solid green;
+}
+
+#page-content-wrapper.sideBar {
+    padding-left: 250px;
+}

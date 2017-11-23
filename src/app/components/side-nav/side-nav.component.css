@@ -1,0 +1,41 @@
+/* .companyLogo {
+    margin-bottom: 20px;
+}
+.menuOptions {
+    margin-left: 10px;
+} */
+
+#sidebar-wrapper {
+    z-index: 1;
+    position: absolute;
+    width: 0;
+    height: 100%;
+    overflow-y: hidden;
+    background: #2C3E50;
+    border: 2px solid red;
+    opacity: 0.9;
+}
+
+.sidebar-nav {
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-nav li {
+    text-indent: 20px;
+    line-height: 40px;
+}
+
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #ddd;
+}
+
+.sidebar-nav li a:hover {
+    background-color: #16A085;
+}
+
+#sidebar-wrapper.sideBar {
+    width: 250px;
+}
