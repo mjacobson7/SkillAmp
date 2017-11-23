@@ -1,16 +1,23 @@
 #header-wrapper {
     height: 46px;
-    border: 1px solid blue;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #DDDDDD;
 }
 
 #hamburger-menu {
     width: 50px;
-    height: inherit;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    line-height: 46px;
+    text-align: center;
 }
 
 #hamburger-menu i {
-    cursor: pointer;    
+    cursor: pointer;
+    line-height: 46px;
+    user-select: none;
+}
+
+#log-out {
+    line-height: 46px;
+    align-self: flex-end;
 }

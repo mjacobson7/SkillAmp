@@ -1,8 +1,9 @@
 #page-content-wrapper {
     width: 100%;
+    height: 100%;
     position: absolute;
-    padding: 15px;
-    border: 5px solid green;
+    padding: 56px;
+    background-color: #F4F4F4;
 }
 
 #page-content-wrapper.sideBar {
