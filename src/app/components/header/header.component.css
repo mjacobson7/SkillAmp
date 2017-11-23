@@ -7,15 +7,28 @@
 }
 
 #hamburger-menu {
-    width: 50px;
+    width: 56px;
     line-height: 46px;
     text-align: center;
+    border-right: 1px solid #F1F1F1;
+}
+
+#hamburger-menu:hover {
+    background-color: #F8F8F8;
+    transition: background-color 0.2s;
 }
 
 #hamburger-menu i {
     cursor: pointer;
     line-height: 46px;
     user-select: none;
+}
+
+#company-logo img {
+    padding: 0 10px;
+    width: 150px;
+    height: 45px;
+    border-right: 1px solid #F1F1F1;
 }
 
 #my-account {
@@ -26,4 +39,11 @@
     border-left: 1px solid #F1F1F1;
     padding: 0 15px;
     margin-left: auto;
+    color: #333333;
+    font-size: 14px;
+}
+
+#my-account:hover {
+    background-color: #F8F8F8;
+    transition: background-color 0.2s;
 }
