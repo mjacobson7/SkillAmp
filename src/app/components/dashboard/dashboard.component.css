@@ -1,12 +1,26 @@
 #page-content-wrapper {
     width: 100%;
     position: absolute;
-    padding: 56px;
-    /* background-color: #F4F4F4; */
+    padding: 30px;
     transition: padding 0.5s;
 }
 
 #page-content-wrapper.sideBar {
     padding-left: 250px;
-    transition: padding-left 0.5s;
+    transition: padding-left 0.25s;
+}
+
+.page-header h3 {
+    font-weight: lighter;
+    margin-bottom: 0;
+    padding-left: 10px;
+}
+
+.page-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #E9E9E9;    
+    user-select: none;    
 }

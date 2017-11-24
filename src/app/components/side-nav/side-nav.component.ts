@@ -7,10 +7,12 @@ import { MainService } from '../../services/main.service';
   styleUrls: ['./side-nav.component.css']
 })
 export class SideNavComponent implements OnInit {
+  selectedRow: Number = 0;
+  setClickedRow: Function;
   dashboardOptions: Object[] = [
     {
       icon: 'dashboard',
-      name: 'Dashboard',
+      name: 'Dashboard'
     },
     {
       icon: 'sentiment_very_satisfied',
@@ -26,10 +28,13 @@ export class SideNavComponent implements OnInit {
 
 
   constructor(private mainService: MainService) {
-
+    this.setClickedRow = (i) => {
+      this.selectedRow = i;
+    } 
   }
 
   ngOnInit(): void {
+
     this.mainService.onSideNavToggle().subscribe(
         (opening) => {
             if (opening) {
