@@ -1,9 +1,9 @@
 <div id="sidebar-wrapper" [ngClass]="{'sideBar': openSideNav}">
-  <ul class=sidebar-nav>
-    <li><a href="">Dashboard</a></li>
-    <li><a href="">Settings</a></li>
-    <li><a href="">Logout</a></li>
-  </ul>
+  <!-- <div class=sidebar-nav><i id="icon" class="material-icons md-light">dashboard</i></div> -->
+  <div class=sidebar-nav *ngFor="let item of dashboardOptions">
+      <i id="icon" class="material-icons md-light">{{item.icon}}</i>
+      <span id="side-nav-menu-item" [hidden]="!openSideNav" href="">{{item.name}}</span>
+  </div>
 </div>
 
 

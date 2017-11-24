@@ -7,9 +7,22 @@ import { MainService } from '../../services/main.service';
   styleUrls: ['./side-nav.component.css']
 })
 export class SideNavComponent implements OnInit {
-  dashboardOptions: String[] = ['Overview', 'Customer Satisfaction', 'Supervisor Evaluations'];
+  dashboardOptions: Object[] = [
+    {
+      icon: 'dashboard',
+      name: 'Dashboard',
+    },
+    {
+      icon: 'sentiment_very_satisfied',
+      name: 'Customer Surveys'
+    },
+    {
+      icon: 'domain',
+      name: 'Supervisor Evaluations'
+    } 
+  ];
   userOptions: String[] = ['My Profile', 'Logout']; 
-  openSideNav: boolean;
+  openSideNav: boolean = true;
 
 
   constructor(private mainService: MainService) {

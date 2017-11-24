@@ -7,7 +7,7 @@ import { MainService } from '../../services/main.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  sideNavOpen: boolean = false;
+  sideNavOpen: boolean = true;
  
   constructor(private mainService: MainService) {}
 

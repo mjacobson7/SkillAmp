@@ -1,5 +1,5 @@
 <div id="header-wrapper">
-  <div id="hamburger-menu"><i (click)="toggleSideNav()" class="material-icons">menu</i></div>
-  <a href="" id="company-logo"><img src="../../assets/First_Impression_302.png" alt=""></a>
-  <div id="my-account">My Account</div>
+  <div (click)="toggleSideNav()" id="hamburger-menu"><i class="material-icons">menu</i></div>
+  <a href="" id="company-logo" [ngClass]="{'company-logo-resize': sideNavOpen}"><img src="../../assets/First_Impression_302.png" alt=""></a>
+  <a href="" id="messages"><i class="material-icons">email</i></a>
 </div>

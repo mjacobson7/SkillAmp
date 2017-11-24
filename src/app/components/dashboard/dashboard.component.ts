@@ -7,7 +7,7 @@ import { MainService } from '../../services/main.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  openSideNav: boolean;
+  openSideNav: boolean = true;
 
   constructor(private mainService: MainService) {}
 
