@@ -1,5 +1,7 @@
 <div id="header-wrapper">
   <div (click)="toggleSideNav()" id="hamburger-menu"><i class="material-icons">menu</i></div>
   <a href="" id="company-logo" [ngClass]="{'company-logo-resize': sideNavOpen}"><img src="../../assets/First_Impression_302.png" alt=""></a>
-  <a href="" id="messages"><i class="material-icons">email</i></a>
+  <a href="" placement="bottom" ngbTooltip="Messages" class="messages"><i class="material-icons">email</i></a>  
+  <a href="" placement="bottom" ngbTooltip="Profile" class="profile"><i class="material-icons">perm_identity</i></a>
+  <a href="" placement="bottom" ngbTooltip="Logout"class="logout"><i class="material-icons">power_settings_new</i></a>
 </div>

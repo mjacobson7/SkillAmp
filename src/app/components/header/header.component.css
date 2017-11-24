@@ -39,23 +39,30 @@
     width: 194px;
 }
 
-#messages {
+.messages {
+    margin-left: auto;
+    border-left: 1px solid #F1F1F1;    
+}
+
+.logout {
+    margin-right: 10px;
+}
+
+.profile, .logout, .messages {
     line-height: 46px;
     border-right: 1px solid #F1F1F1;
-    border-left: 1px solid #F1F1F1;
     padding: 0 15px;
-    margin-left: auto;
-    margin-right: 15px;
     color: #333333;
     font-size: 14px;
     user-select: none;
+    float: right;
 }
 
-#messages i {
+.messages i, .profile i, .logout i {
     line-height: 46px;
 }
 
-#messages:hover {
+.messages:hover, .profile:hover, .logout:hover {
     background-color: #F8F8F8;
     transition: background-color 0.2s;
 }
