@@ -12,18 +12,45 @@ export class SideNavComponent implements OnInit {
   dashboardOptions: Object[] = [
     {
       icon: 'dashboard',
-      name: 'Dashboard'
+      name: 'Dashboard',
+      roleType: ['agent', 'supervisor', 'admin']
     },
     {
       icon: 'sentiment_very_satisfied',
-      name: 'Customer Surveys'
+      name: 'Customer Surveys',
+      roleType: ['agent']
     },
     {
       icon: 'domain',
-      name: 'Supervisor Evaluations'
+      name: 'Supervisor Evaluations',
+      roleType: ['agent']
+    },
+    {
+      icon: 'people',
+      name: 'My Team',
+      roleType: ['supervisor']
+    },
+    {
+      icon: 'person',
+      name: 'Manage Users',
+      roleType: ['admin']
+    },
+    {
+      icon: 'assignment',
+      name: 'Reports',
+      roleType: ['admin', 'supervisor']
+    },
+    {
+      icon: 'account_balance',
+      name: 'Account',
+      roleType: 'admin'
+    },
+    {
+      icon: 'settings',
+      name: 'Global Settings',
+      roleType: 'admin'
     } 
   ];
-  userOptions: String[] = ['My Profile', 'Logout']; 
   openSideNav: boolean = true;
 
 
