@@ -17,7 +17,7 @@ export class SideNavComponent implements OnInit {
     },
     {
       icon: 'sentiment_very_satisfied',
-      name: 'Customer Surveys',
+      name: 'Customer Satisfaction',
       roleType: ['agent']
     },
     {
@@ -26,12 +26,12 @@ export class SideNavComponent implements OnInit {
       roleType: ['agent']
     },
     {
-      icon: 'people',
+      icon: 'person',
       name: 'My Team',
       roleType: ['supervisor']
     },
     {
-      icon: 'person',
+      icon: 'people',
       name: 'Manage Users',
       roleType: ['admin']
     },
