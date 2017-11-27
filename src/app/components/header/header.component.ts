@@ -9,7 +9,9 @@ import { MainService } from '../../services/main.service';
 export class HeaderComponent implements OnInit {
   sideNavOpen: boolean = true;
  
-  constructor(private mainService: MainService) {}
+  constructor(private mainService: MainService) {
+    
+  }
 
   toggleSideNav() { 
     this.sideNavOpen = !this.sideNavOpen;
