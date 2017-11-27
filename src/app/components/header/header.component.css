@@ -4,6 +4,9 @@
     flex-direction: row;
     border-bottom: 1px solid #DDDDDD;
     background-color: #FFFFFF;
+    position: fixed;
+    width: 100%;
+    z-index: 1;
 }
 
 #hamburger-menu {

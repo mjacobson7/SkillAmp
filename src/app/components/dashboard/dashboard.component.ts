@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MainService } from '../../services/main.service';
+import { Http } from '@angular/http';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,8 +9,15 @@ import { MainService } from '../../services/main.service';
 })
 export class DashboardComponent implements OnInit {
   openSideNav: boolean = true;
+  posts: any[];  
 
-  constructor(private mainService: MainService) {}
+  constructor(private mainService: MainService, http: Http) {
+    http.get('http://jsonplaceholder.typicode.com/posts')
+      .subscribe(response => {
+        console.log(response.json());
+        this.posts = response.json();
+      })
+  }
 
   ngOnInit(): void {
     this.mainService.onSideNavToggle().subscribe(

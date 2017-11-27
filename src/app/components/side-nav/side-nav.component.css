@@ -1,8 +1,9 @@
 #sidebar-wrapper {
     z-index: 1;
-    position: absolute;
+    position: fixed;
+    top: 46px;
     width: 56px;
-    height: 100vh;
+    min-height: 100vh;
     overflow-y: hidden;
     background: #23272D;
     transition: width 0.5s;

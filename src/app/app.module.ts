@@ -4,6 +4,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChartsModule } from 'ng2-charts';
 import { MainService } from '../app/services/main.service';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -27,7 +29,9 @@ import { ChartsComponent } from './components/charts/charts.component';
     BrowserModule,
     NgbModule.forRoot(),
     BrowserAnimationsModule,
-    ChartsModule
+    ChartsModule,
+    FormsModule,
+    HttpModule
   ],
   providers: [MainService],
   bootstrap: [AppComponent]

@@ -1,0 +1,29 @@
+.sign-in-wrapper {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 100px;
+}
+
+.companyLogo {
+    width: 300px;
+    height: auto;
+    padding-bottom: 20px;
+}
+
+.btn {
+    background-color: #255E6B;
+    color: #FFFFFF;
+    cursor: pointer;
+    width: 308px;
+}
+
+.card {
+    width: 350px;
+    min-height: 200px;
+}
+
+.card-body {
+}
