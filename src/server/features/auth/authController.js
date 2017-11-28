@@ -1,22 +1,23 @@
 //require user model
+var User = require('../users/userModel');
 
 module.exports = {
 
     //User signup
-    createUser: (req, res, next) => {
-        User.create({
-            username: req.body.username,
-            email: req.body.email,
-            password: req.body.password
-        })
-        .then(user => {
-            req.session.user = user.dataValues;
-            res.status(200).json("You have successfully created a new account!");
-        })
-        .catch(error => {
-            res.status(200).json("Bro, you already have an account. Please Log in!");
-        });
-    },
+    // createUser: (req, res, next) => {
+    //     User.create({
+    //         username: req.body.username,
+    //         email: req.body.email,
+    //         password: req.body.password
+    //     })
+    //     .then(user => {
+    //         req.session.user = user.dataValues;
+    //         res.status(200).json("You have successfully created a new account!");
+    //     })
+    //     .catch(error => {
+    //         res.status(200).json("Bro, you already have an account. Please Log in!");
+    //     });
+    // },
 
     //User login
     userLogin: (req, res) => {

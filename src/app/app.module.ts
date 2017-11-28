@@ -14,6 +14,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ChartsComponent } from './components/charts/charts.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ChartsComponent } from './components/charts/charts.component';
     DashboardComponent,
     SignInComponent,
     HeaderComponent,
-    ChartsComponent
+    ChartsComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,

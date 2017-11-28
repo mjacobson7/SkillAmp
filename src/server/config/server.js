@@ -1,20 +1,31 @@
-// var User = require('./api/models/user').User;
-// var BlogPost = require('./api/models/blogPost');
-// var GlobalSetting = require('./api/models/globalSetting');
-var authController = require('../features/auth/authController');
-var session = require('express-session');
+//Express
 var express = require('express');
+var app = express();
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
+var session = require('express-session');
 var port = 4700;
 
-//Express
-var app = express();
-app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(morgan('dev'));
 app.use(cookieParser());
+
+//Set up static files
+app.use(express.static('dist'));
+
+
+var User = require('../features/users/userModel').User;
+var authController = require('../features/auth/authController');
+
+//routes
+// require('../features/auth/authController')(app); //Add user model
+require('../features/auth/authRoutes')(app, sessionChecker, authController);
+
+
+
+
     
 //Sessions
 app.use(session({
@@ -45,12 +56,6 @@ var sessionChecker = (req, res, next) => {
     }    
 };
 
-//routes
-// require('../features/auth/authController')(app); //Add user model
-require('../features/auth/authRoutes')(app, sessionChecker, authController);
-
-//Set up static files
-app.use(express.static('build'));
 
 //Listening to port
 app.listen(process.env.PORT || port, () => {

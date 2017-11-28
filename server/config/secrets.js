@@ -1,3 +1,3 @@
 module.exports = {
-    databaseConfig: "TODO" //Put db configuration here
-};
+    databaseConfig: 'postgres://postgres@localhost:5432/firstImpression',
+}

@@ -3,12 +3,23 @@
 
 @import '~material-design-icons/iconfont/material-icons.css';
 
-
-
 * {
     font-family: 'Roboto', sans-serif;
 }
 
 body {
     background-color: #F4F4F4;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    position: absolute;
+    padding: 30px 30px 30px 50px;
+    margin-top: 46px;
+    transition: padding 0.5s;
+}
+
+#page-content-wrapper.sideBar {
+    padding-left: 250px;
+    transition: padding-left 0.25s;
 }

@@ -1,7 +1,7 @@
 module.exports = (app, sessionChecker, authController) => {
     
         //User signup
-        app.post('/signup', sessionChecker, authController.createUser());
+        // app.post('/signup', sessionChecker, authController.createUser());
     
         //User login
         app.post('/login', sessionChecker, authController.userLogin());
