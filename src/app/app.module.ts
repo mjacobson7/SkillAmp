@@ -6,6 +6,7 @@ import { ChartsModule } from 'ng2-charts';
 import { MainService } from '../app/services/main.service';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { DataTablesModule } from 'angular-datatables';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -15,6 +16,7 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ChartsComponent } from './components/charts/charts.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { DataTablesComponent } from './components/data-tables/data-tables.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     SignInComponent,
     HeaderComponent,
     ChartsComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    DataTablesComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,8 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     BrowserAnimationsModule,
     ChartsModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    DataTablesModule
   ],
   providers: [MainService],
   bootstrap: [AppComponent]
