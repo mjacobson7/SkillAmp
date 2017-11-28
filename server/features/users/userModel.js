@@ -1,9 +1,7 @@
 var Sequelize = require('sequelize');
 var bcrypt = require('bcrypt');
 var secrets = require('../../config/secrets');
-
-// create a sequelize instance with our local postgres database information.
-var sequelize = new Sequelize(secrets.development);
+var sequelize = require('../../config/database');
 
 // setup User model and its fields.
 var User = sequelize.define('users', {
