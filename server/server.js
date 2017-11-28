@@ -5,6 +5,7 @@ const http = require('http');
 const app = express();
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
+var secrets = require('./config/secrets');
 
 
 // API file for interacting with MongoDB
@@ -92,7 +93,7 @@ var Sequelize = require('sequelize');
 var bcrypt = require('bcrypt');
 
 // create a sequelize instance with our local postgres database information.
-var sequelize = new Sequelize('postgres://postgres@localhost:5432/firstImpression');
+var sequelize = new Sequelize(secrets.development);
 
 // setup User model and its fields.
 var User = sequelize.define('users', {
