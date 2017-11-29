@@ -1,7 +1,7 @@
 <div id="sidebar-wrapper" [ngClass]="{'sideBar': openSideNav}">
-  <div id=sidebar-nav *ngFor="let item of dashboardOptions; let i = index" (click)="setClickedRow(i)" [ngClass]="{'selected-row': selectedRow == i}">
+  <div routerLink="{{item.route}}" id=sidebar-nav *ngFor="let item of dashboardOptions; let i = index" (click)="setClickedRow(i)" [ngClass]="{'selected-row': selectedRow == i}">
       <i id="icon" class="material-icons md-light">{{item.icon}}</i>
-      <span id="side-nav-menu-item" [hidden]="!openSideNav" href="">{{item.name}}</span>
+      <span id="side-nav-menu-item" [hidden]="!openSideNav">{{item.name}}</span>
   </div>
 </div>
 

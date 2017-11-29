@@ -5,6 +5,7 @@
 
 * {
     font-family: 'Roboto', sans-serif;
+    outline: none;
 }
 
 body {
@@ -22,4 +23,19 @@ body {
 #page-content-wrapper.sideBar {
     padding-left: 250px;
     transition: padding-left 0.25s;
+}
+
+.page-header h3 {
+    font-weight: lighter;
+    margin-bottom: 0;
+    padding-left: 10px;
+}
+
+.page-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #E9E9E9;    
+    user-select: none;    
 }

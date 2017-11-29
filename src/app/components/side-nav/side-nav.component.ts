@@ -13,42 +13,56 @@ export class SideNavComponent implements OnInit {
     {
       icon: 'dashboard',
       name: 'Dashboard',
-      roleType: ['agent', 'supervisor', 'admin']
+      roleType: ['agent', 'supervisor', 'admin'],
+      route: '/dashboard'
+    },
+    {
+      icon: 'person',
+      name: 'My Profile',
+      roleType: ['agent'],
+      route: '/myProfile'
     },
     {
       icon: 'sentiment_very_satisfied',
       name: 'Customer Satisfaction',
-      roleType: ['agent']
+      roleType: ['agent'],
+      route: '/customerSatisfaction'
     },
     {
       icon: 'domain',
       name: 'Supervisor Evaluations',
-      roleType: ['agent']
+      roleType: ['agent'],
+      route: '/supervisorEvaluations'
     },
     {
-      icon: 'person',
+      icon: 'people',
       name: 'My Team',
-      roleType: ['supervisor']
+      roleType: ['supervisor'],
+      route: '/myTeam'
     },
     {
       icon: 'people',
       name: 'Manage Users',
-      roleType: ['admin']
+      roleType: ['admin'],
+      route: '/manageUsers'
     },
     {
       icon: 'assignment',
       name: 'Reports',
-      roleType: ['admin', 'supervisor']
+      roleType: ['admin', 'supervisor'],
+      route: '/reports'
     },
     {
       icon: 'account_balance',
       name: 'Account',
-      roleType: 'admin'
+      roleType: 'admin',
+      route: '/account'
     },
     {
       icon: 'settings',
       name: 'Global Settings',
-      roleType: 'admin'
+      roleType: 'admin',
+      route: '/globalSettings'
     } 
   ];
   openSideNav: boolean = true;

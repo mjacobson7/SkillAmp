@@ -9,6 +9,7 @@ import { UserService } from '../app/services/user-auth/user-auth.service';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppErrorHandler } from './common/app-error-handler';
+import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -18,6 +19,13 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ChartsComponent } from './components/charts/charts.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { CustomerSatisfactionComponent } from './components/customer-satisfaction/customer-satisfaction.component';
+import { SupervisorEvaluationsComponent } from './components/supervisor-evaluations/supervisor-evaluations.component';
+import { MyTeamComponent } from './components/my-team/my-team.component';
+import { ManageUsersComponent } from './components/manage-users/manage-users.component';
+import { ReportsComponent } from './components/reports/reports.component';
+import { AccountComponent } from './components/account/account.component';
+import { GlobalSettingsComponent } from './components/global-settings/global-settings.component';
 
 @NgModule({
   declarations: [
@@ -28,15 +36,60 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     SignInComponent,
     HeaderComponent,
     ChartsComponent,
-    UserProfileComponent
-  ],
+    UserProfileComponent,
+    CustomerSatisfactionComponent,
+    SupervisorEvaluationsComponent,
+    MyTeamComponent,
+    ManageUsersComponent,
+    ReportsComponent,
+    AccountComponent,
+    GlobalSettingsComponent
+    ],
   imports: [
     BrowserModule,
     NgbModule.forRoot(),
     BrowserAnimationsModule,
     ChartsModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    RouterModule.forRoot([
+      {
+        path: 'myProfile',
+        component: UserProfileComponent,
+      },
+      {
+        path: 'dashboard',
+        component: DashboardComponent
+      },
+      {
+        path: 'customerSatisfaction',
+        component: CustomerSatisfactionComponent
+      },
+      {
+        path: 'supervisorEvaluations',
+        component: SupervisorEvaluationsComponent
+      },
+      {
+        path: 'myTeam',
+        component: MyTeamComponent
+      },
+      {
+        path: 'manageUsers',
+        component: ManageUsersComponent
+      },
+      {
+        path: 'reports',
+        component: ReportsComponent
+      },
+      {
+        path: 'account',
+        component: AccountComponent
+      },
+      {
+        path: 'globalSettings',
+        component: GlobalSettingsComponent
+      },
+    ])
   ],
   providers: [
     DataService,
