@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
+import { UserService } from '../../services/user-auth/user-auth.service';
+import { AppError } from '../../common/app-error';
+import { BadInput } from '../../common/bad-input';
 
 @Component({
   selector: 'app-sign-in',
@@ -7,16 +9,25 @@ import { Http } from '@angular/http';
   styleUrls: ['./sign-in.component.css']
 })
 export class SignInComponent implements OnInit {
-  constructor(private http: Http) { }
-
-  login(value) {
-    console.log(value);
-    this.http.post('/login', value).subscribe(response => {
-      console.log(response);
-    })
-  }
+  constructor(private service: UserService) { }
 
   ngOnInit() {
   }
+
+  login(loginInfo) {
+    this.service.create(loginInfo)
+      .subscribe(tokens => {
+        console.log(tokens);
+      },
+      (error: AppError) => {
+        if(error instanceof BadInput) {
+          console.log(error);
+        } else {
+          throw error;
+        }
+      })
+    }
+
+
 
 }

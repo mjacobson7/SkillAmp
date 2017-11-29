@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MainService } from '../../services/main.service';
+import { NavService } from '../../services/nav/nav.service';
 
 @Component({
   selector: 'app-side-nav',
@@ -54,7 +54,7 @@ export class SideNavComponent implements OnInit {
   openSideNav: boolean = true;
 
 
-  constructor(private mainService: MainService) {
+  constructor(private navService: NavService) {
     this.setClickedRow = (i) => {
       this.selectedRow = i;
     } 
@@ -62,7 +62,7 @@ export class SideNavComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.mainService.onSideNavToggle().subscribe(
+    this.navService.onSideNavToggle().subscribe(
         (opening) => {
             if (opening) {
               console.log("opening the sidenav");

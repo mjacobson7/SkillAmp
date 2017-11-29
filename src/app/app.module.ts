@@ -1,12 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChartsModule } from 'ng2-charts';
-import { MainService } from '../app/services/main.service';
+import { NavService } from '../app/services/nav/nav.service';
+import { DataService } from '../app/services/data/data.service';
+import { UserService } from '../app/services/user-auth/user-auth.service';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { DataTablesModule } from 'angular-datatables';
+import { AppErrorHandler } from './common/app-error-handler';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -16,7 +18,6 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ChartsComponent } from './components/charts/charts.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
-import { DataTablesComponent } from './components/data-tables/data-tables.component';
 
 @NgModule({
   declarations: [
@@ -27,8 +28,7 @@ import { DataTablesComponent } from './components/data-tables/data-tables.compon
     SignInComponent,
     HeaderComponent,
     ChartsComponent,
-    UserProfileComponent,
-    DataTablesComponent
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -36,10 +36,14 @@ import { DataTablesComponent } from './components/data-tables/data-tables.compon
     BrowserAnimationsModule,
     ChartsModule,
     FormsModule,
-    HttpModule,
-    DataTablesModule
+    HttpModule
   ],
-  providers: [MainService],
+  providers: [
+    DataService,
+    UserService, 
+    NavService,
+    { provide: ErrorHandler, useClass: AppErrorHandler}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MainService } from '../../services/main.service';
+import { NavService } from '../../services/nav/nav.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,12 +9,12 @@ import { MainService } from '../../services/main.service';
 export class DashboardComponent implements OnInit {
   openSideNav: boolean = true;
 
-  constructor(private mainService: MainService) {
+  constructor(private navService: NavService) {
  
   }
 
   ngOnInit(): void {
-    this.mainService.onSideNavToggle().subscribe(
+    this.navService.onSideNavToggle().subscribe(
         (opening) => {
             if (opening) {
               console.log("dashboard open");

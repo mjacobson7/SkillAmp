@@ -50,5 +50,5 @@ const server = http.createServer(app);
 server.listen(port, () => console.log(`Running on localhost:${port}`));
 
 //routes 
-require('./config/sessions')(app);
-require('./features/auth/authRoutes')(app, sessionChecker, User);
+require('./config/sessions');
+require('./features/auth/authRoutes')(app, User);

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MainService } from '../../services/main.service';
+import { NavService } from '../../services/nav/nav.service';
 
 @Component({
   selector: 'app-header',
@@ -9,13 +9,13 @@ import { MainService } from '../../services/main.service';
 export class HeaderComponent implements OnInit {
   sideNavOpen: boolean = true;
  
-  constructor(private mainService: MainService) {
+  constructor(private navService: NavService) {
     
   }
 
   toggleSideNav() { 
     this.sideNavOpen = !this.sideNavOpen;
-    this.mainService.toggleSideNav(this.sideNavOpen);
+    this.navService.toggleSideNav(this.sideNavOpen);
   }
 
   ngOnInit() {

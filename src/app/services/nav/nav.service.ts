@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from "rxjs/Rx";
 
 @Injectable()
-export class MainService {
+export class NavService {
   private sidenavOpenSubject : Subject<boolean>;
   
       constructor() {
