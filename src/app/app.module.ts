@@ -10,6 +10,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppErrorHandler } from './common/app-error-handler';
 import { RouterModule } from '@angular/router';
+import {DataTableModule,SharedModule} from 'primeng/primeng';
+
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -26,6 +28,7 @@ import { ManageUsersComponent } from './components/manage-users/manage-users.com
 import { ReportsComponent } from './components/reports/reports.component';
 import { AccountComponent } from './components/account/account.component';
 import { GlobalSettingsComponent } from './components/global-settings/global-settings.component';
+import { TablesComponent } from './components/tables/tables.component';
 
 @NgModule({
   declarations: [
@@ -43,8 +46,9 @@ import { GlobalSettingsComponent } from './components/global-settings/global-set
     ManageUsersComponent,
     ReportsComponent,
     AccountComponent,
-    GlobalSettingsComponent
-    ],
+    GlobalSettingsComponent,
+    TablesComponent
+  ],
   imports: [
     BrowserModule,
     NgbModule.forRoot(),
@@ -52,6 +56,8 @@ import { GlobalSettingsComponent } from './components/global-settings/global-set
     ChartsModule,
     FormsModule,
     HttpModule,
+    DataTableModule,
+    SharedModule,
     RouterModule.forRoot([
       {
         path: 'myProfile',

@@ -1,0 +1,21 @@
+.actionButton {
+    border: 1px solid #c3c3c3;
+    border-radius: 2px;
+    margin: 2px;
+    /* padding: 2px 4px 4px 4px; */
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+    user-select: none;
+    text-align: center;
+    display: inline-block;
+}
+
+.actionButton:active {
+    background-color: #F4F4F4;
+}
+
+.actionButton i {
+    font-size: 15px;
+    vertical-align: middle;
+}

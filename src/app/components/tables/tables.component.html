@@ -1,0 +1,18 @@
+<p-dataTable 
+  [value]="users" 
+  [rows]="10" 
+  [paginator]="true" 
+  [rowsPerPageOptions]="[10,25,50,100]">
+    <p-header><button>Add User</button></p-header>
+    <p-column field="username" header="Username" [sortable]="true" [filter]="true"></p-column>    
+    <p-column field="firstName" header="First Name" [sortable]="true" [filter]="true"></p-column>
+    <p-column field="lastName" header="Last Name" [sortable]="true" [filter]="true"></p-column>
+    <p-column [style]="{'width':'120px'}">    
+      <ng-template pTemplate="header">
+        <p>Actions</p>
+      </ng-template>    
+      <ng-template let-data="rowData" pTemplate="body" style="max-width: 50px">
+              <div *ngFor="let button of actionButtons" placement="top" ngbTooltip="{{button.action}}" class="actionButton" (click)="actionButton(data)"><i class="material-icons">{{button.icon}}</i></div>
+      </ng-template>
+    </p-column> 
+</p-dataTable>
