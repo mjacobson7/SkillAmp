@@ -7,8 +7,7 @@ import { NavService } from '../../services/nav/nav.service';
   styleUrls: ['./side-nav.component.css']
 })
 export class SideNavComponent implements OnInit {
-  selectedRow: Number = 0;
-  setClickedRow: Function;
+
   dashboardOptions: Object[] = [
     {
       icon: 'dashboard',
@@ -68,11 +67,7 @@ export class SideNavComponent implements OnInit {
   openSideNav: boolean = true;
 
 
-  constructor(private navService: NavService) {
-    this.setClickedRow = (i) => {
-      this.selectedRow = i;
-    } 
-  }
+  constructor(private navService: NavService) {}
 
   ngOnInit(): void {
 
