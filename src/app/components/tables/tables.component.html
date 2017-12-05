@@ -6,8 +6,7 @@
   [headerCheckboxToggleAllPages]="true" 
   [rowsPerPageOptions]="[10,25,50,100]">
     <p-header>
-      <button>Add User</button>
-      <button>Archives</button>
+      <button *ngFor="let button of headerButtons">{{button.title}}</button>
     </p-header>
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
     <p-column field="username" header="Username" [sortable]="true" [filter]="true"></p-column>    
