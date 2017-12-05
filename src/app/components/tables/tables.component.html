@@ -1,9 +1,15 @@
 <p-dataTable 
-  [value]="users" 
+  [value]="users"
+  [(selection)]="selectedUsers" 
   [rows]="10" 
-  [paginator]="true" 
+  [paginator]="true"
+  [headerCheckboxToggleAllPages]="true" 
   [rowsPerPageOptions]="[10,25,50,100]">
-    <p-header><button>Add User</button></p-header>
+    <p-header>
+      <button>Add User</button>
+      <button>Archives</button>
+    </p-header>
+    <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
     <p-column field="username" header="Username" [sortable]="true" [filter]="true"></p-column>    
     <p-column field="firstName" header="First Name" [sortable]="true" [filter]="true"></p-column>
     <p-column field="lastName" header="Last Name" [sortable]="true" [filter]="true"></p-column>

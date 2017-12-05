@@ -9,6 +9,7 @@ import {DataTableModule,SharedModule} from 'primeng/primeng';
 })
 export class TablesComponent implements OnInit {
   users: any[];
+  selectedUsers: any[];
   constructor() { }
 
   actionButton(row):void{      
