@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-// import { ChartsModule } from 'ng2-charts';
+
 
 @Component({
   selector: 'app-charts',
@@ -7,71 +7,31 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./charts.component.css']
 })
 export class ChartsComponent implements OnInit {
-
-  //ToDO inject each chart into a card directive
-
-  // lineChart
-  public lineChartData:Array<any> = [
-    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
-    {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'},
-    {data: [18, 48, 77, 9, 100, 27, 40], label: 'Series C'}
-  ];
-  public lineChartLabels:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-  public lineChartOptions:any = {
-    responsive: true
-  };
-  // public lineChartColors:Array<any> = [
-  //   { // grey
-  //     backgroundColor: 'rgba(148,159,177,0.2)',
-  //     borderColor: 'rgba(148,159,177,1)',
-  //     pointBackgroundColor: 'rgba(148,159,177,1)',
-  //     pointBorderColor: '#fff',
-  //     pointHoverBackgroundColor: '#fff',
-  //     pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-  //   },
-  //   { // dark grey
-  //     backgroundColor: 'rgba(77,83,96,0.2)',
-  //     borderColor: 'rgba(77,83,96,1)',
-  //     pointBackgroundColor: 'rgba(77,83,96,1)',
-  //     pointBorderColor: '#fff',
-  //     pointHoverBackgroundColor: '#fff',
-  //     pointHoverBorderColor: 'rgba(77,83,96,1)'
-  //   },
-  //   { // grey
-  //     backgroundColor: 'rgba(148,159,177,0.2)',
-  //     borderColor: 'rgba(148,159,177,1)',
-  //     pointBackgroundColor: 'rgba(148,159,177,1)',
-  //     pointBorderColor: '#fff',
-  //     pointHoverBackgroundColor: '#fff',
-  //     pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-  //   }
-  // ];
-  public lineChartLegend:boolean = true;
-  public lineChartType:string = 'line';
- 
-  public randomize():void {
-    let _lineChartData:Array<any> = new Array(this.lineChartData.length);
-    for (let i = 0; i < this.lineChartData.length; i++) {
-      _lineChartData[i] = {data: new Array(this.lineChartData[i].data.length), label: this.lineChartData[i].label};
-      for (let j = 0; j < this.lineChartData[i].data.length; j++) {
-        _lineChartData[i].data[j] = Math.floor((Math.random() * 100) + 1);
-      }
-    }
-    this.lineChartData = _lineChartData;
-  }
- 
-  // events
-  public chartClicked(e:any):void {
-    console.log(e);
-  }
- 
-  public chartHovered(e:any):void {
-    console.log(e);
-  }
+  data: any;
+  msgs: any;
 
   constructor() { }
 
   ngOnInit() {
-  }
+    this.data = {
+      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+      datasets: [
+          {
+              label: 'Likelihood to Recommend',
+              data: [7,9,9,4,4,3,6,7,8,10,7,7,9,4,4,3,3,6,3,10,5,9,3,9,7,10,7,3,7,10,4,7,5,10,9,9,7,10,6,10,10,3,6,8,3,3,5,9,4,3,5,10,10,6,3,7,7,6,6,3,7,9,8,3,7,8,6,8,6,6,4,8,8,8,10,6,5,6,3,6,9,4,5,10,8,3,4,3,4,9,9,6,9,5,10,4,3,9,5,7,4,9,8,,5,8,3,6,3,6,6,4,6,8,9,4,4,3,5,4,6,4,6,3,7,6,9,7,9,10,10,6,3,3,6,6,6,6,7,3,10,3,10,5,10,9,7,9,9,10,8,6,4,9,3,6,4,4,4,4,6,3,10,7,4,9,7,6,8,5,3,9,8,8,7,9,9,4,8,6,6,9,10,7,8,5,3,4,3,5,9,9,8,6,4,5,5,5,6,8,7],
+              borderColor: '#1FB7EC',
+              fill: true
+          }
+        ]
+      }
+    }
 
-}
+    selectData(event) {
+      this.msgs = [];
+      this.msgs.push({severity: 'info', summary: 'Data Selected', 'detail': this.data.datasets[event.element._datasetIndex].data[event.element._index]});
+      console.log(this.msgs);
+    }
+
+
+
+} //end component

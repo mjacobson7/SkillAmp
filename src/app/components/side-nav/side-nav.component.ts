@@ -12,38 +12,44 @@ export class SideNavComponent implements OnInit {
     {
       icon: 'dashboard',
       name: 'Dashboard',
-      roleType: ['agent', 'supervisor', 'admin'],
+      roleType: ['user', 'supervisor', 'admin'],
       route: '/dashboard'
     },
     {
       icon: 'person',
       name: 'My Profile',
-      roleType: ['agent'],
-      route: '/myProfile'
+      roleType: ['user'],
+      route: '/myprofile'
     },
+    {
+      icon: 'email',
+      name: 'Messages',
+      roleType: ['user'],
+      route: '/messages'
+    }
     {
       icon: 'sentiment_very_satisfied',
       name: 'Customer Satisfaction',
-      roleType: ['agent'],
-      route: '/customerSatisfaction'
+      roleType: ['user'],
+      route: '/customersatisfaction'
     },
     {
       icon: 'domain',
       name: 'Supervisor Evaluations',
-      roleType: ['agent'],
-      route: '/supervisorEvaluations'
+      roleType: ['user'],
+      route: '/supervisorevaluations'
     },
     {
       icon: 'people',
       name: 'My Team',
       roleType: ['supervisor'],
-      route: '/myTeam'
+      route: '/myteam'
     },
     {
       icon: 'people',
       name: 'Manage Users',
       roleType: ['admin'],
-      route: '/manageUsers'
+      route: '/manageusers'
     },
     {
       icon: 'assignment',
@@ -54,14 +60,14 @@ export class SideNavComponent implements OnInit {
     {
       icon: 'account_balance',
       name: 'Account',
-      roleType: 'admin',
+      roleType: ['admin'],
       route: '/account'
     },
     {
       icon: 'settings',
       name: 'Global Settings',
-      roleType: 'admin',
-      route: '/globalSettings'
+      roleType: ['admin'],
+      route: '/globalsettings'
     } 
   ];
   openSideNav: boolean = true;

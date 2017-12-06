@@ -42,3 +42,22 @@ body {
     border-bottom: 1px solid #E9E9E9;    
     user-select: none;    
 }
+
+/* Bootstrap */
+.btn-primary {
+    background-color: #1fb7ec;
+    border: none;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    background-color: #434b56 !important;
+}
+
+.btn-primary:active, .btn-primary.active {
+    background-color: #23272D !important;
+}
+
+.btn:focus, .btn:active:focus, .btn.active:focus {
+    outline: 0 none !important;
+}
+    

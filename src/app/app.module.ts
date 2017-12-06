@@ -10,8 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppErrorHandler } from './common/app-error-handler';
 import { RouterModule } from '@angular/router';
-import {DataTableModule,SharedModule} from 'primeng/primeng';
-
+import {DataTableModule,SharedModule,ChartModule, FileUploadModule, ChipsModule} from 'primeng/primeng';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -29,6 +28,7 @@ import { ReportsComponent } from './components/reports/reports.component';
 import { AccountComponent } from './components/account/account.component';
 import { GlobalSettingsComponent } from './components/global-settings/global-settings.component';
 import { TablesComponent } from './components/tables/tables.component';
+import { MessagesComponent } from './components/messages/messages.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +47,8 @@ import { TablesComponent } from './components/tables/tables.component';
     ReportsComponent,
     AccountComponent,
     GlobalSettingsComponent,
-    TablesComponent
+    TablesComponent,
+    MessagesComponent
   ],
   imports: [
     BrowserModule,
@@ -58,29 +59,36 @@ import { TablesComponent } from './components/tables/tables.component';
     HttpModule,
     DataTableModule,
     SharedModule,
+    ChartModule,
+    FileUploadModule,
+    ChipsModule,
     RouterModule.forRoot([
       {
-        path: 'myProfile',
+        path: 'myprofile',
         component: UserProfileComponent,
+      },
+      {
+        path: 'messages',
+        component: MessagesComponent
       },
       {
         path: 'dashboard',
         component: DashboardComponent
       },
       {
-        path: 'customerSatisfaction',
+        path: 'customersatisfaction',
         component: CustomerSatisfactionComponent
       },
       {
-        path: 'supervisorEvaluations',
+        path: 'supervisorevaluations',
         component: SupervisorEvaluationsComponent
       },
       {
-        path: 'myTeam',
+        path: 'myteam',
         component: MyTeamComponent
       },
       {
-        path: 'manageUsers',
+        path: 'manageusers',
         component: ManageUsersComponent
       },
       {
@@ -92,7 +100,7 @@ import { TablesComponent } from './components/tables/tables.component';
         component: AccountComponent
       },
       {
-        path: 'globalSettings',
+        path: 'globalsettings',
         component: GlobalSettingsComponent
       },
     ])
