@@ -15,5 +15,21 @@
             </p-panel>
         </div>
     </div>
+    <div class="row">
+        <div class="col-lg-6"> 
+            <p-panel header="Helpfulness" >
+                <p-header>
+                </p-header>
+                <p-chart type="line" [data]="helpfulness" (onDataSelect)="selectData($event)"></p-chart>        
+            </p-panel>
+        </div>
+        <div class="col-lg-6"> 
+            <p-panel header="Trustworthiness" >
+                <p-header>
+                </p-header>
+                <p-chart type="line" [data]="trustworthiness" (onDataSelect)="selectData($event)"></p-chart>        
+            </p-panel>
+        </div>
+    </div>
 </div>
 

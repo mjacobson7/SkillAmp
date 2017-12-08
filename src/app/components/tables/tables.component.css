@@ -2,8 +2,8 @@
     border: 1px solid #c3c3c3;
     border-radius: 2px;
     margin: 2px;
-    height: 30px;
-    width: 30px;
+    height: 25px;
+    width: 25px;
     cursor: pointer;
     user-select: none;
     text-align: center;
@@ -15,6 +15,10 @@
 }
 
 .actionButton i {
-    font-size: 15px;
-    vertical-align: middle;
+    font-size: 13px;
+}
+
+.tableFilter {
+    font-size: 12px;
+    width: 20vw;
 }

@@ -7,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  pageInfo: {title: string, icon: string} = {
+    title: 'Dashboard',
+    icon: 'dashboard'
+  }
 //   openSideNav: boolean = true;
 
 //   constructor(private navService: NavService) {

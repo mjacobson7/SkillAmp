@@ -6,6 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./messages.component.css']
 })
 export class MessagesComponent implements OnInit {
+  pageInfo: {title: string, icon: string} = {
+    title: 'Messages',
+    icon: 'email'
+  }
 
   constructor() { }
 

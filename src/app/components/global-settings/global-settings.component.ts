@@ -6,6 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./global-settings.component.css']
 })
 export class GlobalSettingsComponent implements OnInit {
+  pageInfo: {title: string, icon: string} = {
+    title: 'Global Settings',
+    icon: 'settings'
+  }
 
   constructor() { }
 

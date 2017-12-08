@@ -6,6 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./customer-satisfaction.component.css']
 })
 export class CustomerSatisfactionComponent implements OnInit {
+  pageInfo: {title: string, icon: string} = {
+    title: 'Customer Satisfaction',
+    icon: 'sentiment_very_satisfied'
+  }
 
   constructor() { }
 

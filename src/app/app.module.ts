@@ -29,6 +29,7 @@ import { AccountComponent } from './components/account/account.component';
 import { GlobalSettingsComponent } from './components/global-settings/global-settings.component';
 import { TablesComponent } from './components/tables/tables.component';
 import { MessagesComponent } from './components/messages/messages.component';
+import { PageHeaderComponent } from './components/page-header/page-header.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { MessagesComponent } from './components/messages/messages.component';
     AccountComponent,
     GlobalSettingsComponent,
     TablesComponent,
-    MessagesComponent
+    MessagesComponent,
+    PageHeaderComponent
     ],
   imports: [
     BrowserModule,

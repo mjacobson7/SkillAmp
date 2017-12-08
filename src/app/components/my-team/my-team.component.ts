@@ -9,6 +9,10 @@ export class MyTeamComponent implements OnInit {
   actionButtons: any[];
   headerButtons: any[];
   users: any[];
+  pageInfo: {title: string, icon: string} = {
+    title: 'My Team',
+    icon: 'people'
+  }
 
   constructor() { }
 

@@ -9,6 +9,10 @@ export class ManageUsersComponent implements OnInit {
   users: any[];
   headerButtons: any[];
   actionButtons: any[];
+  pageInfo: {title: string, icon: string} = {
+    title: 'Manage Users',
+    icon: 'people'
+  }
 
   constructor() { }
 
@@ -29,12 +33,12 @@ export class ManageUsersComponent implements OnInit {
     ]
     this.headerButtons = [
       {
-        title: 'Add User',
-        link: '/newUser'
-      },
-      {
         title: 'Archives',
         link: '/archives'
+      },
+      {
+        title: 'Add User',
+        link: '/newUser',
       }
     ]
     this.users = [

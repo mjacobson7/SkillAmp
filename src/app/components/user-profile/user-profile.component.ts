@@ -9,6 +9,10 @@ import { FormsModule } from '@angular/forms';
 export class UserProfileComponent implements OnInit {
   passwordChange: boolean = false;
   role: string[];  
+  pageInfo: {title: string, icon: string} = {
+    title: 'My Profile',
+    icon: 'person'
+  }
 
   constructor() { }
 

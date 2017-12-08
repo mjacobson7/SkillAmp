@@ -6,6 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./supervisor-evaluations.component.css']
 })
 export class SupervisorEvaluationsComponent implements OnInit {
+  pageInfo: {title: string, icon: string} = {
+    title: 'Supervisor Evaluations',
+    icon: 'domain'
+  }
 
   constructor() { }
 

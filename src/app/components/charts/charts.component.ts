@@ -9,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
 export class ChartsComponent implements OnInit {
   recommend: {};
   politeness: {};
+  helpfulness: {};
+  trustworthiness: {};
   msgs: any;
 
   constructor() { }
@@ -37,6 +39,30 @@ export class ChartsComponent implements OnInit {
             }
           ]
         }
+
+        this.helpfulness = {
+          labels: [1,5,10,15,20,25,30],
+          datasets: [
+              {
+                  label: 'Politeness',
+                  data: [4,3,3,7,9,9,8,6,4,5,5,10,7,8,5,3,4,3,5,9,9,8,6,4,5,5,5,6,8,7],
+                  borderColor: '#1FB7EC',
+                  fill: true
+              }
+            ]
+          }
+
+          this.trustworthiness = {
+            labels: [1,5,10,15,20,25,30],
+            datasets: [
+                {
+                    label: 'Politeness',
+                    data: [4,3,5,10,6,7,8,9,3,4,3,5,9,9],
+                    borderColor: '#1FB7EC',
+                    fill: true
+                }
+              ]
+            }
 
     }
 
