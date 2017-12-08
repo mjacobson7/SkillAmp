@@ -190,26 +190,6 @@ export class ManageUsersComponent implements OnInit {
       },
       {
         "id": 1,
-        "username": "hannahgray",
-        "password": "xxxxxxxxxx",
-        "firstName": "Hannah",
-        "lastName": "Gray",        
-        "email": "no-reply@test.com",
-        "supervisor": "",
-        "role": ["User", "Supervisor", "Admin"]
-      },
-      {
-        "id": 1,
-        "username": "corinajacobson",
-        "password": "xxxxxxxxxx",
-        "firstName": "Corina",
-        "lastName": "Jacobson",        
-        "email": "no-reply@test.com",
-        "supervisor": "",
-        "role": ["User", "Supervisor", "Admin"]
-      },
-      {
-        "id": 1,
         "username": "brianhaney",
         "password": "xxxxxxxxxx",
         "firstName": "Brian",

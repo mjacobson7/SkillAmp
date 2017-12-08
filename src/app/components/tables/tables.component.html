@@ -1,7 +1,10 @@
 <p-dataTable 
   [value]="users"
+  
   [(selection)]="selectedUsers" 
-  [rows]="10" 
+  [rows]="10"
+  [stacked]=autoResizeTable
+  (window:resize)="onResize($event)"
   [paginator]="true"
   [headerCheckboxToggleAllPages]="true" 
   [rowsPerPageOptions]="[10,25,50,100]">

@@ -19,10 +19,8 @@ export class HomeComponent implements OnInit {
       this.navService.onSideNavToggle().subscribe(
           (opening) => {
               if (opening) {
-                console.log("dashboard open");
                   this.openSideNav = true;
               } else {
-                console.log("dashboard close");
                   this.openSideNav = false;
               }
           }

@@ -1,1 +1,19 @@
-<p-chart type="line" [data]="data" (onDataSelect)="selectData($event)"></p-chart>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-6">
+            <p-panel header="Likelihood to Recommend" >
+                <p-header>
+                </p-header>
+                <p-chart type="line" [data]="recommend" (onDataSelect)="selectData($event)"></p-chart>        
+            </p-panel>
+        </div>
+        <div class="col-lg-6"> 
+            <p-panel header="Politeness" >
+                <p-header>
+                </p-header>
+                <p-chart type="line" [data]="politeness" (onDataSelect)="selectData($event)"></p-chart>        
+            </p-panel>
+        </div>
+    </div>
+</div>
+

@@ -7,6 +7,8 @@ import { NavService } from '../../services/nav/nav.service';
   styleUrls: ['./side-nav.component.css']
 })
 export class SideNavComponent implements OnInit {
+  openSideNav: boolean = true;
+  
 
   dashboardOptions: Object[] = [
     {
@@ -26,7 +28,7 @@ export class SideNavComponent implements OnInit {
       name: 'Messages',
       roleType: ['user'],
       route: '/messages'
-    }
+    },
     {
       icon: 'sentiment_very_satisfied',
       name: 'Customer Satisfaction',
@@ -70,7 +72,6 @@ export class SideNavComponent implements OnInit {
       route: '/globalsettings'
     } 
   ];
-  openSideNav: boolean = true;
 
 
   constructor(private navService: NavService) {}
@@ -80,14 +81,12 @@ export class SideNavComponent implements OnInit {
     this.navService.onSideNavToggle().subscribe(
         (opening) => {
             if (opening) {
-              console.log("opening the sidenav");
                 this.openSideNav = true;
             } else {
-              console.log("closing the sidenav");
                 this.openSideNav = false;
             }
         }
     );
-} 
+}
 
 }

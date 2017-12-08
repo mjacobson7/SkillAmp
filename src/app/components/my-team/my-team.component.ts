@@ -40,30 +40,10 @@ export class MyTeamComponent implements OnInit {
     this.users = [
       {
         "id": 1,
-        "username": "ryangray",
+        "username": "jeffcarter",
         "password": "xxxxxxxxxx",
-        "firstName": "Ryan",
-        "lastName": "Gray",        
-        "email": "no-reply@test.com",
-        "supervisor": "",
-        "role": ["User", "Supervisor", "Admin"]
-      },
-      {
-        "id": 1,
-        "username": "hannahgray",
-        "password": "xxxxxxxxxx",
-        "firstName": "Hannah",
-        "lastName": "Gray",        
-        "email": "no-reply@test.com",
-        "supervisor": "",
-        "role": ["User", "Supervisor", "Admin"]
-      },
-      {
-        "id": 1,
-        "username": "corinajacobson",
-        "password": "xxxxxxxxxx",
-        "firstName": "Corina",
-        "lastName": "Jacobson",        
+        "firstName": "Jeff",
+        "lastName": "Carter",        
         "email": "no-reply@test.com",
         "supervisor": "",
         "role": ["User", "Supervisor", "Admin"]

@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppErrorHandler } from './common/app-error-handler';
 import { RouterModule } from '@angular/router';
-import {DataTableModule,SharedModule,ChartModule, FileUploadModule, ChipsModule} from 'primeng/primeng';
+import {DataTableModule, SharedModule, ChartModule, FileUploadModule, ChipsModule, PanelModule} from 'primeng/primeng';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -49,7 +49,7 @@ import { MessagesComponent } from './components/messages/messages.component';
     GlobalSettingsComponent,
     TablesComponent,
     MessagesComponent
-  ],
+    ],
   imports: [
     BrowserModule,
     NgbModule.forRoot(),
@@ -62,6 +62,7 @@ import { MessagesComponent } from './components/messages/messages.component';
     ChartModule,
     FileUploadModule,
     ChipsModule,
+    PanelModule,
     RouterModule.forRoot([
       {
         path: 'myprofile',
