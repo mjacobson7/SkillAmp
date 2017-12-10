@@ -10,7 +10,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppErrorHandler } from './common/app-error-handler';
 import { RouterModule } from '@angular/router';
-import {DataTableModule, SharedModule, ChartModule, FileUploadModule, ChipsModule, PanelModule} from 'primeng/primeng';
+import {DataTableModule, SharedModule, ChartModule, FileUploadModule, ChipsModule, TabViewModule} from 'primeng/primeng';
+import {RatingModule} from 'ngx-rating';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -32,6 +33,8 @@ import { MessagesComponent } from './components/messages/messages.component';
 import { PageHeaderComponent } from './components/page-header/page-header.component';
 import { AddEditUserComponent } from './components/add-edit-user/add-edit-user.component';
 import { MyProfileComponent } from './components/my-profile/my-profile.component';
+import { ReviewCardComponent } from './components/review-card/review-card.component';
+import { StarRatingComponent } from './components/star-rating/star-rating.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +57,9 @@ import { MyProfileComponent } from './components/my-profile/my-profile.component
     MessagesComponent,
     PageHeaderComponent,
     AddEditUserComponent,
-    MyProfileComponent
+    MyProfileComponent,
+    ReviewCardComponent,
+    StarRatingComponent
     ],
   imports: [
     BrowserModule,
@@ -68,7 +73,8 @@ import { MyProfileComponent } from './components/my-profile/my-profile.component
     ChartModule,
     FileUploadModule,
     ChipsModule,
-    PanelModule,
+    TabViewModule,
+    RatingModule,
     RouterModule.forRoot([
       {
         path: 'myprofile',
