@@ -7,7 +7,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MyTeamComponent implements OnInit {
   actionButtons: any[];
-  headerButtons: any[];
   users: any[];
   pageInfo: {title: string, icon: string} = {
     title: 'My Team',
@@ -19,26 +18,16 @@ export class MyTeamComponent implements OnInit {
   ngOnInit() {
     this.actionButtons = [
       {
+        action: 'Performance',
+        icon: 'assessment'
+      },
+      {
         action: 'Edit',
         icon: 'mode_edit'
       },
       {
-        action: 'Archive',
-        icon: 'archive'
-      },
-      {
         action: 'Delete',
         icon: 'delete'
-      }
-    ]
-    this.headerButtons = [
-      {
-        title: 'Add User',
-        link: '/newUser'
-      },
-      {
-        title: 'Archives',
-        link: '/archives'
       }
     ]
     this.users = [

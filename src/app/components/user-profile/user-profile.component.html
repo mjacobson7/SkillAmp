@@ -1,6 +1,7 @@
-<app-page-header [pageInfo]="pageInfo"></app-page-header>
+<img *ngIf="user?.profilePicture" src="{{user?.profilePicture}}" class="img-fluid img-thumbnail profile-picture" alt="profile-picture">
+<img *ngIf="!user?.profilePicture" src="../../../assets/profile-placeholder.png" class="img-fluid img-thumbnail profile-picture" alt="profile-picture">
 
-<img src="../../../assets/profile-placeholder.png" class="img-fluid profile-picture" alt="profile-picture">
+<!-- ../../../assets/profile-placeholder.png User this as the default profile picture-->
 
 <p-fileUpload 
   chooseLabel="Change Photo" 
@@ -16,12 +17,12 @@
 <form>
   <div class="form-group">
     <label for="agentId">ID</label>
-    <input type="text" class="form-control form-control-sm" id="agentId" [disabled]="true">
+    <input type="text" class="form-control form-control-sm" id="agentId" value="{{user?.id}}">
   </div>
   
   <div class="form-group">
     <label for="username">Username</label>
-      <input type="text" class="form-control form-control-sm" id="username">
+      <input type="text" class="form-control form-control-sm" id="username" value="{{user?.username}}">
   </div>
 
   <div class="form-check">
@@ -45,27 +46,27 @@
 
   <div class="form-group">
     <label for="firstName">First Name</label>
-      <input type="text" class="form-control form-control-sm" id="firstName">
+      <input type="text" class="form-control form-control-sm" id="firstName" value="{{user?.firstName}}">
   </div>
 
   <div class="form-group">
     <label for="lastName">Last Name</label>
-      <input type="text" class="form-control form-control-sm" id="lastName">
+      <input type="text" class="form-control form-control-sm" id="lastName" value="{{user?.lastName}}">
   </div>
 
   <div class="form-group">
     <label for="emailAddress">Email Address</label>
-      <input type="email" class="form-control form-control-sm" id="emailAddress">
+      <input type="email" class="form-control form-control-sm" id="emailAddress" value="{{user?.email}}">
   </div>
 
   <div class="form-group">
     <label for="supervisor">Supervisor</label>
-      <input type="supervisor" class="form-control form-control-sm" id="supervisor" [disabled]="true">
+      <input type="supervisor" class="form-control form-control-sm" id="supervisor" value="{{user?.supervisor.fullName}}">
   </div>
 
   <div class="form-group">
       <label for="role">Role</label>
-          <p-chips name="role" [(ngModel)]="role" [disabled]="true"></p-chips>          
+          <p-chips name="role" [ngModel]="user?.roles" ></p-chips>          
     </div><br>
 
     <button type="submit" class="btn btn-primary">Save Changes</button>

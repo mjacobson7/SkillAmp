@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -7,21 +7,12 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-  passwordChange: boolean = false;
-  role: string[];  
-  pageInfo: {title: string, icon: string} = {
-    title: 'My Profile',
-    icon: 'person'
-  }
+  @Input() user: {};
 
   constructor() { }
 
   ngOnInit() {
-    this.role = ['User', 'Supervisor', 'Admin'];
-  }
 
-  onChangePassword() {
-    this.passwordChange = !this.passwordChange;
   }
 
 

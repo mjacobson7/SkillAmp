@@ -19,12 +19,12 @@ export class ManageUsersComponent implements OnInit {
   ngOnInit() {
     this.actionButtons = [
       {
-        action: 'Edit',
-        icon: 'mode_edit'
+        action: 'Performance',
+        icon: 'assessment'
       },
       {
-        action: 'Archive',
-        icon: 'archive'
+        action: 'Edit',
+        icon: 'mode_edit'
       },
       {
         action: 'Delete',
@@ -33,12 +33,8 @@ export class ManageUsersComponent implements OnInit {
     ]
     this.headerButtons = [
       {
-        title: 'Archives',
-        link: '/archives'
-      },
-      {
         title: 'Add User',
-        link: '/newUser',
+        link: '/add-edit-user',
       }
     ]
     this.users = [

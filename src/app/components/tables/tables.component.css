@@ -16,6 +16,9 @@
 
 .actionButton i {
     font-size: 13px;
+    vertical-align: middle;
+    display: inline-block;
+    padding-bottom: 2px;
 }
 
 .tableFilter {

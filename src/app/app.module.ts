@@ -30,6 +30,8 @@ import { GlobalSettingsComponent } from './components/global-settings/global-set
 import { TablesComponent } from './components/tables/tables.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { PageHeaderComponent } from './components/page-header/page-header.component';
+import { AddEditUserComponent } from './components/add-edit-user/add-edit-user.component';
+import { MyProfileComponent } from './components/my-profile/my-profile.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +52,9 @@ import { PageHeaderComponent } from './components/page-header/page-header.compon
     GlobalSettingsComponent,
     TablesComponent,
     MessagesComponent,
-    PageHeaderComponent
+    PageHeaderComponent,
+    AddEditUserComponent,
+    MyProfileComponent
     ],
   imports: [
     BrowserModule,
@@ -68,7 +72,7 @@ import { PageHeaderComponent } from './components/page-header/page-header.compon
     RouterModule.forRoot([
       {
         path: 'myprofile',
-        component: UserProfileComponent,
+        component: MyProfileComponent,
       },
       {
         path: 'messages',
@@ -93,6 +97,10 @@ import { PageHeaderComponent } from './components/page-header/page-header.compon
       {
         path: 'manageusers',
         component: ManageUsersComponent
+      },
+      {
+        path: 'add-edit-user',
+        component: AddEditUserComponent
       },
       {
         path: 'reports',

@@ -15,14 +15,14 @@
   [rowsPerPageOptions]="[10,25,50,100]">
     <p-header>
         <div class="ui-helper-clearfix">
-            <button type="button" pButton icon="fa-plus" iconPos="left" style="float:right" label="{{button.title}}" *ngFor="let button of headerButtons"></button>        
+            <button type="button" pButton icon="fa-plus" iconPos="left" style="float:right" label="{{button.title}}" routerLink="{{button.link}}" *ngFor="let button of headerButtons"></button>        
         </div>
     </p-header>
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
     <p-column [style]="{'font-size': '12px'}" field="username" header="Username" [sortable]="true"></p-column>    
     <p-column [style]="{'font-size': '12px'}" field="firstName" header="First Name" [sortable]="true"></p-column>
     <p-column [style]="{'font-size': '12px'}" field="lastName" header="Last Name" [sortable]="true"></p-column>
-    <p-column [style]="{'width':'120px'}">    
+    <p-column [style]="{'width':'105px'}">    
       <ng-template pTemplate="header">
         <p>Actions</p>
       </ng-template>    
