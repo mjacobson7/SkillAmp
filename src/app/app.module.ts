@@ -12,6 +12,7 @@ import { AppErrorHandler } from './common/app-error-handler';
 import { RouterModule } from '@angular/router';
 import {DataTableModule, SharedModule, ChartModule, FileUploadModule, ChipsModule, TabViewModule} from 'primeng/primeng';
 import {RatingModule} from 'ngx-rating';
+import {MatTabsModule} from '@angular/material/tabs';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -75,6 +76,7 @@ import { StarRatingComponent } from './components/star-rating/star-rating.compon
     ChipsModule,
     TabViewModule,
     RatingModule,
+    MatTabsModule,
     RouterModule.forRoot([
       {
         path: 'myprofile',
