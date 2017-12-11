@@ -13,6 +13,8 @@ import { RouterModule } from '@angular/router';
 import {DataTableModule, SharedModule, ChartModule, FileUploadModule, ChipsModule, TabViewModule} from 'primeng/primeng';
 import {RatingModule} from 'ngx-rating';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatSelectModule} from '@angular/material/select';
+
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -35,6 +37,7 @@ import { PageHeaderComponent } from './components/page-header/page-header.compon
 import { AddEditUserComponent } from './components/add-edit-user/add-edit-user.component';
 import { MyProfileComponent } from './components/my-profile/my-profile.component';
 import { ReviewCardComponent } from './components/review-card/review-card.component';
+import { ReviewSortComponent } from './components/review-sort/review-sort.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +61,8 @@ import { ReviewCardComponent } from './components/review-card/review-card.compon
     PageHeaderComponent,
     AddEditUserComponent,
     MyProfileComponent,
-    ReviewCardComponent
+    ReviewCardComponent,
+    ReviewSortComponent
     ],
   imports: [
     BrowserModule,
@@ -75,6 +79,7 @@ import { ReviewCardComponent } from './components/review-card/review-card.compon
     TabViewModule,
     RatingModule,
     MatTabsModule,
+    MatSelectModule,
     RouterModule.forRoot([
       {
         path: 'myprofile',

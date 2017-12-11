@@ -42,7 +42,7 @@ export class CustomerSatisfactionComponent implements OnInit {
           overallRating: 4.5,
           recommendRating: 5,
           politenessRating: 5,
-          helpfulnessRaiting: 4,
+          helpfulnessRating: 4,
           trustworthyRating: 5
         },
         liked: 'Duis lobortis luctus iaculis. Fusce quis lorem aliquam, luctus sem a, eleifend quam. Curabitur at accumsan turpis. Suspendisse nec elementum eros. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla convallis rhoncus velit, ultrices aliquet tortor rutrum vel. Ut faucibus in nibh sed molestie. Donec finibus elit vitae nisi ornare convallis.',
@@ -56,7 +56,7 @@ export class CustomerSatisfactionComponent implements OnInit {
           overallRating: 3.25,
           recommendRating: 2,
           politenessRating: 3,
-          helpfulnessRaiting: 2,
+          helpfulnessRating: 2,
           trustworthyRating: 3
         },
         liked: 'Duis lobortis luctus iaculis. Fusce quis lorem aliquam, luctus sem a, eleifend quam. Curabitur at accumsan turpis. Suspendisse nec elementum eros. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla convallis rhoncus velit, ultrices aliquet tortor rutrum vel. Ut faucibus in nibh sed molestie. Donec finibus elit vitae nisi ornare convallis.',
@@ -70,7 +70,7 @@ export class CustomerSatisfactionComponent implements OnInit {
           overallRating: 2.5,
           recommendRating: 2,
           politenessRating: 1,
-          helpfulnessRaiting: 2,
+          helpfulnessRating: 2,
           trustworthyRating: 2
         },
         liked: 'Duis lobortis luctus iaculis. Fusce quis lorem aliquam, luctus sem a, eleifend quam. Curabitur at accumsan turpis. Suspendisse nec elementum eros. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla convallis rhoncus velit, ultrices aliquet tortor rutrum vel. Ut faucibus in nibh sed molestie. Donec finibus elit vitae nisi ornare convallis.',
@@ -84,7 +84,7 @@ export class CustomerSatisfactionComponent implements OnInit {
           overallRating: 5,
           recommendRating: 5,
           politenessRating: 5,
-          helpfulnessRaiting: 5,
+          helpfulnessRating: 5,
           trustworthyRating: 5
         },
         liked: 'Duis lobortis luctus iaculis. Fusce quis lorem aliquam, luctus sem a, eleifend quam. Curabitur at accumsan turpis. Suspendisse nec elementum eros. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla convallis rhoncus velit, ultrices aliquet tortor rutrum vel. Ut faucibus in nibh sed molestie. Donec finibus elit vitae nisi ornare convallis.',
@@ -98,7 +98,7 @@ export class CustomerSatisfactionComponent implements OnInit {
           overallRating: 4,
           recommendRating: 4,
           politenessRating: 4,
-          helpfulnessRaiting: 4,
+          helpfulnessRating: 4,
           trustworthyRating: 4
         },
         liked: 'Duis lobortis luctus iaculis. Fusce quis lorem aliquam, luctus sem a, eleifend quam. Curabitur at accumsan turpis. Suspendisse nec elementum eros. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla convallis rhoncus velit, ultrices aliquet tortor rutrum vel. Ut faucibus in nibh sed molestie. Donec finibus elit vitae nisi ornare convallis.',
@@ -112,7 +112,7 @@ export class CustomerSatisfactionComponent implements OnInit {
           overallRating: 4.5,
           recommendRating: 3,
           politenessRating: 5,
-          helpfulnessRaiting: 4,
+          helpfulnessRating: 4,
           trustworthyRating: 3
         },
         liked: 'Duis lobortis luctus iaculis. Fusce quis lorem aliquam, luctus sem a, eleifend quam. Curabitur at accumsan turpis. Suspendisse nec elementum eros. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla convallis rhoncus velit, ultrices aliquet tortor rutrum vel. Ut faucibus in nibh sed molestie. Donec finibus elit vitae nisi ornare convallis.',

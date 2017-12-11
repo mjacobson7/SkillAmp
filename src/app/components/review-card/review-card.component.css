@@ -6,11 +6,16 @@ a {
     font-size: 13px;
 }
 
-.card-header span {
+.card-header, .card-footer {
+    background-color: #FFFFFF;
+}
+
+.card-header p {
     font-size: 20px;
     margin-right: 5px;
     color: #FDC341;
     font-weight: bold;
+    display: inline;
 }
 
 .rating-wrapper {
@@ -19,4 +24,13 @@ a {
 
 .card-body {
     padding-top: 0;
+}
+
+.ratingContent {
+    padding-top: 15px;
+}
+.ratingContent {
+    font-weight: bold;
+    text-align: right;
+    padding-right: 130px;
 }

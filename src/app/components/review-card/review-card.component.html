@@ -1,26 +1,31 @@
-<!-- TODO: Add a 'sort-by' button, where the agent can sort by 'Highest Rated, Lowest Rated, and Recently Added'. -->
 <div class="container-fluid">
   <div class="row">
     <div class="card" style="width: 475px; margin: 10px;" *ngFor="let review of reviews">
       <div class="card-header">
-          <span>{{review.rating.overallRating}}</span>
+          <p>{{review.rating.overallRating}}</p>
           <rating [(ngModel)]="review.rating.overallRating" [max]="5" [readonly]="true"></rating>
       </div>
       <div class="card-body">
         <mat-tab-group>
           <mat-tab label="Rating">
-            <p>Recommend: {{review.rating.recommendRating}}</p>
-            <p>Politeness: {{review.rating.politenessRating}}</p>
-            <p>Helpfulness: {{review.rating.helpfulnessRating}}</p>
-            <p>Trustworthy: {{review.rating.trustworthyRating}}</p>
+            <div class="ratingContent">
+                <span>Likely to Recommend:</span><rating [(ngModel)]="review.rating.recommendRating" [max]="5" [readonly]="true"></rating><br>
+                <span>Politeness: </span> <rating [(ngModel)]="review.rating.politenessRating" [max]="5" [readonly]="true"></rating><br>
+                <span>Helpfulness: </span> <rating [(ngModel)]="review.rating.helpfulnessRating" [max]="5" [readonly]="true"></rating><br>
+                <span>Trustworthiness: </span> <rating [(ngModel)]="review.rating.trustworthyRating" [max]="5" [readonly]="true"></rating><br>
+            </div>
+              
           </mat-tab>
           <mat-tab label="Liked">
+            <p></p>
             <p>{{review.liked}}</p>
           </mat-tab>
           <mat-tab label="Disliked">
+            <p></p>
             <p>{{review.disliked}}</p>
           </mat-tab>
           <mat-tab label="Product Desc.">
+            <p></p>
             <p>{{review.productDesc}}</p>
           </mat-tab>
         </mat-tab-group>
@@ -29,7 +34,4 @@
         {{review.dateOfRating | date}}
       </div>
     </div>
-  
-
-
 </div>

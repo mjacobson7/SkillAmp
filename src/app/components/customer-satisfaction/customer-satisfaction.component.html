@@ -1,3 +1,5 @@
+<!-- TODO: Add a 'sort-by' button, where the agent can sort by 'Highest Rated, Lowest Rated, and Recently Added'.
+include master buttons at the top of the customer satisfaction section that is “rating”, “liked”, “disliked”, and “product”. Then that master switch toggles all the boxes below all at one time.  -->
 <app-page-header [pageInfo]="pageInfo"></app-page-header>
   <div class="container-fluid rating-wrapper">
     <div class="row">
@@ -10,5 +12,10 @@
         <span>({{reviewTotals.reviewsCount}} Reviews)</span>                
       </div>
     </div>
+    <div class="row">
+        <app-review-sort></app-review-sort>
+     </div>
+     <div class="row">
+        <app-review-card [reviews]="reviews"></app-review-card>
+     </div>
   </div>
-<app-review-card [reviews]="reviews"></app-review-card>
