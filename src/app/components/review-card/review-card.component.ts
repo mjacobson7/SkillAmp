@@ -6,8 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./review-card.component.css']
 })
 export class ReviewCardComponent implements OnInit {
-  @Input() reviews: {};
-
+  @Input() reviews;
   constructor() { }
 
   ngOnInit() {  

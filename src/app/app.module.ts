@@ -35,7 +35,6 @@ import { PageHeaderComponent } from './components/page-header/page-header.compon
 import { AddEditUserComponent } from './components/add-edit-user/add-edit-user.component';
 import { MyProfileComponent } from './components/my-profile/my-profile.component';
 import { ReviewCardComponent } from './components/review-card/review-card.component';
-import { StarRatingComponent } from './components/star-rating/star-rating.component';
 
 @NgModule({
   declarations: [
@@ -59,8 +58,7 @@ import { StarRatingComponent } from './components/star-rating/star-rating.compon
     PageHeaderComponent,
     AddEditUserComponent,
     MyProfileComponent,
-    ReviewCardComponent,
-    StarRatingComponent
+    ReviewCardComponent
     ],
   imports: [
     BrowserModule,

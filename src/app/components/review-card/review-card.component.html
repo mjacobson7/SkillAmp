@@ -1,33 +1,34 @@
 <!-- TODO: Add a 'sort-by' button, where the agent can sort by 'Highest Rated, Lowest Rated, and Recently Added'. -->
 <div class="container-fluid">
   <div class="row">
-    <div class="card text-center" style="width: 475px; margin: 10px;" *ngFor="let review of reviews">
+    <div class="card" style="width: 475px; margin: 10px;" *ngFor="let review of reviews">
       <div class="card-header">
-        Featured
+          <span>{{review.rating.overallRating}}</span>
+          <rating [(ngModel)]="review.rating.overallRating" [max]="5" [readonly]="true"></rating>
       </div>
       <div class="card-body">
-          <mat-tab-group>
-              <mat-tab label="Rating">
-                <p>Recommend: {{review.rating.recommendRating}}</p>
-                <p>Politeness: {{review.rating.politenessRating}}</p>
-                <p>Helpfulness: {{review.rating.helpfulnessRating}}</p>
-                <p>Trustworthy: {{review.rating.trustworthyRating}}</p>
-              </mat-tab>
-              <mat-tab label="Liked">
-                <p>{{review.liked}}</p>
-              </mat-tab>
-              <mat-tab label="Disliked">
-                  <p>{{review.disliked}}</p>
-                </mat-tab>
-                <mat-tab label="Product Desc.">
-                    <p>{{review.productDesc}}</p>
-                  </mat-tab>
-            </mat-tab-group>
-    </div>
-    <div class="card-footer text-muted">
-        October 3, 2017
+        <mat-tab-group>
+          <mat-tab label="Rating">
+            <p>Recommend: {{review.rating.recommendRating}}</p>
+            <p>Politeness: {{review.rating.politenessRating}}</p>
+            <p>Helpfulness: {{review.rating.helpfulnessRating}}</p>
+            <p>Trustworthy: {{review.rating.trustworthyRating}}</p>
+          </mat-tab>
+          <mat-tab label="Liked">
+            <p>{{review.liked}}</p>
+          </mat-tab>
+          <mat-tab label="Disliked">
+            <p>{{review.disliked}}</p>
+          </mat-tab>
+          <mat-tab label="Product Desc.">
+            <p>{{review.productDesc}}</p>
+          </mat-tab>
+        </mat-tab-group>
       </div>
-  </div>
+      <div class="card-footer text-muted">
+        {{review.dateOfRating | date}}
+      </div>
+    </div>
   
 
 

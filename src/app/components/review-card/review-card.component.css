@@ -5,3 +5,18 @@ a {
 * {
     font-size: 13px;
 }
+
+.card-header span {
+    font-size: 20px;
+    margin-right: 5px;
+    color: #FDC341;
+    font-weight: bold;
+}
+
+.rating-wrapper {
+    margin-bottom: 30px;
+}
+
+.card-body {
+    padding-top: 0;
+}
