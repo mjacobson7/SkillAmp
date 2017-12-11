@@ -2,19 +2,18 @@
   <div class="row">
     <div class="card" style="width: 475px; margin: 10px;" *ngFor="let review of reviews">
       <div class="card-header">
-          <p>{{review.rating.overallRating}}</p>
-          <rating [(ngModel)]="review.rating.overallRating" [max]="5" [readonly]="true"></rating>
+        <p>{{review.rating.overallRating}}</p>
+        <rating [(ngModel)]="review.rating.overallRating" [max]="5" [readonly]="true"></rating>
       </div>
       <div class="card-body">
         <mat-tab-group>
           <mat-tab label="Rating">
             <div class="ratingContent">
-                <span>Likely to Recommend:</span><rating [(ngModel)]="review.rating.recommendRating" [max]="5" [readonly]="true"></rating><br>
-                <span>Politeness: </span> <rating [(ngModel)]="review.rating.politenessRating" [max]="5" [readonly]="true"></rating><br>
-                <span>Helpfulness: </span> <rating [(ngModel)]="review.rating.helpfulnessRating" [max]="5" [readonly]="true"></rating><br>
-                <span>Trustworthiness: </span> <rating [(ngModel)]="review.rating.trustworthyRating" [max]="5" [readonly]="true"></rating><br>
+              <span>Likely to Recommend:</span><rating [(ngModel)]="review.rating.recommendRating" [max]="5" [readonly]="true"></rating><br>
+              <span>Politeness: </span> <rating [(ngModel)]="review.rating.politenessRating" [max]="5" [readonly]="true"></rating><br>
+              <span>Helpfulness: </span> <rating [(ngModel)]="review.rating.helpfulnessRating" [max]="5" [readonly]="true"></rating><br>
+              <span>Trustworthiness: </span> <rating [(ngModel)]="review.rating.trustworthyRating" [max]="5" [readonly]="true"></rating><br>
             </div>
-              
           </mat-tab>
           <mat-tab label="Liked">
             <p></p>
@@ -34,4 +33,5 @@
         {{review.dateOfRating | date}}
       </div>
     </div>
+  </div>
 </div>
