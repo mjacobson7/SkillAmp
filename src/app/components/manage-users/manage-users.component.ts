@@ -34,12 +34,12 @@ export class ManageUsersComponent implements OnInit {
     this.headerButtons = [
       {
         title: 'Add User',
-        link: '/add-edit-user',
+        link: '/manage_users/edit_user',
       }
     ]
     this.users = [
       {
-        "id": 1,
+        "id": 6663837723051043,
         "username": "sushantshrestha",
         "password": "xxxxxxxxxx",
         "firstName": "Sushant",
@@ -49,7 +49,7 @@ export class ManageUsersComponent implements OnInit {
         "role": ["User"]
       },
       {
-        "id": 1,
+        "id": 47708972843789055,
         "username": "paulmefford",
         "password": "xxxxxxxxxx",
         "firstName": "Paul",
@@ -59,7 +59,7 @@ export class ManageUsersComponent implements OnInit {
         "role": ["User", "Supervisor"]
       },
       {
-        "id": 1,
+        "id": 3655422560714665,
         "username": "mikebenedict",
         "password": "xxxxxxxxxx",
         "firstName": "Mike",
@@ -69,7 +69,7 @@ export class ManageUsersComponent implements OnInit {
         "role": ["User"]
       },
       {
-        "id": 1,
+        "id": 8693569920926425,
         "username": "mattbehrend",
         "password": "xxxxxxxxxx",
         "firstName": "Matt",
@@ -79,7 +79,7 @@ export class ManageUsersComponent implements OnInit {
         "role": ["User", "Supervisor"]
       },
       {
-        "id": 1,
+        "id": 8384192241158752,
         "username": "leaburr",
         "password": "xxxxxxxxxx",
         "firstName": "Lea",
@@ -89,7 +89,7 @@ export class ManageUsersComponent implements OnInit {
         "role": ["User"]
       },
       {
-        "id": 1,
+        "id": 759708504687054,
         "username": "jordanwoodhouse",
         "password": "xxxxxxxxxx",
         "firstName": "Jordan",
@@ -99,7 +99,7 @@ export class ManageUsersComponent implements OnInit {
         "role": ["User"]
       },
       {
-        "id": 1,
+        "id": 4372565600874534,
         "username": "jaronmathis",
         "password": "xxxxxxxxxx",
         "firstName": "Jaron",
@@ -109,7 +109,7 @@ export class ManageUsersComponent implements OnInit {
         "role": ["User", "Supervisor", "Admin"]
       },
       {
-        "id": 1,
+        "id": 9077587213845573,
         "username": "jakewhite",
         "password": "xxxxxxxxxx",
         "firstName": "Jake",
@@ -119,7 +119,7 @@ export class ManageUsersComponent implements OnInit {
         "role": ["User", "Supervisor", "Admin"]
       },
       {
-        "id": 1,
+        "id": 8556421987327858,
         "username": "chrisduran",
         "password": "xxxxxxxxxx",
         "firstName": "Chris",
@@ -129,7 +129,7 @@ export class ManageUsersComponent implements OnInit {
         "role": ["User"]
       },
       {
-        "id": 1,
+        "id": 47760311725399385,
         "username": "bethanywoodhouse",
         "password": "xxxxxxxxxx",
         "firstName": "Bethany",
@@ -139,7 +139,7 @@ export class ManageUsersComponent implements OnInit {
         "role": ["User"]
       },
       {
-        "id": 1,
+        "id": 2547668669021208,
         "username": "spencerjacox",
         "password": "xxxxxxxxxx",
         "firstName": "Spencer",
@@ -149,7 +149,7 @@ export class ManageUsersComponent implements OnInit {
         "role": ["User"]
       },
       {
-        "id": 1,
+        "id": 8104712517262154,
         "username": "maxjacobson",
         "password": "xxxxxxxxxx",
         "firstName": "Max",
@@ -159,7 +159,7 @@ export class ManageUsersComponent implements OnInit {
         "role": ["User", "Supervisor", "Admin"]
       },
       {
-        "id": 1,
+        "id": 9323004645030442,
         "username": "carlywarner",
         "password": "xxxxxxxxxx",
         "firstName": "Carly",
@@ -169,7 +169,7 @@ export class ManageUsersComponent implements OnInit {
         "role": ["User"]
       },
       {
-        "id": 1,
+        "id": 10295023261417513,
         "username": "brandonhowell",
         "password": "xxxxxxxxxx",
         "firstName": "Brandon",
@@ -179,7 +179,7 @@ export class ManageUsersComponent implements OnInit {
         "role": ["User"]
       },
       {
-        "id": 1,
+        "id": 33409146553110314,
         "username": "ryangray",
         "password": "xxxxxxxxxx",
         "firstName": "Ryan",
@@ -189,7 +189,7 @@ export class ManageUsersComponent implements OnInit {
         "role": ["User", "Supervisor", "Admin"]
       },
       {
-        "id": 1,
+        "id": 5662258291129545,
         "username": "brianhaney",
         "password": "xxxxxxxxxx",
         "firstName": "Brian",
@@ -199,7 +199,7 @@ export class ManageUsersComponent implements OnInit {
         "role": ["User"]
       },
       {
-        "id": 1,
+        "id": 749515889348636,
         "username": "ericpeterson",
         "password": "xxxxxxxxxx",
         "firstName": "Eric",
@@ -209,7 +209,7 @@ export class ManageUsersComponent implements OnInit {
         "role": ["User"]
       },
       {
-        "id": 1,
+        "id": 45346812385700686,
         "username": "joeyeva",
         "password": "xxxxxxxxxx",
         "firstName": "Joey",

@@ -45,13 +45,13 @@ export class SideNavComponent implements OnInit {
       icon: 'people',
       name: 'My Team',
       roleType: ['supervisor'],
-      route: '/myteam'
+      route: '/my_team'
     },
     {
       icon: 'people',
       name: 'Manage Users',
       roleType: ['admin'],
-      route: '/manageusers'
+      route: '/manage_users'
     },
     {
       icon: 'assignment',

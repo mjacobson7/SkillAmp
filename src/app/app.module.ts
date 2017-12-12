@@ -102,15 +102,19 @@ import { ReviewSortComponent } from './components/review-sort/review-sort.compon
         component: SupervisorEvaluationsComponent
       },
       {
-        path: 'myteam',
+        path: 'my_team',
         component: MyTeamComponent
       },
       {
-        path: 'manageusers',
+        path: 'manage_users',
         component: ManageUsersComponent
       },
       {
-        path: 'add-edit-user',
+        path: 'manage_users/edit_user',
+        component: AddEditUserComponent
+      },
+      {
+        path: 'manage_users/edit_user/:id',
         component: AddEditUserComponent
       },
       {
