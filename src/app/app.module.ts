@@ -38,6 +38,7 @@ import { AddEditUserComponent } from './components/add-edit-user/add-edit-user.c
 import { MyProfileComponent } from './components/my-profile/my-profile.component';
 import { ReviewCardComponent } from './components/review-card/review-card.component';
 import { ReviewSortComponent } from './components/review-sort/review-sort.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { ReviewSortComponent } from './components/review-sort/review-sort.compon
     AddEditUserComponent,
     MyProfileComponent,
     ReviewCardComponent,
-    ReviewSortComponent
+    ReviewSortComponent,
+    PageNotFoundComponent
     ],
   imports: [
     BrowserModule,

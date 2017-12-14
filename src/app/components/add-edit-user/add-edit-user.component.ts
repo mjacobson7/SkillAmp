@@ -7,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./add-edit-user.component.css']
 })
 export class AddEditUserComponent implements OnInit {
-  user: {};
+  user;
   // TODO: Make pageInfo title dynamic so it says 'Create New User' or 'Edit User'  
   pageInfo: {title: string, icon: string} = {
     title: 'User', 
@@ -20,7 +20,9 @@ export class AddEditUserComponent implements OnInit {
     this.user = {
       id: this.route.snapshot.paramMap.get('id')      
     }
-    console.log(this.user);
+    this.route.params.subscribe(params => {
+      this.user.id = params['id']
+    })
   }
 
 
