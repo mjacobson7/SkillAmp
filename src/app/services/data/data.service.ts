@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 import { BadInput } from '../../common/bad-input';
 import { NotFoundError } from '../../common/not-found-error';
-// import { AppError } from '../../common/app-error';
+import { AppError } from '../../common/app-error';
 
 
 @Injectable()
