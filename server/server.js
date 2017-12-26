@@ -16,10 +16,10 @@ app.use(bodyParser.urlencoded({ extended: false}));
 app.use(cookieParser());
 
 // Angular DIST output folder
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, '../dist')));
 
 //Set up static files
-app.use(express.static('dist'));
+app.use(express.static('../dist'));
 
 //Sessions
 app.use(session({
