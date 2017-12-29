@@ -9,11 +9,11 @@ import { UserService } from '../app/services/user-auth/user-auth.service';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppErrorHandler } from './common/app-error-handler';
-import { Routes, RouterModule } from '@angular/router';
 import {DataTableModule, SharedModule, ChartModule, FileUploadModule, ChipsModule, TabViewModule} from 'primeng/primeng';
 import {RatingModule} from 'ngx-rating';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatSelectModule} from '@angular/material/select';
+import { AppRoutingModule } from './app-routing.module';
 
 
 import { AppComponent } from './app.component';
@@ -40,23 +40,6 @@ import { ReviewCardComponent } from './components/review-card/review-card.compon
 import { ReviewSortComponent } from './components/review-sort/review-sort.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
-
-const appRoutes: Routes = [
-  {path: 'myprofile', component: MyProfileComponent},
-  {path: 'messages', component: MessagesComponent},
-  {path: 'dashboard', component: DashboardComponent},
-  {path: 'customersatisfaction', component: CustomerSatisfactionComponent},
-  {path: 'supervisorevaluations', component: SupervisorEvaluationsComponent},
-  {path: 'my_team', component: MyTeamComponent},
-  {path: 'manage_users', component: ManageUsersComponent},
-  {path: 'manage_users/edit_user', component: AddEditUserComponent},
-  {path: 'manage_users/edit_user/:id', component: AddEditUserComponent},
-  {path: 'reports', component: ReportsComponent},
-  {path: 'account', component: AccountComponent},
-  {path: 'globalsettings', component: GlobalSettingsComponent},
-  {path: 'not-found', component: NotFoundComponent},
-  {path: '**', redirectTo: '/not-found'}
-]
 
 @NgModule({
   declarations: [
@@ -86,8 +69,9 @@ const appRoutes: Routes = [
     NotFoundComponent
     ],
   imports: [
-    BrowserModule,
+  BrowserModule,
     NgbModule.forRoot(),
+    AppRoutingModule,
     BrowserAnimationsModule,
     ChartsModule,
     FormsModule,
@@ -100,9 +84,8 @@ const appRoutes: Routes = [
     TabViewModule,
     RatingModule,
     MatTabsModule,
-    MatSelectModule,
-    RouterModule.forRoot(appRoutes)
-  ],
+    MatSelectModule
+    ],
   providers: [
     DataService,
     UserService, 
