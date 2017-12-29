@@ -9,7 +9,7 @@ import { UserService } from '../app/services/user-auth/user-auth.service';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppErrorHandler } from './common/app-error-handler';
-import { RouterModule } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import {DataTableModule, SharedModule, ChartModule, FileUploadModule, ChipsModule, TabViewModule} from 'primeng/primeng';
 import {RatingModule} from 'ngx-rating';
 import {MatTabsModule} from '@angular/material/tabs';
@@ -39,6 +39,24 @@ import { MyProfileComponent } from './components/my-profile/my-profile.component
 import { ReviewCardComponent } from './components/review-card/review-card.component';
 import { ReviewSortComponent } from './components/review-sort/review-sort.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+
+const appRoutes: Routes = [
+  {path: 'myprofile', component: MyProfileComponent},
+  {path: 'messages', component: MessagesComponent},
+  {path: 'dashboard', component: DashboardComponent},
+  {path: 'customersatisfaction', component: CustomerSatisfactionComponent},
+  {path: 'supervisorevaluations', component: SupervisorEvaluationsComponent},
+  {path: 'my_team', component: MyTeamComponent},
+  {path: 'manage_users', component: ManageUsersComponent},
+  {path: 'manage_users/edit_user', component: AddEditUserComponent},
+  {path: 'manage_users/edit_user/:id', component: AddEditUserComponent},
+  {path: 'reports', component: ReportsComponent},
+  {path: 'account', component: AccountComponent},
+  {path: 'globalsettings', component: GlobalSettingsComponent},
+  {path: 'not-found', component: NotFoundComponent},
+  {path: '**', redirectTo: '/not-found'}
+]
 
 @NgModule({
   declarations: [
@@ -64,7 +82,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     MyProfileComponent,
     ReviewCardComponent,
     ReviewSortComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    NotFoundComponent
     ],
   imports: [
     BrowserModule,
@@ -82,56 +101,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     RatingModule,
     MatTabsModule,
     MatSelectModule,
-    RouterModule.forRoot([
-      {
-        path: 'myprofile',
-        component: MyProfileComponent,
-      },
-      {
-        path: 'messages',
-        component: MessagesComponent
-      },
-      {
-        path: 'dashboard',
-        component: DashboardComponent
-      },
-      {
-        path: 'customersatisfaction',
-        component: CustomerSatisfactionComponent
-      },
-      {
-        path: 'supervisorevaluations',
-        component: SupervisorEvaluationsComponent
-      },
-      {
-        path: 'my_team',
-        component: MyTeamComponent
-      },
-      {
-        path: 'manage_users',
-        component: ManageUsersComponent
-      },
-      {
-        path: 'manage_users/edit_user',
-        component: AddEditUserComponent
-      },
-      {
-        path: 'manage_users/edit_user/:id',
-        component: AddEditUserComponent
-      },
-      {
-        path: 'reports',
-        component: ReportsComponent
-      },
-      {
-        path: 'account',
-        component: AccountComponent
-      },
-      {
-        path: 'globalsettings',
-        component: GlobalSettingsComponent
-      },
-    ])
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [
     DataService,
