@@ -21,6 +21,11 @@ app.use(express.static(path.join(__dirname, '../dist')));
 //Set up static files
 app.use(express.static('../dist'));
 
+// Send all other requests to the Angular app
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../dist/index.html'));
+});
+
 //Sessions
 app.use(session({
     key: 'user_sid',
