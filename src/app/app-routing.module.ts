@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { LoginComponent } from './components/login/login.component';
+import { HomeComponent } from './components/home/home.component';
 import { MyProfileComponent } from './components/my-profile/my-profile.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -16,28 +18,30 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ViewAllUsersComponent } from './components/manage-users/view-all-users/view-all-users.component';
 
 const appRoutes: Routes = [
-    {path: 'myprofile', component: MyProfileComponent},
-    {path: 'messages', component: MessagesComponent},
-    {path: 'dashboard', component: DashboardComponent},
-    {path: 'customersatisfaction', component: CustomerSatisfactionComponent},
-    {path: 'supervisorevaluations', component: SupervisorEvaluationsComponent},
-    {path: 'my_team', component: MyTeamComponent},
-    {path: 'manage_users', component: ManageUsersComponent, children: [
-        {path: '', component: ViewAllUsersComponent},
-        {path: 'add-user', component: AddEditUserComponent},
-        {path: 'edit_user/:id', component: AddEditUserComponent},
+    {path: 'login', component: LoginComponent},
+    {path: '', component: HomeComponent, children: [
+        {path: 'myprofile', component: MyProfileComponent},
+        {path: 'messages', component: MessagesComponent},
+        {path: 'dashboard', component: DashboardComponent},
+        {path: 'customersatisfaction', component: CustomerSatisfactionComponent},
+        {path: 'supervisorevaluations', component: SupervisorEvaluationsComponent},
+        {path: 'my_team', component: MyTeamComponent},
+        {path: 'manage_users', component: ManageUsersComponent, children: [
+            {path: '', component: ViewAllUsersComponent},
+            {path: 'add-user', component: AddEditUserComponent},
+            {path: 'edit_user/:id', component: AddEditUserComponent},
+        ]},
+        {path: 'reports', component: ReportsComponent},
+        {path: 'account', component: AccountComponent},
+        {path: 'globalsettings', component: GlobalSettingsComponent},
     ]},
-    {path: 'reports', component: ReportsComponent},
-    {path: 'account', component: AccountComponent},
-    {path: 'globalsettings', component: GlobalSettingsComponent},
+
     {path: 'not-found', component: NotFoundComponent},
     {path: '**', redirectTo: '/not-found'}
   ]
 
 @NgModule({
-    imports: [
-    RouterModule.forRoot(appRoutes)
-    ],
+    imports: [RouterModule.forRoot(appRoutes)],
     exports: [RouterModule]
 })
 

@@ -4,11 +4,11 @@ import { AppError } from '../../common/app-error';
 import { BadInput } from '../../common/bad-input';
 
 @Component({
-  selector: 'app-sign-in',
-  templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.css']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
-export class SignInComponent implements OnInit {
+export class LoginComponent implements OnInit {
   constructor(private service: UserService) { }
 
   ngOnInit() {

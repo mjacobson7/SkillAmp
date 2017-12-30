@@ -20,7 +20,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { SignInComponent } from './components/sign-in/sign-in.component';
+import { LoginComponent } from './components/login/login.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ChartsComponent } from './components/charts/charts.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
@@ -48,7 +48,7 @@ import { ViewAllUsersComponent } from './components/manage-users/view-all-users/
     HomeComponent,
     SideNavComponent,
     DashboardComponent,
-    SignInComponent,
+    LoginComponent,
     HeaderComponent,
     ChartsComponent,
     UserProfileComponent,
