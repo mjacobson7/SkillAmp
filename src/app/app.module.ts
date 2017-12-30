@@ -89,9 +89,9 @@ import { ViewAllUsersComponent } from './components/manage-users/view-all-users/
     MatSelectModule
     ],
   providers: [
-    DataService,
     UserService, 
     NavService,
+    DataService,
     { provide: ErrorHandler, useClass: AppErrorHandler}
   ],
   bootstrap: [AppComponent]
