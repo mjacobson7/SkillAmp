@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+
 import { MyProfileComponent } from './components/my-profile/my-profile.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -12,6 +13,7 @@ import { ReportsComponent } from './components/reports/reports.component';
 import { AccountComponent } from './components/account/account.component';
 import { GlobalSettingsComponent } from './components/global-settings/global-settings.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { ViewAllUsersComponent } from './components/manage-users/view-all-users/view-all-users.component';
 
 const appRoutes: Routes = [
     {path: 'myprofile', component: MyProfileComponent},
@@ -20,9 +22,11 @@ const appRoutes: Routes = [
     {path: 'customersatisfaction', component: CustomerSatisfactionComponent},
     {path: 'supervisorevaluations', component: SupervisorEvaluationsComponent},
     {path: 'my_team', component: MyTeamComponent},
-    {path: 'manage_users', component: ManageUsersComponent,
-    {path: 'manage_users/edit_user', component: AddEditUserComponent},
-    {path: 'manage_users/edit_user/:id', component: AddEditUserComponent},
+    {path: 'manage_users', component: ManageUsersComponent, children: [
+        {path: '', component: ViewAllUsersComponent},
+        {path: 'add-user', component: AddEditUserComponent},
+        {path: 'edit_user/:id', component: AddEditUserComponent},
+    ]},
     {path: 'reports', component: ReportsComponent},
     {path: 'account', component: AccountComponent},
     {path: 'globalsettings', component: GlobalSettingsComponent},
@@ -32,7 +36,7 @@ const appRoutes: Routes = [
 
 @NgModule({
     imports: [
-        RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes)
     ],
     exports: [RouterModule]
 })

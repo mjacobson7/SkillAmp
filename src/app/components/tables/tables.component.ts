@@ -15,12 +15,12 @@ export class TablesComponent implements OnInit {
   autoResizeTable: boolean;
   // selectedUsers: any[]; --is this used for anything?
 
-  constructor(private router: Router) { }
+  constructor(private route: Router) { }
   
 
   actionButton(user):void{      
     console.log(user); 
-    this.router.navigate(['manage_users/edit_user/' + user.id]);
+    this.route.navigate(['manage_users/edit_user/' + user.id]);
     // TODO: We need to specify that this doesn't route all action buttons to the same route
 }
 

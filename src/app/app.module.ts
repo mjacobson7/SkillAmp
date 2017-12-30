@@ -40,6 +40,7 @@ import { ReviewCardComponent } from './components/review-card/review-card.compon
 import { ReviewSortComponent } from './components/review-sort/review-sort.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { ViewAllUsersComponent } from './components/manage-users/view-all-users/view-all-users.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     ReviewCardComponent,
     ReviewSortComponent,
     PageNotFoundComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    ViewAllUsersComponent
     ],
   imports: [
   BrowserModule,
