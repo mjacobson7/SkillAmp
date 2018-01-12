@@ -31,7 +31,7 @@ export class SideNavComponent implements OnInit {
     },
     {
       icon: 'sentiment_very_satisfied',
-      name: 'Customer Satisfaction',
+      name: 'Feedback',
       roleType: ['user'],
       route: '/customersatisfaction'
     },

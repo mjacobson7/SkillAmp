@@ -22,7 +22,7 @@ export class ChartsComponent implements OnInit {
     this.recommend = {
       datasets: [
         {
-          label: "Likelihood to Recommend",
+          label: "Score",
           data: [
             {x: moment('01/01/2017', 'MM/DD/YYYY'), y: 4.5},
             {x: moment('01/02/2017', 'MM/DD/YYYY'), y: 1},                        
@@ -30,7 +30,21 @@ export class ChartsComponent implements OnInit {
             {x: moment('01/04/2017', 'MM/DD/YYYY'), y: 3.75},
             {x: moment('01/05/2017', 'MM/DD/YYYY'), y: 4.25},
             {x: moment('01/06/2017', 'MM/DD/YYYY'), y: 5},
-            {x: moment('01/07/2017', 'MM/DD/YYYY'), y: 4}
+            {x: moment('01/07/2017', 'MM/DD/YYYY'), y: 4},
+            {x: moment('01/08/2017', 'MM/DD/YYYY'), y: 5},
+            {x: moment('01/09/2017', 'MM/DD/YYYY'), y: 4},                        
+            {x: moment('01/10/2017', 'MM/DD/YYYY'), y: 4},
+            {x: moment('01/11/2017', 'MM/DD/YYYY'), y: 3.75},
+            {x: moment('01/12/2017', 'MM/DD/YYYY'), y: 2.25},
+            {x: moment('01/13/2017', 'MM/DD/YYYY'), y: 3},
+            {x: moment('01/14/2017', 'MM/DD/YYYY'), y: 1},
+            {x: moment('01/15/2017', 'MM/DD/YYYY'), y: 4.5},
+            {x: moment('01/16/2017', 'MM/DD/YYYY'), y: 5},                        
+            {x: moment('01/17/2017', 'MM/DD/YYYY'), y: 5},
+            {x: moment('01/18/2017', 'MM/DD/YYYY'), y: 2.75},
+            {x: moment('01/19/2017', 'MM/DD/YYYY'), y: 3.25},
+            {x: moment('01/20/2017', 'MM/DD/YYYY'), y: 5},
+            {x: moment('01/21/2017', 'MM/DD/YYYY'), y: 4}
           ],
             borderColor: '#1D9DFC',
             backgroundColor: 'rgba(138, 206, 253, 0.5)',
@@ -38,66 +52,7 @@ export class ChartsComponent implements OnInit {
           }
       ]
     };
-
-    this.politeness = {
-      datasets: [
-        {
-          label: "Politeness",
-          data: [
-            {x: moment('01/01/2017', 'MM/DD/YYYY'), y: 4.5},
-            {x: moment('01/02/2017', 'MM/DD/YYYY'), y: 1},                        
-            {x: moment('01/03/2017', 'MM/DD/YYYY'), y: 4},
-            {x: moment('01/04/2017', 'MM/DD/YYYY'), y: 3.75},
-            {x: moment('01/05/2017', 'MM/DD/YYYY'), y: 4.25},
-            {x: moment('01/06/2017', 'MM/DD/YYYY'), y: 5},
-            {x: moment('01/07/2017', 'MM/DD/YYYY'), y: 4}
-          ],
-            borderColor: '#FC416A',
-            backgroundColor: 'rgba(254, 160, 180, 0.5)',
-            borderWidth: 2
-          }
-      ]
-    };
-    
-    this.helpfulness = {
-      datasets: [
-        {
-          label: "Helpfulness",
-          data: [
-            {x: moment('01/01/2017', 'MM/DD/YYYY'), y: 4.5},
-            {x: moment('01/02/2017', 'MM/DD/YYYY'), y: 1},                        
-            {x: moment('01/03/2017', 'MM/DD/YYYY'), y: 4},
-            {x: moment('01/04/2017', 'MM/DD/YYYY'), y: 3.75},
-            {x: moment('01/05/2017', 'MM/DD/YYYY'), y: 4.25},
-            {x: moment('01/06/2017', 'MM/DD/YYYY'), y: 5},
-            {x: moment('01/07/2017', 'MM/DD/YYYY'), y: 4}
-          ],
-            borderColor: '#814CFB',
-            backgroundColor: 'rgba(192, 164, 253, 0.5)',
-            borderWidth: 2
-          }
-      ]
-    };
-
-    this.trustworthiness = {
-      datasets: [
-        {
-          label: "Trustworthiness",
-          data: [
-            {x: moment('01/01/2017', 'MM/DD/YYYY'), y: 4.5},
-            {x: moment('01/02/2017', 'MM/DD/YYYY'), y: 1},                        
-            {x: moment('01/03/2017', 'MM/DD/YYYY'), y: 4},
-            {x: moment('01/04/2017', 'MM/DD/YYYY'), y: 3.75},
-            {x: moment('01/05/2017', 'MM/DD/YYYY'), y: 4.25},
-            {x: moment('01/06/2017', 'MM/DD/YYYY'), y: 5},
-            {x: moment('01/07/2017', 'MM/DD/YYYY'), y: 4}
-          ],
-            borderColor: '#32CECD',
-            backgroundColor: 'rgba(151, 230, 229, 0.5)',
-            borderWidth: 2
-          }
-      ]
-    };
+  
 
       this.options = {
         scales: {

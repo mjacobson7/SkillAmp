@@ -1,5 +1,12 @@
 <div class="container-fluid">
     <div class="row">
+        <div class="col-lg-6">
+            <div class="card">
+                <p-chart type="bar" [data]="recommend" [options]="options" (onDataSelect)="selectData($event)"></p-chart> 
+            </div><br>      
+        </div>
+    </div>
+    <div class="row">
         <div class="col-lg-4">
             <div class="card">
                 <div class="card-body">
@@ -23,37 +30,13 @@
         <div class="col-lg-4">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Product Description</h4>
+                    <h4 class="card-title">Product</h4>
                     <h6 class="card-subtitle mb-2 text-muted">Understanding of the product</h6>
                     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac suscipit dui. Praesent eu maximus eros, eu bibendum.</p>
                     <a href="#" class="card-link">More</a>
                 </div>
             </div><br>
         </div>     
-    </div>
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="card">
-                <p-chart type="bar" [data]="recommend" [options]="options" (onDataSelect)="selectData($event)"></p-chart> 
-            </div><br>      
-        </div>
-        <div class="col-lg-6"> 
-            <div class="card">
-                <p-chart type="bar" [data]="politeness" [options]="options" (onDataSelect)="selectData($event)"></p-chart>        
-            </div><br>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-6"> 
-            <div class="card">
-                <p-chart type="bar" [data]="helpfulness" [options]="options" (onDataSelect)="selectData($event)"></p-chart>        
-            </div><br>
-        </div>
-        <div class="col-lg-6"> 
-            <div class="card">
-                <p-chart type="bar" [data]="trustworthiness" [options]="options" (onDataSelect)="selectData($event)"></p-chart>        
-            </div><br>
-        </div>
     </div>
 </div>
 
