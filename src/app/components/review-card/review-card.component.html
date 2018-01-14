@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="card" style="width: 475px; margin: 10px;" *ngFor="let review of reviews">
+    <div class="card" *ngFor="let review of reviews">
       <div class="card-header">
         <p>{{review.rating.overallRating}}</p>
         <rating [(ngModel)]="review.rating.overallRating" [max]="5" [readonly]="true"></rating>

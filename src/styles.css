@@ -5,6 +5,9 @@
 
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+@import '~normalize.css/normalize.css';
+
+
 
 * {
     font-family: 'Roboto', sans-serif;
@@ -62,7 +65,7 @@ body {
     }
   }
 
-/* Review Tabs Size Customization */
+/* Feedback Tabs Size Customization */
 .mat-tab-label, .mat-tab-label-active{
     min-width: 0!important;
     padding: 0 25px!important;

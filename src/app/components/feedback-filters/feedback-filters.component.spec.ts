@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ReviewSortComponent } from './review-sort.component';
+import { FeedbackFiltersComponent } from './feedback-filters.component';
 
-describe('ReviewSortComponent', () => {
-  let component: ReviewSortComponent;
-  let fixture: ComponentFixture<ReviewSortComponent>;
+describe('FeedbackFiltersComponent', () => {
+  let component: FeedbackFiltersComponent;
+  let fixture: ComponentFixture<FeedbackFiltersComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ReviewSortComponent ]
+      declarations: [ FeedbackFiltersComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ReviewSortComponent);
+    fixture = TestBed.createComponent(FeedbackFiltersComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

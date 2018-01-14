@@ -1,21 +1,23 @@
-<!-- TODO: Add a 'sort-by' button, where the agent can sort by 'Highest Rated, Lowest Rated, and Recently Added'.
-include master buttons at the top of the customer satisfaction section that is “rating”, “liked”, “disliked”, and “product”. Then that master switch toggles all the boxes below all at one time.  -->
 <app-page-header [pageInfo]="pageInfo"></app-page-header>
-  <div class="container-fluid rating-wrapper">
-    <div class="row">
-      <div class="col-lg-12">
-        <h4>Overall Rating</h4>
-      </div>
-      <div class="col-lg-12">
-          <h1>{{reviewTotals.overallRating}}</h1>
-          <rating [(ngModel)]="reviewTotals.overallRating" [max]="5" [readonly]="true"></rating>
-        <span>({{reviewTotals.reviewsCount}} Reviews)</span>                
-      </div>
+<div class="container-fluid rating-wrapper">
+  <div class="row">
+    <div class="col-lg-12">
+      <h4>Overall Rating</h4>
     </div>
-    <div class="row">
-        <app-review-sort></app-review-sort>
-     </div>
-     <div class="row">
-        <app-review-card [reviews]="reviews"></app-review-card>
-     </div>
+    <div class="col-lg-12 overall-rating">
+      <h1>{{reviewTotals.overallRating}}</h1>
+      <rating [(ngModel)]="reviewTotals.overallRating" [max]="5" [readonly]="true"></rating>
+      <!-- <span>({{reviewTotals.reviewsCount}} Reviews)</span>      -->
+    </div>      
   </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <app-feedback-filters></app-feedback-filters>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <app-review-card [reviews]="reviews"></app-review-card>            
+    </div>            
+  </div>
+</div>

@@ -1,0 +1,52 @@
+
+<mat-accordion>
+  <mat-expansion-panel (opened)="panelOpenState = true"
+    (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Filters
+      </mat-panel-title>
+      <mat-panel-description>
+        Currently I am {{panelOpenState ? 'open' : 'closed'}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <form>
+      <mat-form-field>
+        <mat-select placeholder="Active Tab" [(value)]="selectedTab" >
+          <mat-option value="likedTab">Liked</mat-option>
+          <mat-option value="dislikedTab">Disliked</mat-option>
+          <mat-option value="productTab">Product</mat-option>
+        </mat-select>
+      </mat-form-field>
+                
+      <mat-form-field>
+        <mat-select placeholder="Score Rating" [(value)]="selectedRatings" multiple>
+          <mat-option value="1-star">1</mat-option>
+          <mat-option value="2-star">2</mat-option>
+          <mat-option value="3-star">3</mat-option>        
+          <mat-option value="4-star">4</mat-option>  
+          <mat-option value="5-star">5</mat-option>        
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select placeholder="Feedback Date" [(value)]="feedbackDate" >
+          <mat-option value="newestFeedback">Newest</mat-option>
+          <mat-option value="oldestFeedback">Oldest</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select placeholder="Agent" [(value)]="filteredAgent" >
+          <mat-option value="all">All</mat-option>          
+          <mat-option *ngFor="let agent of users" [value]="agent.id">
+            {{ agent.fullName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+
+    <button mat-raised-button color="primary">Apply</button>
+    <button mat-raised-button>Cancel</button>
+  </mat-expansion-panel>
+</mat-accordion>

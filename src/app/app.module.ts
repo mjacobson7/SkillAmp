@@ -6,14 +6,24 @@ import { ChartsModule } from 'ng2-charts';
 import { NavService } from '../app/services/nav/nav.service';
 import { DataService } from '../app/services/data/data.service';
 import { UserService } from '../app/services/user-auth/user-auth.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppErrorHandler } from './common/app-error-handler';
-import {DataTableModule, SharedModule, ChartModule, FileUploadModule, ChipsModule, TabViewModule} from 'primeng/primeng';
+import {DataTableModule, SharedModule, ChartModule, FileUploadModule, ChipsModule, TabViewModule, DropdownModule, MultiSelectModule} from 'primeng/primeng';
 import {RatingModule} from 'ngx-rating';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatSelectModule} from '@angular/material/select';
+import {MatMenuModule} from '@angular/material/menu';
 import { AppRoutingModule } from './app-routing.module';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material';
+import {MatCardModule} from '@angular/material/card';
+import {MatToolbarModule} from '@angular/material/toolbar';
+
+
+
 
 
 import { AppComponent } from './app.component';
@@ -37,10 +47,10 @@ import { PageHeaderComponent } from './components/page-header/page-header.compon
 import { AddEditUserComponent } from './components/add-edit-user/add-edit-user.component';
 import { MyProfileComponent } from './components/my-profile/my-profile.component';
 import { ReviewCardComponent } from './components/review-card/review-card.component';
-import { ReviewSortComponent } from './components/review-sort/review-sort.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ViewAllUsersComponent } from './components/manage-users/view-all-users/view-all-users.component';
+import { FeedbackFiltersComponent } from './components/feedback-filters/feedback-filters.component';
 
 @NgModule({
   declarations: [
@@ -65,16 +75,17 @@ import { ViewAllUsersComponent } from './components/manage-users/view-all-users/
     AddEditUserComponent,
     MyProfileComponent,
     ReviewCardComponent,
-    ReviewSortComponent,
     PageNotFoundComponent,
     NotFoundComponent,
-    ViewAllUsersComponent
+    ViewAllUsersComponent,
+    FeedbackFiltersComponent
     ],
   imports: [
   BrowserModule,
     NgbModule.forRoot(),
     AppRoutingModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
     ChartsModule,
     FormsModule,
     HttpModule,
@@ -86,7 +97,16 @@ import { ViewAllUsersComponent } from './components/manage-users/view-all-users/
     TabViewModule,
     RatingModule,
     MatTabsModule,
-    MatSelectModule
+    DropdownModule,
+    MultiSelectModule,
+    MatSelectModule,
+    MatMenuModule,
+    MatRadioModule,
+    MatExpansionModule,
+    MatButtonModule,
+    MatInputModule,
+    MatCardModule,
+    MatToolbarModule
     ],
   providers: [
     UserService, 
