@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavService } from '../../services/nav/nav.service';
 
 @Component({
   selector: 'app-my-team',
@@ -13,9 +14,12 @@ export class MyTeamComponent implements OnInit {
     icon: 'people'
   }
 
-  constructor() { }
+  constructor(private navService: NavService) { }
 
   ngOnInit() {
+
+    this.navService.pageHeaderTitle.next(this.pageInfo);
+    
     this.actionButtons = [
       {
         action: 'Performance',

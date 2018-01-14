@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavService } from '../../services/nav/nav.service';
 
 @Component({
   selector: 'app-supervisor-evaluations',
@@ -11,9 +12,10 @@ export class SupervisorEvaluationsComponent implements OnInit {
     icon: 'domain'
   }
 
-  constructor() { }
+  constructor(private navService: NavService) { }
 
   ngOnInit() {
+    this.navService.pageHeaderTitle.next(this.pageInfo);
   }
 
 }

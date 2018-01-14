@@ -9,10 +9,6 @@ export class ViewAllUsersComponent implements OnInit {
   users: any[];
   headerButtons: any[];
   actionButtons: any[];
-  pageInfo: {title: string, icon: string} = {
-    title: 'Manage Users',
-    icon: 'people'
-  }
 
   constructor() { }
 

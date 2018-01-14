@@ -3,11 +3,10 @@ import { Observable, Subject } from "rxjs/Rx";
 
 @Injectable()
 export class NavService {
-  private sidenavOpenSubject : Subject<boolean>;
+  private sidenavOpenSubject = new Subject<boolean>();
+  pageHeaderTitle = new Subject<Object>();
   
-      constructor() {
-          this.sidenavOpenSubject = new Subject<boolean>();
-      }
+      constructor() {}
   
       toggleSideNav(opening: boolean): void {
           this.sidenavOpenSubject.next(opening);
@@ -16,4 +15,8 @@ export class NavService {
       onSideNavToggle(): Observable<boolean> {
           return this.sidenavOpenSubject;
       }
+
+    //   updatePageTitle(title): void {
+    //     this.pageHeaderTitle.next(title);
+    //   }
 }

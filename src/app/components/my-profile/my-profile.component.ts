@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavService } from '../../services/nav/nav.service';
 
 @Component({
   selector: 'app-my-profile',
@@ -13,9 +14,12 @@ export class MyProfileComponent implements OnInit {
     icon: 'person'
   }
 
-  constructor() { }
+  constructor(private navService: NavService) { }
 
   ngOnInit() {
+
+    this.navService.pageHeaderTitle.next(this.pageInfo);
+
     this.user = {
       profilePicture: 'https://images.unsplash.com/photo-1506919258185-6078bba55d2a?auto=format&fit=crop&w=2915&q=80&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D',
       id: 452975864567653623,

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavService } from '../../services/nav/nav.service';
 
 @Component({
   selector: 'app-manage-users',
@@ -6,11 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./manage-users.component.css']
 })
 export class ManageUsersComponent implements OnInit {
+  pageInfo: {title: string, icon: string} = {
+    title: 'Manage Users',
+    icon: 'people'
+  }
 
-  constructor() { }
+  constructor(private navService: NavService) { }
 
   ngOnInit() {
-   
+    this.navService.pageHeaderTitle.next(this.pageInfo);
   }
 
 }

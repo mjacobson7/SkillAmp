@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavService } from '../../services/nav/nav.service';
 
 @Component({
   selector: 'app-customer-satisfaction',
@@ -13,9 +14,12 @@ export class CustomerSatisfactionComponent implements OnInit {
   reviews: [{}];
   reviewTotals: {};
 
-  constructor() { }
+  constructor(private navService: NavService) { }
 
   ngOnInit() {
+
+    this.navService.pageHeaderTitle.next(this.pageInfo);
+
     this.reviewTotals = {
       overallRating: 4.50,
       reviewsCount: 7

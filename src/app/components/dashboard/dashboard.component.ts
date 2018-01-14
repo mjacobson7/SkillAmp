@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-// import { NavService } from '../../services/nav/nav.service';
+import { NavService } from '../../services/nav/nav.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,12 +13,10 @@ export class DashboardComponent implements OnInit {
   }
 //   openSideNav: boolean = true;
 
-//   constructor(private navService: NavService) {
- 
-//   }
+  constructor(private navService: NavService) {}
 
 ngOnInit() {
-  
+  this.navService.pageHeaderTitle.next(this.pageInfo);
 }
 
 //   ngOnInit(): void {
