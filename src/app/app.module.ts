@@ -23,6 +23,10 @@ import {MatCardModule} from '@angular/material/card';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatIconModule} from '@angular/material/icon';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+
+
 
 
 
@@ -54,6 +58,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ViewAllUsersComponent } from './components/manage-users/view-all-users/view-all-users.component';
 import { FeedbackFiltersComponent } from './components/feedback-filters/feedback-filters.component';
 import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
+import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +87,8 @@ import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.compo
     NotFoundComponent,
     ViewAllUsersComponent,
     FeedbackFiltersComponent,
-    BreadcrumbsComponent
+    BreadcrumbsComponent,
+    LeaderboardComponent
     ],
   imports: [
   BrowserModule,
@@ -112,7 +118,9 @@ import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.compo
     MatCardModule,
     MatToolbarModule,
     MatTooltipModule,
-    MatIconModule
+    MatIconModule,
+    MatTableModule,
+    MatPaginatorModule
     ],
   providers: [
     UserService, 
