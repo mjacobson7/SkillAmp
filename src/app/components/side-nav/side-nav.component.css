@@ -1,7 +1,7 @@
 #sidebar-wrapper {
     z-index: 1;
     position: fixed;
-    top: 46px;
+    top: 50px;
     width: 56px;
     min-height: 100vh;
     overflow-y: hidden;

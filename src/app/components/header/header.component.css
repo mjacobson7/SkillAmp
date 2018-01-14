@@ -1,8 +1,7 @@
 #header-wrapper {
-    height: 46px;
+    height: 50px;
     display: flex;
     flex-direction: row;
-    border-bottom: 1px solid #DDDDDD;
     background-color: #FFFFFF;
     position: fixed;
     width: 100%;
@@ -27,42 +26,32 @@
     user-select: none;
 }
 
-#company-logo img {
+.company-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.company-logo img {
     padding: 0 10px;
-    width: 150px;
-    height: 45px; 
+    width: 200px;
+    /* height: 45px;  */
     user-select: none;   
-}
-
-#company-logo {
-    border-right: 1px solid #F1F1F1; 
-}
-
-.company-logo-resize {
-    width: 194px;
 }
 
 .messages {
     margin-left: auto;
-    border-left: 1px solid #F1F1F1;    
 }
 
-.logout {
-    margin-right: 10px;
-}
-
-.profile, .logout, .messages {
-    line-height: 46px;
-    border-right: 1px solid #F1F1F1;
-    padding: 0 15px;
+.messages {
+    line-height: 50px;
+    height: 50px;
+    width: 50px;
     color: #333333;
-    font-size: 14px;
+    font-size: 24px;
     user-select: none;
     float: right;
-}
-
-.messages i, .profile i, .logout i {
-    line-height: 46px;
+    text-align: center;
 }
 
 .messages:hover, .profile:hover, .logout:hover {
