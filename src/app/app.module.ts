@@ -51,6 +51,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ViewAllUsersComponent } from './components/manage-users/view-all-users/view-all-users.component';
 import { FeedbackFiltersComponent } from './components/feedback-filters/feedback-filters.component';
+import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import { FeedbackFiltersComponent } from './components/feedback-filters/feedback
     PageNotFoundComponent,
     NotFoundComponent,
     ViewAllUsersComponent,
-    FeedbackFiltersComponent
+    FeedbackFiltersComponent,
+    BreadcrumbsComponent
     ],
   imports: [
   BrowserModule,
