@@ -1,9 +1,3 @@
-<mat-card>
-    <mat-card-content>
-        <p-chart type="bar" [data]="recommend" [options]="options" (onDataSelect)="selectData($event)"></p-chart> 
-    </mat-card-content>
-    <mat-card-actions>
-        <button mat-button>Button1</button>
-        <button mat-button>Button2</button>
-    </mat-card-actions>
+<mat-card class="chartWrapper">
+    <div [chart]="chart"></div>
 </mat-card>

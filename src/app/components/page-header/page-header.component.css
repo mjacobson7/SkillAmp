@@ -7,8 +7,9 @@
 
 .page-header {
     height: 70px; 
-    background-color: #6B7179;
-    margin-top: 15px;
+    /* background-color: #6B7179; */
+    background-color: #526279;
+    margin-top: 13px;
 
     display: flex;
     flex-direction: row;

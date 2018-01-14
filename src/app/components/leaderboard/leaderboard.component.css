@@ -1,11 +1,18 @@
 .example-container {
-    display: flex;
-    flex-direction: column;
-    min-width: 500px;
-  }
-  
-  .mat-table {
-    overflow: auto;
-    height: inherit;
-  }
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+}
 
+.mat-table {
+  overflow: auto;
+  max-height: 350px;
+}
+
+.mat-header-cell.mat-sort-header-sorted {
+  color: black;
+}
+
+.leaderboardWrapper {
+  margin-bottom: 20px;
+}
