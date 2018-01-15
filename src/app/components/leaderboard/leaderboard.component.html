@@ -1,12 +1,17 @@
 <mat-card class="leaderboardWrapper">
 
 <div class="example-container">
+    <div class="example-header">
+        <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+      </div>
+    
     <mat-table #table [dataSource]="dataSource">
-  
-      <!-- Position Column -->
-      <ng-container matColumnDef="position">
+      <!-- Rank Column -->
+      <ng-container matColumnDef="rank">
         <mat-header-cell *matHeaderCellDef> Rank </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+        <mat-cell *matCellDef="let element"> {{element.rank}} </mat-cell>
       </ng-container>
   
       <!-- Name Column -->
@@ -16,9 +21,16 @@
       </ng-container>
   
       <!-- Weight Column -->
-      <ng-container matColumnDef="weight">
+      <ng-container matColumnDef="score">
         <mat-header-cell *matHeaderCellDef> Score </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
+        <mat-cell *matCellDef="let element"> {{element.score}} </mat-cell>
+      </ng-container>
+
+      <!-- Supervisor Column -->  
+      <!-- TODO: Make this only visible to system admins -->
+      <ng-container matColumnDef="supervisor">
+        <mat-header-cell *matHeaderCellDef> Supervisor </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.supervisor}} </mat-cell>
       </ng-container>
   
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

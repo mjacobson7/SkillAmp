@@ -1,7 +1,6 @@
 .example-container {
   display: flex;
   flex-direction: column;
-  min-width: 300px;
 }
 
 .mat-table {
@@ -15,4 +14,15 @@
 
 .leaderboardWrapper {
   margin-bottom: 20px;
+  padding: 0;
+}
+
+.example-header {
+  min-height: 64px;
+  padding: 8px 24px 0;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
 }
