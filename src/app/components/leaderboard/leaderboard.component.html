@@ -2,10 +2,11 @@
 
 <div class="example-container">
     <div class="example-header">
+        <mat-card-title>Leaderboard</mat-card-title>
         <mat-form-field>
           <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
         </mat-form-field>
-      </div>
+    </div>
     
     <mat-table #table [dataSource]="dataSource">
       <!-- Rank Column -->
@@ -36,6 +37,11 @@
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
+
+    <mat-paginator #paginator
+    [pageSize]="5"
+    [pageSizeOptions]="[5]">
+    </mat-paginator>
 
   </div>
 

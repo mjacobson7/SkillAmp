@@ -11,26 +11,11 @@ export class DashboardComponent implements OnInit {
     title: 'Dashboard',
     icon: 'dashboard'
   }
-//   openSideNav: boolean = true;
 
   constructor(private navService: NavService) {}
 
 ngOnInit() {
   this.navService.pageHeaderTitle.next(this.pageInfo);
 }
-
-//   ngOnInit(): void {
-//     this.navService.onSideNavToggle().subscribe(
-//         (opening) => {
-//             if (opening) {
-//               console.log("dashboard open");
-//                 this.openSideNav = true;
-//             } else {
-//               console.log("dashboard close");
-//                 this.openSideNav = false;
-//             }
-//         }
-//     );
-// } 
 
 }
