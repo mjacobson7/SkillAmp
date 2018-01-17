@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavService } from '../../services/nav/nav.service';
 
+
 @Component({
   selector: 'app-customer-satisfaction',
   templateUrl: './customer-satisfaction.component.html',
@@ -10,12 +11,12 @@ export class CustomerSatisfactionComponent implements OnInit {
   pageInfo: {title: string, icon: string} = {
     title: 'Customer Satisfaction',
     icon: 'sentiment_very_satisfied'
-  }
+  };
   reviews: [{}];
   reviewTotals: {};
 
   constructor(private navService: NavService) { }
-
+  
   ngOnInit() {
 
     this.navService.pageHeaderTitle.next(this.pageInfo);

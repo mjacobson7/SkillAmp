@@ -8,7 +8,6 @@ import { MessagesComponent } from './components/messages/messages.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CustomerSatisfactionComponent } from './components/customer-satisfaction/customer-satisfaction.component';
 import { SupervisorEvaluationsComponent } from './components/supervisor-evaluations/supervisor-evaluations.component';
-import { MyTeamComponent } from './components/my-team/my-team.component';
 import { ManageUsersComponent } from './components/manage-users/manage-users.component';
 import { AddEditUserComponent } from './components/add-edit-user/add-edit-user.component';
 import { ReportsComponent } from './components/reports/reports.component';
@@ -25,7 +24,6 @@ const appRoutes: Routes = [
         {path: 'dashboard', component: DashboardComponent},
         {path: 'customersatisfaction', component: CustomerSatisfactionComponent},
         {path: 'supervisorevaluations', component: SupervisorEvaluationsComponent},
-        {path: 'my_team', component: MyTeamComponent},
         {path: 'manage_users', component: ManageUsersComponent, children: [
             {path: '', component: ViewAllUsersComponent},
             {path: 'add-user', component: AddEditUserComponent},

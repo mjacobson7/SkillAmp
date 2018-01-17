@@ -56,12 +56,6 @@ export class SideNavComponent implements OnInit {
     },
     {
       icon: 'people',
-      name: 'My Team',
-      roleType: ['supervisor'],
-      route: '/my_team'
-    },
-    {
-      icon: 'people',
       name: 'Manage Users',
       roleType: ['admin'],
       route: '/manage_users'

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 
 
 @Component({
@@ -14,8 +14,6 @@ export class FeedbackFiltersComponent implements OnInit {
   filteredAgent = 'all';
   users;
   
-
-
   constructor() { }
 
   ngOnInit() {
@@ -68,5 +66,6 @@ export class FeedbackFiltersComponent implements OnInit {
     ]
 
   }
+
 
 }

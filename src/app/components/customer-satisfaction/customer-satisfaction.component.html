@@ -6,11 +6,11 @@
     <div class="col-lg-12 overall-rating">
       <h1>{{reviewTotals.overallRating}}</h1>
       <rating [(ngModel)]="reviewTotals.overallRating" [max]="5" [readonly]="true"></rating>
-      <button mat-raised-button color="primary">Filters</button>      
+      <!-- <button mat-raised-button (click)="openDialog()" color="primary">Filters</button> -->
     </div>      
   </div>
   <div class="row">
-    <div class="col-lg-11">
+    <div class="col-lg-12">
       <app-feedback-filters></app-feedback-filters>
     </div>
   </div>

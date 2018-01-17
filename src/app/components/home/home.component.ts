@@ -15,7 +15,6 @@ export class HomeComponent implements OnInit {
   
     ngOnInit(): void {
         this.navService.sidenavOpen.subscribe((opening) => {
-            console.log(opening);
             if(opening) {
                 this.openSideNav = true;
             } else {

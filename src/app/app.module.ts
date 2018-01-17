@@ -30,8 +30,6 @@ import {ChartModule} from 'angular-highcharts';
 
 
 
-
-
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
@@ -42,7 +40,6 @@ import { ChartsComponent } from './components/charts/charts.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { CustomerSatisfactionComponent } from './components/customer-satisfaction/customer-satisfaction.component';
 import { SupervisorEvaluationsComponent } from './components/supervisor-evaluations/supervisor-evaluations.component';
-import { MyTeamComponent } from './components/my-team/my-team.component';
 import { ManageUsersComponent } from './components/manage-users/manage-users.component';
 import { ReportsComponent } from './components/reports/reports.component';
 import { AccountComponent } from './components/account/account.component';
@@ -72,7 +69,6 @@ import { LeaderboardComponent } from './components/leaderboard/leaderboard.compo
     UserProfileComponent,
     CustomerSatisfactionComponent,
     SupervisorEvaluationsComponent,
-    MyTeamComponent,
     ManageUsersComponent,
     ReportsComponent,
     AccountComponent,
@@ -91,7 +87,7 @@ import { LeaderboardComponent } from './components/leaderboard/leaderboard.compo
     LeaderboardComponent
     ],
   imports: [
-  BrowserModule,
+    BrowserModule,
     NgbModule.forRoot(),
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -121,7 +117,7 @@ import { LeaderboardComponent } from './components/leaderboard/leaderboard.compo
     MatIconModule,
     MatTableModule,
     MatPaginatorModule
-    ],
+  ],
   providers: [
     UserService, 
     NavService,
