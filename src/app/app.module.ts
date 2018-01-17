@@ -38,7 +38,7 @@ import { LoginComponent } from './components/login/login.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ChartsComponent } from './components/charts/charts.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
-import { CustomerSatisfactionComponent } from './components/customer-satisfaction/customer-satisfaction.component';
+import { FeedbackComponent } from './components/feedback/feedback.component';
 import { SupervisorEvaluationsComponent } from './components/supervisor-evaluations/supervisor-evaluations.component';
 import { ManageUsersComponent } from './components/manage-users/manage-users.component';
 import { ReportsComponent } from './components/reports/reports.component';
@@ -67,7 +67,7 @@ import { LeaderboardComponent } from './components/leaderboard/leaderboard.compo
     HeaderComponent,
     ChartsComponent,
     UserProfileComponent,
-    CustomerSatisfactionComponent,
+    FeedbackComponent,
     SupervisorEvaluationsComponent,
     ManageUsersComponent,
     ReportsComponent,

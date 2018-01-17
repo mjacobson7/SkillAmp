@@ -3,13 +3,13 @@ import { NavService } from '../../services/nav/nav.service';
 
 
 @Component({
-  selector: 'app-customer-satisfaction',
-  templateUrl: './customer-satisfaction.component.html',
-  styleUrls: ['./customer-satisfaction.component.css']
+  selector: 'app-feedback',
+  templateUrl: './feedback.component.html',
+  styleUrls: ['./feedback.component.css']
 })
-export class CustomerSatisfactionComponent implements OnInit {
+export class FeedbackComponent implements OnInit {
   pageInfo: {title: string, icon: string} = {
-    title: 'Customer Satisfaction',
+    title: 'Feedback',
     icon: 'sentiment_very_satisfied'
   };
   reviews: [{}];

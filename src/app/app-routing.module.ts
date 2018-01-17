@@ -6,7 +6,7 @@ import { HomeComponent } from './components/home/home.component';
 import { MyProfileComponent } from './components/my-profile/my-profile.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { CustomerSatisfactionComponent } from './components/customer-satisfaction/customer-satisfaction.component';
+import { FeedbackComponent } from './components/feedback/feedback.component';
 import { SupervisorEvaluationsComponent } from './components/supervisor-evaluations/supervisor-evaluations.component';
 import { ManageUsersComponent } from './components/manage-users/manage-users.component';
 import { AddEditUserComponent } from './components/add-edit-user/add-edit-user.component';
@@ -22,7 +22,7 @@ const appRoutes: Routes = [
         {path: 'myprofile', component: MyProfileComponent},
         {path: 'messages', component: MessagesComponent},
         {path: 'dashboard', component: DashboardComponent},
-        {path: 'customersatisfaction', component: CustomerSatisfactionComponent},
+        {path: 'feedback', component: FeedbackComponent},
         {path: 'supervisorevaluations', component: SupervisorEvaluationsComponent},
         {path: 'manage_users', component: ManageUsersComponent, children: [
             {path: '', component: ViewAllUsersComponent},
