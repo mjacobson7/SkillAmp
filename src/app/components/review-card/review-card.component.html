@@ -1,29 +1,35 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="card" *ngFor="let review of reviews">
-      <div class="card-header">
-        <p>{{review.rating.overallRating}}</p>
-        <rating [(ngModel)]="review.rating.overallRating" [max]="5" [readonly]="true"></rating>
-      </div>
-      <div class="card-body">
-        <mat-tab-group>
-          <mat-tab label="Liked">
-            <p></p>
-            <p>{{review.liked}}</p>
-          </mat-tab>
-          <mat-tab label="Disliked">
-            <p></p>
-            <p>{{review.disliked}}</p>
-          </mat-tab>
-          <mat-tab label="Product">
-            <p></p>
-            <p>{{review.productDesc}}</p>
-          </mat-tab>
-        </mat-tab-group>
-      </div>
-      <div class="card-footer text-muted">
-        {{review.dateOfRating | date}}
-      </div>
+    <div class="col-xl-4" *ngFor="let review of reviews">
+      <mat-card class="card" >
+        <mat-card-header>
+          <mat-card-title>
+            {{review.rating.overallRating}}
+            <rating [(ngModel)]="review.rating.overallRating" [max]="5" [readonly]="true"></rating>
+          </mat-card-title>
+          <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
+        </mat-card-header>
+        <mat-card-content>
+          <mat-tab-group>
+            <mat-tab label="Liked">
+              <p></p>
+              <p>{{review.liked}}</p>
+            </mat-tab>
+            <mat-tab label="Disliked">
+              <p></p>
+              <p>{{review.disliked}}</p>
+            </mat-tab>
+            <mat-tab label="Product">
+              <p></p>
+              <p>{{review.productDesc}}</p>
+            </mat-tab>
+          </mat-tab-group>
+        </mat-card-content>
+          <!-- <mat-card-actions>
+            <button mat-button>LIKE</button>
+            <button mat-button>SHARE</button>
+          </mat-card-actions> -->
+      </mat-card>
     </div>
   </div>
 </div>

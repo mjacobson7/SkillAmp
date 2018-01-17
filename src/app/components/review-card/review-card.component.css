@@ -6,33 +6,12 @@ a {
     font-size: 13px;
 }
 
-.card-header, .card-footer {
-    background-color: #FFFFFF;
-}
-
-.card-header p {
+.mat-card-title {
     font-size: 20px;
     margin-right: 5px;
     color: #FDC341;
     font-weight: bold;
     display: inline;
-}
-
-.rating-wrapper {
-    margin-bottom: 30px;
-}
-
-.card-body {
-    padding-top: 0;
-}
-
-.ratingContent {
-    padding-top: 15px;
-}
-.ratingContent {
-    font-weight: bold;
-    text-align: right;
-    padding-right: 130px;
 }
 
 .row {
@@ -41,6 +20,5 @@ a {
 }
 
 .card {
-    width: 450px; 
-    margin: 10px 10px 0px 0px;
+    margin: 20px 0px 0px 0px;
 }
