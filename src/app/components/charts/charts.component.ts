@@ -22,7 +22,7 @@ export class ChartsComponent implements OnInit {
       type: 'spline'
     },
     title: {
-      text: 'Score'
+      text: 'Impression Score'
     },
     subtitle: {
       text: 'Liklihood to Recommend'

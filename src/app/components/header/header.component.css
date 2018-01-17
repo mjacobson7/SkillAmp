@@ -1,4 +1,4 @@
-#header-wrapper {
+.header-wrapper {
     height: 50px;
     display: flex;
     flex-direction: row;
@@ -7,24 +7,6 @@
     width: 100%;
     z-index: 1;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-#hamburger-menu {
-    width: 56px;
-    line-height: 46px;
-    text-align: center;
-    border-right: 1px solid #F1F1F1;
-    cursor: pointer;
-}
-
-#hamburger-menu:hover {
-    background-color: #F8F8F8;
-    transition: background-color 0.2s;
-}
-
-#hamburger-menu i {
-    line-height: 46px;
-    user-select: none;
 }
 
 .company-logo {
@@ -36,7 +18,6 @@
 .company-logo img {
     padding: 0 10px;
     width: 200px;
-    /* height: 45px;  */
     user-select: none;   
 }
 

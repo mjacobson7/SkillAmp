@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { NavService } from '../../services/nav/nav.service';
 
 @Component({
@@ -7,7 +7,20 @@ import { NavService } from '../../services/nav/nav.service';
   styleUrls: ['./side-nav.component.css']
 })
 export class SideNavComponent implements OnInit {
-  openSideNav: boolean = true;
+  openSideNav: boolean;
+  position: string = "after";
+  innerWidth: number;
+
+  @HostListener ('window:resize', ['$event'])
+  onResize(event) {
+    if(event.target.innerWidth <= 720 && this.openSideNav) {
+      this.openSideNav = false;
+      this.navService.sidenavOpen.next(this.openSideNav);      
+    } else if(event.target.innerWidth >= 721 && !this.openSideNav) {
+      this.openSideNav = true;
+      this.navService.sidenavOpen.next(this.openSideNav);      
+    }
+  }
   
 
   dashboardOptions: Object[] = [
@@ -75,18 +88,8 @@ export class SideNavComponent implements OnInit {
 
 
   constructor(private navService: NavService) {}
-
   ngOnInit(): void {
-
-    this.navService.onSideNavToggle().subscribe(
-        (opening) => {
-            if (opening) {
-                this.openSideNav = true;
-            } else {
-                this.openSideNav = false;
-            }
-        }
-    );
-}
+    this.openSideNav = true;
+  }
 
 }

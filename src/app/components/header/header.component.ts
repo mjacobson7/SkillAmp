@@ -9,14 +9,7 @@ import { NavService } from '../../services/nav/nav.service';
 export class HeaderComponent implements OnInit {
   sideNavOpen: boolean = true;
  
-  constructor(private navService: NavService) {
-    
-  }
-
-  toggleSideNav() { 
-    this.sideNavOpen = !this.sideNavOpen;
-    this.navService.toggleSideNav(this.sideNavOpen);
-  }
+  constructor(private navService: NavService) {}
 
   ngOnInit() {
   }

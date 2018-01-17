@@ -7,8 +7,6 @@ import { NavService } from '../../services/nav/nav.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  childValue: String;
-  
   openSideNav: boolean = true;
   
     constructor(private navService: NavService) {
@@ -16,15 +14,15 @@ export class HomeComponent implements OnInit {
     }
   
     ngOnInit(): void {
-      this.navService.onSideNavToggle().subscribe(
-          (opening) => {
-              if (opening) {
-                  this.openSideNav = true;
-              } else {
-                  this.openSideNav = false;
-              }
-          }
-      );
+        this.navService.sidenavOpen.subscribe((opening) => {
+            console.log(opening);
+            if(opening) {
+                this.openSideNav = true;
+            } else {
+                this.openSideNav = false;
+            }
+        })
+
   } 
 
 }
