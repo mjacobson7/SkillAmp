@@ -21,8 +21,15 @@ massive(connectionString).then(db => {
     app.set('db', db);
 });
 
+
 //routes 
 require('./features/auth/authRoutes')(app);
+
+app.post('/user-auth', function(req, res) {
+    req.app.get('db').get_user(req.body.username).then(user => {
+        res.status(200).json("You did it!");
+    })
+})
 
 // Angular DIST output folder
 app.use(express.static(path.join(__dirname, '../dist')));
@@ -42,5 +49,7 @@ app.set('port', port);
 const server = http.createServer(app);
 
 server.listen(port, () => console.log(`Running on localhost:${port}`));
+
+module.exports = app;
 
 
