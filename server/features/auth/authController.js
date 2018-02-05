@@ -1,7 +1,7 @@
-const User = require('../users/userModel');
-const jwt    = require('jsonwebtoken');
+const User    = require('../users/userModel');
+const jwt     = require('jsonwebtoken');
 const secrets = require('../../config/secrets');
-const bcrypt = require('bcrypt');
+const bcrypt  = require('bcrypt');
 
 module.exports = {
     login: (req, res) => {

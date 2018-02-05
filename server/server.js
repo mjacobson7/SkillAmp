@@ -45,5 +45,5 @@ const server = http.createServer(app);
 server.listen(port, () => console.log(`Running on localhost:${port}`));
 
 //routes 
-require('./features/auth/authRoutes')(app, User);
 require('./config/database')(app);
+require('./features/auth/authRoutes')(app, User);
