@@ -6,23 +6,20 @@ const app = express();
 const cookieParser = require('cookie-parser');
 const secrets = require('./config/secrets');
 const massive = require('massive');
-massifier   = require('dm-massifier')(secrets.development);
-
-app.use(massifier.middleware());
 
 // used to create, sign, and verify tokens
 var jwt    = require('jsonwebtoken'); 
+
+// Parsers
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false}));
+app.use(cookieParser());
 
 //Connect to database
 let connectionString = secrets.development;
 massive(connectionString).then(db => {
     app.set('db', db);
 });
-
-// Parsers
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false}));
-app.use(cookieParser());
 
 //routes 
 require('./features/auth/authRoutes')(app);
