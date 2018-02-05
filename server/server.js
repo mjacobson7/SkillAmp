@@ -16,11 +16,9 @@ app.use(bodyParser.urlencoded({ extended: false}));
 app.use(cookieParser());
 
 //Connect to database
-let connectionString = secrets.development;
-massive(connectionString).then(db => {
+massive(secrets.development).then(db => {
     app.set('db', db);
 });
-
 
 //routes 
 require('./features/auth/authRoutes')(app);
