@@ -15,13 +15,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(cookieParser());
 
+//routes 
+require('./features/auth/authRoutes')(app);
+
 //Connect to database
 massive(secrets.development).then(db => {
     app.set('db', db);
 });
-
-//routes 
-require('./features/auth/authRoutes')(app);
 
 // Angular DIST output folder
 app.use(express.static(path.join(__dirname, '../dist')));
@@ -42,6 +42,6 @@ const server = http.createServer(app);
 
 server.listen(port, () => console.log(`Running on localhost:${port}`));
 
-module.exports = app;
+
 
 
