@@ -25,12 +25,6 @@ massive(connectionString).then(db => {
 //routes 
 require('./features/auth/authRoutes')(app);
 
-app.post('/user-auth', function(req, res) {
-    req.app.get('db').get_user(req.body.username).then(user => {
-        res.status(200).json("You did it!");
-    })
-})
-
 // Angular DIST output folder
 app.use(express.static(path.join(__dirname, '../dist')));
 
