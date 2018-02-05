@@ -41,6 +41,7 @@
     "datatables.net-buttons": "^1.4.2",
     "datatables.net-buttons-dt": "^1.4.2",
     "datatables.net-dt": "^1.10.16",
+    "dm-massifier": "0.0.4",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
     "font-awesome": "^4.7.0",

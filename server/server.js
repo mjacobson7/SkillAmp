@@ -6,6 +6,9 @@ const app = express();
 const cookieParser = require('cookie-parser');
 const secrets = require('./config/secrets');
 const massive = require('massive');
+massifier   = require('dm-massifier')(secrets.development);
+
+app.use(massifier.middleware());
 
 // used to create, sign, and verify tokens
 var jwt    = require('jsonwebtoken'); 
