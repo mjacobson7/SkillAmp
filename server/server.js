@@ -21,6 +21,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(cookieParser());
 
+//routes 
+require('./features/auth/authRoutes')(app);
+
 // Angular DIST output folder
 app.use(express.static(path.join(__dirname, '../dist')));
 
@@ -31,7 +34,6 @@ app.use(express.static('../dist'));
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../dist/index.html'));
 });
-        
 
 //Set Port
 const port = process.env.PORT || '3000';
@@ -41,6 +43,4 @@ const server = http.createServer(app);
 
 server.listen(port, () => console.log(`Running on localhost:${port}`));
 
-//routes 
-// require('./config/database')(app);
-require('./features/auth/authRoutes')(app);
+

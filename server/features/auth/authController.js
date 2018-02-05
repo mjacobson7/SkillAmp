@@ -1,4 +1,3 @@
-const User    = require('../users/userModel');
 const jwt     = require('jsonwebtoken');
 const secrets = require('../../config/secrets');
 const bcrypt  = require('bcrypt');
@@ -26,18 +25,18 @@ module.exports = {
 
     createUser: (req, res, next) => {
         console.log(req.body);
-        User.create({
-            username: req.body.username,
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            email: req.body.email,
-            password: req.body.password
-        }) 
-        .then(user => {
-            res.status(200).json("You have successfully created a new account!");
-        })
-        .catch(error => {
-            res.status(401).json("There was an unexpected error");
-        });
+        // User.create({
+        //     username: req.body.username,
+        //     firstName: req.body.firstName,
+        //     lastName: req.body.lastName,
+        //     email: req.body.email,
+        //     password: req.body.password
+        // }) 
+        // .then(user => {
+        //     res.status(200).json("You have successfully created a new account!");
+        // })
+        // .catch(error => {
+        //     res.status(401).json("There was an unexpected error");
+        // });
     }
 }
