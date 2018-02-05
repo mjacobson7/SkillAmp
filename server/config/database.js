@@ -1,8 +1,9 @@
-const secrets = require('./secrets');
-const Sequelize = require('sequelize');
+const massive = require('massive');
+const secrets = require('../config/secrets');
 
-const sequelize = new Sequelize(secrets.development, {
-    operatorsAliases: false
-});
-
-module.exports = sequelize;
+module.exports = (app) => {
+    let connectionString = secrets.development;
+    massive(connectionString).then(db => {
+        app.set('db', db);
+       });
+}

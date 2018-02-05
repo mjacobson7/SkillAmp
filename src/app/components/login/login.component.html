@@ -5,8 +5,10 @@
         <img class="companyLogo" src="../../assets/dog blue logo.png" alt="">
         <div class="card">
           <div class="card-body">
-
-            <form #loginForm="ngForm" (ngSubmit)="login(loginForm.value)">
+            <div class="alert alert-danger" role="alert" *ngIf="invalidLogin">
+              Invalid username and/or password.
+            </div>
+            <form (ngSubmit)="login(f.value)" #f="ngForm">
               <div class="form-group">
                 <input 
                 type="email" 

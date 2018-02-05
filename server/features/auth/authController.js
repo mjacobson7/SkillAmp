@@ -1,38 +1,39 @@
 const User = require('../users/userModel');
+const jwt    = require('jsonwebtoken');
+const secrets = require('../../config/secrets');
+const bcrypt = require('bcrypt');
 
 module.exports = {
     login: (req, res) => {
-        var username = req.body.username,
-        password = req.body.password;
-        User.findOne({ where: { username: username } }).then(function (user) {
-            if (!user) {
-                res.status(200).json("Can't find that user");
-            } else if (!user.validPassword(password)) {
-                res.status(200).json("Password is not valid");
+        req.app.get('db').get_user(req.body.username).then(user => {
+            if(user[0]) {
+                bcrypt.compare(req.body.password, user[0].password, function(err, result) {
+                    if(result) {
+                        var token = jwt.sign({user}, secrets.tokenSecret, {expiresIn: '1h'});
+                        res.status(200).json({
+                            token: token,
+                            user: user
+                        })
+                    } else {
+                        res.status(200).json("Invalid username and/or password.");
+                    }
+                });
             } else {
-                req.session.user = user.dataValues;
-                res.status(200).json("You've reached the dashboard page");
+                res.status(200).json("Could not find that user.");
             }
-        });
-    },
-
-    logout: (req, res) => {
-        if (req.session.user && req.cookies.user_sid) {
-            res.clearCookie('user_sid');
-            res.status(200).send("You've been logged out");
-        } else {
-            res.status(200).send("You've reached the login page");
-        }
+        })
     },
 
     createUser: (req, res, next) => {
+        console.log(req.body);
         User.create({
             username: req.body.username,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
             email: req.body.email,
             password: req.body.password
         }) 
         .then(user => {
-            req.session.user = user.dataValues;
             res.status(200).json("You have successfully created a new account!");
         })
         .catch(error => {

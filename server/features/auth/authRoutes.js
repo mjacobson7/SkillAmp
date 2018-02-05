@@ -1,11 +1,9 @@
 var authController = require('./authController');
-var sessions = require('../../config/sessions');
 
-module.exports = (app, sessionChecker, User) => {
+module.exports = (app, User) => {
 
-    app.post('/user-auth', sessions.sessionChecker, authController.login);
-    
-    app.get('/user-auth', authController.logout);
-    
-    app.post('/createUser', authController.createUser)
+    app.post('/user-auth', authController.login);
+        
+    app.post('/createUser', authController.createUser);
+
 }

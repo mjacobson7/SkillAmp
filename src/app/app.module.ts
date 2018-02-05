@@ -6,6 +6,7 @@ import { ChartsModule } from 'ng2-charts';
 import { NavService } from '../app/services/nav/nav.service';
 import { DataService } from '../app/services/data/data.service';
 import { UserService } from '../app/services/user-auth/user-auth.service';
+import { AuthService } from './services/auth/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppErrorHandler } from './common/app-error-handler';
@@ -87,7 +88,7 @@ import { LeaderboardComponent } from './components/leaderboard/leaderboard.compo
     LeaderboardComponent
     ],
   imports: [
-    BrowserModule,
+  BrowserModule,
     NgbModule.forRoot(),
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -121,6 +122,7 @@ import { LeaderboardComponent } from './components/leaderboard/leaderboard.compo
   providers: [
     UserService, 
     NavService,
+    AuthService,
     DataService,
     { provide: ErrorHandler, useClass: AppErrorHandler}
   ],

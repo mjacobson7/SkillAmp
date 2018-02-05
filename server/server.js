@@ -3,12 +3,21 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const http = require('http');
 const app = express();
-const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const secrets = require('./config/secrets');
 const User = require('./features/users/userModel');
-const sessionChecker = require('./config/sessions');
 
+// const massive = require('massive');
+// const connectionString = secrets.development;
+
+var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
+
+// massive(connectionString).then(db => {
+//      app.set('db', db);
+//      db.get_users().then(tables => {
+//          console.log(tables);
+//      })
+//     });
 
 // Parsers
 app.use(bodyParser.json());
@@ -25,26 +34,7 @@ app.use(express.static('../dist'));
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../dist/index.html'));
 });
-
-//Sessions
-app.use(session({
-    key: 'user_sid',
-    secret: secrets.sessionSecret,
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-    expires: 600000
-    }
-}));
         
-// This middleware will check if user's cookie is still saved in browser and user is not set, then automatically log the user out.
-// This usually happens when you stop your express server after login, your cookie still remains saved in the browser.
-app.use((req, res, next) => {
-    if (req.cookies.user_sid && !req.session.user) {
-        res.clearCookie('user_sid');        
-    }
-    next();
-});
 
 //Set Port
 const port = process.env.PORT || '3000';
@@ -55,5 +45,5 @@ const server = http.createServer(app);
 server.listen(port, () => console.log(`Running on localhost:${port}`));
 
 //routes 
-require('./config/sessions');
 require('./features/auth/authRoutes')(app, User);
+require('./config/database')(app);
