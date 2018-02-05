@@ -5,19 +5,16 @@ const http = require('http');
 const app = express();
 const cookieParser = require('cookie-parser');
 const secrets = require('./config/secrets');
-const User = require('./features/users/userModel');
+const massive = require('massive');
 
-// const massive = require('massive');
-// const connectionString = secrets.development;
+// used to create, sign, and verify tokens
+var jwt    = require('jsonwebtoken'); 
 
-var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
-
-// massive(connectionString).then(db => {
-//      app.set('db', db);
-//      db.get_users().then(tables => {
-//          console.log(tables);
-//      })
-//     });
+//Connect to database
+let connectionString = secrets.development;
+massive(connectionString).then(db => {
+    app.set('db', db);
+});
 
 // Parsers
 app.use(bodyParser.json());
@@ -45,5 +42,5 @@ const server = http.createServer(app);
 server.listen(port, () => console.log(`Running on localhost:${port}`));
 
 //routes 
-require('./config/database')(app);
-require('./features/auth/authRoutes')(app, User);
+// require('./config/database')(app);
+require('./features/auth/authRoutes')(app);

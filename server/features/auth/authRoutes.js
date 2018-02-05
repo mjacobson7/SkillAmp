@@ -1,6 +1,6 @@
 var authController = require('./authController');
 
-module.exports = (app, User) => {
+module.exports = (app) => {
 
     app.post('/user-auth', authController.login);
         
