@@ -10,7 +10,7 @@ const massive = require('massive');
 //Connect to database
 massive(secrets.development).then(db => {
     app.set('db', db);
-});
+
 
 // used to create, sign, and verify tokens
 var jwt = require('jsonwebtoken'); 
@@ -42,6 +42,7 @@ server.listen(port, () => console.log(`Running on localhost:${port}`));
 //routes 
 require('./features/auth/authRoutes')(app);
 
+});
 
 
 
