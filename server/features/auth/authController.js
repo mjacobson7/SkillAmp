@@ -4,7 +4,7 @@ const bcrypt  = require('bcrypt');
 
 module.exports = {
     login: (req, res) => {
-        res.status(200).json("It worked");
+        res.status(200).json(req);
         // req.app.get('db').get_user(req.body.username).then(user => {
         //     if(user[0]) {
         //         bcrypt.compare(req.body.password, user[0].password, function(err, result) {
