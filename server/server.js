@@ -40,13 +40,7 @@ const server = http.createServer(app);
 server.listen(port, () => console.log(`Running on localhost:${port}`));
 
 //routes 
-// require('./features/auth/authRoutes')(app);
-
-app.post('/user-auth', function(req, res) {
-    req.app.get('db').get_user(req.body.username).then(function(response) {
-        res.status(200).send(response);
-    })
-})
+require('./features/auth/authRoutes')(app);
 
 
 
