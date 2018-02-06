@@ -8,7 +8,7 @@ const secrets = require('./config/secrets');
 const massive = require('massive');
 
 //Connect to database
-massive(secrets.development).then(db => {
+massive(secrets.development).then(function(db) {
     app.set('db', db);
 });
 
