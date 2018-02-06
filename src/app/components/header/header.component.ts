@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
   constructor(private navService: NavService, private authService: AuthService) {}
 
   ngOnInit() {
- 
+
   }
 
 }

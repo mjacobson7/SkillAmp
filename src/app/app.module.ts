@@ -7,6 +7,7 @@ import { NavService } from '../app/services/nav/nav.service';
 import { DataService } from '../app/services/data/data.service';
 import { UserService } from '../app/services/user-auth/user-auth.service';
 import { AuthService } from './services/auth/auth.service';
+import { AuthGuardService } from '../app/services/auth/auth-guard.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppErrorHandler } from './common/app-error-handler';
@@ -88,7 +89,7 @@ import { LeaderboardComponent } from './components/leaderboard/leaderboard.compo
     LeaderboardComponent
     ],
   imports: [
-  BrowserModule,
+    BrowserModule,
     NgbModule.forRoot(),
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -124,6 +125,7 @@ import { LeaderboardComponent } from './components/leaderboard/leaderboard.compo
     NavService,
     AuthService,
     DataService,
+    AuthGuardService,
     { provide: ErrorHandler, useClass: AppErrorHandler}
   ],
   bootstrap: [AppComponent]

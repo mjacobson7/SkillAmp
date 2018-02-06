@@ -13,8 +13,7 @@ module.exports = {
                 if(user.validPassword(req.body.password)) {
                     var token = jwt.sign({user}, secrets.tokenSecret, {expiresIn: '1h'});
                     res.status(200).json({
-                        token: token,
-                        user: user
+                        token: token
                     })
                 } else {
                     res.status(200).json("Invalid username and/or password.");

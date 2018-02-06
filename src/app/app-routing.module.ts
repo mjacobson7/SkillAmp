@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { AuthGuardService } from './services/auth/auth-guard.service';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { MyProfileComponent } from './components/my-profile/my-profile.component';
@@ -18,7 +19,8 @@ import { ViewAllUsersComponent } from './components/manage-users/view-all-users/
 
 const appRoutes: Routes = [
     {path: 'login', component: LoginComponent},
-    {path: '', component: HomeComponent, children: [
+    {path: '', pathMatch: 'full', redirectTo: '/login'},    
+    {path: '', component: HomeComponent, canActivate: [AuthGuardService], children: [
         {path: 'myprofile', component: MyProfileComponent},
         {path: 'messages', component: MessagesComponent},
         {path: 'dashboard', component: DashboardComponent},
@@ -40,7 +42,7 @@ const appRoutes: Routes = [
 
 @NgModule({
     imports: [RouterModule.forRoot(appRoutes)],
-    exports: [RouterModule]
+exports: [RouterModule]
 })
 
 export class AppRoutingModule {

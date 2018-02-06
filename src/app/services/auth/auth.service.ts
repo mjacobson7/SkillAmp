@@ -28,12 +28,12 @@ export class AuthService {
     localStorage.removeItem('token');
   }
 
-  get currentUser() {
+  currentUser() {
     let token = localStorage.getItem('token');
-    if(!token) return null
+    if(!token) return false;
 
     let newToken = new JwtHelper().decodeToken(token);
-    return newToken.user[0];
+    return newToken.user;
   }
 
   isLoggedIn() {
