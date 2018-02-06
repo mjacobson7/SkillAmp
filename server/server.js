@@ -13,20 +13,12 @@ massive(secrets.development).then(db => {
 });
 
 // used to create, sign, and verify tokens
-var jwt    = require('jsonwebtoken'); 
+var jwt = require('jsonwebtoken'); 
 
 // Parsers
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(cookieParser());
-
-//routes 
-require('./features/auth/authRoutes')(app);
-
-//Connect to database
-// massive(secrets.development).then(db => {
-//     app.set('db', db);
-// });
 
 // Angular DIST output folder
 app.use(express.static(path.join(__dirname, '../dist')));
@@ -46,6 +38,9 @@ app.set('port', port);
 const server = http.createServer(app);
 
 server.listen(port, () => console.log(`Running on localhost:${port}`));
+
+//routes 
+require('./features/auth/authRoutes')(app);
 
 
 
