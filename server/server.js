@@ -7,6 +7,11 @@ const cookieParser = require('cookie-parser');
 const secrets = require('./config/secrets');
 const massive = require('massive');
 
+//Connect to database
+massive(secrets.development).then(db => {
+    app.set('db', db);
+});
+
 // used to create, sign, and verify tokens
 var jwt    = require('jsonwebtoken'); 
 
@@ -19,9 +24,9 @@ app.use(cookieParser());
 require('./features/auth/authRoutes')(app);
 
 //Connect to database
-massive(secrets.development).then(db => {
-    app.set('db', db);
-});
+// massive(secrets.development).then(db => {
+//     app.set('db', db);
+// });
 
 // Angular DIST output folder
 app.use(express.static(path.join(__dirname, '../dist')));
