@@ -10,16 +10,19 @@ const massive = require('massive');
 //Connect to database
 massive(secrets.development).then(function(db) {
     app.set('db', db);
+    // app.get('db').get_user('mjacobson7').then(user => {
+    //     console.log(user);
+    // })
+
+    //routes 
+    require('./features/auth/authRoutes')(app);
 });
-
-
-// used to create, sign, and verify tokens
-var jwt = require('jsonwebtoken'); 
 
 // Parsers
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false}));
+app.use(bodyParser.urlencoded({ extended: true}));
 app.use(cookieParser());
+
 
 // Angular DIST output folder
 app.use(express.static(path.join(__dirname, '../dist')));
@@ -32,16 +35,17 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../dist/index.html'));
 });
 
-//Set Port
+//Create Server
 const port = process.env.PORT || '3000';
 app.set('port', port);
-
 const server = http.createServer(app);
-
 server.listen(port, () => console.log(`Running on localhost:${port}`));
 
-//routes 
-require('./features/auth/authRoutes')(app);
+// used to create, sign, and verify tokens
+var jwt = require('jsonwebtoken'); 
+
+
+
 
 
 
