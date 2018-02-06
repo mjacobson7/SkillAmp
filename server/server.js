@@ -5,18 +5,6 @@ const http = require('http');
 const app = express();
 const cookieParser = require('cookie-parser');
 const secrets = require('./config/secrets');
-const massive = require('massive');
-
-//Connect to database
-massive(secrets.development).then(function(db) {
-    app.set('db', db);
-    // app.get('db').get_user('mjacobson7').then(user => {
-    //     console.log(user);
-    // })
-
-    //routes 
-    require('./features/auth/authRoutes')(app);
-});
 
 // Parsers
 app.use(bodyParser.json());
@@ -43,6 +31,9 @@ server.listen(port, () => console.log(`Running on localhost:${port}`));
 
 // used to create, sign, and verify tokens
 var jwt = require('jsonwebtoken'); 
+
+//routes 
+require('./features/auth/authRoutes')(app);
 
 
 
