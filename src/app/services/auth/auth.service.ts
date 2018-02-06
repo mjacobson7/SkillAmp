@@ -14,8 +14,7 @@ export class AuthService {
   login(credentials) {
    return this.http.post('/user-auth', credentials)
       .map(response => {
-        let result = JSON.stringify(response);
-        console.log(result);
+        console.log(response);
         // const result = response.json();
         // if(result && result.token) {
         //   localStorage.setItem('token', result.token);
