@@ -2,7 +2,7 @@
   <a href="" class="company-logo"><img src="../../assets/First_Impression_302.png" alt=""></a>
   <mat-icon routerLink="/messages" matTooltip="Notifications" class="messages">notifications</mat-icon> 
 
-  <button mat-button [matMenuTriggerFor]="menu">{{authService.currentUser.username}} </button>
+  <button mat-button [matMenuTriggerFor]="menu">name</button>
   <mat-menu #menu="matMenu">
     <button routerLink="/myprofile" mat-menu-item>Profile</button>
     <button mat-menu-item (click)="authService.logout()">Logout</button>
