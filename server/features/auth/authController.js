@@ -32,11 +32,10 @@ module.exports = {
             password: req.body.password
         }) 
         .then(user => {
-            req.session.user = user.dataValues;
             res.status(200).json("You have successfully created a new account!");
         })
         .catch(error => {
-            res.status(401).json("There was an unexpected error");
+            res.status(401).json("There was an unexpected error", error);
         });
     }
 }
