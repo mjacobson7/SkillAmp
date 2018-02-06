@@ -14,11 +14,12 @@ export class AuthService {
   login(credentials) {
    return this.http.post('/user-auth', credentials)
       .map(response => {
-        const result = response.json();
-        if(result && result.token) {
-          localStorage.setItem('token', result.token);
-          return true;
-        }
+        console.log(response);
+        // const result = response.json();
+        // if(result && result.token) {
+        //   localStorage.setItem('token', result.token);
+        //   return true;
+        // }
         return false;
       })
   }
