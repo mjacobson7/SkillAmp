@@ -13,7 +13,7 @@ export class TablesComponent implements OnInit {
   @Input() headerButtons: any[];
   @Input() actionButtons: any[];
   autoResizeTable: boolean;
-  // selectedUsers: any[]; --is this used for anything?
+  selectedUsers: any[];
 
   constructor(private route: Router) { }
   

@@ -1,9 +1,9 @@
-<img *ngIf="user?.profilePicture" src="{{user?.profilePicture}}" class="img-fluid img-thumbnail profile-picture" alt="profile-picture">
-<img *ngIf="!user?.profilePicture" src="../../../assets/profile-placeholder.png" class="img-fluid img-thumbnail profile-picture" alt="profile-picture">
+<!-- <img *ngIf="user?.profilePicture" src="{{user?.profilePicture}}" class="img-fluid img-thumbnail profile-picture" alt="profile-picture">
+<img *ngIf="!user?.profilePicture" src="../../../assets/profile-placeholder.png" class="img-fluid img-thumbnail profile-picture" alt="profile-picture"> -->
 
 <!-- ../../../assets/profile-placeholder.png User this as the default profile picture-->
 
-<p-fileUpload 
+<!-- <p-fileUpload 
   chooseLabel="Change Photo" 
   mode="basic" 
   name="demo[]" 
@@ -12,33 +12,33 @@
   maxFileSize="1000000" 
   (onUpload)="onBasicUpload($event)" 
   auto="true">
-</p-fileUpload>
+</p-fileUpload> -->
 
 <form>
   <div class="form-group">
     <label for="agentId">ID</label>
-    <input type="text" class="form-control form-control-sm" id="agentId" value="{{user?.id}}">
+    <input type="text" class="form-control form-control-sm" id="agentId" >
   </div>
   
   <div class="form-group">
     <label for="username">Username</label>
-      <input type="text" class="form-control form-control-sm" id="username" value="{{user?.username}}">
+      <input type="text" class="form-control form-control-sm" id="username" >
   </div>
 
   <div class="form-check">
     <label class="form-check-label">
-      <input class="form-check-input" type="checkbox" value="" name="passwordChange" [(ngModel)]="passwordChange" (click)="onChangePassword()">
+      <input class="form-check-input" type="checkbox" value="" name="passwordChange">
       Change Password
     </label>
   </div><br>
 
-  <div class="form-group" *ngIf="passwordChange">
+  <div class="form-group" >
     <label for="newPassword">New Password</label>
       <input type="password" class="form-control form-control-sm" id="newPassword">
       <small id="emailHelp" class="form-text text-muted">New password must be at least 8 characters</small>            
   </div>
 
-  <div class="form-group" *ngIf="passwordChange">
+  <div class="form-group" >
     <label for="confirmPassword">Confirm Password</label>
       <input type="password" class="form-control form-control-sm" id="confirmPassword">
       <small id="emailHelp" class="form-text text-muted">New password must be at least 8 characters</small>            
@@ -46,27 +46,27 @@
 
   <div class="form-group">
     <label for="firstName">First Name</label>
-      <input type="text" class="form-control form-control-sm" id="firstName" value="{{user?.firstName}}">
+      <input type="text" class="form-control form-control-sm" id="firstName" >
   </div>
 
   <div class="form-group">
     <label for="lastName">Last Name</label>
-      <input type="text" class="form-control form-control-sm" id="lastName" value="{{user?.lastName}}">
+      <input type="text" class="form-control form-control-sm" id="lastName" >
   </div>
 
   <div class="form-group">
     <label for="emailAddress">Email Address</label>
-      <input type="email" class="form-control form-control-sm" id="emailAddress" value="{{user?.email}}">
+      <input type="email" class="form-control form-control-sm" id="emailAddress" >
   </div>
 
   <div class="form-group">
     <label for="supervisor">Supervisor</label>
-      <input type="supervisor" class="form-control form-control-sm" id="supervisor" value="{{user?.supervisor.fullName}}">
+      <input type="supervisor" class="form-control form-control-sm" id="supervisor" >
   </div>
 
   <div class="form-group">
       <label for="role">Role</label>
-          <p-chips name="role" [ngModel]="user?.roles" ></p-chips>          
+          <p-chips name="role"  ></p-chips>          
     </div><br>
 
     <button type="submit" class="btn btn-primary">Save Changes</button>

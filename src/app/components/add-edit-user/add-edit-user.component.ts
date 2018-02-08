@@ -13,6 +13,7 @@ export class AddEditUserComponent implements OnInit {
     title: 'User', 
     icon: 'person'
   }
+  username;
 
   constructor(private route: ActivatedRoute) { }
 

@@ -12,8 +12,9 @@ export class FeedbackComponent implements OnInit {
     title: 'Feedback',
     icon: 'sentiment_very_satisfied'
   };
-  reviews: [{}];
-  reviewTotals: {};
+  reviews;
+  reviewTotals;
+  overallRating;
 
   constructor(private navService: NavService) { }
   

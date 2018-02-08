@@ -4,8 +4,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChartsModule } from 'ng2-charts';
 import { NavService } from '../app/services/nav/nav.service';
-import { DataService } from '../app/services/data/data.service';
-import { UserService } from '../app/services/user-auth/user-auth.service';
+// import { DataService } from '../app/services/data/data.service';
+// import { UserService } from '../app/services/user-auth/user-auth.service';
 import { AuthService } from './services/auth/auth.service';
 import { AuthGuardService } from '../app/services/auth/auth-guard.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -41,7 +41,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { ChartsComponent } from './components/charts/charts.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { FeedbackComponent } from './components/feedback/feedback.component';
-import { TrainingComponent } from './components/training/training.component';
+import { TrainingComponent} from './components/training/training.component';
 import { ManageUsersComponent } from './components/manage-users/manage-users.component';
 import { ReportsComponent } from './components/reports/reports.component';
 import { AccountComponent } from './components/account/account.component';
@@ -121,10 +121,10 @@ import { LeaderboardComponent } from './components/leaderboard/leaderboard.compo
     MatPaginatorModule
   ],
   providers: [
-    UserService, 
+    // UserService, 
     NavService,
     AuthService,
-    DataService,
+    // DataService,
     AuthGuardService,
     { provide: ErrorHandler, useClass: AppErrorHandler}
   ],

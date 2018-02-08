@@ -3,10 +3,11 @@
   <mat-icon routerLink="/messages" matTooltip="Notifications" class="messages">notifications</mat-icon> 
 
   <button mat-button [matMenuTriggerFor]="menu">
-    {{authService.currentUser() ? authService.currentUser().username : ''}}
+    Account
+    <!-- {{authService.currentUser() ? authService.currentUser().username : ''}} -->
   </button>
   <mat-menu #menu="matMenu">
     <button routerLink="/myprofile" mat-menu-item>Profile</button>
-    <button mat-menu-item (click)="authService.logout()">Logout</button>
+    <!-- <button mat-menu-item (click)="authService.logout()">Logout</button> -->
   </mat-menu>
 </div>
