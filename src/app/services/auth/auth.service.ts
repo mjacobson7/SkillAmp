@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthService {
+  authToken;
+  user;
 
   constructor(private http: Http, private router: Router) { }
 
@@ -16,7 +18,7 @@ export class AuthService {
       .map(response => {
         const result = response.json();
         if(result && result.token) {
-          localStorage.setItem('token', result.token);
+          this.storeUserData(result.token, result.user);
           return true;
         }
         return false;
@@ -26,18 +28,20 @@ export class AuthService {
   logout() {
     this.router.navigate(['/login']);
     localStorage.removeItem('token');
-  }
-
-  currentUser() {
-    let token = localStorage.getItem('token');
-    if(!token) return false;
-
-    let newToken = new JwtHelper().decodeToken(token);
-    return newToken.user;
+    localStorage.removeItem('user');
+    this.authToken = null;
+    this.user = null;
   }
 
   isLoggedIn() {
     return tokenNotExpired();
+  }
+
+  storeUserData(token, user) {
+    localStorage.setItem('token', token);
+    localStorage.setItem('user', JSON.stringify(user));
+    this.authToken = token;
+    this.user = user;
   }
 
 
