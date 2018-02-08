@@ -21,65 +21,6 @@ export class SideNavComponent implements OnInit {
       this.navService.sidenavOpen.next(this.openSideNav);      
     }
   }
-  
-
-  dashboardOptions: Object[] = [
-    {
-      icon: 'dashboard',
-      name: 'Dashboard',
-      roleType: ['user', 'supervisor', 'admin'],
-      route: '/dashboard'
-    },
-    {
-      icon: 'person',
-      name: 'My Profile',
-      roleType: ['user'],
-      route: '/myprofile'
-    },
-    {
-      icon: 'email',
-      name: 'Messages',
-      roleType: ['user'],
-      route: '/messages'
-    },
-    {
-      icon: 'sentiment_very_satisfied',
-      name: 'Feedback',
-      roleType: ['user'],
-      route: '/feedback'
-    },
-    {
-      icon: 'domain',
-      name: 'Supervisor Evaluations',
-      roleType: ['user'],
-      route: '/supervisorevaluations'
-    },
-    {
-      icon: 'people',
-      name: 'Manage Users',
-      roleType: ['admin'],
-      route: '/manage_users'
-    },
-    {
-      icon: 'assignment',
-      name: 'Reports',
-      roleType: ['admin', 'supervisor'],
-      route: '/reports'
-    },
-    {
-      icon: 'account_balance',
-      name: 'Account',
-      roleType: ['admin'],
-      route: '/account'
-    },
-    {
-      icon: 'settings',
-      name: 'Global Settings',
-      roleType: ['admin'],
-      route: '/globalsettings'
-    } 
-  ];
-
 
   constructor(private navService: NavService) {}
   ngOnInit(): void {

@@ -1,8 +1,52 @@
 <div id="sidebar-wrapper" [ngClass]="{'sideBar': openSideNav}">
-  <div matTooltip="{{openSideNav ? '' : item.name}}" [matTooltipPosition]="position" routerLink="{{item.route}}" id=sidebar-nav *ngFor="let item of dashboardOptions; let i = index" routerLinkActive="selected-row">
-      <i id="icon" class="material-icons md-light">{{item.icon}}</i>
-      <span id="side-nav-menu-item" [hidden]="!openSideNav">{{item.name}}</span>
+  
+  <div matTooltip="{{openSideNav ? '' : 'Dashboard'}}" [matTooltipPosition]="position" routerLink="/dashboard" id=sidebar-nav routerLinkActive="selected-row">
+    <i id="icon" class="material-icons md-light">dashboard</i>
+    <span id="side-nav-menu-item" [hidden]="!openSideNav">Dashboard</span>
   </div>
+
+  <div matTooltip="{{openSideNav ? '' : 'Profile'}}" [matTooltipPosition]="position" routerLink="/profile" id=sidebar-nav routerLinkActive="selected-row">
+    <i id="icon" class="material-icons md-light">person</i>
+    <span id="side-nav-menu-item" [hidden]="!openSideNav">Profile</span>
+  </div>
+  
+  <div matTooltip="{{openSideNav ? '' : 'Messages'}}" [matTooltipPosition]="position" routerLink="/messages" id=sidebar-nav routerLinkActive="selected-row">
+    <i id="icon" class="material-icons md-light">email</i>
+    <span id="side-nav-menu-item" [hidden]="!openSideNav">Messages</span>
+  </div>
+
+  <div matTooltip="{{openSideNav ? '' : 'Feedback'}}" [matTooltipPosition]="position" routerLink="/feedback" id=sidebar-nav routerLinkActive="selected-row">
+    <i id="icon" class="material-icons md-light">sentiment_very_satisfied</i>
+    <span id="side-nav-menu-item" [hidden]="!openSideNav">Feedback</span>
+  </div>
+
+  <div matTooltip="{{openSideNav ? '' : 'Training'}}" [matTooltipPosition]="position" routerLink="/training" id=sidebar-nav routerLinkActive="selected-row">
+    <i id="icon" class="material-icons md-light">domain</i>
+    <span id="side-nav-menu-item" [hidden]="!openSideNav">Training</span>
+  </div>
+
+  <div matTooltip="{{openSideNav ? '' : 'Manage Users'}}" [matTooltipPosition]="position" routerLink="/manage_users" id=sidebar-nav routerLinkActive="selected-row">
+    <i id="icon" class="material-icons md-light">people</i>
+    <span id="side-nav-menu-item" [hidden]="!openSideNav">Manage Users</span>
+  </div>
+
+  <div matTooltip="{{openSideNav ? '' : 'Reports'}}" [matTooltipPosition]="position" routerLink="/reports" id=sidebar-nav routerLinkActive="selected-row">
+    <i id="icon" class="material-icons md-light">assignment</i>
+    <span id="side-nav-menu-item" [hidden]="!openSideNav">Reports</span>
+  </div>
+
+  <div matTooltip="{{openSideNav ? '' : 'Account'}}" [matTooltipPosition]="position" routerLink="/account" id=sidebar-nav routerLinkActive="selected-row">
+    <i id="icon" class="material-icons md-light">account_balance</i>
+    <span id="side-nav-menu-item" [hidden]="!openSideNav">Account</span>
+  </div>
+
+  <div matTooltip="{{openSideNav ? '' : 'Training'}}" [matTooltipPosition]="position" routerLink="/settings" id=sidebar-nav routerLinkActive="selected-row">
+    <i id="icon" class="material-icons md-light">settings</i>
+    <span id="side-nav-menu-item" [hidden]="!openSideNav">Settings</span>
+  </div>
+
+  
+
 </div>
 
 

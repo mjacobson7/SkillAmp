@@ -8,7 +8,7 @@ import { MyProfileComponent } from './components/my-profile/my-profile.component
 import { MessagesComponent } from './components/messages/messages.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { FeedbackComponent } from './components/feedback/feedback.component';
-import { SupervisorEvaluationsComponent } from './components/supervisor-evaluations/supervisor-evaluations.component';
+import { TrainingComponent } from './components/training/training.component';
 import { ManageUsersComponent } from './components/manage-users/manage-users.component';
 import { AddEditUserComponent } from './components/add-edit-user/add-edit-user.component';
 import { ReportsComponent } from './components/reports/reports.component';
@@ -21,11 +21,11 @@ const appRoutes: Routes = [
     {path: 'login', component: LoginComponent},
     {path: '', pathMatch: 'full', redirectTo: '/login'},    
     {path: '', component: HomeComponent, canActivate: [AuthGuardService], children: [
-        {path: 'myprofile', component: MyProfileComponent},
+        {path: 'profile', component: MyProfileComponent},
         {path: 'messages', component: MessagesComponent},
         {path: 'dashboard', component: DashboardComponent},
         {path: 'feedback', component: FeedbackComponent},
-        {path: 'supervisorevaluations', component: SupervisorEvaluationsComponent},
+        {path: 'training', component: TrainingComponent},
         {path: 'manage_users', component: ManageUsersComponent, children: [
             {path: '', component: ViewAllUsersComponent},
             {path: 'add-user', component: AddEditUserComponent},
@@ -33,7 +33,7 @@ const appRoutes: Routes = [
         ]},
         {path: 'reports', component: ReportsComponent},
         {path: 'account', component: AccountComponent},
-        {path: 'globalsettings', component: GlobalSettingsComponent},
+        {path: 'settings', component: GlobalSettingsComponent},
     ]},
 
     {path: 'not-found', component: NotFoundComponent},

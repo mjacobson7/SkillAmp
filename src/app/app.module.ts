@@ -41,7 +41,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { ChartsComponent } from './components/charts/charts.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { FeedbackComponent } from './components/feedback/feedback.component';
-import { SupervisorEvaluationsComponent } from './components/supervisor-evaluations/supervisor-evaluations.component';
+import { TrainingComponent } from './components/training/training.component';
 import { ManageUsersComponent } from './components/manage-users/manage-users.component';
 import { ReportsComponent } from './components/reports/reports.component';
 import { AccountComponent } from './components/account/account.component';
@@ -70,7 +70,7 @@ import { LeaderboardComponent } from './components/leaderboard/leaderboard.compo
     ChartsComponent,
     UserProfileComponent,
     FeedbackComponent,
-    SupervisorEvaluationsComponent,
+    TrainingComponent,
     ManageUsersComponent,
     ReportsComponent,
     AccountComponent,
