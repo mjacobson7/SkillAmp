@@ -1,24 +1,4 @@
-<!-- <img *ngIf="user?.profilePicture" src="{{user?.profilePicture}}" class="img-fluid img-thumbnail profile-picture" alt="profile-picture">
-<img *ngIf="!user?.profilePicture" src="../../../assets/profile-placeholder.png" class="img-fluid img-thumbnail profile-picture" alt="profile-picture"> -->
-
-<!-- ../../../assets/profile-placeholder.png User this as the default profile picture-->
-
-<!-- <p-fileUpload 
-  chooseLabel="Change Photo" 
-  mode="basic" 
-  name="demo[]" 
-  url="./upload.php" 
-  accept="image/*" 
-  maxFileSize="1000000" 
-  (onUpload)="onBasicUpload($event)" 
-  auto="true">
-</p-fileUpload> -->
-
-<form>
-  <div class="form-group">
-    <label for="agentId">ID</label>
-    <input type="text" class="form-control form-control-sm" id="agentId" >
-  </div>
+<form [formGroup]="form">
   
   <div class="form-group">
     <label for="username">Username</label>

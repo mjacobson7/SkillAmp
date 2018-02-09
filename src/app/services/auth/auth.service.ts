@@ -4,12 +4,11 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs/Rx';
 
 
 @Injectable()
 export class AuthService {
-  authToken;
-  user;
 
   constructor(private http: Http, private router: Router) { }
 
@@ -18,7 +17,8 @@ export class AuthService {
       .map(response => {
         const result = response.json();
         if(result && result.token) {
-          this.storeUserData(result.token, result.user);
+          localStorage.setItem('token', result.token);
+          localStorage.setItem('user', JSON.stringify(result.user));
           return true;
         }
         return false;
@@ -29,21 +29,17 @@ export class AuthService {
     this.router.navigate(['/login']);
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    this.authToken = null;
-    this.user = null;
   }
 
   isLoggedIn() {
     return tokenNotExpired();
   }
 
-  storeUserData(token, user) {
-    localStorage.setItem('token', token);
-    localStorage.setItem('user', JSON.stringify(user));
-    this.authToken = token;
-    this.user = user;
+  getCurrentUser() {
+    let user = localStorage.getItem('user');
+    user = JSON.parse(user);
+    return user;
   }
-
 
 
 }

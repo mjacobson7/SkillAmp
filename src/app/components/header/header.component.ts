@@ -9,12 +9,14 @@ import { AuthService } from '../../services/auth/auth.service';
 })
 export class HeaderComponent implements OnInit {
   sideNavOpen: boolean = true;
-  currentUser;
+  user;
  
   constructor(private navService: NavService, private authService: AuthService) {}
 
   ngOnInit() {
-    
+    this.user = this.authService.getCurrentUser();
   }
+
+
 
 }

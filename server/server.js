@@ -33,7 +33,7 @@ server.listen(port, () => console.log(`Running on localhost:${port}`));
 var jwt = require('jsonwebtoken'); 
 
 //routes 
-require('./features/auth/authRoutes')(app);
+require('./routes/auth/authRoutes')(app);
 
 
 
