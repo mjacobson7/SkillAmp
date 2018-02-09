@@ -96,6 +96,7 @@ import { LeaderboardComponent } from './components/leaderboard/leaderboard.compo
     ReactiveFormsModule,
     ChartsModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     DataTableModule,
     SharedModule,
