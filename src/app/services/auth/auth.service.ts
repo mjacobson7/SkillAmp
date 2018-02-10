@@ -13,7 +13,7 @@ export class AuthService {
   constructor(private http: Http, private router: Router) { }
 
   login(credentials) {
-   return this.http.post('/user-auth', credentials)
+   return this.http.post('/userAuth', credentials)
       .map(response => {
         const result = response.json();
         if(result && result.token) {

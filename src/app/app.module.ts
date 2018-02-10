@@ -5,7 +5,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChartsModule } from 'ng2-charts';
 import { NavService } from '../app/services/nav/nav.service';
 // import { DataService } from '../app/services/data/data.service';
-// import { UserService } from '../app/services/user-auth/user-auth.service';
 import { AuthService } from './services/auth/auth.service';
 import { AuthGuardService } from '../app/services/auth/auth-guard.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';

@@ -1,8 +1,8 @@
-const app     = require('../../server');
+const app     = require('../../../server');
 const jwt     = require('jsonwebtoken');
-const secrets = require('../../config/secrets');
+const secrets = require('../../../config/secrets');
 const bcrypt  = require('bcrypt');
-const User    = require('../users/userModel');
+const User    = require('../../models/User');
 
 
 module.exports = {
@@ -28,8 +28,12 @@ module.exports = {
     createUser: (req, res, next) => {
         User.create({
             username: req.body.username,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            password: req.body.password,
             email: req.body.email,
-            password: req.body.password
+            supervisor: req.body.supervisor,
+            role: req.body.role
         }) 
         .then(user => {
             res.status(200).json("You have successfully created a new account!");
