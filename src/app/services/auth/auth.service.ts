@@ -1,4 +1,4 @@
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { JwtHelper, tokenNotExpired } from 'angular2-jwt';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
@@ -10,12 +10,11 @@ import { Subject } from 'rxjs/Rx';
 @Injectable()
 export class AuthService {
 
-  constructor(private http: Http, private router: Router) { }
+  constructor(private httpClient: HttpClient, private router: Router) { }
 
   login(credentials) {
-   return this.http.post('/userAuth', credentials)
-      .map(response => {
-        const result = response.json();
+   return this.httpClient.post<any>('/userAuth', credentials)
+      .map(result => {
         if(result && result.token) {
           localStorage.setItem('token', result.token);
           localStorage.setItem('user', JSON.stringify(result.user));

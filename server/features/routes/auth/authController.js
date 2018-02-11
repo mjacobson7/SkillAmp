@@ -11,7 +11,7 @@ module.exports = {
         User.findOne({ where: { username: req.body.username } }).then(user => {
             if (user) {
                 if(user.validPassword(req.body.password)) {
-                    var token = jwt.sign({userId: user.id}, secrets.tokenSecret, {expiresIn: '1h'});
+                    var token = jwt.sign({user: user}, secrets.tokenSecret, {expiresIn: '1h'});
                     res.status(200).json({
                         token: token,
                         user: user

@@ -4,6 +4,7 @@ const app = require('./config/express')(),
       port = process.env.PORT || '3000';
 
 require('./features/routes/auth/authRoutes')(app);
+require('./features/routes/user/userRoutes')(app);
 
 //Create Server
 app.set('port', port);

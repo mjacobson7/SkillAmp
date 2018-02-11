@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AuthService } from '../../services/auth/auth.service';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -12,7 +13,7 @@ export class UserProfileComponent implements OnInit {
   @Input() user;
   userForm: FormGroup;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private userService: UserService) { }
 
   ngOnInit() {
     this.user = this.authService.getCurrentUser();
@@ -29,7 +30,10 @@ export class UserProfileComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.userForm);
+    this.userService.updateProfile(this.userForm.value)
+      .subscribe(response => {
+        console.log(response);
+    })
   }
 
 

@@ -4,11 +4,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChartsModule } from 'ng2-charts';
 import { NavService } from '../app/services/nav/nav.service';
-// import { DataService } from '../app/services/data/data.service';
 import { AuthService } from './services/auth/auth.service';
+import { UserService } from './services/user/user.service';
 import { AuthGuardService } from '../app/services/auth/auth-guard.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppErrorHandler } from './common/app-error-handler';
 import {DataTableModule, SharedModule, FileUploadModule, ChipsModule, TabViewModule, DropdownModule, MultiSelectModule} from 'primeng/primeng';
 import {RatingModule} from 'ngx-rating';
@@ -57,6 +57,7 @@ import { ViewAllUsersComponent } from './components/manage-users/view-all-users/
 import { FeedbackFiltersComponent } from './components/feedback-filters/feedback-filters.component';
 import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
+import { AuthInterceptor } from './common/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -88,7 +89,7 @@ import { LeaderboardComponent } from './components/leaderboard/leaderboard.compo
     LeaderboardComponent
     ],
   imports: [
-    BrowserModule,
+  BrowserModule,
     NgbModule.forRoot(),
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -96,7 +97,7 @@ import { LeaderboardComponent } from './components/leaderboard/leaderboard.compo
     ChartsModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule,
+    HttpClientModule,
     DataTableModule,
     SharedModule,
     ChartModule,
@@ -121,12 +122,12 @@ import { LeaderboardComponent } from './components/leaderboard/leaderboard.compo
     MatPaginatorModule
   ],
   providers: [
-    // UserService, 
+    UserService, 
     NavService,
     AuthService,
-    // DataService,
     AuthGuardService,
-    { provide: ErrorHandler, useClass: AppErrorHandler}
+    { provide: ErrorHandler, useClass: AppErrorHandler},
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })
