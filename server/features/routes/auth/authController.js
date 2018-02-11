@@ -39,7 +39,7 @@ module.exports = {
             res.status(200).json("You have successfully created a new account!");
         })
         .catch(error => {
-            res.status(401).json("There was an unexpected error", error);
+            res.status(401).json(error);
         });
     }
 }

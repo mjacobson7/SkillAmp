@@ -43,3 +43,6 @@ Thumbs.db
 
 # Secrets
 /server/config/secrets.js
+
+# Environment Variables
+/server/.env
