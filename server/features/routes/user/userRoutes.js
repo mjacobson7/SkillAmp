@@ -1,8 +1,9 @@
-var userController = require('./userController');
+const userController = require('./userController'),
+      authController = require('../auth/authController');
 
 module.exports = (app) => {
 
-    app.put('/updateUser', userController.updateUser);
+    app.put('/updateUser', authController.verifyValidToken, userController.updateUser);
     
 
 }

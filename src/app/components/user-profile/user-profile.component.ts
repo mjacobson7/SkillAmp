@@ -16,7 +16,7 @@ export class UserProfileComponent implements OnInit {
   constructor(private authService: AuthService, private userService: UserService) { }
 
   ngOnInit() {
-    this.user = this.authService.getCurrentUser();
+    this.authService.getCurrentUser().subscribe(response => { this.user = response})
 
     this.userForm = new FormGroup({
       'username': new FormControl(this.user.username),
@@ -32,7 +32,7 @@ export class UserProfileComponent implements OnInit {
   onSubmit() {
     this.userService.updateProfile(this.userForm.value)
       .subscribe(response => {
-        console.log(response);
+        this.user = response;
     })
   }
 

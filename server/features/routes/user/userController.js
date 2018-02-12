@@ -1,13 +1,8 @@
-const User = require('../../models/User'),
-      secrets = require('../../../config/secrets'),
-      jwt = require('jsonwebtoken');
+const User = require('../../models/User');
 
 module.exports = {
 
     updateUser: (req, res) => {
-        jwt.verify(req.header('auth'), secrets.tokenSecret, function(err, decoded) {
-            console.log(decoded.user.id) // bar
-
             User.update({
                 username: req.body.username,
                 firstName: req.body.firstName,
@@ -18,10 +13,10 @@ module.exports = {
                 role: req.body.role
             },
             {
-                where: { id: decoded.user.id }}).then((response) => {
-                    res.status(200).json(response);
-            })
-        });
-          
+                where: { id: req.auth.user.id }}).then((response) => {
+                    User.findById(req.auth.user.id).then((user) => {
+                        res.status(200).json(user.dataValues);
+                    })
+            }) 
     }
 }

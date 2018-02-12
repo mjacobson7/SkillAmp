@@ -41,5 +41,16 @@ module.exports = {
         .catch(error => {
             res.status(401).json(error);
         });
+    },
+
+    verifyValidToken: (req, res, next) => {
+        jwt.verify(req.header('auth'), secrets.tokenSecret, function(err, decoded) {
+            if(decoded) {
+                req.auth = decoded;
+                next();
+            } else {
+                res.status(401).json("Token Not Valid", err);
+            }
+        })
     }
 }

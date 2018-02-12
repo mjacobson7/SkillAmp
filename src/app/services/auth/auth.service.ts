@@ -4,11 +4,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs/Rx';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 
 @Injectable()
 export class AuthService {
+  user = new BehaviorSubject<Object>({});
 
   constructor(private httpClient: HttpClient, private router: Router) { }
 
@@ -16,8 +17,8 @@ export class AuthService {
    return this.httpClient.post<any>('/userAuth', credentials)
       .map(result => {
         if(result && result.token) {
-          localStorage.setItem('token', result.token);
-          localStorage.setItem('user', JSON.stringify(result.user));
+          this.setToken(result.token);
+          this.user.next(result.user);
           return true;
         }
         return false;
@@ -34,10 +35,16 @@ export class AuthService {
     return tokenNotExpired();
   }
 
+  setToken(token) {
+    localStorage.setItem('token', token);
+  }
+
+  // setCurrentUser(user) {
+  //   localStorage.setItem('user', JSON.stringify(user));
+  // }
+
   getCurrentUser() {
-    let user = localStorage.getItem('user');
-    user = JSON.parse(user);
-    return user;
+    return this.user;
   }
 
 
