@@ -1,17 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { tokenNotExpired } from 'angular2-jwt';
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import {Subscription} from 'rxjs/Subscription';
 
 
 @Injectable()
-export class AuthService {
+export class AuthService implements OnDestroy {
   user = new BehaviorSubject<Object>({});
+  currentUserSubscription: Subscription;
 
   constructor(private httpClient: HttpClient, private router: Router) {
-    this.getCurrentUser().subscribe(result => { this.user.next(result); });
+    this.currentUserSubscription = this.getCurrentUser().subscribe(result => { this.user.next(result); });
   }
 
   login(credentials) {
@@ -43,4 +45,9 @@ export class AuthService {
       return result;
     });
   }
+
+  ngOnDestroy() {
+    this.currentUserSubscription.unsubscribe();
+  }
+
 }

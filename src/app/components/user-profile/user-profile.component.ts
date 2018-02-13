@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AuthService } from '../../services/auth/auth.service';
 import { UserService } from '../../services/user/user.service';
 import {NavService} from '../../services/nav/nav.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css']
 })
-export class UserProfileComponent implements OnInit {
+export class UserProfileComponent implements OnInit, OnDestroy {
   user;
   userForm: FormGroup;
+  userFormSubscription: Subscription;
   pageInfo: {title: string, icon: string} = {
     title: 'My Profile',
     icon: 'person'
@@ -22,7 +24,7 @@ export class UserProfileComponent implements OnInit {
   ngOnInit() {
     this.navService.pageHeaderTitle.next(this.pageInfo);
 
-    this.authService.user.subscribe(response => {
+    this.userFormSubscription = this.authService.user.subscribe(response => {
       this.user = response;
 
       this.userForm = new FormGroup({
@@ -46,6 +48,10 @@ export class UserProfileComponent implements OnInit {
       .subscribe(response => {
         this.user = response;
     });
+  }
+
+  ngOnDestroy() {
+    this.userFormSubscription.unsubscribe();
   }
 
 
