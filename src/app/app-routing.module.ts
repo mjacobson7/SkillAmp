@@ -4,7 +4,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuardService } from './services/auth/auth-guard.service';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
-import { MyProfileComponent } from './components/my-profile/my-profile.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { FeedbackComponent } from './components/feedback/feedback.component';
@@ -16,12 +15,13 @@ import { AccountComponent } from './components/account/account.component';
 import { GlobalSettingsComponent } from './components/global-settings/global-settings.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ViewAllUsersComponent } from './components/manage-users/view-all-users/view-all-users.component';
+import {UserProfileComponent} from './components/user-profile/user-profile.component';
 
 const appRoutes: Routes = [
     {path: 'login', component: LoginComponent},
-    {path: '', pathMatch: 'full', redirectTo: '/login'},    
+    {path: '', pathMatch: 'full', redirectTo: '/login'},
     {path: '', component: HomeComponent, canActivate: [AuthGuardService], children: [
-        {path: 'profile', component: MyProfileComponent, canActivate: [AuthGuardService]},
+        {path: 'profile', component: UserProfileComponent, canActivate: [AuthGuardService]},
         {path: 'messages', component: MessagesComponent, canActivate: [AuthGuardService]},
         {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService]},
         {path: 'feedback', component: FeedbackComponent, canActivate: [AuthGuardService]},
@@ -38,7 +38,7 @@ const appRoutes: Routes = [
 
     {path: 'not-found', component: NotFoundComponent},
     {path: '**', redirectTo: '/not-found'}
-  ]
+  ];
 
 @NgModule({
     imports: [RouterModule.forRoot(appRoutes)],

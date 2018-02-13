@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavService } from '../../services/nav/nav.service';
+import {AuthService} from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -8,21 +9,21 @@ import { NavService } from '../../services/nav/nav.service';
 })
 export class HomeComponent implements OnInit {
   openSideNav: boolean;
-  
+
     constructor(private navService: NavService) {
-   
+
     }
-  
+
     ngOnInit(): void {
         this.openSideNav = true;
         this.navService.sidenavOpen.subscribe((opening) => {
-            if(opening) {
+            if (opening) {
                 this.openSideNav = true;
             } else {
                 this.openSideNav = false;
             }
-        })
+        });
 
-  } 
+  }
 
 }

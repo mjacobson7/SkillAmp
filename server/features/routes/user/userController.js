@@ -13,10 +13,18 @@ module.exports = {
                 role: req.body.role
             },
             {
-                where: { id: req.auth.user.id }}).then((response) => {
+                where: { id: req.auth.user.id }}).then(() => {
                     User.findById(req.auth.user.id).then((user) => {
                         res.status(200).json(user.dataValues);
                     })
-            }) 
+            })
+    },
+
+    getUser: (req, res) => {
+      User.findById(req.auth.user.id).then((user) => {
+        res.status(200).json(user);
+      })
     }
-}
+
+
+};

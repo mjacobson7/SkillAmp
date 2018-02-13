@@ -8,15 +8,14 @@ import { AuthService } from '../../services/auth/auth.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  sideNavOpen: boolean = true;
   user;
- 
+
   constructor(private navService: NavService, private authService: AuthService) {}
 
   ngOnInit() {
     this.authService.user.subscribe(user => {
       this.user = user;
-    })
+    });
   }
 
 

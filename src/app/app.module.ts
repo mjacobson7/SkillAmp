@@ -49,7 +49,6 @@ import { TablesComponent } from './components/tables/tables.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { PageHeaderComponent } from './components/page-header/page-header.component';
 import { AddEditUserComponent } from './components/add-edit-user/add-edit-user.component';
-import { MyProfileComponent } from './components/my-profile/my-profile.component';
 import { ReviewCardComponent } from './components/review-card/review-card.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
@@ -79,7 +78,6 @@ import { AuthInterceptor } from './common/auth.interceptor';
     MessagesComponent,
     PageHeaderComponent,
     AddEditUserComponent,
-    MyProfileComponent,
     ReviewCardComponent,
     PageNotFoundComponent,
     NotFoundComponent,
@@ -122,7 +120,7 @@ import { AuthInterceptor } from './common/auth.interceptor';
     MatPaginatorModule
   ],
   providers: [
-    UserService, 
+    UserService,
     NavService,
     AuthService,
     AuthGuardService,

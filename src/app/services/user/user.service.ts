@@ -9,10 +9,9 @@ export class UserService {
 
   updateProfile(user) {
     return this.httpClient.put('/updateUser', user).map(response => {
-      // this.authService.setCurrentUser(response);
       this.authService.user.next(response);
       return response;
-    })
+    });
   }
 
 }

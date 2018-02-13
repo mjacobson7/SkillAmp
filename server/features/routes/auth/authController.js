@@ -1,7 +1,5 @@
-const app     = require('../../../server');
 const jwt     = require('jsonwebtoken');
 const secrets = require('../../../config/secrets');
-const bcrypt  = require('bcrypt');
 const User    = require('../../models/User');
 
 
@@ -11,7 +9,7 @@ module.exports = {
         User.findOne({ where: { username: req.body.username } }).then(user => {
             if (user) {
                 if(user.validPassword(req.body.password)) {
-                    var token = jwt.sign({user: user}, secrets.tokenSecret, {expiresIn: '1h'});
+                    let token = jwt.sign({user: user}, secrets.tokenSecret, {expiresIn: '1h'});
                     res.status(200).json({
                         token: token,
                         user: user
@@ -25,7 +23,7 @@ module.exports = {
         });
     },
 
-    createUser: (req, res, next) => {
+    createUser: (req, res) => {
         User.create({
             username: req.body.username,
             firstName: req.body.firstName,
@@ -34,8 +32,8 @@ module.exports = {
             email: req.body.email,
             supervisor: req.body.supervisor,
             role: req.body.role
-        }) 
-        .then(user => {
+        })
+        .then(() => {
             res.status(200).json("You have successfully created a new account!");
         })
         .catch(error => {
@@ -53,4 +51,4 @@ module.exports = {
             }
         })
     }
-}
+};
