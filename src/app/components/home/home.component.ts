@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.openSideNav = true;
-        this.navService.sidenavOpen.subscribe((opening) => {
+      this.sideNavSubscription = this.navService.sidenavOpen.subscribe((opening) => {
             if (opening) {
                 this.openSideNav = true;
             } else {
