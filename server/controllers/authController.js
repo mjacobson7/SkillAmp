@@ -1,6 +1,6 @@
 const jwt     = require('jsonwebtoken');
 const secrets = require('../config/secrets');
-const User    = require('../models/index').User;
+const User    = require('../models/index').user;
 
 module.exports = {
 
@@ -30,6 +30,7 @@ module.exports = {
       password: req.body.password,
       email: req.body.email,
       supervisorId: req.body.supervisorId,
+      companyId: req.body.companyId
       // role: req.body.role
     })
       .then(() => {

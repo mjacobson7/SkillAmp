@@ -13,6 +13,7 @@ app.use(cookieParser());
 require('./routes/authRoutes')(app);
 require('./routes/userRoutes')(app);
 require('./routes/feedbackRoutes')(app);
+require('./routes/companyRoutes')(app);
 
 // Angular DIST output folder
 app.use(express.static(path.join(__dirname, '/../dist')));
