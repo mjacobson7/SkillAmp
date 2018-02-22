@@ -57,6 +57,7 @@ import { FeedbackFiltersComponent } from './components/feedback-filters/feedback
 import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 import { AuthInterceptor } from './common/auth.interceptor';
+import {FeedbackService} from './services/feedback/feedback.service';
 
 @NgModule({
   declarations: [
@@ -124,6 +125,7 @@ import { AuthInterceptor } from './common/auth.interceptor';
     NavService,
     AuthService,
     AuthGuardService,
+    FeedbackService,
     { provide: ErrorHandler, useClass: AppErrorHandler},
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
   ],

@@ -1,26 +1,26 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-xl-4" *ngFor="let review of reviews">
+    <div class="col-xl-4" *ngFor="let review of feedback">
       <mat-card class="card" >
         <mat-card-header>
           <mat-card-title>
-            {{review.rating.overallRating}}
-            <rating [(ngModel)]="review.rating.overallRating" [max]="5" [readonly]="true"></rating>
+            {{review.rating}}
+            <rating [(ngModel)]="review.rating" [max]="5" [readonly]="true"></rating>
           </mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <mat-tab-group>
             <mat-tab label="Liked">
               <p></p>
-              <p>{{review.liked}}</p>
+              <p>{{review.like}}</p>
             </mat-tab>
             <mat-tab label="Disliked">
               <p></p>
-              <p>{{review.disliked}}</p>
+              <p>{{review.dislike}}</p>
             </mat-tab>
             <mat-tab label="Product">
               <p></p>
-              <p>{{review.productDesc}}</p>
+              <p>{{review.productDescription}}</p>
             </mat-tab>
           </mat-tab-group>
         </mat-card-content>

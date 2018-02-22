@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import {FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
 import { AppError } from '../../common/app-error';
 import { BadInput } from '../../common/bad-input';
 import { AuthService } from '../../services/auth/auth.service';
@@ -13,21 +13,29 @@ import {Subscription} from 'rxjs/Subscription';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   invalidLogin = false;
+  loginForm: FormGroup;
+  username;
+  password;
   loginSubscription: Subscription;
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.loginForm = this.formBuilder.group({
+      'username': new FormControl(this.username, Validators.required),
+      'password': new FormControl(this.password, Validators.required),
+      'hostname': new FormControl(window.location.hostname)
+    });
   }
 
-  login(credentials: NgForm) {
-    this.loginSubscription = this.authService.login(credentials)
+  onLogin() {
+    this.loginSubscription = this.authService.login(this.loginForm.value)
       .subscribe(result => {
         if (result) {
           this.router.navigate(['/dashboard']);
           this.invalidLogin = false;
         } else { this.invalidLogin = true; }
       });
-    }
+  }
 
     ngOnDestroy() {
       this.loginSubscription.unsubscribe();

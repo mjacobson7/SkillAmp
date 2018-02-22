@@ -1,24 +1,27 @@
 const jwt     = require('jsonwebtoken');
 const secrets = require('../config/secrets');
 const User    = require('../models/index').user;
+const Company = require('../models/index').company;
 
 module.exports = {
 
   login: (req, res) => {
-    User.findOne({ where: { username: req.body.username } }).then(user => {
-      if (user) {
-        if(user.validPassword(req.body.password)) {
-          let token = jwt.sign({user: user}, secrets.tokenSecret, {expiresIn: '1h'});
-          res.status(200).json({
-            token: token,
-            user: user
-          });
+    Company.findOne({ where: { hostname: req.body.hostname } }).then((company) => {
+      User.findOne({ where: { username: req.body.username, companyId: company.dataValues.id } }).then(user => {
+        if (user) {
+          if(user.validPassword(req.body.password)) {
+            let token = jwt.sign({userId: user.id, companyId: company.dataValues.id}, secrets.tokenSecret, {expiresIn: '1h'});
+            res.status(200).json({
+              token: token,
+              user: user
+            });
+          } else {
+            res.status(200).json("Invalid username and/or password.");
+          }
         } else {
-          res.status(200).json("Invalid username and/or password.");
+          res.status(200).json("Could not find that user.");
         }
-      } else {
-        res.status(200).json("Could not find that user.");
-      }
+      });
     });
   },
 
