@@ -7,7 +7,13 @@ module.exports = {
 
   login: (req, res) => {
     Company.findOne({ where: { hostname: req.body.hostname } }).then((company) => {
-      User.findOne({ where: { username: req.body.username, companyId: company.dataValues.id } }).then(user => {
+      User.findOne({
+        where: { username: req.body.username, companyId: company.dataValues.id },
+        include: [{
+          model: User,
+          as: "supervisor",
+        }]
+      }).then(user => {
         if (user) {
           if(user.validPassword(req.body.password)) {
             let token = jwt.sign({userId: user.id, companyId: company.dataValues.id}, secrets.tokenSecret, {expiresIn: '1h'});
@@ -48,8 +54,10 @@ module.exports = {
   verifyValidToken: (req, res, next) => {
     jwt.verify(req.header('auth'), secrets.tokenSecret, function(err, decoded) {
       if(decoded) {
-        req.auth = decoded;
-        next();
+        User.findOne({ where: {id: decoded.userId, companyId: decoded.companyId }}).then((user) => {
+          req.user = user.dataValues;
+          next();
+        });
       } else {
         res.status(401).json(err);
       }

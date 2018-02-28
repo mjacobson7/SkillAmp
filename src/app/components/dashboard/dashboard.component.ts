@@ -12,10 +12,12 @@ export class DashboardComponent implements OnInit {
     icon: 'dashboard'
   }
 
-  constructor(private navService: NavService) {}
+  constructor(private navService: NavService) {
+    this.navService.pageHeaderTitle.next(this.pageInfo);
+  }
 
 ngOnInit() {
-  this.navService.pageHeaderTitle.next(this.pageInfo);
+
 }
 
 }

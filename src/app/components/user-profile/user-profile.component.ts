@@ -1,46 +1,49 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormControl, Validators, FormBuilder, FormArray} from '@angular/forms';
 import { AuthService } from '../../services/auth/auth.service';
 import { UserService } from '../../services/user/user.service';
 import {NavService} from '../../services/nav/nav.service';
-import {Subscription} from 'rxjs/Subscription';
+import { User } from '../../models/user.recipe';
 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css']
 })
-export class UserProfileComponent implements OnInit, OnDestroy {
-  user;
+export class UserProfileComponent implements OnInit {
+  user: User;
   userForm: FormGroup;
   passwordLabel = ['Password', 'Confirm password'];
-  userFormSubscription: Subscription;
   changePassword: Boolean;
   pageInfo: {title: string, icon: string} = {
     title: 'My Profile',
     icon: 'person'
   };
 
-  constructor(private authService: AuthService, private userService: UserService, private navService: NavService, private formBuilder: FormBuilder) { }
+  constructor(
+    private authService: AuthService,
+    private userService: UserService,
+    private navService: NavService,
+    private fb: FormBuilder) {
+    this.navService.pageHeaderTitle.next(this.pageInfo);
+    this.user = this.authService.getCurrentUser();
+    console.log(this.user);
+  }
 
   ngOnInit() {
-    this.navService.pageHeaderTitle.next(this.pageInfo);
-
-    this.userFormSubscription = this.authService.user.subscribe(response => {
-      this.user = response;
-
-      this.userForm = this.formBuilder.group({
-        'username': new FormControl(this.user.username, [Validators.required, Validators.minLength(8)]),
-        'firstName': new FormControl(this.user.firstName, Validators.required),
-        passwords: this.formBuilder.array([
-          ['', Validators.compose([Validators.required, Validators.minLength(8)])],
-          ['', Validators.compose([Validators.required, Validators.minLength(8)])]
-        ], this.passwordValidator),
-        'lastName': new FormControl(this.user.lastName, Validators.required),
-        'email': new FormControl(this.user.email, [Validators.required, Validators.email]),
-        'supervisor': new FormControl(this.user.supervisor, Validators.required),
-        'role': new FormControl(this.user.role, Validators.required),
-      });
+    this.userForm = this.fb.group({
+      username:  [this.user.username, [Validators.required, Validators.minLength(8)]],
+      firstName: [this.user.firstName, Validators.required],
+      passwords:  this.fb.array([
+        ['', Validators.compose([Validators.required, Validators.minLength(8)])],
+        ['', Validators.compose([Validators.required, Validators.minLength(8)])]
+      ], this.passwordValidator),
+      lastName:  [this.user.lastName, Validators.required],
+      email:     [this.user.email, [Validators.required, Validators.email]],
+      supervisor: this.fb.group({
+        username: [this.user.supervisor ? this.user.supervisor.username : '']
+      }),
+      role: ['', Validators.required]
     });
   }
 
@@ -53,6 +56,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    // fix this so it updates and reflects changes
     console.log(this.userForm);
     this.userService.updateProfile(this.userForm.value)
       .subscribe(response => {
@@ -66,10 +70,6 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     } else {
       this.changePassword = false;
     }
-  }
-
-  ngOnDestroy() {
-    this.userFormSubscription.unsubscribe();
   }
 
 

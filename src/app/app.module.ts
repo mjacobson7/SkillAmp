@@ -85,7 +85,7 @@ import {FeedbackService} from './services/feedback/feedback.service';
     ViewAllUsersComponent,
     FeedbackFiltersComponent,
     BreadcrumbsComponent,
-    LeaderboardComponent
+    LeaderboardComponent,
     ],
   imports: [
   BrowserModule,

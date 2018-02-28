@@ -77,9 +77,9 @@
     </small>
   </div><hr>
 
-  <div class="form-group">
+  <div class="form-group" formGroupName="supervisor">
     <label for="supervisor">Supervisor</label>
-    <input formControlName="supervisor" type="text" class="form-control form-control-sm" id="supervisor" >
+    <input formControlName="username" type="text" class="form-control form-control-sm" id="supervisor" >
     <small
       *ngIf="userForm.get('supervisor').hasError('required') && userForm.get('supervisor').touched"
       class="form-text text-muted">Supervisor is required

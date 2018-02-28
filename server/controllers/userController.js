@@ -1,4 +1,6 @@
 const User = require('../models/index').user;
+const UserRole = require('../models/index').userRole;
+const Role = require('../models/index').role;
 
 module.exports = {
 
@@ -13,29 +15,47 @@ module.exports = {
                 role: req.body.role
             },
             {
-                where: { id: req.auth.userId, companyId: req.auth.companyId }}).then(() => {
-                    User.findById(req.auth.userId).then((user) => {
-                        res.status(200).json(user.dataValues);
-                    })
+                where: { id: req.user.id, companyId: req.user.companyId }}).then(() => {
+                  res.status(200).json(req.user);
             })
     },
 
-    getUser: (req, res) => {
-      User.findOne({ where: { id: req.auth.userId, companyId: req.auth.companyId } }).then((user) => {
-        res.status(200).json(user);
-      });
+    getMyProfile: (req, res) => {
+      User.find({
+        where: { id: req.user.id, companyId: req.user.companyId },
+        include: [{
+          model: User,
+          as: "supervisor",
+        }]
+      }).then((profile) => {
+        res.status(200).json(profile.dataValues);
+      })
     },
 
     getAllUsers: (req, res) => {
-      User.find({ where: { companyId: req.auth.companyId }}).then((users) => {
+      User.find({ where: { companyId: req.user.companyId }}).then((users) => {
         res.status(200).json(users);
       })
     },
 
     getSupervisorTeam: (req, res) => {
-      User.find({ where: { supervisorId: req.auth.userId, companyId: req.auth.companyId }}).then((users) => {
+      User.find({ where: { supervisorId: req.user.id, companyId: req.user.companyId }}).then((users) => {
         res.status(200).json(users);
       })
+    },
+
+    getSupervisors: (req, res) => {
+      // User.findAll({where: { companyId: req.user.companyId }}).then((supervisors) => {
+      //   res.status(200).json(supervisors);
+      // });
+
+      Role.findAll({
+        where: { isSupervisorRole: true },
+        include: [{ model: User, where: { companyId: req.user.companyId } }]}).then((supervisors) => {
+        res.status(200).json(supervisors);
+      });
+
+
     }
 
 

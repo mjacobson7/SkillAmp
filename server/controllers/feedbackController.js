@@ -4,9 +4,8 @@ const User = require('../models/index').user;
 module.exports = {
 
   addFeedback: (req, res) => {
-    console.log(req.body);
     Feedback.create({
-      companyId: req.auth.companyId,
+      companyId: req.body.companyId,
       userId: req.body.userId,
       rating: req.body.rating,
       like: req.body.like,
@@ -23,7 +22,7 @@ module.exports = {
   },
 
   getMyFeedback: (req, res) => {
-    Feedback.findAll({ where: { userId: req.auth.userId, companyId: req.auth.companyId }}).then((feedback) => {
+    Feedback.findAll({ where: { userId: req.user.id, companyId: req.user.companyId }}).then((feedback) => {
       res.status(200).json(feedback);
     })
   },
@@ -32,7 +31,7 @@ module.exports = {
     Feedback.findAll({
       include: [{
         model: User,
-        where: { supervisorId: req.auth.userId, companyId: req.auth.companyId }
+        where: { supervisorId: req.user.id, companyId: req.user.companyId }
       }]
     }).then((feedback) => {
       res.status(200).json(feedback);

@@ -19,11 +19,13 @@ export class FeedbackComponent implements OnInit, OnDestroy {
   overallRating;
   feedbackSubscription: Subscription;
 
-  constructor(private navService: NavService, private feedbackService: FeedbackService) { }
+  constructor(private navService: NavService, private feedbackService: FeedbackService) {
+    this.navService.pageHeaderTitle.next(this.pageInfo);
+  }
 
   ngOnInit() {
 
-    this.navService.pageHeaderTitle.next(this.pageInfo);
+
 
     this.feedbackSubscription = this.feedbackService.getMyFeedback().subscribe((feedback) => {
       console.log(feedback);

@@ -8,6 +8,131 @@ app.set('port', port);
 const server = http.createServer(app);
 
 models.sequelize.sync({force: true}).then(() => {
+  models.company.create({
+    name: 'localhost',
+    hostname: 'localhost'
+  });
+
+  models.company.create({
+    name: 'localhost2',
+    hostname: 'localhost2'
+  }).then(() => {
+
+    models.role.create({
+      companyId: 1,
+      name: 'User',
+      isUserRole: true,
+      isSupervisorRole: false,
+      isAdminRole: false,
+    });
+
+    models.role.create({
+      companyId: 1,
+      name: 'Supervisor',
+      isUserRole: false,
+      isSupervisorRole: true,
+      isAdminRole: false,
+    });
+
+    models.role.create({
+      companyId: 1,
+      name: 'Admin',
+      isUserRole: false,
+      isSupervisorRole: false,
+      isAdminRole: true,
+    });
+
+    models.role.create({
+      companyId: 2,
+      roleName: 'User',
+      isUserRole: true,
+      isSupervisorRole: false,
+      isAdminRole: false,
+    });
+
+    models.role.create({
+      companyId: 2,
+      roleName: 'Supervisor',
+      isUserRole: false,
+      isSupervisorRole: true,
+      isAdminRole: false,
+    });
+
+    models.role.create({
+      companyId: 2,
+      roleName: 'Admin',
+      isUserRole: false,
+      isSupervisorRole: false,
+      isAdminRole: false,
+
+    }).then(() => {
+      models.userRole.create({
+        companyId: 1,
+        roleId: 1,
+        userId: 1
+      });
+
+      models.userRole.create({
+        companyId: 2,
+        roleId: 1,
+        userId: 2
+      });
+
+      models.userRole.create({
+        companyId: 2,
+        roleId: 2,
+        userId: 2
+      });
+
+      models.userRole.create({
+        companyId: 2,
+        roleId: 3,
+        userId: 2
+      });
+    });
+
+    models.user.create({
+      username: 'mjacobson7',
+      firstName: 'Max',
+      lastName: 'Jacobson',
+      password: 'password',
+      email: 'test@test.com',
+      companyId: 1
+    });
+
+    models.user.create({
+      username: 'cjacobson7',
+      firstName: 'Corina',
+      lastName: 'Jacobson',
+      password: 'password',
+      email: 'test2@test.com',
+      companyId: 1,
+      supervisorId: 1
+    }).then(() => {
+      models.feedback.create({
+        companyId: 1,
+        userId: 1,
+        rating: 4,
+        like: "Max did a great job explaining the benefits of the product to me",
+        dislike: "I wish had time to discuss with my spouse before I purchased",
+        productDescription: "It was a credit card with 1% cash back on all purchases"
+      });
+
+      models.feedback.create({
+        companyId: 2,
+        userId: 2,
+        rating: 5,
+        like: "Corina was so helpful to me. She did a great job helping me figure out my health insurance benefits",
+        dislike: "I wish the insurance was less expensive",
+        productDescription: "It was my insurance plan"
+      });
+    });
+  });
+
+
+
+
+
   server.listen(port, () => {console.log(`Now listening on port ${port}`)});
 
 });
