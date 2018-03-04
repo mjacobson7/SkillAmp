@@ -1,4 +1,4 @@
-<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()" *ngIf="user">
 
   <div class="form-group">
     <label for="username">Username</label>
@@ -86,9 +86,9 @@
     </small>
   </div><hr>
 
-  <div class="form-group">
-    <label for="role">Role</label>
-    <p-chips formControlName="role" id="role"></p-chips>
+  <div class="form-group" >
+    <label for="roles">Role</label>
+    <p-chips formControlName="roles" id="roles"></p-chips>
   </div><hr>
 
   <button type="submit" class="btn btn-primary">Save</button>

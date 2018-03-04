@@ -15,18 +15,36 @@ module.exports = {
                 role: req.body.role
             },
             {
-                where: { id: req.user.id, companyId: req.user.companyId }}).then(() => {
-                  res.status(200).json(req.user);
+                where: { id: req.user.id, companyId: req.user.companyId }}).then((response) => {
+                  User.find({
+                    where: { id: req.user.id, companyId: req.user.companyId },
+                    include: [
+                      {
+                        model: User,
+                        as: "supervisor",
+                      },
+                      {
+                        model: Role,
+                        through: UserRole
+                      }]
+                  }).then((profile) => {
+                    res.status(200).json(profile.dataValues);
+                  })
             })
     },
 
     getMyProfile: (req, res) => {
       User.find({
         where: { id: req.user.id, companyId: req.user.companyId },
-        include: [{
-          model: User,
-          as: "supervisor",
-        }]
+        include: [
+          {
+            model: User,
+            as: "supervisor",
+          },
+          {
+            model: Role,
+            through: UserRole
+          }]
       }).then((profile) => {
         res.status(200).json(profile.dataValues);
       })

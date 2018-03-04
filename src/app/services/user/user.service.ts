@@ -1,16 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../auth/auth.service';
-import { User } from '../../models/user.recipe';
+import { User } from '../../models/user.model';
+import {Observable} from 'rxjs/Observable';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class UserService {
 
   constructor(private httpClient: HttpClient, private authService: AuthService) { }
 
-  updateProfile(user) {
+  updateProfile(user: User) {
     return this.httpClient.put<User>('/updateUser', user).map(response => {
-      this.authService.user = response;
+      // this.authService.user.next(response);
+      this.authService.user.next(response);
       return response;
     });
   }
@@ -19,6 +22,12 @@ export class UserService {
     return this.httpClient.get('/getSupervisors').map(response => {
       return response;
     });
+  }
+
+  getMyProfile(): Observable<User> {
+    return this.httpClient.get<User>('/getMyProfile').map(response => {
+      return response;
+    })
   }
 
 }

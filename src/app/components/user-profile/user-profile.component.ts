@@ -3,7 +3,8 @@ import {FormGroup, FormControl, Validators, FormBuilder, FormArray} from '@angul
 import { AuthService } from '../../services/auth/auth.service';
 import { UserService } from '../../services/user/user.service';
 import {NavService} from '../../services/nav/nav.service';
-import { User } from '../../models/user.recipe';
+import { User } from '../../models/user.model';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-user-profile',
@@ -19,6 +20,7 @@ export class UserProfileComponent implements OnInit {
     title: 'My Profile',
     icon: 'person'
   };
+  userFormSubscription: Subscription;
 
   constructor(
     private authService: AuthService,
@@ -26,25 +28,41 @@ export class UserProfileComponent implements OnInit {
     private navService: NavService,
     private fb: FormBuilder) {
     this.navService.pageHeaderTitle.next(this.pageInfo);
-    this.user = this.authService.getCurrentUser();
-    console.log(this.user);
-  }
+  };
 
   ngOnInit() {
+    this.authService.user.subscribe(user => {
+      if(user) {
+        this.user = user;
+        this.initializeForm();
+      }
+    })
+  }
+
+  initializeForm() {
     this.userForm = this.fb.group({
       username:  [this.user.username, [Validators.required, Validators.minLength(8)]],
       firstName: [this.user.firstName, Validators.required],
       passwords:  this.fb.array([
-        ['', Validators.compose([Validators.required, Validators.minLength(8)])],
-        ['', Validators.compose([Validators.required, Validators.minLength(8)])]
+        ['', Validators.compose([Validators.minLength(8)])],
+        ['', Validators.compose([Validators.minLength(8)])]
       ], this.passwordValidator),
       lastName:  [this.user.lastName, Validators.required],
       email:     [this.user.email, [Validators.required, Validators.email]],
       supervisor: this.fb.group({
         username: [this.user.supervisor ? this.user.supervisor.username : '']
       }),
-      role: ['', Validators.required]
+      roles: [this.getRoles()]
     });
+  }
+
+  getRoles() {
+    let assignedRoles = this.user.roles;
+    let newArr = [];
+    for(let role of assignedRoles) {
+     newArr.push(role.roleName);
+    }
+    return newArr;
   }
 
   passwordValidator(array: FormArray): {[s: string]: boolean} {
@@ -56,7 +74,6 @@ export class UserProfileComponent implements OnInit {
   }
 
   onSubmit() {
-    // fix this so it updates and reflects changes
     console.log(this.userForm);
     this.userService.updateProfile(this.userForm.value)
       .subscribe(response => {

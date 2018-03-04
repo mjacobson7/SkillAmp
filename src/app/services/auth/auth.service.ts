@@ -3,22 +3,29 @@ import { tokenNotExpired } from 'angular2-jwt';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { Router } from '@angular/router';
-import { User } from '../../models/user.recipe';
+import { User } from '../../models/user.model';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {Subscription} from 'rxjs/Subscription';
+import {Subject} from 'rxjs/Subject';
 
 
 @Injectable()
 export class AuthService {
-  user: User;
+  user = new BehaviorSubject<User>(null);
 
-  constructor(private httpClient: HttpClient, private router: Router) {}
+
+  constructor(private httpClient: HttpClient, private router: Router) {
+    if(this.router.url !== '/login') {
+      this.getCurrentUser().subscribe(user => this.user.next(user));
+    }
+  }
 
   login(credentials) {
    return this.httpClient.post<any>('/userAuth', credentials)
       .map(result => {
-        if (result && result.token && result.user) {
+        if (result && result.token) {
+          this.user.next(result.user);
           localStorage.setItem('token', result.token);
-          localStorage.setItem('user', JSON.stringify(result.user));
-          this.user = result.user;
           return true;
         }
         return false;
@@ -28,7 +35,6 @@ export class AuthService {
   logout() {
     this.router.navigate(['/login']);
     localStorage.removeItem('token');
-    localStorage.removeItem('user');
   }
 
   isLoggedIn() {
@@ -39,8 +45,10 @@ export class AuthService {
   }
 
   getCurrentUser() {
-    const currUser = localStorage.getItem('user');
-    return JSON.parse(currUser);
+    return this.httpClient.get<User>('/getMyProfile').map(user => {
+      // this.user.next(user);
+      return user;
+    });
   }
 
 }

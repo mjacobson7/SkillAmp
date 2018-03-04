@@ -2,6 +2,8 @@ const jwt     = require('jsonwebtoken');
 const secrets = require('../config/secrets');
 const User    = require('../models/index').user;
 const Company = require('../models/index').company;
+const Role = require('../models/index').role;
+const UserRole = require('../models/index').userRole;
 
 module.exports = {
 
@@ -9,10 +11,15 @@ module.exports = {
     Company.findOne({ where: { hostname: req.body.hostname } }).then((company) => {
       User.findOne({
         where: { username: req.body.username, companyId: company.dataValues.id },
-        include: [{
-          model: User,
-          as: "supervisor",
-        }]
+        include: [
+          {
+            model: User,
+            as: "supervisor",
+          },
+          {
+            model: Role,
+            through: UserRole
+          }]
       }).then(user => {
         if (user) {
           if(user.validPassword(req.body.password)) {

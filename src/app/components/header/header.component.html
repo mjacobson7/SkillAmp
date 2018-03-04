@@ -1,9 +1,9 @@
 <div class="header-wrapper">
   <a href="" class="company-logo"><img src="../../assets/First_Impression_302.png" alt=""></a>
-  <mat-icon routerLink="/messages" matTooltip="Notifications" class="messages">notifications</mat-icon> 
+  <mat-icon routerLink="/messages" matTooltip="Notifications" class="messages">notifications</mat-icon>
 
   <button mat-button [matMenuTriggerFor]="menu">
-    {{user.firstName}} {{user.lastName}}
+    {{user?.firstName}} {{user?.lastName}}
   </button>
   <mat-menu #menu="matMenu">
     <button routerLink="/profile" mat-menu-item>Profile</button>
