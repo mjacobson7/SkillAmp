@@ -45,8 +45,7 @@ export class AuthService {
   }
 
   getCurrentUser() {
-    return this.httpClient.get<User>('/getMyProfile').map(user => {
-      // this.user.next(user);
+    return this.httpClient.get<User>('/getCurrentUser').map(user => {
       return user;
     });
   }

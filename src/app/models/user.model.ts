@@ -6,6 +6,7 @@ export class User {
   lastName: string;
   email: string;
   supervisorId: number;
-  roles: Role[];
   supervisor: User;
+  roleId: number;
+  roles: Role[];
 }

@@ -24,8 +24,8 @@ export class UserService {
     });
   }
 
-  getMyProfile(): Observable<User> {
-    return this.httpClient.get<User>('/getMyProfile').map(response => {
+  getUserRoles() {
+    return this.httpClient.get('/getUserRoles').map(response => {
       return response;
     })
   }

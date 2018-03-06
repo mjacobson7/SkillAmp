@@ -77,11 +77,11 @@
     </small>
   </div><hr>
 
-  <div class="form-group" formGroupName="supervisor">
-    <label for="supervisor">Supervisor</label>
-    <input formControlName="username" type="text" class="form-control form-control-sm" id="supervisor" >
+  <div class="form-group">
+    <label for="supervisorUsername">Supervisor</label>
+    <input formControlName="supervisorUsername" type="text" class="form-control form-control-sm" id="supervisorUsername" >
     <small
-      *ngIf="userForm.get('supervisor').hasError('required') && userForm.get('supervisor').touched"
+      *ngIf="userForm.get('supervisorUsername').hasError('required') && userForm.get('supervisorUsername').touched"
       class="form-text text-muted">Supervisor is required
     </small>
   </div><hr>

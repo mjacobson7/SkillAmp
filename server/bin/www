@@ -11,86 +11,13 @@ models.sequelize.sync({force: true}).then(() => {
   models.company.create({
     name: 'localhost',
     hostname: 'localhost'
-  });
-
-  models.company.create({
-    name: 'localhost2',
-    hostname: 'localhost2'
-  }).then(() => {
-
-    models.role.create({
-      companyId: 1,
-      name: 'User',
-      isUserRole: true,
-      isSupervisorRole: false,
-      isAdminRole: false,
-    });
-
-    models.role.create({
-      companyId: 1,
-      name: 'Supervisor',
-      isUserRole: false,
-      isSupervisorRole: true,
-      isAdminRole: false,
-    });
-
-    models.role.create({
-      companyId: 1,
-      name: 'Admin',
-      isUserRole: false,
-      isSupervisorRole: false,
-      isAdminRole: true,
-    });
-
-    models.role.create({
-      companyId: 2,
-      roleName: 'User',
-      isUserRole: true,
-      isSupervisorRole: false,
-      isAdminRole: false,
-    });
-
-    models.role.create({
-      companyId: 2,
-      roleName: 'Supervisor',
-      isUserRole: false,
-      isSupervisorRole: true,
-      isAdminRole: false,
-    });
-
-    models.role.create({
-      companyId: 2,
-      roleName: 'Admin',
-      isUserRole: false,
-      isSupervisorRole: false,
-      isAdminRole: false,
-
+  }).catch(error => console.log(error))
+    .then(() => {
+      models.company.create({
+        name: 'localhost2',
+        hostname: 'localhost2'
+      }).catch(error => console.log(error))
     }).then(() => {
-      models.userRole.create({
-        companyId: 1,
-        roleId: 1,
-        userId: 1
-      });
-
-      models.userRole.create({
-        companyId: 2,
-        roleId: 1,
-        userId: 2
-      });
-
-      models.userRole.create({
-        companyId: 2,
-        roleId: 2,
-        userId: 2
-      });
-
-      models.userRole.create({
-        companyId: 2,
-        roleId: 3,
-        userId: 2
-      });
-    });
-
     models.user.create({
       username: 'mjacobson7',
       firstName: 'Max',
@@ -98,8 +25,8 @@ models.sequelize.sync({force: true}).then(() => {
       password: 'password',
       email: 'test@test.com',
       companyId: 1
-    });
-
+    }).catch(error => console.log(error));
+  }).then(() => {
     models.user.create({
       username: 'cjacobson7',
       firstName: 'Corina',
@@ -108,31 +35,51 @@ models.sequelize.sync({force: true}).then(() => {
       email: 'test2@test.com',
       companyId: 1,
       supervisorId: 1
-    }).then(() => {
-      models.feedback.create({
-        companyId: 1,
-        userId: 1,
-        rating: 4,
-        like: "Max did a great job explaining the benefits of the product to me",
-        dislike: "I wish had time to discuss with my spouse before I purchased",
-        productDescription: "It was a credit card with 1% cash back on all purchases"
-      });
-
-      models.feedback.create({
-        companyId: 2,
-        userId: 2,
-        rating: 5,
-        like: "Corina was so helpful to me. She did a great job helping me figure out my health insurance benefits",
-        dislike: "I wish the insurance was less expensive",
-        productDescription: "It was my insurance plan"
-      });
-    });
-  });
-
-
-
-
-
-  server.listen(port, () => {console.log(`Now listening on port ${port}`)});
-
-});
+    }).catch(error => console.log(error));
+  }).then(() => {
+    models.role.create({
+      name: 'User',
+      type: 'USER'
+    }).catch(error => console.log(error));
+  }).then(() => {
+    models.role.create({
+      name: 'Supervisor',
+      type: 'SUPERVISOR'
+    }).catch(error => console.log(error));
+  }).then(() => {
+    models.role.create({
+      name: 'Admin',
+      type: 'ADMIN'
+    }).catch(error => console.log(error));
+  }).then(() => {
+    models.userRole.create({
+      userId: 1,
+      roleId: 2
+    }).catch(error => console.log(error));
+  }).then(() => {
+    models.userRole.create({
+      userId: 2,
+      roleId: 3
+    }).catch(error => console.log(error));
+  }).then(() => {
+    models.feedback.create({
+      companyId: 1,
+      userId: 1,
+      rating: 4,
+      like: "Corina did a great job explaining the benefits of the product to me",
+      dislike: "I wish had time to discuss with my spouse before I purchased",
+      productDescription: "It was a credit card with 1% cash back on all purchases"
+    }).catch(error => console.log(error));
+  }).then(() => {
+    models.feedback.create({
+      companyId: 2,
+      // userId: 2,
+      rating: 5,
+      like: "Max was so helpful to me. She did a great job helping me figure out my health insurance benefits",
+      dislike: "I wish the insurance was less expensive",
+      productDescription: "It was my insurance plan"
+    }).catch(error => console.log(error));
+  }).then(() => {
+    server.listen(port, () => {console.log(`Now listening on port ${port}`)});
+  })
+})

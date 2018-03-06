@@ -33,7 +33,7 @@ module.exports = {
             })
     },
 
-    getMyProfile: (req, res) => {
+    getCurrentUser: (req, res) => {
       User.find({
         where: { id: req.user.id, companyId: req.user.companyId },
         include: [
@@ -63,18 +63,20 @@ module.exports = {
     },
 
     getSupervisors: (req, res) => {
-      // User.findAll({where: { companyId: req.user.companyId }}).then((supervisors) => {
-      //   res.status(200).json(supervisors);
-      // });
-
-      Role.findAll({
-        where: { isSupervisorRole: true },
-        include: [{ model: User, where: { companyId: req.user.companyId } }]}).then((supervisors) => {
+      User.findAll({
+        where: { companyId: req.user.companyId },
+        include: [{ model: Role, where: { type: 'SUPERVISOR'}}]
+      }).then(supervisors => {
         res.status(200).json(supervisors);
-      });
+      })
+    },
 
-
+    getUserRoles: (req, res) => {
+      Role.findAll().then(roles => {
+        res.status(200).json(roles);
+      })
     }
+
 
 
 };
