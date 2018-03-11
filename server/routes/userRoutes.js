@@ -10,7 +10,7 @@ module.exports = (app) => {
 
   app.get('/getSupervisorTeam', authController.verifyValidToken, userController.getSupervisorTeam);
 
-  app.get('/getSupervisors', authController.verifyValidToken, userController.getSupervisors);
+  app.get('/getSupervisorDropdown', authController.verifyValidToken, userController.getSupervisorDropdown);
 
-  app.get('/getUserRoles', authController.verifyValidToken, userController.getUserRoles);
+  app.get('/getRolesDropdown', authController.verifyValidToken, userController.getRolesDropdown);
 };

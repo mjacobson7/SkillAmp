@@ -5,7 +5,10 @@ import { UserService } from '../../services/user/user.service';
 import {NavService} from '../../services/nav/nav.service';
 import { User } from '../../models/user.model';
 import {Subscription} from 'rxjs/Subscription';
-import { Select2OptionData } from 'ng2-select2';
+import { NgOption } from '@ng-select/ng-select';
+import {Observable} from 'rxjs/Observable';
+
+
 
 @Component({
   selector: 'app-user-profile',
@@ -17,6 +20,8 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   userForm: FormGroup;
   passwordLabel = ['Password', 'Confirm password'];
   changePassword: Boolean;
+  supervisorsList: Observable<NgOption[]>;
+  rolesList: Observable<NgOption[]>;
   pageInfo: {title: string, icon: string} = {
     title: 'My Profile',
     icon: 'person'
@@ -34,11 +39,14 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.userFormSubscription = this.authService.user.subscribe(user => {
       if(user) {
+        console.log(user);
         this.user = user;
-        console.log(this.user);
+        this.supervisorsList = this.userService.getSupervisorDropdown();
+        this.rolesList = this.userService.getRolesDropdown();
         this.initializeForm();
+
       }
-    })
+    });
   }
 
   initializeForm() {
@@ -51,17 +59,9 @@ export class UserProfileComponent implements OnInit, OnDestroy {
                  ], this.passwordValidator),
       lastName:  [this.user.lastName, Validators.required],
       email:     [this.user.email, [Validators.required, Validators.email]],
-      supervisorUsername: [{value: this.user.supervisor ? this.user.supervisor.username : 'None', disabled: !this.isAdminRole() }],
-      roles: [{value: this.getRoles(), disabled: !this.isAdminRole() }]
+      supervisor: [{value: this.user.supervisorId ? this.user.supervisorId : null , disabled: !this.isAdminRole()}],
+      roles: [{value: this.configureUserRoles(), disabled: !this.isAdminRole() }]
     });
-  }
-
-  getRoles() {
-    let roleNames = [];
-    for (let role of this.user.roles) {
-      roleNames.push(role.name);
-    }
-    return roleNames;
   }
 
   isAdminRole() {
@@ -71,17 +71,13 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     return false;
   }
 
-    // getUserRoles() {
-    // this.userService.getUserRoles().subscribe(userRoles => {
-    //   console.log(userRoles);
-    //   })
-    // }
-
-  // getSupervisors() {
-  //   this.userService.getSupervisors().subscribe(supervisors => {
-  //     console.log(supervisors);
-  //   })
-  // }
+  configureUserRoles() {
+    let userRolesList = [];
+    this.user.roles.forEach(role => {
+      userRolesList.push(role.id);
+    })
+    return userRolesList;
+  }
 
   passwordValidator(array: FormArray): {[s: string]: boolean} {
     return array.value[0] === array.value[1] ? null : {'unmatched': true};
@@ -110,6 +106,4 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.userFormSubscription.unsubscribe();
   }
-
-
 }

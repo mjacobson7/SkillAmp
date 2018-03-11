@@ -18,15 +18,15 @@ export class UserService {
     });
   }
 
-  getSupervisors() {
-    return this.httpClient.get('/getSupervisors').map(response => {
-      return response;
-    });
+  getRolesDropdown() {
+    return this.httpClient.get<any[]>('/getRolesDropdown').map(roles => {
+      return roles;
+    })
   }
 
-  getUserRoles() {
-    return this.httpClient.get('/getUserRoles').map(response => {
-      return response;
+  getSupervisorDropdown() {
+    return this.httpClient.get<any[]>('/getSupervisorDropdown').map(supervisors => {
+      return supervisors;
     })
   }
 

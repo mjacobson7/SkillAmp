@@ -1,5 +1,4 @@
 <form [formGroup]="userForm" (ngSubmit)="onSubmit()" *ngIf="user">
-
   <div class="form-group">
     <label for="username">Username</label>
     <input formControlName="username" type="text" class="form-control form-control-sm" id="username" >
@@ -78,17 +77,32 @@
   </div><hr>
 
   <div class="form-group">
-    <label for="supervisorUsername">Supervisor</label>
-    <input formControlName="supervisorUsername" type="text" class="form-control form-control-sm" id="supervisorUsername" >
-    <small
-      *ngIf="userForm.get('supervisorUsername').hasError('required') && userForm.get('supervisorUsername').touched"
-      class="form-text text-muted">Supervisor is required
-    </small>
+    <label >Supervisor</label>
+  <ng-select [items]="supervisorsList | async"
+             loadingText="Loading..."
+             bindValue="id"
+             bindLabel="name"
+             placeholder="None"
+             [searchable]="true"
+             [virtualScroll]="true"
+             formControlName="supervisor">
+  </ng-select>
+  <small
+    *ngIf="userForm.get('supervisor').hasError('required') && userForm.get('supervisor').touched"
+    class="form-text text-muted">Supervisor is required
+  </small>
   </div><hr>
 
   <div class="form-group" >
     <label for="roles">Role</label>
-    <p-chips formControlName="roles" id="roles"></p-chips>
+    <ng-select [items]="rolesList | async"
+               id="roles"
+               multiple="true"
+               bindLabel="name"
+               bindValue="id"
+               [loading]="loading"
+               formControlName="roles">
+    </ng-select>
   </div><hr>
 
   <button type="submit" class="btn btn-primary">Save</button>
