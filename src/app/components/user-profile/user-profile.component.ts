@@ -37,20 +37,21 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   };
 
   ngOnInit() {
-    this.userFormSubscription = this.authService.user.subscribe(user => {
+    this.userFormSubscription = this.authService.getUser().subscribe(user => {
       if(user) {
         console.log(user);
         this.user = user;
         this.supervisorsList = this.userService.getSupervisorDropdown();
         this.rolesList = this.userService.getRolesDropdown();
         this.initializeForm();
-
       }
     });
   }
 
   initializeForm() {
     this.userForm = this.fb.group({
+      id:        [this.user.id],
+      companyId: [this.user.companyId],
       username:  [this.user.username, [Validators.required, Validators.minLength(8)]],
       firstName: [this.user.firstName, Validators.required],
       passwords:  this.fb.array([
@@ -65,8 +66,9 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
 
   isAdminRole() {
+    console.log(this.user.roles);
     for (let role of this.user.roles) {
-      if(role.type == 'ADMIN') return true;
+      if(role.isAdmin) return true;
     }
     return false;
   }
@@ -75,7 +77,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     let userRolesList = [];
     this.user.roles.forEach(role => {
       userRolesList.push(role.id);
-    })
+    });
     return userRolesList;
   }
 
@@ -88,10 +90,16 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    console.log(this.userForm.value);
+    if(this.changePassword) {
+      this.userForm.value.password = this.userForm.value.passwords[0];
+      delete this.userForm.value.passwords;
+    } else {
+      this.userForm.value.password = null;
+      delete this.userForm.value.passwords;
+    } 
     this.userService.updateProfile(this.userForm.value)
       .subscribe(response => {
-        this.user = response;
+        console.log(response);
     });
   }
 

@@ -1,70 +1,61 @@
-const jwt     = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 const secrets = require('../config/secrets');
-const User    = require('../models/index').user;
+const User = require('../models/index').user;
 const Company = require('../models/index').company;
 const Role = require('../models/index').role;
 const UserRole = require('../models/index').userRole;
+const bcrypt = require('bcrypt');
 
 module.exports = {
 
-  login: (req, res) => {
-    Company.findOne({ where: { hostname: req.body.hostname } }).then((company) => {
-      User.findOne({
-        where: { username: req.body.username, companyId: company.dataValues.id },
-        include: [
-          {
-            model: User,
-            as: "supervisor",
-          },
-          {
-            model: Role,
-            through: UserRole
-          }]
-      }).then(user => {
-        if (user) {
-          if(user.validPassword(req.body.password)) {
-            let token = jwt.sign({userId: user.id, companyId: company.dataValues.id}, secrets.tokenSecret, {expiresIn: '1h'});
-            res.status(200).json({
-              token: token,
-              user: user
-            });
-          } else {
-            res.status(200).json("Invalid username and/or password.");
-          }
-        } else {
-          res.status(200).json("Could not find that user.");
-        }
-      });
-    });
+  login: async (req, res) => {
+    const dbInstance = req.app.get('db');
+    const { hostname, username, password } = req.body;
+
+    const company = await dbInstance.find_company_by_hostname([hostname]);
+    const user = await dbInstance.get_user_by_username([username, company[0].id]);
+    const supervisor = await dbInstance.get_supervisor([user[0].supervisorId]);
+    const roles = await dbInstance.get_user_roles([company[0].id, user[0].id]);
+
+    if (bcrypt.compareSync(password, user[0].password)) {
+      let token = jwt.sign({ userId: user[0].id, companyId: user[0].companyId }, secrets.tokenSecret, { expiresIn: '1h' });
+      if (roles.length > 0) {
+        user[0].roles = roles;
+      }
+
+      if (supervisor.length > 0) {
+        user[0].supervisor = supervisor[0];
+        res.status(200).json({ token: token, user: user[0] });
+      } else {
+        console.log(user[0]);
+        res.status(200).json({ token: token, user: user[0] });
+      }
+    }
   },
 
-  createUser: (req, res) => {
-    User.create({
-      username: req.body.username,
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      password: req.body.password,
-      email: req.body.email,
-      supervisorId: req.body.supervisorId,
-      companyId: req.body.companyId
-      // role: req.body.role
-    })
-      .then(() => {
-        res.status(200).json("You have successfully created a new account!");
-      })
-      .catch(error => {
-        console.log(error);
-        res.status(401).json(error);
-      });
+  createUser: async (req, res) => {
+    const dbInstance = req.app.get('db');
+    let { username, firstName, lastName, password, email, supervisorId, companyId } = req.body;
+    const salt = bcrypt.genSaltSync();
+    password = bcrypt.hashSync(password, salt);
+
+    try {
+      const newUser = await dbInstance.create_user([companyId, username, firstName, lastName, email, password, supervisorId]);
+    }
+    catch (error) {
+      res.status(500).json(error);
+    }
+
   },
 
   verifyValidToken: (req, res, next) => {
-    jwt.verify(req.header('auth'), secrets.tokenSecret, function(err, decoded) {
-      if(decoded) {
-        User.findOne({ where: {id: decoded.userId, companyId: decoded.companyId }}).then((user) => {
-          req.user = user.dataValues;
+    const dbInstance = req.app.get('db');
+    jwt.verify(req.header('auth'), secrets.tokenSecret, function (err, decoded) {
+      if (decoded) {
+        dbInstance.get_user_by_id([decoded.userId, decoded.companyId]).then((user) => {
+          req.principal = user[0];
           next();
-        });
+        })
       } else {
         res.status(401).json(err);
       }

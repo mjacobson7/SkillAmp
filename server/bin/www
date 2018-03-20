@@ -1,203 +1,204 @@
-const http = require('http');
-const app = require('../server.js');
-const models = require('../models');
+// const http = require('http');
+// const app = require('../server.js');
+// const models = require('../models');
 
-const port = parseInt(process.env.PORT, 10) || 3000;
-app.set('port', port);
+// const port = parseInt(process.env.PORT, 10) || 3000;
+// app.set('port', port);
 
-const server = http.createServer(app);
+// const server = http.createServer(app);
 
-models.sequelize.sync({force: true}).then(() => {
-  models.company.create({
-    name: 'localhost',
-    hostname: 'localhost'
-  }).catch(error => console.log(error))
-    .then(() => {
-      models.company.create({
-        name: 'localhost2',
-        hostname: 'localhost2'
-      }).catch(error => console.log(error))
-    }).then(() => {
-    models.user.create({
-      username: 'mjacobson7',
-      firstName: 'Max',
-      lastName: 'Jacobson',
-      password: 'password',
-      email: 'test@test.com',
-      companyId: 1
-    }).catch(error => console.log(error));
-  }).then(() => {
-    models.user.create({
-      username: 'cjacobson7',
-      firstName: 'Corina',
-      lastName: 'Jacobson',
-      password: 'password',
-      email: 'test2@test.com',
-      companyId: 1,
-      supervisorId: 1
-    }).catch(error => console.log(error));
-  }).then(() => {
-    models.user.create({
-      username: 'tjacobson7',
-      firstName: 'Taylor',
-      lastName: 'Jacobson',
-      password: 'password',
-      email: 'tes3@test.com',
-      companyId: 1,
-      supervisorId: 2
-    }).catch(error => console.log(error));
-  }).then(() => {
-    models.user.create({
-      username: 'ejacobson7',
-      firstName: 'Emma',
-      lastName: 'Jacobson',
-      password: 'password',
-      email: 'test4@test.com',
-      companyId: 1,
-      supervisorId: 2
-    }).catch(error => console.log(error));
-  }).then(() => {
-    models.user.create({
-      username: 'sjacobson7',
-      firstName: 'Sasha',
-      lastName: 'Jacobson',
-      password: 'password',
-      email: 'test5@test.com',
-      companyId: 1,
-      supervisorId: 1
-    }).catch(error => console.log(error));
-  }).then(() => {
-    models.user.create({
-      username: 'rgray',
-      firstName: 'Ryan',
-      lastName: 'Gray',
-      password: 'password',
-      email: 'test6@test.com',
-      companyId: 2
-    }).catch(error => console.log(error));
-  }).then(() => {
-    models.user.create({
-      username: 'testuser',
-      firstName: 'test',
-      lastName: 'test',
-      password: 'password',
-      email: 'test7@test.com',
-      companyId: 2
-    }).catch(error => console.log(error));
-  }).then(() => {
-    models.user.create({
-      username: 'testuser2',
-      firstName: 'test2',
-      lastName: 'test2',
-      password: 'password',
-      email: 'test8@test.com',
-      companyId: 2
-    }).catch(error => console.log(error));
-  }).then(() => {
-    models.user.create({
-      username: 'testuser3',
-      firstName: 'test3',
-      lastName: 'test3',
-      password: 'password',
-      email: 'test9@test.com',
-      companyId: 2
-    }).catch(error => console.log(error));
-  }).then(() => {
-    models.user.create({
-      username: 'testuser4',
-      firstName: 'test4',
-      lastName: 'test4',
-      password: 'password',
-      email: 'test10@test.com',
-      companyId: 2
-    }).catch(error => console.log(error));
-  }).then(() => {
-    models.user.create({
-      username: 'testuser5',
-      firstName: 'test5',
-      lastName: 'test5',
-      password: 'password',
-      email: 'test11@test.com',
-      companyId: 2,
-    }).catch(error => console.log(error));
-  }).then(() => {
-    models.user.create({
-      username: 'testuser6',
-      firstName: 'test6',
-      lastName: 'test6',
-      password: 'password',
-      email: 'test12@test.com',
-      companyId: 2
-    }).catch(error => console.log(error));
-  }).then(() => {
-    models.role.create({
-      name: 'User',
-      type: 'USER'
-    }).catch(error => console.log(error));
-  }).then(() => {
-    models.role.create({
-      name: 'Supervisor',
-      type: 'SUPERVISOR'
-    }).catch(error => console.log(error));
-  }).then(() => {
-    models.role.create({
-      name: 'Admin',
-      type: 'ADMIN'
-    }).catch(error => console.log(error));
-  }).then(() => {
-    models.userRole.create({
-      userId: 1,
-      roleId: 1
-    }).catch(error => console.log(error));
-  }).then(() => {
-    models.userRole.create({
-      userId: 1,
-      roleId: 2
-    }).catch(error => console.log(error));
-  }).then(() => {
-    models.userRole.create({
-      userId: 1,
-      roleId: 3
-    }).catch(error => console.log(error));
-  }).then(() => {
-    models.userRole.create({
-      userId: 2,
-      roleId: 1
-    }).catch(error => console.log(error));
-  }).then(() => {
-    models.userRole.create({
-      userId: 2,
-      roleId: 2
-    }).catch(error => console.log(error));
-  }).then(() => {
-    models.userRole.create({
-      userId: 2,
-      roleId: 3
-    }).catch(error => console.log(error));
-  }).then(() => {
-    models.userRole.create({
-      userId: 1,
-      roleId: 32
-    }).catch(error => console.log(error));
-  }).then(() => {
-    models.feedback.create({
-      companyId: 1,
-      userId: 1,
-      rating: 4,
-      like: "Corina did a great job explaining the benefits of the product to me",
-      dislike: "I wish had time to discuss with my spouse before I purchased",
-      productDescription: "It was a credit card with 1% cash back on all purchases"
-    }).catch(error => console.log(error));
-  }).then(() => {
-    models.feedback.create({
-      companyId: 2,
-      // userId: 2,
-      rating: 5,
-      like: "Max was so helpful to me. She did a great job helping me figure out my health insurance benefits",
-      dislike: "I wish the insurance was less expensive",
-      productDescription: "It was my insurance plan"
-    }).catch(error => console.log(error));
-  }).then(() => {
-    server.listen(port, () => {console.log(`Now listening on port ${port}`)});
-  })
-})
+// models.sequelize.sync({force: true}).then(() => {
+//   models.company.create({
+//     name: 'localhost',
+//     hostname: 'localhost'
+//   }).catch(error => console.log(error))
+//     .then(() => {
+//       models.company.create({
+//         name: 'localhost2',
+//         hostname: 'localhost2'
+//       }).catch(error => console.log(error))
+//     }).then(() => {
+//     models.user.create({
+//       username: 'mjacobson7',
+//       firstName: 'Max',
+//       lastName: 'Jacobson',
+//       password: 'password',
+//       email: 'test@test.com',
+//       companyId: 1
+//     }).catch(error => console.log(error));
+//   }).then(() => {
+//     models.user.create({
+//       username: 'cjacobson7',
+//       firstName: 'Corina',
+//       lastName: 'Jacobson',
+//       password: 'password',
+//       email: 'test2@test.com',
+//       companyId: 1,
+//       supervisorId: 1
+//     }).catch(error => console.log(error));
+//   }).then(() => {
+//     models.user.create({
+//       username: 'tjacobson7',
+//       firstName: 'Taylor',
+//       lastName: 'Jacobson',
+//       password: 'password',
+//       email: 'tes3@test.com',
+//       companyId: 1,
+//       supervisorId: 2
+//     }).catch(error => console.log(error));
+//   }).then(() => {
+//     models.user.create({
+//       username: 'ejacobson7',
+//       firstName: 'Emma',
+//       lastName: 'Jacobson',
+//       password: 'password',
+//       email: 'test4@test.com',
+//       companyId: 1,
+//       supervisorId: 2
+//     }).catch(error => console.log(error));
+//   }).then(() => {
+//     models.user.create({
+//       username: 'sjacobson7',
+//       firstName: 'Sasha',
+//       lastName: 'Jacobson',
+//       password: 'password',
+//       email: 'test5@test.com',
+//       companyId: 1,
+//       supervisorId: 1
+//     }).catch(error => console.log(error));
+//   }).then(() => {
+//     models.user.create({
+//       username: 'rgray',
+//       firstName: 'Ryan',
+//       lastName: 'Gray',
+//       password: 'password',
+//       email: 'test6@test.com',
+//       companyId: 2
+//     }).catch(error => console.log(error));
+//   }).then(() => {
+//     models.user.create({
+//       username: 'testuser',
+//       firstName: 'test',
+//       lastName: 'test',
+//       password: 'password',
+//       email: 'test7@test.com',
+//       companyId: 2
+//     }).catch(error => console.log(error));
+//   }).then(() => {
+//     models.user.create({
+//       username: 'testuser2',
+//       firstName: 'test2',
+//       lastName: 'test2',
+//       password: 'password',
+//       email: 'test8@test.com',
+//       companyId: 2
+//     }).catch(error => console.log(error));
+//   }).then(() => {
+//     models.user.create({
+//       username: 'testuser3',
+//       firstName: 'test3',
+//       lastName: 'test3',
+//       password: 'password',
+//       email: 'test9@test.com',
+//       companyId: 2
+//     }).catch(error => console.log(error));
+//   }).then(() => {
+//     models.user.create({
+//       username: 'testuser4',
+//       firstName: 'test4',
+//       lastName: 'test4',
+//       password: 'password',
+//       email: 'test10@test.com',
+//       companyId: 2
+//     }).catch(error => console.log(error));
+//   }).then(() => {
+//     models.user.create({
+//       username: 'testuser5',
+//       firstName: 'test5',
+//       lastName: 'test5',
+//       password: 'password',
+//       email: 'test11@test.com',
+//       companyId: 2,
+//     }).catch(error => console.log(error));
+//   }).then(() => {
+//     models.user.create({
+//       username: 'testuser6',
+//       firstName: 'test6',
+//       lastName: 'test6',
+//       password: 'password',
+//       email: 'test12@test.com',
+//       companyId: 2
+//     }).catch(error => console.log(error));
+//   }).then(() => {
+//     models.role.create({
+//       name: 'User',
+//       type: 'USER'
+//     }).catch(error => console.log(error));
+//   }).then(() => {
+//     models.role.create({
+//       name: 'Supervisor',
+//       type: 'SUPERVISOR'
+//     }).catch(error => console.log(error));
+//   }).then(() => {
+//     models.role.create({
+//       name: 'Admin',
+//       type: 'ADMIN'
+//     }).catch(error => console.log(error));
+//   }).then(() => {
+//     models.userRole.create({
+//       userId: 1,
+//       roleId: 1,
+//       companyId: 1
+//     }).catch(error => console.log(error));
+//   }).then(() => {
+//     models.userRole.create({
+//       userId: 1,
+//       roleId: 2,
+//       companyId: 1
+//     }).catch(error => console.log(error));
+//   }).then(() => {
+//     models.userRole.create({
+//       userId: 1,
+//       roleId: 3,
+//       companyId: 1
+//     }).catch(error => console.log(error));
+//   }).then(() => {
+//     models.userRole.create({
+//       userId: 2,
+//       roleId: 1,
+//       companyId: 1
+//     }).catch(error => console.log(error));
+//   }).then(() => {
+//     models.userRole.create({
+//       userId: 2,
+//       roleId: 2,
+//       companyId: 1
+//     }).catch(error => console.log(error));
+//   }).then(() => {
+//     models.userRole.create({
+//       userId: 2,
+//       roleId: 3,
+//       companyId: 1
+//     }).catch(error => console.log(error));
+//   }).then(() => {
+//     models.feedback.create({
+//       companyId: 1,
+//       userId: 1,
+//       rating: 4,
+//       like: "Corina did a great job explaining the benefits of the product to me",
+//       dislike: "I wish had time to discuss with my spouse before I purchased",
+//       productDescription: "It was a credit card with 1% cash back on all purchases"
+//     }).catch(error => console.log(error));
+//   }).then(() => {
+//     models.feedback.create({
+//       companyId: 2,
+//       // userId: 2,
+//       rating: 5,
+//       like: "Max was so helpful to me. She did a great job helping me figure out my health insurance benefits",
+//       dislike: "I wish the insurance was less expensive",
+//       productDescription: "It was my insurance plan"
+//     }).catch(error => console.log(error));
+//   }).then(() => {
+//     server.listen(port, () => {console.log(`Now listening on port ${port}`)});
+//   })
+// })

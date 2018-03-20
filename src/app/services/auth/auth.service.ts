@@ -7,17 +7,27 @@ import { User } from '../../models/user.model';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Subscription} from 'rxjs/Subscription';
 import {Subject} from 'rxjs/Subject';
+import { Observable } from 'rxjs/Rx';
 
 
 @Injectable()
 export class AuthService {
-  user = new BehaviorSubject<User>(null);
-
+  private user = new BehaviorSubject<User>(null);
 
   constructor(private httpClient: HttpClient, private router: Router) {
-    if(this.router.url !== '/login') {
-      this.getCurrentUser().subscribe(user => this.user.next(user));
+    if(this.router.url !== '/login' && this.isLoggedIn()) {
+      this.getCurrentUser().subscribe(user => this.setUser(user));
+    } else {
+      this.router.navigate(['/login']);
     }
+  }
+
+  getUser(): Observable<User> {
+    return this.user.asObservable();
+  }
+
+  setUser(user:User):void {
+    this.user.next(user);
   }
 
   login(credentials) {
@@ -45,9 +55,7 @@ export class AuthService {
   }
 
   getCurrentUser() {
-    return this.httpClient.get<User>('/getCurrentUser').map(user => {
-      return user;
-    });
+    return this.httpClient.get<User>('/getCurrentUser');
   }
 
 }

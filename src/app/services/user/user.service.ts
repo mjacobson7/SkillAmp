@@ -4,6 +4,8 @@ import { AuthService } from '../auth/auth.service';
 import { User } from '../../models/user.model';
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import 'rxjs/add/operator/map';
+
 
 @Injectable()
 export class UserService {
@@ -11,9 +13,9 @@ export class UserService {
   constructor(private httpClient: HttpClient, private authService: AuthService) { }
 
   updateProfile(user: User) {
-    return this.httpClient.put<User>('/updateUser', user).map(response => {
-      // this.authService.user.next(response);
-      this.authService.user.next(response);
+    return this.httpClient.put<User>('/updateUser', user)
+    .map(response => {
+      this.authService.setUser(response);
       return response;
     });
   }

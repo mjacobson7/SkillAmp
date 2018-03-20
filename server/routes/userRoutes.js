@@ -8,7 +8,7 @@ module.exports = (app) => {
 
   app.get('/getAllUsers', authController.verifyValidToken, userController.getAllUsers);
 
-  app.get('/getSupervisorTeam', authController.verifyValidToken, userController.getSupervisorTeam);
+  app.get('/getMyTeam', authController.verifyValidToken, userController.getMyTeam);
 
   app.get('/getSupervisorDropdown', authController.verifyValidToken, userController.getSupervisorDropdown);
 
