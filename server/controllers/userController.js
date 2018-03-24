@@ -114,7 +114,7 @@ module.exports = {
   getRolesDropdown: async (req, res) => {
     const dbInstance = req.app.get('db');
     try {
-      const roles = await dbInstance.get_roles_dropdown();
+      const roles = await dbInstance.get_all_roles();
       let roleDropdownList = [];
       roles.forEach(role => {
         let roleObj = {};

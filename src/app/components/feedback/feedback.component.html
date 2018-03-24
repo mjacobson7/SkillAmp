@@ -1,14 +1,13 @@
 <div class="container-fluid rating-wrapper">
-  <div class="row">
+  <!-- <div class="row">
     <div class="col-lg-12">
       <h4>Overall Rating</h4>
     </div>
     <div class="col-lg-12 overall-rating">
       <h1>{{reviewTotals.overallRating}}</h1>
       <rating [(ngModel)]="reviewTotals.overallRating" [max]="5" [readonly]="true"></rating>
-      <!-- <button mat-raised-button (click)="openDialog()" color="primary">Filters</button> -->
     </div>
-  </div>
+  </div> -->
   <div class="row">
     <div class="col-lg-12">
       <app-feedback-filters></app-feedback-filters>
@@ -19,4 +18,7 @@
       <app-review-card [feedback]="feedback"></app-review-card>
     </div>
   </div>
+  <hr>
+  <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
 </div>

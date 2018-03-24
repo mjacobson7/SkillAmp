@@ -3,28 +3,31 @@ const User = require('../models/index').user;
 
 module.exports = {
 
-  addFeedback: (req, res) => {
-    Feedback.create({
-      companyId: req.body.companyId,
-      userId: req.body.userId,
-      rating: req.body.rating,
-      like: req.body.like,
-      dislike: req.body.dislike,
-      productDescription: req.body.productDescription
-    })
-      .then(() => {
-        res.status(200).json("Feedback Created!");
-      })
-      .catch((error) => {
-        console.log(error);
-        res.status(500).json(error);
-      })
+  addFeedback: async (req, res) => {
+    const dbInstance = req.app.get('db');
+    let { companyId, userId, rating, like, dislike, productDescription } = req.body;
+
+    try {
+      await dbInstance.add_feedback([userId, companyId, rating, like, dislike, productDescription]);
+      res.status(200).json("Feedback Created!");
+    }
+    catch(error) {
+      console.log(error);
+      res.status(500).json(error); 
+    }
   },
 
-  getMyFeedback: (req, res) => {
-    Feedback.findAll({ where: { userId: req.user.id, companyId: req.user.companyId }}).then((feedback) => {
-      res.status(200).json(feedback);
-    })
+  getMyFeedback: async (req, res) => {
+    const dbInstance = req.app.get('db');
+
+    try {
+      const myFeedback = await dbInstance.get_my_feedback([req.principal.id, req.principal.companyId]);
+      res.status(200).json(myFeedback);
+    }
+    catch(error) {
+      console.log(error);
+      res.status(500).json(error);
+    }
   },
 
   getTeamFeedback: (req, res) => {

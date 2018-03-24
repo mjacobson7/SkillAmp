@@ -90,6 +90,9 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    if(this.userForm.value.roles.length < 1) {
+      //throw error
+    }
     if(this.changePassword) {
       this.userForm.value.password = this.userForm.value.passwords[0];
       delete this.userForm.value.passwords;

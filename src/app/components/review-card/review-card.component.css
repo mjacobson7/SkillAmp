@@ -3,7 +3,7 @@ a {
 }
 
 * {
-    font-size: 13px;
+    font-size: 15px;
 }
 
 .mat-card-title {
@@ -21,4 +21,17 @@ a {
 
 .card {
     margin: 20px 0px 0px 0px;
+}
+
+.card-footer {
+    background-color: #E9ECEF;    
+}
+
+.card-header {
+    background-color: #FFFFFF;
+}
+
+::ng-deep .mat-tab-body {
+    height: 130px;
+    padding: 20px;
 }

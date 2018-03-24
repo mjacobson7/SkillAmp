@@ -1,8 +1,8 @@
 -- TABLES & SEQUENCES
 CREATE TABLE "company" (
     "id" BIGSERIAL NOT NULL PRIMARY KEY,
-    "name" VARCHAR NOT NULL,
-    "hostname" VARCHAR NOT NULL,
+    "name" VARCHAR NOT NULL UNIQUE,
+    "hostname" VARCHAR NOT NULL UNIQUE,
     "created" TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
@@ -49,6 +49,22 @@ CREATE TABLE "user_roles" (
     "created" TIMESTAMPTZ NOT NULL DEFAULT now(),
     PRIMARY KEY (company_id, user_id, role_id)
 );
+
+CREATE TABLE "customer_feedback" (
+    "id" BIGSERIAL NOT NULL PRIMARY KEY,
+    "user_id" BIGSERIAL NOT NULL REFERENCES users (id),
+    "company_id" BIGSERIAL NOT NULL REFERENCES company (id),
+    "rating" INTEGER NOT NULL,
+    "like" TEXT NOT NULL,
+    "dislike" TEXT NOT NULL,
+    "product_description" TEXT NOT NULL,
+    "created" TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE SEQUENCE feedback_sequence
+	START WITH	1000110970000000000
+	MAXVALUE	1000110979999999999
+	INCREMENT BY 50 CACHE 1 NO CYCLE;
 
 -- DATA
 INSERT INTO roles (id, name, is_user, is_supervisor, is_admin) VALUES (nextval('role_sequence'), 'User', TRUE, FALSE, FALSE);

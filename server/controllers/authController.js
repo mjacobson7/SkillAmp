@@ -12,25 +12,33 @@ module.exports = {
     const dbInstance = req.app.get('db');
     const { hostname, username, password } = req.body;
 
+    try {
     const company = await dbInstance.find_company_by_hostname([hostname]);
     const user = await dbInstance.get_user_by_username([username, company[0].id]);
-    const supervisor = await dbInstance.get_supervisor([user[0].supervisorId]);
+    if(typeof user[0].supervisorId !== 'undefined' && user[0].supervisorId) {
+      const supervisor = await dbInstance.get_supervisor([user[0].supervisorId]);      
+    }
     const roles = await dbInstance.get_user_roles([company[0].id, user[0].id]);
-
-    if (bcrypt.compareSync(password, user[0].password)) {
-      let token = jwt.sign({ userId: user[0].id, companyId: user[0].companyId }, secrets.tokenSecret, { expiresIn: '1h' });
-      if (roles.length > 0) {
-        user[0].roles = roles;
-      }
-
-      if (supervisor.length > 0) {
-        user[0].supervisor = supervisor[0];
-        res.status(200).json({ token: token, user: user[0] });
-      } else {
-        console.log(user[0]);
-        res.status(200).json({ token: token, user: user[0] });
+    
+    
+      if (bcrypt.compareSync(password, user[0].password)) {
+        let token = jwt.sign({ userId: user[0].id, companyId: user[0].companyId }, secrets.tokenSecret, { expiresIn: '1h' });
+        if (roles.length > 0) {
+          user[0].roles = roles;
+        }
+        if (typeof user[0].supervisorId !== 'undefined' && user[0].supervisorId) {
+          user[0].supervisor = supervisor[0];
+          res.status(200).json({ token: token, user: user[0] });
+        } else {
+          res.status(200).json({ token: token, user: user[0] });
+        }
       }
     }
+    catch(error) {
+      console.log(error);
+      res.status(500).json(error);
+    }
+
   },
 
   createUser: async (req, res) => {

@@ -27,8 +27,9 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {ChartModule} from 'angular-highcharts';
-// import {SelectModule} from 'ng-select';
 import { NgSelectModule } from '@ng-select/ng-select';
+import {MatDividerModule} from '@angular/material/divider';
+
 
 
 
@@ -120,8 +121,8 @@ import {FeedbackService} from './services/feedback/feedback.service';
     MatIconModule,
     MatTableModule,
     MatPaginatorModule,
-    // SelectModule,
-    NgSelectModule
+    NgSelectModule,
+    MatDividerModule
   ],
   providers: [
     UserService,
