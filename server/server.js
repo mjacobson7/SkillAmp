@@ -4,12 +4,13 @@ const express = require('express'),
       bodyParser = require('body-parser'),
       cookieParser = require('cookie-parser'),
       cors = require('cors'),
-      massive = require('massive')
-      require('dotenv').config(),
+      massive = require('massive'),
+      secrets = require('./config/secrets');
       http = require('http');
+      require('dotenv').config();
 
 // Connect to Database
-massive( process.env.LOCAL_DB_URL ).then( dbInstance => app.set('db', dbInstance) );
+massive( process.env.DATABASE_URL ||  secrets.localDb).then( dbInstance => app.set('db', dbInstance) );
 
 //Express Middleware
 app.use(bodyParser.json());
