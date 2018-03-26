@@ -8,9 +8,8 @@ module.exports = {
     try {
       await dbInstance.create_company([name, hostname]);
       const company = await dbInstance.find_company_by_hostname([hostname]);
-      let password = secrets.supportPassword;
-      const salt = bcrypt.genSaltSync();
-      password = bcrypt.hashSync(password, salt);
+
+      password = await bcrypt.hashSync(secrets.supportPassword, bcrypt.genSaltSync());
       await dbInstance.create_user([company[0].id, 'skillampsupport', 'SkillAmp', 'Support', 'support@skillamp.io', password, null]);
       let supportUser = await dbInstance.get_user_by_username(['skillampsupport', company[0].id]);
       let availableRoles = await dbInstance.get_all_roles();
