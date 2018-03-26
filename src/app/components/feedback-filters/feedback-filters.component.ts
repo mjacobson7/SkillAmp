@@ -13,6 +13,11 @@ export class FeedbackFiltersComponent implements OnInit {
   feedbackDate = 'newestFeedback';
   filteredAgent = 'all';
   users;
+
+
+  starRatings = 'ALL';
+  reviewRatings = 'LIKE';
+  timeSort = 'NEW';
   
   constructor() { }
 

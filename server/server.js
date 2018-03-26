@@ -7,10 +7,9 @@ const express = require('express'),
       massive = require('massive')
       require('dotenv').config(),
       http = require('http');
-      models = require('./models');
 
 // Connect to Database
-massive( process.env.DATABASE_URL ).then( dbInstance => app.set('db', dbInstance) );
+massive( process.env.LOCAL_DB_URL ).then( dbInstance => app.set('db', dbInstance) );
 
 //Express Middleware
 app.use(bodyParser.json());

@@ -91,3 +91,29 @@
     width: 300px;
 }
 }
+
+@media only screen and (max-width: 950px) {
+    .ratingBars {
+        width: 200px;
+    }
+
+    .totalScore {
+        font-size: 50px;
+    }
+
+    .star {
+        font-size: 1rem;        
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .ratingBars {
+        width: 150px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .starRatingScale {
+        display: none;
+    }
+}

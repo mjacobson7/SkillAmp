@@ -1,6 +1,3 @@
-const Feedback = require('../models/index').feedback;
-const User = require('../models/index').user;
-
 module.exports = {
 
   addFeedback: async (req, res) => {

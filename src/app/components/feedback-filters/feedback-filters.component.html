@@ -83,8 +83,8 @@
   <label>Filter By</label>
   <div class="filters">
 
-    <ng-select [searchable]="false" [(ngModel)]="test1">
-      <ng-option value="all">All Stars</ng-option>
+    <ng-select [searchable]="false" [clearable]="false" [(ngModel)]=starRatings>
+      <ng-option value="ALL">All Stars</ng-option>
       <ng-option value="5">5 star only</ng-option>
       <ng-option value="4">4 star only</ng-option>
       <ng-option value="3">3 star only</ng-option>
@@ -92,14 +92,14 @@
       <ng-option value="1">1 star only</ng-option>
     </ng-select>
 
-    <ng-select [searchable]="false" [(ngModel)]="test2">
+    <ng-select [searchable]="false" [clearable]="false" [(ngModel)]="reviewRatings">
       <ng-option value="LIKE">What customer liked</ng-option>
       <ng-option value="DISLIKE">What customer disliked</ng-option>
       <ng-option value="ADVICE">Advice for agent</ng-option>
       <ng-option value="PURCHASE">Reason for purchase/non-purchase</ng-option>
     </ng-select>
 
-    <ng-select [searchable]="false" [(ngModel)]="test3">
+    <ng-select [searchable]="false" [clearable]="false" [(ngModel)]="timeSort">
       <ng-option value="NEW">Newest</ng-option>
       <ng-option value="OLD">Oldest</ng-option>
     </ng-select>

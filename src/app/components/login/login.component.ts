@@ -24,9 +24,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.authService.logout();
     this.loginForm = this.formBuilder.group({
       'username': new FormControl(this.username, Validators.required),
-      'password': new FormControl(this.password, Validators.required),
-      'hostname': new FormControl(window.location.hostname)
-    });
+      'password': new FormControl(this.password, Validators.required)
+    }); 
   }
 
   onLogin() {

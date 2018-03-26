@@ -25,14 +25,6 @@ module.exports = {
       console.log(error);
       res.status(500).json(error);
     }
+  },
 
-    // Company.create({
-    //   name: req.body.name,
-    //   hostname: req.body.hostname
-    // }).then(() => {
-    //   res.status(200).json("Company was created")
-    // }).catch((error) => {
-    //   res.status(401).json(error);
-    // })
-  }
 };

@@ -1,7 +1,3 @@
-const User = require('../models/index').user;
-const UserRole = require('../models/index').userRole;
-const Role = require('../models/index').role;
-const sequelize = require('sequelize');
 const bcrypt = require('bcrypt');
 
 module.exports = {
@@ -38,7 +34,11 @@ module.exports = {
           }
         }
 
-        const user = await dbInstance.get_user_by_id([id, companyId]); 
+        const user = await dbInstance.get_user_by_id([id, companyId]);
+        const userRoles = await dbInstance.get_user_roles([user[0].companyId, user[0].id]);
+        if (userRoles.length > 0) {
+          user[0].roles = userRoles;
+        }
         res.status(200).json(user[0]);
       }
       catch (error) {

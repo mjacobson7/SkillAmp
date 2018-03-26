@@ -90,7 +90,7 @@ import {FeedbackService} from './services/feedback/feedback.service';
     LeaderboardComponent,
     ],
   imports: [
-  BrowserModule,
+    BrowserModule,
     NgbModule.forRoot(),
     AppRoutingModule,
     BrowserAnimationsModule,

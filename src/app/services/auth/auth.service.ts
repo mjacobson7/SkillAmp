@@ -4,11 +4,11 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { Router } from '@angular/router';
 import { User } from '../../models/user.model';
+import { Company } from '../../models/company.model';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Subscription} from 'rxjs/Subscription';
 import {Subject} from 'rxjs/Subject';
 import { Observable } from 'rxjs/Rx';
-
 
 @Injectable()
 export class AuthService {
