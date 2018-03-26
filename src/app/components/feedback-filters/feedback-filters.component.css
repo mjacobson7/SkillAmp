@@ -6,3 +6,114 @@
     opacity: 0.75;
     font-size: 0.75em;
   }
+
+.ratingBars {
+    width: 400px;
+}
+
+.totalScore {
+    font-size: 72px;
+    line-height: 1;
+    text-align: center;
+}
+
+.averageRatingLabel {
+    font-size: 13px;
+    text-align: center;
+    margin: 0;
+}
+
+.ratingTotalAndFiltersWrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+.ratingScoreWrapper {
+    margin-right: 20px;
+    align-self: center;
+}
+
+.ratingBars p {
+    margin: 8px;
+}
+
+.star {
+    font-size: 1.5rem;
+    color: #b0c4de;
+    position: relative;  
+    display: inline-block;
+}
+
+.ratingScoreWrapper .star {
+  padding: 2px;
+}
+
+.full {
+    color: #FDC341;
+}
+.half {
+    position: absolute;
+    display: inline-block;
+    overflow: hidden;
+    color: #FDC341;
+}
+
+.starRatingScale .star {
+    font-size: 1rem;
+    align-self: center;
+}
+
+.starRatingScale ngb-rating {
+  margin: 2px;
+}
+
+.starRatingScale {
+    align-self: center;
+} 
+
+.percentage {
+    align-self: center;
+    padding-left: 5px;
+}
+
+.filters {
+  display: flex;
+  flex-direction: row;
+}
+
+.filters ng-select {
+  width: 200px;
+  margin-right: 10px;
+}
+
+@media only screen and (max-width: 1100px) {
+  .ratingBars {
+    width: 300px;
+}
+}
+
+@media only screen and (max-width: 950px) {
+    .ratingBars {
+        width: 200px;
+    }
+
+    .totalScore {
+        font-size: 50px;
+    }
+
+    .star {
+        font-size: 1rem;        
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .ratingBars {
+        width: 150px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .starRatingScale {
+        display: none;
+    }
+}

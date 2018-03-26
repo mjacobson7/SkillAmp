@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NavService } from '../../services/nav/nav.service';
 import { AuthService } from '../../services/auth/auth.service';
+import { User } from '../../models/user.model';
 import {Subscription} from 'rxjs/Subscription';
+import {UserService} from '../../services/user/user.service';
 
 @Component({
   selector: 'app-header',
@@ -9,20 +11,25 @@ import {Subscription} from 'rxjs/Subscription';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  user;
+  user: User;
   userSubscription: Subscription;
 
-  constructor(private navService: NavService, private authService: AuthService) {}
+
+  constructor(private navService: NavService, private authService: AuthService, private userService: UserService) {
+  }
 
   ngOnInit() {
-    this.userSubscription = this.authService.user.subscribe(user => {
-      this.user = user;
-    });
+    this.userSubscription = this.authService.getUser().subscribe(user => {
+      if(user) {
+        this.user = user;
+      }
+    })
   }
 
+
   ngOnDestroy() {
-    this.userSubscription.unsubscribe();
-  }
+      this.userSubscription.unsubscribe();
+    }
 
 
 

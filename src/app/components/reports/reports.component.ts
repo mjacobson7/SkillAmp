@@ -12,10 +12,11 @@ export class ReportsComponent implements OnInit {
     icon: 'assignment'
   }
 
-  constructor(private navService: NavService) { }
+  constructor(private navService: NavService) {
+    this.navService.pageHeaderTitle.next(this.pageInfo);
+  }
 
   ngOnInit() {
-    this.navService.pageHeaderTitle.next(this.pageInfo);
   }
 
 }

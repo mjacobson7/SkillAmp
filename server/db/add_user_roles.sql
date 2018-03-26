@@ -1,0 +1,1 @@
+INSERT INTO user_roles (company_id, user_id, role_id) VALUES ($1,$2,$3);

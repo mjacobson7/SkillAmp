@@ -1,0 +1,1 @@
+SELECT id FROM company WHERE hostname = $1 LIMIT 1;

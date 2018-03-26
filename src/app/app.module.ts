@@ -27,6 +27,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {ChartModule} from 'angular-highcharts';
+import { NgSelectModule } from '@ng-select/ng-select';
+import {MatDividerModule} from '@angular/material/divider';
 
 
 
@@ -57,6 +59,7 @@ import { FeedbackFiltersComponent } from './components/feedback-filters/feedback
 import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 import { AuthInterceptor } from './common/auth.interceptor';
+import {FeedbackService} from './services/feedback/feedback.service';
 
 @NgModule({
   declarations: [
@@ -84,10 +87,10 @@ import { AuthInterceptor } from './common/auth.interceptor';
     ViewAllUsersComponent,
     FeedbackFiltersComponent,
     BreadcrumbsComponent,
-    LeaderboardComponent
+    LeaderboardComponent,
     ],
   imports: [
-  BrowserModule,
+    BrowserModule,
     NgbModule.forRoot(),
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -117,13 +120,16 @@ import { AuthInterceptor } from './common/auth.interceptor';
     MatTooltipModule,
     MatIconModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    NgSelectModule,
+    MatDividerModule
   ],
   providers: [
     UserService,
     NavService,
     AuthService,
     AuthGuardService,
+    FeedbackService,
     { provide: ErrorHandler, useClass: AppErrorHandler},
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
   ],

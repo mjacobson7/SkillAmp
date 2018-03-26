@@ -20,3 +20,7 @@ rating {
 .overall-rating h4 {
     margin-right: 10px;
 }
+
+::ng-deep .mat-paginator-container {
+    background-color: #f7f7f7 !important;
+}

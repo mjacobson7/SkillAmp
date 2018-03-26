@@ -1,38 +1,108 @@
-    <form>
-      <mat-form-field>
-        <mat-select placeholder="Active Tab" [(value)]="selectedTab" >
-          <mat-option value="likedTab">Liked</mat-option>
-          <mat-option value="dislikedTab">Disliked</mat-option>
-          <mat-option value="productTab">Product</mat-option>
-        </mat-select>
-      </mat-form-field>
-                
-      <mat-form-field>
-        <mat-select placeholder="Score Rating" [(value)]="selectedRatings" multiple>
-          <mat-option value="1-star">1</mat-option>
-          <mat-option value="2-star">2</mat-option>
-          <mat-option value="3-star">3</mat-option>        
-          <mat-option value="4-star">4</mat-option>  
-          <mat-option value="5-star">5</mat-option>        
-        </mat-select>
-      </mat-form-field>
+<div class="ratingTotalAndFiltersWrapper">
+  <div class="ratingScoreWrapper">
+    <div class="totalScore">4.5</div>
+    <ngb-rating [rate]="4.5" [starTemplate]="t" [readonly]="true" max="5">
+      <ng-template #t let-fill="fill">
+        <span class="star" [class.full]="fill === 100">
+          <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+        </span>
+      </ng-template>
+    </ngb-rating>
+    <p class="averageRatingLabel text-muted">Average Rating</p>
+  </div>
 
-      <mat-form-field>
-        <mat-select placeholder="Feedback Date" [(value)]="feedbackDate" >
-          <mat-option value="newestFeedback">Newest</mat-option>
-          <mat-option value="oldestFeedback">Oldest</mat-option>
-        </mat-select>
-      </mat-form-field>
+  <div class="ratingBars">
+    <p>
+      <ngb-progressbar type="info" [value]="59" [max]="100" height="20px"></ngb-progressbar>
+    </p>
+    <p>
+      <ngb-progressbar type="info" [value]="31" [max]="100" height="20px"></ngb-progressbar>
+    </p>
+    <p>
+      <ngb-progressbar type="info" [value]="9" [max]="100" height="20px"></ngb-progressbar>
+    </p>
+    <p>
+      <ngb-progressbar type="info" [value]="1" [max]="100" height="20px"></ngb-progressbar>
+    </p>
+    <p>
+      <ngb-progressbar type="info" [value]="0" [max]="100" height="20px"></ngb-progressbar>
+    </p>
+  </div>
 
-      <mat-form-field>
-        <mat-select placeholder="Agent" [(value)]="filteredAgent" >
-          <mat-option value="all">All</mat-option>          
-          <mat-option *ngFor="let agent of users" [value]="agent.id">
-            {{ agent.fullName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </form>
+  <div class="starRatingScale">
 
-    <button mat-raised-button color="primary">Apply</button>
-    <button mat-raised-button>Reset</button>
+    <div>
+      <ngb-rating [rate]="5" [starTemplate]="t5" [readonly]="true" max="5">
+        <ng-template #t5 let-fill="fill">
+          <span class="star" [class.full]="fill === 100">&#9733;</span>
+        </ng-template>
+      </ngb-rating>
+      <span class="percentage">59%</span>
+    </div>
+
+    <div>
+      <ngb-rating [rate]="4" [starTemplate]="t4" [readonly]="true" max="5">
+        <ng-template #t4 let-fill="fill">
+          <span class="star" [class.full]="fill === 100">&#9733;</span>
+        </ng-template>
+      </ngb-rating>
+      <span class="percentage">31%</span>
+    </div>
+
+    <div>
+      <ngb-rating [rate]="3" [starTemplate]="t3" [readonly]="true" max="5">
+        <ng-template #t3 let-fill="fill">
+          <span class="star" [class.full]="fill === 100">&#9733;</span>
+        </ng-template>
+      </ngb-rating>
+      <span class="percentage">9%</span>
+    </div>
+
+    <div>
+      <ngb-rating [rate]="2" [starTemplate]="t2" [readonly]="true" max="5">
+        <ng-template #t2 let-fill="fill">
+          <span class="star" [class.full]="fill === 100">&#9733;</span>
+        </ng-template>
+      </ngb-rating>
+      <span class="percentage">1%</span>
+    </div>
+
+    <div>
+      <ngb-rating [rate]="1" [starTemplate]="t1" [readonly]="true" max="5">
+        <ng-template #t1 let-fill="fill">
+          <span class="star" [class.full]="fill === 100">&#9733;</span>
+        </ng-template>
+      </ngb-rating>
+      <span class="percentage">&lt; 1%</span>
+    </div>
+  </div>
+
+</div>
+
+<div>
+  <label>Filter By</label>
+  <div class="filters">
+
+    <ng-select [searchable]="false" [clearable]="false" [(ngModel)]=starRatings>
+      <ng-option value="ALL">All Stars</ng-option>
+      <ng-option value="5">5 star only</ng-option>
+      <ng-option value="4">4 star only</ng-option>
+      <ng-option value="3">3 star only</ng-option>
+      <ng-option value="2">2 star only</ng-option>
+      <ng-option value="1">1 star only</ng-option>
+    </ng-select>
+
+    <ng-select [searchable]="false" [clearable]="false" [(ngModel)]="reviewRatings">
+      <ng-option value="LIKE">What customer liked</ng-option>
+      <ng-option value="DISLIKE">What customer disliked</ng-option>
+      <ng-option value="ADVICE">Advice for agent</ng-option>
+      <ng-option value="PURCHASE">Reason for purchase/non-purchase</ng-option>
+    </ng-select>
+
+    <ng-select [searchable]="false" [clearable]="false" [(ngModel)]="timeSort">
+      <ng-option value="NEW">Newest</ng-option>
+      <ng-option value="OLD">Oldest</ng-option>
+    </ng-select>
+
+  </div>
+</div>

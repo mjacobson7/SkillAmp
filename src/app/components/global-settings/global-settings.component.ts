@@ -10,12 +10,14 @@ export class GlobalSettingsComponent implements OnInit {
   pageInfo: {title: string, icon: string} = {
     title: 'Global Settings',
     icon: 'settings'
+  };
+
+  constructor(private navService: NavService) {
+    this.navService.pageHeaderTitle.next(this.pageInfo);
   }
 
-  constructor(private navService: NavService) { }
-
   ngOnInit() {
-    this.navService.pageHeaderTitle.next(this.pageInfo);
+
   }
 
 }

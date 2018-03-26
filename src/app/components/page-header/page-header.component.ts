@@ -9,16 +9,18 @@ import { NavService } from '../../services/nav/nav.service';
 })
 export class PageHeaderComponent implements OnInit, OnDestroy {
   pageInfo;
-  pageInfoSubscription: Subscription
+  pageInfoSubscription: Subscription;
 
-  constructor(private navService: NavService) {}
-
-  ngOnInit() {
+  constructor(private navService: NavService) {
     this.pageInfoSubscription = this.navService.pageHeaderTitle.subscribe(
       (pageInfo) => {
         this.pageInfo = pageInfo;
       }
-    )
+    );
+  }
+
+  ngOnInit() {
+
   }
 
   ngOnDestroy() {

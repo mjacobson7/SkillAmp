@@ -1,0 +1,21 @@
+{
+
+  "development": {
+    "username": "postgres",
+    "password": null,
+    "database": "firstImpression",
+    "host": "localhost",
+    "dialect": "postgres",
+    "operatorsAliases": "Sequelize.Op"
+  },
+
+  "fi_01": {
+    "username": "postgres",
+    "password": "postgres",
+    "database": "fi_01",
+    "host": "localhost",
+    "dialect": "postgres",
+    "operatorsAliases": "Sequelize.Op"
+  }
+}
+

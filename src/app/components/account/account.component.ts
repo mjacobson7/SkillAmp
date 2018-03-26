@@ -10,12 +10,14 @@ export class AccountComponent implements OnInit {
   pageInfo: {title: string, icon: string} = {
     title: 'Account Management',
     icon: 'account_balance'
+  };
+
+  constructor(private navService: NavService) {
+    this.navService.pageHeaderTitle.next(this.pageInfo);
   }
 
-  constructor(private navService: NavService) { }
-
   ngOnInit() {
-    this.navService.pageHeaderTitle.next(this.pageInfo);
+
   }
 
 }

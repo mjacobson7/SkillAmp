@@ -1,19 +1,27 @@
 const express = require('express'),
       app = express(),
-      http = require('http'),
-      port = process.env.PORT || '3000',
-      path = require('path');
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
+      path = require('path'),
+      bodyParser = require('body-parser'),
+      cookieParser = require('cookie-parser'),
+      cors = require('cors'),
+      massive = require('massive')
+      require('dotenv').config(),
+      http = require('http');
+
+// Connect to Database
+massive( process.env.LOCAL_DB_URL ).then( dbInstance => app.set('db', dbInstance) );
 
 //Express Middleware
 app.use(bodyParser.json());
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(cookieParser());
 
 //Routes
-require('./features/routes/auth/authRoutes')(app);
-require('./features/routes/user/userRoutes')(app);
+require('./routes/authRoutes')(app);
+require('./routes/userRoutes')(app);
+require('./routes/feedbackRoutes')(app);
+require('./routes/companyRoutes')(app);
 
 // Angular DIST output folder
 app.use(express.static(path.join(__dirname, '/../dist')));
@@ -23,10 +31,15 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '/../dist/index.html'));
 });
 
-//Create Server
+// Set Port & Create Server
+const port = process.env.PORT || 3000;
 app.set('port', port);
 const server = http.createServer(app);
-server.listen(port, () => console.log(`Running on localhost:${port}`));
+
+// Listen to port
+server.listen(port, () => {console.log(`Server listening on port ${port}`)});
+
+// module.exports = app;
 
 
 
