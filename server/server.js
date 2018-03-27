@@ -12,7 +12,6 @@ const express = require('express'),
 // Connect to Database
 massive( process.env.DATABASE_URL ).then( dbInstance => app.set('db', dbInstance) );
 
-console.log(process.env.DATABASE_URL);
 //Express Middleware
 app.use(bodyParser.json());
 app.use(cors());
