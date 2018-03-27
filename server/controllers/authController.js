@@ -18,7 +18,7 @@ module.exports = {
         const roles = await dbInstance.get_user_roles([company[0].id, user[0].id]);
 
         if (bcrypt.compareSync(password, user[0].password)) {
-          let token = jwt.sign({ userId: user[0].id, companyId: user[0].companyId }, secrets.tokenSecret, { expiresIn: '1h' });
+          let token = jwt.sign({ userId: user[0].id, companyId: user[0].companyId }, process.env.TOKEN_SECRET, { expiresIn: '1h' });
           if (roles.length > 0) {
             user[0].roles = roles;
           }
@@ -58,7 +58,7 @@ module.exports = {
 
   verifyValidToken: (req, res, next) => {
     const dbInstance = req.app.get('db');
-    jwt.verify(req.header('auth'), secrets.tokenSecret, function (err, decoded) {
+    jwt.verify(req.header('auth'), process.env.TOKEN_SECRET, function (err, decoded) {
       if (decoded) {
         dbInstance.get_user_by_id([decoded.userId, decoded.companyId]).then((user) => {
           req.principal = user[0];

@@ -10,8 +10,9 @@ const express = require('express'),
       require('dotenv').config(),
 
 // Connect to Database
-massive( process.env.DATABASE_URL ||  secrets.localDb ).then( dbInstance => app.set('db', dbInstance) );
+massive( process.env.DATABASE_URL ).then( dbInstance => app.set('db', dbInstance) );
 
+console.log(process.env.DATABASE_URL);
 //Express Middleware
 app.use(bodyParser.json());
 app.use(cors());
