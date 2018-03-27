@@ -16,10 +16,20 @@ module.exports = {
 
   getMyFeedback: async (req, res) => {
     const dbInstance = req.app.get('db');
+    const { length, pageIndex, pageSize } = req.query;
 
     try {
-      const myFeedback = await dbInstance.get_my_feedback([req.principal.id, req.principal.companyId]);
-      res.status(200).json(myFeedback);
+      let count = await dbInstance.get_feedback_count([req.principal.id, req.principal.companyId]);
+      let offset = (pageIndex) * pageSize;
+
+      const myFeedback = await dbInstance.get_my_feedback([req.principal.id, req.principal.companyId, offset, pageSize]);
+
+      const myFeedbackPage = {
+        content: myFeedback,
+        length: count[0].count
+      }
+
+      res.status(200).json(myFeedbackPage);
     }
     catch(error) {
       console.log(error);
