@@ -10,4 +10,8 @@ SELECT
 FROM customer_feedback
 WHERE user_id = $1
 AND company_id = $2
+AND rating = ANY($5)
+ORDER BY created ASC
 OFFSET $3 LIMIT $4;
+
+

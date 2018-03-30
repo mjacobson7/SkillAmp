@@ -16,14 +16,20 @@ module.exports = {
 
   getMyFeedback: async (req, res) => {
     const dbInstance = req.app.get('db');
-    const { length, pageIndex, pageSize } = req.query;
+    let myFeedback;
+    let { pageIndex, pageSize, ratingSort, dateSort } = req.body.params;
 
     try {
-      let count = await dbInstance.get_feedback_count([req.principal.id, req.principal.companyId]);
+      let count = await dbInstance.get_feedback_count([req.principal.id, req.principal.companyId, ratingSort]);
+      console.log(count);
       let offset = (pageIndex) * pageSize;
-
-      const myFeedback = await dbInstance.get_my_feedback([req.principal.id, req.principal.companyId, offset, pageSize]);
-
+      if(dateSort == 'ASC') {
+        myFeedback = await dbInstance.get_my_feedback_asc([req.principal.id, req.principal.companyId, offset, pageSize, ratingSort]);        
+      } else if(dateSort == 'DESC') {
+        myFeedback = await dbInstance.get_my_feedback_desc([req.principal.id, req.principal.companyId, offset, pageSize, ratingSort]);
+      }
+      console.log(req.body.params);
+      console.log(myFeedback);
       const myFeedbackPage = {
         content: myFeedback,
         length: count[0].count
