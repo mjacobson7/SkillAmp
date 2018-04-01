@@ -21,15 +21,12 @@ module.exports = {
 
     try {
       let count = await dbInstance.get_feedback_count([req.principal.id, req.principal.companyId, ratingSort]);
-      console.log(count);
       let offset = (pageIndex) * pageSize;
       if(dateSort == 'ASC') {
         myFeedback = await dbInstance.get_my_feedback_asc([req.principal.id, req.principal.companyId, offset, pageSize, ratingSort]);        
       } else if(dateSort == 'DESC') {
         myFeedback = await dbInstance.get_my_feedback_desc([req.principal.id, req.principal.companyId, offset, pageSize, ratingSort]);
       }
-      console.log(req.body.params);
-      console.log(myFeedback);
       const myFeedbackPage = {
         content: myFeedback,
         length: count[0].count
@@ -41,6 +38,39 @@ module.exports = {
       console.log(error);
       res.status(500).json(error);
     }
+  },
+
+  getMyFeedbackScore: async (req, res) => {
+    const dbInstance = req.app.get('db');
+
+    try {
+      let averageScore = await dbInstance.get_my_feedback_score([req.principal.companyId, req.principal.id]);
+      let totalReviews = await dbInstance.get_my_feedback_count([req.principal.companyId, req.principal.id]);
+      let totalAverages = await dbInstance.get_my_feedback_average([req.principal.companyId, req.principal.id]);
+      let totalSum = 0;
+      let totalPercentages = [];
+
+      for(let i = 0; i < totalAverages.length; i++) {
+        totalSum += parseInt(totalAverages[i].sum); 
+      }
+      for(let i = 0; i < totalAverages.length; i++) {
+        totalPercentages.unshift({score: i+1, percentage: totalAverages[i].sum / totalSum});
+      }
+
+      const total = {
+        averageScore: averageScore[0].avg,
+        totalReviews: totalReviews[0].count,
+        totalPercentages: totalPercentages
+      }
+
+      res.status(200).json(total);
+    }
+    catch(error) {
+      console.log(error);
+      res.status(500).json(error);
+    }
+    
+
   },
 
   getTeamFeedback: (req, res) => {

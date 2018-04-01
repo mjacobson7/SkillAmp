@@ -7,6 +7,8 @@ module.exports = (app) => {
 
   app.post('/getMyFeedback', authController.verifyValidToken, feedbackController.getMyFeedback);
 
+  app.get('/getMyFeedbackScore', authController.verifyValidToken, feedbackController.getMyFeedbackScore);
+
   app.get('/getTeamFeedback', authController.verifyValidToken, feedbackController.getTeamFeedback);
 
 };
