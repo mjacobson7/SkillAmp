@@ -1,6 +1,6 @@
 <!-- <div class="container-fluid"> -->
 <div class="row">
-  <div class="col-xs-12 col-lg-6 col-xl-4" *ngFor="let review of feedback">
+  <div class="col-xs-12 col-lg-6 col-xl-4" *ngFor="let review of feedback; let i = index">
     <mat-card class="card">
       <mat-card-header>
         <mat-card-title>
@@ -9,7 +9,7 @@
       </mat-card-header>
       <!-- <mat-divider></mat-divider> -->
       <mat-card-content>
-        <mat-tab-group>
+        <mat-tab-group (selectedTabChange)="onTabChange($event)">
 
           <mat-tab>
             <ng-template mat-tab-label>

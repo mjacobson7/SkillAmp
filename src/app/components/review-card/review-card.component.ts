@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { FeedbackService } from '../../services/feedback/feedback.service';
 
 @Component({
   selector: 'app-review-card',
@@ -7,7 +8,8 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ReviewCardComponent implements OnInit {
   @Input() feedback;
-  constructor() { }
+
+  constructor(private feedbackService: FeedbackService) { }
 
   ngOnInit() {}
 

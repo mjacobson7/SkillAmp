@@ -1,3 +1,8 @@
+.ratingTotalAndFiltersWrapper {
+    display: flex; 
+    flex-direction: column;
+}
+
 .mat-expansion-panel {
   margin: 0px, 15px;
 }
@@ -17,13 +22,19 @@
     text-align: center;
 }
 
-.averageRatingLabel {
+.reviewsRatingLabel {
     font-size: 13px;
     text-align: center;
     margin: 0;
 }
 
-.ratingTotalAndFiltersWrapper {
+.ratingBarAndStarsWrapper {
+    float: left;
+    display: flex;
+    flex-direction: column;
+}
+
+.ratingBarAndStarsChildWrapper {
     display: flex;
     flex-direction: row;
 }
@@ -31,10 +42,11 @@
 .ratingScoreWrapper {
     margin-right: 20px;
     align-self: center;
+    float: left;
 }
 
-.ratingBars p {
-    margin: 8px;
+.ratingBars {
+    margin: 4px;
 }
 
 .star {
@@ -58,22 +70,23 @@
     color: #FDC341;
 }
 
+.starRatingScale {
+    margin-top: 2px;
+}
+
 .starRatingScale .star {
     font-size: 1rem;
-    align-self: center;
 }
-
-.starRatingScale ngb-rating {
-  margin: 2px;
-}
-
-.starRatingScale {
-    align-self: center;
-} 
 
 .percentage {
     align-self: center;
     padding-left: 5px;
+    color: #007791;
+    cursor: pointer;
+}
+
+.percentage:hover {
+    color: #003845;
 }
 
 .filters {
@@ -108,12 +121,12 @@
 
 @media only screen and (max-width: 800px) {
     .ratingBars {
-        width: 150px;
+        width: 100px;
     }
 }
 
 @media only screen and (max-width: 600px) {
-    .starRatingScale {
+    .starRatingScale .star {
         display: none;
     }
 }

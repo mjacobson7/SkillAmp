@@ -1,13 +1,4 @@
 <div class="container-fluid rating-wrapper">
-  <!-- <div class="row">
-    <div class="col-lg-12">
-      <h4>Overall Rating</h4>
-    </div>
-    <div class="col-lg-12 overall-rating">
-      <h1>{{reviewTotals.overallRating}}</h1>
-      <rating [(ngModel)]="reviewTotals.overallRating" [max]="5" [readonly]="true"></rating>
-    </div>
-  </div> -->
   <div class="row">
     <div class="col-lg-12">
       <app-feedback-filters></app-feedback-filters>
@@ -19,6 +10,13 @@
     </div>
   </div>
   <hr>
-  <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  <mat-paginator 
+    [length]="length"
+    [pageIndex]="pageIndex"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[15, 30, 45, 60]"
+    (page)="pageEvent = onPageEvent($event)"
+    >
+</mat-paginator>
 
 </div>
