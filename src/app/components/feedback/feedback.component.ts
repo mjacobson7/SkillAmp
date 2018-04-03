@@ -16,7 +16,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
   };
 
   pageIndex: number = 0;
-  pageSize: number = 15;
+  pageSize: number = 10;
   ratingSort: number[] = [1, 2, 3, 4, 5];
   dateSort: string = 'DESC';
   length: number;

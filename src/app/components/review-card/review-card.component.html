@@ -1,15 +1,22 @@
-<!-- <div class="container-fluid"> -->
 <div class="row">
-  <div class="col-xs-12 col-lg-6 col-xl-4" *ngFor="let review of feedback; let i = index">
+  <div class="col-xs-12 col-lg-6 col-xl-6" *ngFor="let review of feedback; let i = index">
     <mat-card class="card">
       <mat-card-header>
         <mat-card-title>
-          <rating [(ngModel)]="review.rating" [max]="5" [readonly]="true"></rating>
+          <ngb-rating [rate]="review.rating" [starTemplate]="t" [readonly]="true" max="5">
+            <ng-template #t let-fill="fill">
+              <span class="star" [class.full]="fill === 100">
+                <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+              </span>
+            </ng-template>
+          </ngb-rating>
+          <span class="text-muted">{{review.customerName}}</span>
+          <br>
+          <span class="text-muted">Posted: {{review.created | date}}</span>
         </mat-card-title>
       </mat-card-header>
-      <!-- <mat-divider></mat-divider> -->
       <mat-card-content>
-        <mat-tab-group (selectedTabChange)="onTabChange($event)">
+        <mat-tab-group>
 
           <mat-tab>
             <ng-template mat-tab-label>
@@ -34,7 +41,7 @@
               <mat-icon matTooltip="Advice for agent">poll</mat-icon>
             </ng-template>
             <div>
-              {{review.advice}}
+              {{review.agentAdvice}}
             </div>
           </mat-tab>
 
@@ -43,19 +50,14 @@
               <mat-icon matTooltip="Reason for Purchase/Non-Purchase">attach_money</mat-icon>
             </ng-template>
             <div>
-              {{review.productDescription}}
+              {{review.purchaseReason}}
             </div>
           </mat-tab>
         </mat-tab-group>
 
       </mat-card-content>
+
     </mat-card>
-
-
-
-
-
 
   </div>
 </div>
-<!-- </div> -->
