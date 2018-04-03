@@ -5,7 +5,9 @@ SELECT
     rating, 
     "like", 
     dislike, 
-    product_description AS "productDescription", 
+    agent_advice AS "agentAdvice", 
+    purchase_reason AS "purchaseReason",
+    customer_name AS "customerName",
     created
 FROM customer_feedback
 WHERE user_id = $1
