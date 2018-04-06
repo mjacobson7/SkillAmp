@@ -16,8 +16,6 @@ export class DashboardComponent implements OnInit {
     this.navService.pageHeaderTitle.next(this.pageInfo);
   }
 
-ngOnInit() {
-
-}
+ngOnInit() {}
 
 }

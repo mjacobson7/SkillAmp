@@ -1,0 +1,20 @@
+.chartWrapper {
+    /* margin-bottom: 20px; */
+    padding: 10px;
+    height: 280px;
+    width: 100%;
+    background-color: #FFFFFF;
+}
+
+.innerChartWrapper {
+   width: 100%;
+}
+
+.chartTitleBar {
+    border-bottom: 2px solid #F7F7F7;
+    /* padding: 10px */
+}
+
+.chartTitle {
+    font-size: 15px;
+}

@@ -39,7 +39,7 @@
 }
 
 #sidebar-wrapper.sideBar {
-    width: 250px;
+    width: 225px;
     transition: width 0.25s;
 }
 

@@ -17,7 +17,7 @@
 }
 
 body {
-    background-color: #f7f7f7;
+    background-color: #F7F7F7;
 }
 
 #page-content-wrapper {
@@ -29,7 +29,7 @@ body {
 }
 
 #page-content-wrapper.sideBar {
-    padding-left: 250px;
+    padding-left: 225px;
     transition: padding-left 0.25s;
 }
 

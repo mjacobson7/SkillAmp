@@ -1,42 +1,15 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-lg-6">
-            <app-charts></app-charts>               
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <app-dashboard-cards></app-dashboard-cards>
         </div>
-        <div class="col-lg-6">
-            <app-leaderboard></app-leaderboard> 
-        </div>          
     </div>
     <div class="row">
-            <div class="col-lg-4">
-                <mat-card>
-                    <div class="card-body">
-                        <h4 class="card-title">Liked</h4>
-                        <h6 class="card-subtitle mb-2 text-muted">What the customer liked</h6>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi libero sapien, volutpat eu augue ultrices.</p>
-                        <a href="#" class="card-link">More</a>
-                    </div>
-                </mat-card><br>
-            </div>
-            <div class="col-lg-4">
-                <mat-card>
-                    <div class="card-body">
-                        <h4 class="card-title">Disliked</h4>
-                        <h6 class="card-subtitle mb-2 text-muted">What the customer disliked</h6>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce interdum purus vitae odio mattis, et iaculis nisi.</p>
-                        <a href="#" class="card-link">More</a>
-                    </div>
-                </mat-card><br>       
-            </div>
-            <div class="col-lg-4">
-                <mat-card>
-                    <div class="card-body">
-                        <h4 class="card-title">Product</h4>
-                        <h6 class="card-subtitle mb-2 text-muted">Understanding of the product</h6>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac suscipit dui. Praesent eu maximus eros, eu bibendum.</p>
-                        <a href="#" class="card-link">More</a>
-                    </div>
-                </mat-card><br>
-            </div>   
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <app-feedback-chart></app-feedback-chart>
         </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <app-leaderboard></app-leaderboard>
+        </div>
+    </div>
 </div>

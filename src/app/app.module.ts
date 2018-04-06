@@ -10,26 +10,26 @@ import { AuthGuardService } from '../app/services/auth/auth-guard.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppErrorHandler } from './common/app-error-handler';
-import {DataTableModule, SharedModule, FileUploadModule, ChipsModule, TabViewModule, DropdownModule, MultiSelectModule} from 'primeng/primeng';
-import {RatingModule} from 'ngx-rating';
-import {MatTabsModule} from '@angular/material/tabs';
-import {MatSelectModule} from '@angular/material/select';
-import {MatMenuModule} from '@angular/material/menu';
+import { DataTableModule, SharedModule, FileUploadModule, ChipsModule, TabViewModule, DropdownModule, MultiSelectModule } from 'primeng/primeng';
+import { RatingModule } from 'ngx-rating';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatSelectModule } from '@angular/material/select';
+import { MatMenuModule } from '@angular/material/menu';
 import { AppRoutingModule } from './app-routing.module';
-import {MatRadioModule} from '@angular/material/radio';
-import {MatExpansionModule} from '@angular/material/expansion';
-import {MatButtonModule} from '@angular/material/button';
-import {MatInputModule} from '@angular/material';
-import {MatCardModule} from '@angular/material/card';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatIconModule} from '@angular/material/icon';
-import {MatTableModule} from '@angular/material/table';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {ChartModule} from 'angular-highcharts';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material';
+import { MatCardModule } from '@angular/material/card';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { ChartModule } from 'angular-highcharts';
 import { NgSelectModule } from '@ng-select/ng-select';
-import {MatDividerModule} from '@angular/material/divider';
-
+import { MatDividerModule } from '@angular/material/divider';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 
 
@@ -39,10 +39,10 @@ import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LoginComponent } from './components/login/login.component';
 import { HeaderComponent } from './components/header/header.component';
-import { ChartsComponent } from './components/charts/charts.component';
+import { FeedbackChartComponent } from './components/charts/feedback-chart/feedback-chart.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { FeedbackComponent } from './components/feedback/feedback.component';
-import { TrainingComponent} from './components/training/training.component';
+import { TrainingComponent } from './components/training/training.component';
 import { ManageUsersComponent } from './components/manage-users/manage-users.component';
 import { ReportsComponent } from './components/reports/reports.component';
 import { AccountComponent } from './components/account/account.component';
@@ -59,7 +59,9 @@ import { FeedbackFiltersComponent } from './components/feedback-filters/feedback
 import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 import { AuthInterceptor } from './common/auth.interceptor';
-import {FeedbackService} from './services/feedback/feedback.service';
+import { FeedbackService } from './services/feedback/feedback.service';
+import { DashboardService } from './services/dashboard/dashboard.service';
+import { DashboardCardsComponent } from './components/charts/dashboard-cards/dashboard-cards.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +71,7 @@ import {FeedbackService} from './services/feedback/feedback.service';
     DashboardComponent,
     LoginComponent,
     HeaderComponent,
-    ChartsComponent,
+    FeedbackChartComponent,
     UserProfileComponent,
     FeedbackComponent,
     TrainingComponent,
@@ -88,7 +90,8 @@ import {FeedbackService} from './services/feedback/feedback.service';
     FeedbackFiltersComponent,
     BreadcrumbsComponent,
     LeaderboardComponent,
-    ],
+    DashboardCardsComponent,
+  ],
   imports: [
     BrowserModule,
     NgbModule.forRoot(),
@@ -122,7 +125,8 @@ import {FeedbackService} from './services/feedback/feedback.service';
     MatTableModule,
     MatPaginatorModule,
     NgSelectModule,
-    MatDividerModule
+    MatDividerModule,
+    NgxChartsModule
   ],
   providers: [
     UserService,
@@ -130,8 +134,9 @@ import {FeedbackService} from './services/feedback/feedback.service';
     AuthService,
     AuthGuardService,
     FeedbackService,
-    { provide: ErrorHandler, useClass: AppErrorHandler},
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+    DashboardService,
+    { provide: ErrorHandler, useClass: AppErrorHandler },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

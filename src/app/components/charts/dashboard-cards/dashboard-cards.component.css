@@ -1,0 +1,36 @@
+.card {
+    border: 0 solid #e7e7e7;
+    border-radius: 5px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    padding: 15px 30px;
+    margin-bottom: 20px;
+}
+
+.media-body span {
+    font-size: 14px;
+    color: #99abb4;
+}
+
+.media-body h4 {
+    margin: 0;
+}
+
+.fa {
+    font-size: 40px;
+}
+
+.fa-star {
+    color: #4680ff;
+}
+
+.fa-list-alt {
+    color: #20c997;
+}
+
+.fa-users {
+    color: #e83e8c;
+}
+
+.fa-building {
+    color: #ffc107;
+}
