@@ -1,3 +1,13 @@
+.card {
+  margin-bottom: 20px;
+  padding: 0;
+  overflow: scroll;
+
+  border: 0 solid #e7e7e7;
+  border-radius: 5px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
 .example-container {
   display: flex;
   flex-direction: column;
@@ -7,18 +17,8 @@
   overflow: scroll;
 }
 
-.mat-card {
-  height: 436px;
-}
-
 .mat-header-cell.mat-sort-header-sorted {
   color: black;
-}
-
-.leaderboardWrapper {
-  margin-bottom: 20px;
-  padding: 0;
-  overflow: scroll;
 }
 
 .example-header {

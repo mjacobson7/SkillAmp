@@ -6,6 +6,10 @@
     margin-bottom: 20px;
 }
 
+.media-body {
+    text-align: right;
+}
+
 .media-body span {
     font-size: 14px;
     color: #99abb4;
