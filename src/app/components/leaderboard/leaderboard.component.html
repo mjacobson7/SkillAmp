@@ -1,47 +1,52 @@
-<div class="card">
-<div class="example-container">
-    <div class="example-header">
-        <mat-card-title>Leaderboard</mat-card-title>
-        <mat-form-field>
-          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-        </mat-form-field>
-    </div>
-    
-    <mat-table #table [dataSource]="dataSource">
-      <!-- Rank Column -->
-      <ng-container matColumnDef="rank">
-        <mat-header-cell *matHeaderCellDef> Rank </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.rank}} </mat-cell>
-      </ng-container>
-  
-      <!-- Name Column -->
-      <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
-      </ng-container>
-  
-      <!-- Weight Column -->
-      <ng-container matColumnDef="score">
-        <mat-header-cell *matHeaderCellDef> Score </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.score}} </mat-cell>
-      </ng-container>
-
-      <!-- Supervisor Column -->  
-      <!-- TODO: Make this only visible to system admins -->
-      <ng-container matColumnDef="supervisor">
-        <mat-header-cell *matHeaderCellDef> Supervisor </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.supervisor}} </mat-cell>
-      </ng-container>
-  
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    </mat-table>
-
-    <mat-paginator #paginator
-    [pageSize]="5"
-    [pageSizeOptions]="[5]">
-    </mat-paginator>
-
+<div class="card leaderboard">
+  <div class="card-title">
+    <h4>Leaderboard</h4>
   </div>
-
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Score</th>
+            <th>Supervisor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Ryan Gray</td>
+            <td>4.95</td>
+            <td>Josh Edwards</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Max Jacobson</td>
+            <td>4.45</td>
+            <td>Josh Edwards</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>John Andrews</td>
+            <td>4.05</td>
+            <td>Josh Edwards</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Paul Woodhouse</td>
+            <td>3.95</td>
+            <td>Josh Edwards</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Jordan Mefford</td>
+            <td>3.90</td>
+            <td>Josh Edwards</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <mat-paginator class="leaderboardChart" [length]="100" [pageSize]="5" [pageSizeOptions]="[5]"></mat-paginator>
 </div>

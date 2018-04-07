@@ -87,3 +87,14 @@ ng-select div {
 ng-select > div > div.single > div.clear, ng-select > div > div.single > div.toggle {
   color: #000000 !important;
 }
+
+/* Paginator Color Customizations */
+ 
+
+.mat-paginator.leaderboardChart {
+    background-color: #FFFFFF;
+}
+
+.mat-paginator.feedbackCards {
+    background-color: #F7F7F7;
+}

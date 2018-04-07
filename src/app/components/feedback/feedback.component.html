@@ -10,13 +10,5 @@
     </div>
   </div>
   <hr>
-  <mat-paginator 
-    [length]="length"
-    [pageIndex]="pageIndex"
-    [pageSize]="pageSize"
-    [pageSizeOptions]="[10, 25, 50, 100]"
-    (page)="pageEvent = onPageEvent($event)"
-    >
-</mat-paginator>
-
+  <mat-paginator class="feedbackCards" [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize" [pageSizeOptions]="[10, 25, 50, 100]" (page)="pageEvent = onPageEvent($event)"></mat-paginator>
 </div>
