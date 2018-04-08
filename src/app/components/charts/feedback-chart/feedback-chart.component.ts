@@ -15,7 +15,6 @@ export class FeedbackChartComponent implements OnInit {
     // options
     showXAxis = true;
     showYAxis = true;
-    gradient = false;
   
     // line, area
     autoScale = true;
@@ -24,7 +23,7 @@ export class FeedbackChartComponent implements OnInit {
     colorScheme = {
         domain: [
             // 'rgb(89, 218, 213, 0.4)',
-            'rgb(252, 97, 128, 0.4)', 
+            // 'rgb(252, 97, 128, 0.4)', 
             'rgb(98, 209, 243, 0.4)', 
             'rgb(249, 208, 149, 0.4)', 
             'rgb(141, 175, 249, 0.4)'
