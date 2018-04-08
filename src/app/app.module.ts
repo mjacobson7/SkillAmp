@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ChartsModule } from 'ng2-charts';
 import { NavService } from '../app/services/nav/nav.service';
 import { AuthService } from './services/auth/auth.service';
 import { UserService } from './services/user/user.service';
@@ -26,10 +25,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { ChartModule } from 'angular-highcharts';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { MatDividerModule } from '@angular/material/divider';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { CountUpModule } from 'countup.js-angular2';
+import {NgxChartsModule} from '@swimlane/ngx-charts';
 
 
 
@@ -90,7 +89,7 @@ import { DashboardCardsComponent } from './components/charts/dashboard-cards/das
     FeedbackFiltersComponent,
     BreadcrumbsComponent,
     LeaderboardComponent,
-    DashboardCardsComponent,
+    DashboardCardsComponent
   ],
   imports: [
     BrowserModule,
@@ -98,13 +97,11 @@ import { DashboardCardsComponent } from './components/charts/dashboard-cards/das
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    ChartsModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     DataTableModule,
     SharedModule,
-    ChartModule,
     FileUploadModule,
     ChipsModule,
     TabViewModule,
@@ -126,6 +123,7 @@ import { DashboardCardsComponent } from './components/charts/dashboard-cards/das
     MatPaginatorModule,
     NgSelectModule,
     MatDividerModule,
+    CountUpModule,
     NgxChartsModule
   ],
   providers: [

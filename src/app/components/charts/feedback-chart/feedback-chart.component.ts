@@ -10,19 +10,25 @@ import { DashboardService } from '../../../services/dashboard/dashboard.service'
     styleUrls: ['./feedback-chart.component.css']
 })
 export class FeedbackChartComponent implements OnInit {
-    single: any[] = [];
+    single: any[];
     
-  
     // options
     showXAxis = true;
     showYAxis = true;
-    yScaleMin = 0;
-    yScaleMax = 5;
-    curve = shape.curveCardinal;
+    gradient = false;
+  
+    // line, area
+    autoScale = true;
+
+
     colorScheme = {
-        domain: ['rgba(37, 162, 183, 0.4)']
-        // ['#25A2B7']
-        // ['#00B6EE'] -light blue
+        domain: [
+            // 'rgb(89, 218, 213, 0.4)',
+            'rgb(252, 97, 128, 0.4)', 
+            'rgb(98, 209, 243, 0.4)', 
+            'rgb(249, 208, 149, 0.4)', 
+            'rgb(141, 175, 249, 0.4)'
+        ]
     }
   
     onSelect(event) {

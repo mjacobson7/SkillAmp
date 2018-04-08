@@ -1,8 +1,8 @@
 <div class="row">
   <div class="col-xs-12 col-lg-6 col-xl-6" *ngFor="let review of feedback; let i = index">
-    <mat-card class="card">
-      <mat-card-header>
-        <mat-card-title>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">
           <ngb-rating [rate]="review.rating" [starTemplate]="t" [readonly]="true" max="5">
             <ng-template #t let-fill="fill">
               <span class="star" [class.full]="fill === 100">
@@ -13,8 +13,8 @@
           <span class="text-muted">{{review.customerName}}</span>
           <br>
           <span class="text-muted">Posted: {{review.created | date}}</span>
-        </mat-card-title>
-      </mat-card-header>
+        </div>
+      </div>
       <mat-card-content>
         <mat-tab-group>
 
@@ -57,7 +57,7 @@
 
       </mat-card-content>
 
-    </mat-card>
+    </div>
 
   </div>
 </div>

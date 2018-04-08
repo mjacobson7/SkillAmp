@@ -1,22 +1,19 @@
+* {
+    font-size: 14px;
+}
+
 .card {
-    /* margin-bottom: 20px; */
-    padding: 10px;
+    margin-bottom: 20px;
+    padding: 20px;
     background-color: #FFFFFF;
+    height: 100%;
 
     border: 0 solid #e7e7e7;
     border-radius: 5px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
 }
 
-.innerChartWrapper {
-   width: 100%;
-}
-
-.chartTitleBar {
-    border-bottom: 2px solid #F7F7F7;
-    /* padding: 10px */
-}
-
-.chartTitle {
-    font-size: 15px;
+.card-body {
+    padding: 0;
+    border-top: 1px solid #dee2e6;
 }

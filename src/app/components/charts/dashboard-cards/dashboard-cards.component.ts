@@ -7,6 +7,10 @@ import { DashboardService } from '../../../services/dashboard/dashboard.service'
   styleUrls: ['./dashboard-cards.component.css']
 })
 export class DashboardCardsComponent implements OnInit {
+  totalReviews:number = 37;
+  averageScore:number = 3.57;
+  teamRank:number = 7;
+  companyRank:number = 27;
 
   constructor(private dashboardService: DashboardService) {
   }

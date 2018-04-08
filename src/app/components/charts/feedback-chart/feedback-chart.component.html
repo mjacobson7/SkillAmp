@@ -1,26 +1,18 @@
 <div class="card">
-    <div class="row chartTitleBar">
-        <div class="col-md-6">
-            <span class="chartTitle">Customer Feedback</span>
-        </div>
-        <div class="col-md-6">
-            <span>Date Filter</span>
-        </div>
+    <div class="card-title">
+        <h4>Customer Feedback</h4>
     </div>
-    <div class="row innerChartWrapper">
-        <ngx-charts-area-chart
-            [results]="single"
+
+    <div class="card-body">
+        <ngx-charts-line-chart
             [scheme]="colorScheme"
+            [results]="single"
+            [gradient]="gradient"
             [xAxis]="showXAxis"
             [yAxis]="showYAxis"
-            [yScaleMin]="yScaleMin"
-            [yScaleMax]="yScaleMax"
-            [curve]="curve"
+            [autoScale]="autoScale"
             (select)="onSelect($event)">
-        </ngx-charts-area-chart> 
+        </ngx-charts-line-chart>
     </div>
  
-
-
-  
 </div>

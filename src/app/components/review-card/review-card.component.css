@@ -21,6 +21,10 @@ a {
 
 .card {
     margin: 20px 0px 0px 0px;
+
+    border: 0 solid #e7e7e7;
+    border-radius: 5px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
 }
 
 .card-footer {

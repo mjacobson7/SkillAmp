@@ -4,7 +4,7 @@
       <div class="card">
         <i class="fa fa-list-alt" aria-hidden="true"></i>
         <div class="media-body">
-          <h4>37</h4>
+          <h4 countUp [endVal]="totalReviews" startVal=0></h4>
           <span>Total Reviews</span>
         </div>
       </div>
@@ -13,7 +13,7 @@
       <div class="card">
         <i class="fa fa-star" aria-hidden="true"></i>
         <div class="media-body">
-          <h4>3.57</h4>
+          <h4 countUp [endVal]="averageScore" decimals=2 startVal=0.00></h4>
           <span>Average Score</span>
         </div>
       </div>
@@ -22,7 +22,7 @@
       <div class="card">
         <i class="fa fa-users" aria-hidden="true"></i>
         <div class="media-body">
-          <h4>#7</h4>
+          <h4 countUp [endVal]="teamRank"></h4>
           <span>Team Rank</span>
         </div>
       </div>
@@ -31,7 +31,7 @@
       <div class="card">
         <i class="fa fa-building" aria-hidden="true"></i>
         <div class="media-body">
-          <h4>#23</h4>
+          <h4 countUp [endVal]="companyRank"></h4>
           <span>Company Rank</span>
         </div>
       </div>
