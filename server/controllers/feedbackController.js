@@ -47,6 +47,7 @@ module.exports = {
       let averageScore = await dbInstance.get_my_feedback_score([req.principal.companyId, req.principal.id]);
       let totalReviews = await dbInstance.get_my_feedback_count([req.principal.companyId, req.principal.id]);
       let totalAverages = await dbInstance.get_my_feedback_average([req.principal.companyId, req.principal.id]);
+
       let totalSum = 0;
       let totalPercentages = [];
 
@@ -82,6 +83,14 @@ module.exports = {
     }).then((feedback) => {
       res.status(200).json(feedback);
     })
+  },
+
+  test: async (req, res) => {
+    const dbInstance = req.app.get('db');
+
+    let testResult = await dbInstance.test();
+    res.status(200).json(testResult);
+
   }
 
 };
