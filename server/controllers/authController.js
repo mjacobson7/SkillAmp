@@ -16,19 +16,21 @@ module.exports = {
       if (company) {
         const user = await User.findOne({
           where: { username: username, companyId: company.id },
-          include: [{
-            model: Role,
-            as: 'roles',
-            through: { attributes: [] }
-          }]
+          include: [{ model: Role, as: 'roles', through: { attributes: [] } }]
           //include supervisor????
         })
-        if (bcrypt.compareSync(password, user.password)) {
-          let token = jwt.sign({ userId: user.id, companyId: user.companyId }, process.env.TOKEN_SECRET, { expiresIn: '1h' });
-          res.status(200).json({ token: token, user: user });
+        if (!user) {
+          res.status(401).json("Unable to login");
         } else {
-          res.status(500).json("Password incorrect??");
+          if (bcrypt.compareSync(password, user.password)) {
+            let token = jwt.sign({ userId: user.id, companyId: user.companyId }, process.env.TOKEN_SECRET, { expiresIn: '1h' });
+            res.status(200).json({ token: token, user: user });
+          } else {
+            res.status(401).json("Unable to login");
+          }
         }
+      } else {
+        res.status(401).json("Unable to login");
       }
     }
     catch (error) {
@@ -54,21 +56,21 @@ module.exports = {
 
   // },
 
-  verifyValidToken: (req, res, next) => {
-    jwt.verify(req.header('auth'), process.env.TOKEN_SECRET, async (error, decoded) => {
+  verifyValidToken: async (req, res, next) => {
       try {
+        let decoded = await jwt.verify(req.header('auth'), process.env.TOKEN_SECRET);  
         if (decoded) {
           req.principal = await User.findOne({ where: { id: decoded.userId, companyId: decoded.companyId } })
           next();
         } else {
-          res.status(401).json(error);
+          res.status(401).json("Token Expired");
         }
       }
       catch (error) {
         console.log(error);
         res.status(500).json(error);
       }
-    })
+    
 
 
 

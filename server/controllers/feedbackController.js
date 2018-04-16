@@ -49,6 +49,7 @@ module.exports = {
         ]
       });
 
+      if (!avgAndCount.dataValues.avg) { avgAndCount.dataValues.avg = 0 };
 
       let totalPercentages = [];
       let ratingQueryCount = 1;
@@ -58,7 +59,8 @@ module.exports = {
           where: { userId: req.principal.id, companyId: req.principal.companyId, rating: ratingQueryCount },
           attributes: [[Feedback.sequelize.fn('COUNT', Feedback.sequelize.col('rating')), 'sum']]
         })
-        if (ratingAvg[0].dataValues.sum) {
+
+        if (ratingAvg[0].dataValues.sum > 0) {
           totalPercentages.unshift({ score: ratingQueryCount, percentage: ratingAvg[0].dataValues.sum / avgAndCount.dataValues.count })
         } else {
           totalPercentages.unshift({ score: ratingQueryCount, percentage: 0 })
