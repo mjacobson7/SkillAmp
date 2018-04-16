@@ -1,26 +1,36 @@
 const bcrypt = require('bcrypt');
-const secrets = require('../config/secrets');
+const Company = require('../models/index').Company;
+const Role = require('../models/index').Role;
+const User = require('../models/index').User;
+const UserRole = require('../models/index').UserRole;
 
 module.exports = {
+
   createCompany: async (req, res) => {
-    const dbInstance = req.app.get('db');
-    let { name, hostname } = req.body;
     try {
-      await dbInstance.create_company([name, hostname]);
-      const company = await dbInstance.find_company_by_hostname([hostname]);
+      const salt = bcrypt.genSaltSync();
+      let company = await Company.create({ name: req.body.name, hostname: req.body.hostname });
+      let roles = await Role.bulkCreate([
+        { companyId: company.id, name: 'User', isUserRole: true, isSupervisorRole: false, isAdminRole: false },
+        { companyId: company.id, name: 'Supervisor', isUserRole: false, isSupervisorRole: true, isAdminRole: false },
+        { companyId: company.id, name: 'Admin', isUserRole: false, isSupervisorRole: false, isAdminRole: true }
+      ],{individualHooks: true});
+      let user = await User.create({
+        companyId: company.id,
+        username: 'skillampsupport',
+        firstName: 'SkillAmp',
+        lastName: 'Support',
+        password: bcrypt.hashSync(process.env.SUPPORT_PASSWORD, salt),
+        email: process.env.SUPPORT_EMAIL
+      })
 
-      password = await bcrypt.hashSync(process.env.SUPPORT_PASSWORD, bcrypt.genSaltSync());
-      await dbInstance.create_user([company[0].id, 'skillampsupport', 'SkillAmp', 'Support', 'support@skillamp.io', password, null]);
-      let supportUser = await dbInstance.get_user_by_username(['skillampsupport', company[0].id]);
-      let availableRoles = await dbInstance.get_all_roles();
-      for(let currentRole of availableRoles) {
-        await dbInstance.add_user_roles([company[0].id, supportUser[0].id, currentRole.id]);        
-      }
+      roles.forEach(role => {
+        UserRole.create({companyId: company.id, userId: user.id, roleId: role.id})
+      })
 
-
-      res.status(200).json(supportUser);
+      res.status(200).json("Success");
     }
-    catch(error) {
+    catch (error) {
       console.log(error);
       res.status(500).json(error);
     }

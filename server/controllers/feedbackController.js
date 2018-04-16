@@ -1,77 +1,82 @@
+const Feedback = require('../models/index').Feedback;
+const sequelize = require('sequelize');
+
 module.exports = {
 
   addFeedback: async (req, res) => {
-    const dbInstance = req.app.get('db');
-    let { companyId, userId, rating, like, dislike, productDescription } = req.body;
-
     try {
-      await dbInstance.add_feedback([userId, companyId, rating, like, dislike, productDescription]);
+      await Feedback.create(req.body);
       res.status(200).json("Feedback Created!");
     }
-    catch(error) {
+    catch (error) {
       console.log(error);
-      res.status(500).json(error); 
+      res.status(500).json(error);
     }
   },
 
   getMyFeedback: async (req, res) => {
-    const dbInstance = req.app.get('db');
-    let myFeedback;
-    let { pageIndex, pageSize, ratingSort, dateSort } = req.body.params;
-
     try {
-      let count = await dbInstance.get_feedback_count([req.principal.id, req.principal.companyId, ratingSort]);
+      let { pageIndex, pageSize, ratingSort, dateSort } = req.body.params;
+      let count = await Feedback.count({
+        where: { userId: req.principal.id, companyId: req.principal.companyId, rating: ratingSort }
+      })
       let offset = (pageIndex) * pageSize;
-      if(dateSort == 'ASC') {
-        myFeedback = await dbInstance.get_my_feedback_asc([req.principal.id, req.principal.companyId, offset, pageSize, ratingSort]);        
-      } else if(dateSort == 'DESC') {
-        myFeedback = await dbInstance.get_my_feedback_desc([req.principal.id, req.principal.companyId, offset, pageSize, ratingSort]);
-      }
+      let myFeedback = await Feedback.findAll({
+        where: { userId: req.principal.id, companyId: req.principal.companyId, rating: ratingSort },
+        order: [['createdAt', dateSort]],
+        offset: offset,
+        limit: pageSize
+      })
       const myFeedbackPage = {
         content: myFeedback,
-        length: count[0].count
+        length: count
       }
-
       res.status(200).json(myFeedbackPage);
     }
-    catch(error) {
+    catch (error) {
       console.log(error);
       res.status(500).json(error);
     }
   },
 
   getMyFeedbackScore: async (req, res) => {
-    const dbInstance = req.app.get('db');
-
     try {
-      let averageScore = await dbInstance.get_my_feedback_score([req.principal.companyId, req.principal.id]);
-      let totalReviews = await dbInstance.get_my_feedback_count([req.principal.companyId, req.principal.id]);
-      let totalAverages = await dbInstance.get_my_feedback_average([req.principal.companyId, req.principal.id]);
+      let avgAndCount = await Feedback.find({
+        where: { userId: req.principal.id, companyId: req.principal.companyId },
+        attributes: [
+          [Feedback.sequelize.fn('AVG', Feedback.sequelize.col('rating')), 'avg'],
+          [Feedback.sequelize.fn('COUNT', Feedback.sequelize.col('rating')), 'count']
+        ]
+      });
 
-      let totalSum = 0;
+
       let totalPercentages = [];
+      let ratingQueryCount = 1;
 
-      for(let i = 0; i < totalAverages.length; i++) {
-        totalSum += parseInt(totalAverages[i].sum); 
-      }
-      for(let i = 0; i < totalAverages.length; i++) {
-        totalPercentages.unshift({score: i+1, percentage: totalAverages[i].sum / totalSum});
+      for (let i = 0; i < 5; i++) {
+        let ratingAvg = await Feedback.findAll({
+          where: { userId: req.principal.id, companyId: req.principal.companyId, rating: ratingQueryCount },
+          attributes: [[Feedback.sequelize.fn('COUNT', Feedback.sequelize.col('rating')), 'sum']]
+        })
+        if (ratingAvg[0].dataValues.sum) {
+          totalPercentages.unshift({ score: ratingQueryCount, percentage: ratingAvg[0].dataValues.sum / avgAndCount.dataValues.count })
+        } else {
+          totalPercentages.unshift({ score: ratingQueryCount, percentage: 0 })
+        }
+        ratingQueryCount++;
       }
 
       const total = {
-        averageScore: averageScore[0].avg,
-        totalReviews: totalReviews[0].count,
+        averageScore: avgAndCount.dataValues.avg,
+        totalReviews: avgAndCount.dataValues.count,
         totalPercentages: totalPercentages
       }
-
       res.status(200).json(total);
     }
-    catch(error) {
+    catch (error) {
       console.log(error);
       res.status(500).json(error);
     }
-    
-
   },
 
   getTeamFeedback: (req, res) => {
@@ -83,14 +88,6 @@ module.exports = {
     }).then((feedback) => {
       res.status(200).json(feedback);
     })
-  },
-
-  test: async (req, res) => {
-    const dbInstance = req.app.get('db');
-
-    let testResult = await dbInstance.test();
-    res.status(200).json(testResult);
-
   }
 
 };

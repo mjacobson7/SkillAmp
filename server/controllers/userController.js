@@ -1,68 +1,62 @@
 const bcrypt = require('bcrypt');
+const User = require('../models/index').User;
+const Role = require('../models/index').Role;
+const UserRole = require('../models/index').UserRole;
 
 module.exports = {
 
   updateUser: async (req, res) => {
-      let { id, companyId, username, firstName, lastName, password, email, supervisor, roles } = req.body;
-      const dbInstance = req.app.get('db');
-      if(password) {
+    try {
+      let user = req.body;
+      console.log(user);
+      // Object.keys(user).forEach((key) => (user[key] == null) && delete user[key]);
+
+      if (user.password) {
         const salt = bcrypt.genSaltSync();
-        password = bcrypt.hashSync(password, salt);
+        user.password = bcrypt.hashSync(user.password, salt);
       }
-      
-      try {
-        await dbInstance.update_user([username, firstName, lastName, password, email, supervisor, id, companyId]);
-        const existingRoles = await dbInstance.get_user_roles([companyId, id]);
-        let existingRoleIds = [];
-        existingRoles.map(role => existingRoleIds.push(role.id));
 
-        existingRolesDiff = existingRoleIds.filter(x => roles.indexOf(x) < 0 );
+      let newUser = await User.update(user, { where: { id: user.id, companyId: user.companyId } })
+      await UserRole.destroy({ where: { userId: user.id, companyId: user.companyId } }).then(() => {
+        user.roles.forEach(role => {
+          UserRole.create({ companyId: user.companyId, userId: user.id, roleId: role })
+        })
+      })
 
-        if(existingRolesDiff.length > 0) {
-          // remove roles
-            for(let roleId of existingRolesDiff) {
-            await dbInstance.delete_user_roles([id, companyId, roleId]);                        
-          }
-        }
+      const updatedUser = await User.findOne({
+        where: { id: user.id, companyId: user.companyId },
+        include: [{
+          model: Role,
+          as: 'roles',
+          through: { attributes: [] }
+        }, 
+        {
+          model: User,
+          as: 'supervisor'
+        }]
+      })
 
-        newRolesDiff = roles.filter(x => existingRoleIds.indexOf(x) < 0 );
-
-        if(newRolesDiff.length > 0) {
-          // add roles
-          for(let roleId of newRolesDiff) {
-            await dbInstance.add_user_roles([companyId, id, roleId]);                        
-          }
-        }
-
-        const user = await dbInstance.get_user_by_id([id, companyId]);
-        const userRoles = await dbInstance.get_user_roles([user[0].companyId, user[0].id]);
-        if (userRoles.length > 0) {
-          user[0].roles = userRoles;
-        }
-        res.status(200).json(user[0]);
-      }
-      catch (error) {
-        console.log(error);
-        res.status(500).json(error);
-      }
+      //supervisor eventually
+      res.status(200).json(updatedUser);
+    }
+    catch (error) {
+      console.log(error);
+      res.status(500).json(error);
+    }
   },
 
   getCurrentUser: async (req, res) => {
-    const dbInstance = req.app.get('db');
     try {
-      const user = await dbInstance.get_user_by_id([req.principal.id, req.principal.companyId]);
-      const supervisor = await dbInstance.get_supervisor([req.principal.supervisorId]);
-      const roles = await dbInstance.get_user_roles([req.principal.companyId, req.principal.id]);
-      if (roles.length > 0) {
-        user[0].roles = roles;
-      }
-
-      if (supervisor.length > 0) {
-        user[0].supervisor = supervisor[0];
-        res.status(200).json(user[0]);
-      } else {
-        res.status(200).json(user[0]);
-      }
+      const user = await User.findOne({
+        where: { id: req.principal.id, companyId: req.principal.companyId },
+        include: [{
+          model: Role,
+          as: 'roles',
+          through: { attributes: [] }
+        }]
+        //include supervisor????
+      })
+      res.status(200).json(user);
     }
     catch (error) {
       console.log(error);
@@ -93,40 +87,60 @@ module.exports = {
   },
 
   getSupervisorDropdown: async (req, res) => {
-    const dbInstance = req.app.get('db');
     try {
-      const supervisors = await dbInstance.get_supervisor_dropdown([req.principal.companyId]);
-      let supervisorDropdownList = [];
+      const supervisors = await User.findAll({
+        where: { companyId: req.principal.companyId },
+        attributes: ['id', 'username', 'firstName', 'lastName'],
+        include: [{
+          model: Role,
+          as: 'roles',
+          where: { isSupervisorRole: true },
+          through: { attributes: [] }
+        }]
+      })
+      let supervisorList = [];
       supervisors.forEach(supervisor => {
-        let supervisorObj = {};
-        supervisorObj.id = supervisor.id;
-        supervisorObj.name = supervisor.firstName + ' ' + supervisor.lastName + ' ' + '(' + supervisor.username + ')';
-        supervisorDropdownList.push(supervisorObj);
-      });
-      res.status(200).json(supervisorDropdownList);
+        supervisorList.push(
+          {
+            id: supervisor.id,
+            name: supervisor.firstName + ' ' + supervisor.lastName + ' ' + '(' + supervisor.username + ')'
+          }
+        );
+      })
+      res.status(200).json(supervisorList);
     }
     catch (error) {
+      console.log(error);
       res.status(500).json(error);
     }
-
   },
 
   getRolesDropdown: async (req, res) => {
-    const dbInstance = req.app.get('db');
     try {
-      const roles = await dbInstance.get_all_roles();
-      let roleDropdownList = [];
-      roles.forEach(role => {
-        let roleObj = {};
-        roleObj.id = role.id;
-        roleObj.name = role.name;
-        roleDropdownList.push(roleObj);
-      });
-      res.status(200).json(roleDropdownList);
+      const roles = await Role.findAll({ where: { companyId: req.principal.companyId }, attributes: ['id', 'name'] })
+      res.status(200).json(roles);
     }
     catch (error) {
+      console.log(error);
       res.status(500).json(error);
     }
+
+
+    // const dbInstance = req.app.get('db');
+    // try {
+    //   const roles = await dbInstance.get_all_roles();
+    //   let roleDropdownList = [];
+    //   roles.forEach(role => {
+    //     let roleObj = {};
+    //     roleObj.id = role.id;
+    //     roleObj.name = role.name;
+    //     roleDropdownList.push(roleObj);
+    //   });
+    //   res.status(200).json(roleDropdownList);
+    // }
+    // catch (error) {
+    //   res.status(500).json(error);
+    // }
   }
 
 

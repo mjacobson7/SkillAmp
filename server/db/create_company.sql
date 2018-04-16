@@ -1,1 +1,0 @@
-INSERT INTO company (id, name, hostname) VALUES(nextVal('company_sequence'), $1, $2);

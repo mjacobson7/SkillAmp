@@ -5,12 +5,10 @@ const express = require('express'),
       cookieParser = require('cookie-parser'),
       cors = require('cors'),
       massive = require('massive'),
-      secrets = require('./config/secrets'),
       http = require('http');
       require('dotenv').config(),
+      
 
-// Connect to Database
-massive( process.env.DATABASE_URL ).then( dbInstance => app.set('db', dbInstance) );
 
 //Express Middleware
 app.use(bodyParser.json());
@@ -39,9 +37,6 @@ const server = http.createServer(app);
 
 // Listen to port
 server.listen(port, () => {console.log(`Server listening on port ${port}`)});
-
-// module.exports = app;
-
 
 
 
