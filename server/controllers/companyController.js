@@ -3,6 +3,7 @@ const Company = require('../models/index').Company;
 const Role = require('../models/index').Role;
 const User = require('../models/index').User;
 const UserRole = require('../models/index').UserRole;
+const dotenv = require('dotenv').config();
 
 module.exports = {
 
