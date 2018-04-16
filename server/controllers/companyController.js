@@ -9,7 +9,6 @@ module.exports = {
   createCompany: async (req, res) => {
     try {
       const salt = bcrypt.genSaltSync();
-      let hashedPassword = bcrypt.hashSync(process.env.SUPPORT_PASSWORD, salt);
       let company = await Company.create({ name: req.body.name, hostname: req.body.hostname });
       let roles = await Role.bulkCreate([
         { companyId: company.id, name: 'User', isUserRole: true, isSupervisorRole: false, isAdminRole: false },
@@ -21,7 +20,7 @@ module.exports = {
         username: 'skillampsupport',
         firstName: 'SkillAmp',
         lastName: 'Support',
-        password: hashedPassword,
+        password: bcrypt.hashSync(process.env.SUPPORT_PASSWORD, salt),
         email: 'support@skillamp.io'
       })
       roles.forEach(role => {

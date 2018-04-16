@@ -68,7 +68,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   isAdminRole() {
     console.log(this.user.roles);
     for (let role of this.user.roles) {
-      if(role.isAdmin) return true;
+      if(role.isAdminRole) return true;
     }
     return false;
   }
@@ -94,8 +94,8 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       //throw error
     }
     if(this.changePassword) {
+      this.changePassword = false;
       this.userForm.value.password = this.userForm.value.passwords[0];
-      delete this.userForm.value.passwords;
     } else {
       this.userForm.value.password = null;
       delete this.userForm.value.passwords;

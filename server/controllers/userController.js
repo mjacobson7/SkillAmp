@@ -8,12 +8,15 @@ module.exports = {
   updateUser: async (req, res) => {
     try {
       let user = req.body;
-      console.log(user);
+      console.log(user.password);
       // Object.keys(user).forEach((key) => (user[key] == null) && delete user[key]);
 
       if (user.password) {
+        console.log("user.password ", user.password)
         const salt = bcrypt.genSaltSync();
         user.password = bcrypt.hashSync(user.password, salt);
+      } else {
+        delete user.password;
       }
 
       let newUser = await User.update(user, { where: { id: user.id, companyId: user.companyId } })
