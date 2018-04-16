@@ -5,19 +5,19 @@
     <span id="side-nav-menu-item" [hidden]="!openSideNav">Dashboard</span>
   </div>
 
+  <div matTooltip="{{openSideNav ? '' : 'Feedback'}}" [matTooltipPosition]="position" routerLink="/feedback" id=sidebar-nav routerLinkActive="selected-row">
+    <i id="icon" class="material-icons md-light">sentiment_very_satisfied</i>
+    <span id="side-nav-menu-item" [hidden]="!openSideNav">Feedback</span>
+  </div>
+
   <div matTooltip="{{openSideNav ? '' : 'Profile'}}" [matTooltipPosition]="position" routerLink="/profile" id=sidebar-nav routerLinkActive="selected-row">
     <i id="icon" class="material-icons md-light">person</i>
     <span id="side-nav-menu-item" [hidden]="!openSideNav">Profile</span>
   </div>
   
-  <div matTooltip="{{openSideNav ? '' : 'Messages'}}" [matTooltipPosition]="position" routerLink="/messages" id=sidebar-nav routerLinkActive="selected-row">
+  <!-- <div matTooltip="{{openSideNav ? '' : 'Messages'}}" [matTooltipPosition]="position" routerLink="/messages" id=sidebar-nav routerLinkActive="selected-row">
     <i id="icon" class="material-icons md-light">email</i>
     <span id="side-nav-menu-item" [hidden]="!openSideNav">Messages</span>
-  </div>
-
-  <div matTooltip="{{openSideNav ? '' : 'Feedback'}}" [matTooltipPosition]="position" routerLink="/feedback" id=sidebar-nav routerLinkActive="selected-row">
-    <i id="icon" class="material-icons md-light">sentiment_very_satisfied</i>
-    <span id="side-nav-menu-item" [hidden]="!openSideNav">Feedback</span>
   </div>
 
   <div matTooltip="{{openSideNav ? '' : 'Training'}}" [matTooltipPosition]="position" routerLink="/training" id=sidebar-nav routerLinkActive="selected-row">
@@ -38,7 +38,7 @@
   <div matTooltip="{{openSideNav ? '' : 'Account'}}" [matTooltipPosition]="position" routerLink="/account" id=sidebar-nav routerLinkActive="selected-row">
     <i id="icon" class="material-icons md-light">account_balance</i>
     <span id="side-nav-menu-item" [hidden]="!openSideNav">Account</span>
-  </div>
+  </div> -->
 
   <div matTooltip="{{openSideNav ? '' : 'Training'}}" [matTooltipPosition]="position" routerLink="/settings" id=sidebar-nav routerLinkActive="selected-row">
     <i id="icon" class="material-icons md-light">settings</i>

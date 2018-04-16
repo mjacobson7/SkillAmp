@@ -46,4 +46,3 @@ Thumbs.db
 
 # Environment Variables
 /server/.env
-/server/config/config.json

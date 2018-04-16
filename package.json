@@ -62,6 +62,7 @@
     "massive": "^4.7.1",
     "material-design-icons": "^3.0.1",
     "moment": "^2.21.0",
+    "mongoose": "^5.0.14",
     "morgan": "^1.9.0",
     "ng-select": "^1.0.0-rc.5",
     "ng2-charts": "^1.6.0",
