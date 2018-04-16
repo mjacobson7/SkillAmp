@@ -26,6 +26,8 @@ module.exports = {
         if (bcrypt.compareSync(password, user.password)) {
           let token = jwt.sign({ userId: user.id, companyId: user.companyId }, process.env.TOKEN_SECRET, { expiresIn: '1h' });
           res.status(200).json({ token: token, user: user });
+        } else {
+          res.status(500).json("Password incorrect??");
         }
       }
     }
