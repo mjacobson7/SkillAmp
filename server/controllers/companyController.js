@@ -3,7 +3,6 @@ const Company = require('../models/index').Company;
 const Role = require('../models/index').Role;
 const User = require('../models/index').User;
 const UserRole = require('../models/index').UserRole;
-const dotenv = require('dotenv').config();
 
 module.exports = {
 
@@ -22,7 +21,7 @@ module.exports = {
         firstName: 'SkillAmp',
         lastName: 'Support',
         password: bcrypt.hashSync(process.env.SUPPORT_PASSWORD, salt),
-        email: process.env.SUPPORT_EMAIL
+        email: 'support@skillamp.io'
       })
 
       roles.forEach(role => {
