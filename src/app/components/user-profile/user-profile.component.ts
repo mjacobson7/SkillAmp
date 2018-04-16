@@ -9,7 +9,6 @@ import { NgOption } from '@ng-select/ng-select';
 import {Observable} from 'rxjs/Observable';
 
 
-
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
@@ -39,7 +38,6 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.userFormSubscription = this.authService.getUser().subscribe(user => {
       if(user) {
-        console.log(user);
         this.user = user;
         this.supervisorsList = this.userService.getSupervisorDropdown();
         this.rolesList = this.userService.getRolesDropdown();
@@ -60,15 +58,14 @@ export class UserProfileComponent implements OnInit, OnDestroy {
                  ], this.passwordValidator),
       lastName:  [this.user.lastName, Validators.required],
       email:     [this.user.email, [Validators.required, Validators.email]],
-      supervisor: [{value: this.user.supervisorId ? this.user.supervisorId : null , disabled: !this.isAdminRole()}],
+      supervisorId: [{value: this.user.supervisorId ? this.user.supervisorId : null , disabled: !this.isAdminRole()}],
       roles: [{value: this.configureUserRoles(), disabled: !this.isAdminRole() }]
     });
   }
 
   isAdminRole() {
-    console.log(this.user.roles);
     for (let role of this.user.roles) {
-      if(role.isAdmin) return true;
+      if(role.isAdminRole) return true;
     }
     return false;
   }
@@ -90,6 +87,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    //prevent setting oneself as supervisor
     if(this.userForm.value.roles.length < 1) {
       //throw error
     }
@@ -97,7 +95,6 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       this.userForm.value.password = this.userForm.value.passwords[0];
       delete this.userForm.value.passwords;
     } else {
-      this.userForm.value.password = null;
       delete this.userForm.value.passwords;
     } 
     this.userService.updateProfile(this.userForm.value)

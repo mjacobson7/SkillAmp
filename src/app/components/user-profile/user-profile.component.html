@@ -85,10 +85,10 @@
              placeholder="None"
              [searchable]="true"
              [virtualScroll]="true"
-             formControlName="supervisor">
+             formControlName="supervisorId">
   </ng-select>
   <small
-    *ngIf="userForm.get('supervisor').hasError('required') && userForm.get('supervisor').touched"
+    *ngIf="userForm.get('supervisorId').hasError('required') && userForm.get('supervisorId').touched"
     class="form-text text-muted">Supervisor is required
   </small>
   </div><hr>
