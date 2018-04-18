@@ -1,12 +1,12 @@
-const Feedback = require('../models/index').Feedback;
+const Survey = require('../models/index').Survey;
 const sequelize = require('sequelize');
 
 module.exports = {
 
-  addFeedback: async (req, res) => {
+  addSurveys: async (req, res) => {
     try {
-      await Feedback.create(req.body);
-      res.status(200).json("Feedback Created!");
+      await Survey.create(req.body);
+      res.status(200).json("Survey Created!");
     }
     catch (error) {
       console.log(error);
@@ -14,24 +14,24 @@ module.exports = {
     }
   },
 
-  getMyFeedback: async (req, res) => {
+  getMySurveys: async (req, res) => {
     try {
       let { pageIndex, pageSize, ratingSort, dateSort } = req.body.params;
-      let count = await Feedback.count({
+      let count = await Survey.count({
         where: { userId: req.principal.id, companyId: req.principal.companyId, rating: ratingSort }
       })
       let offset = (pageIndex) * pageSize;
-      let myFeedback = await Feedback.findAll({
+      let mySurveys = await Survey.findAll({
         where: { userId: req.principal.id, companyId: req.principal.companyId, rating: ratingSort },
         order: [['createdAt', dateSort]],
         offset: offset,
         limit: pageSize
       })
-      const myFeedbackPage = {
-        content: myFeedback,
+      const mySurveyPage = {
+        content: mySurveys,
         length: count
       }
-      res.status(200).json(myFeedbackPage);
+      res.status(200).json(mySurveyPage);
     }
     catch (error) {
       console.log(error);
@@ -39,13 +39,13 @@ module.exports = {
     }
   },
 
-  getMyFeedbackScore: async (req, res) => {
+  getMySurveyScore: async (req, res) => {
     try {
-      let avgAndCount = await Feedback.find({
+      let avgAndCount = await Survey.find({
         where: { userId: req.principal.id, companyId: req.principal.companyId },
         attributes: [
-          [Feedback.sequelize.fn('AVG', Feedback.sequelize.col('rating')), 'avg'],
-          [Feedback.sequelize.fn('COUNT', Feedback.sequelize.col('rating')), 'count']
+          [Survey.sequelize.fn('AVG', Survey.sequelize.col('rating')), 'avg'],
+          [Survey.sequelize.fn('COUNT', Survey.sequelize.col('rating')), 'count']
         ]
       });
 
@@ -55,9 +55,9 @@ module.exports = {
       let ratingQueryCount = 1;
 
       for (let i = 0; i < 5; i++) {
-        let ratingAvg = await Feedback.findAll({
+        let ratingAvg = await Survey.findAll({
           where: { userId: req.principal.id, companyId: req.principal.companyId, rating: ratingQueryCount },
-          attributes: [[Feedback.sequelize.fn('COUNT', Feedback.sequelize.col('rating')), 'sum']]
+          attributes: [[Survey.sequelize.fn('COUNT', Survey.sequelize.col('rating')), 'sum']]
         })
 
         if (ratingAvg[0].dataValues.sum > 0) {
@@ -81,14 +81,14 @@ module.exports = {
     }
   },
 
-  getTeamFeedback: (req, res) => {
-    Feedback.findAll({
+  getTeamSurveys: (req, res) => {
+    Survey.findAll({
       include: [{
         model: User,
         where: { supervisorId: req.user.id, companyId: req.user.companyId }
       }]
-    }).then((feedback) => {
-      res.status(200).json(feedback);
+    }).then((surveys) => {
+      res.status(200).json(surveys);
     })
   }
 

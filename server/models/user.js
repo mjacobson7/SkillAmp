@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
       as: 'supervisor',
       foreignKey: 'supervisorId'
     })
-    User.hasMany(models.Feedback, {
+    User.hasMany(models.Survey, {
       foreignKey: 'userId'
     })
     User.belongsToMany(models.Role, {

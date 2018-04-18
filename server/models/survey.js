@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var Feedback = sequelize.define('Feedback', {
+  var Survey = sequelize.define('Survey', {
     companyId: {
       type: DataTypes.BIGINT,
       allowNull: false
@@ -29,8 +29,8 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     }
   }, {});
-  Feedback.associate = function(models) {
+  Survey.associate = function(models) {
     // associations can be defined here
   };
-  return Feedback;
+  return Survey;
 };
