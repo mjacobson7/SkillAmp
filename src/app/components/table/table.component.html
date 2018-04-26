@@ -1,0 +1,69 @@
+<div class="card">
+    <div class="card-title">
+      <h4>Leaderboard</h4>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Score</th>
+              <th>Supervisor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Ryan Gray</td>
+              <td>4.95</td>
+              <td>Josh Edwards</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Max Jacobson</td>
+              <td>4.45</td>
+              <td>Josh Edwards</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>John Andrews</td>
+              <td>4.05</td>
+              <td>Josh Edwards</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Paul Woodhouse</td>
+              <td>3.95</td>
+              <td>Josh Edwards</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>Jordan Mefford</td>
+              <td>3.90</td>
+              <td>Josh Edwards</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <mat-paginator class="leaderboardChart" [length]="100" [pageSize]="5" [pageSizeOptions]="[5]"></mat-paginator>
+  </div>
+
+
+
+
+
+<!-- <table>
+    <thead>
+    <td>{{field1}}</td>
+    <td>{{field2}}</td>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of items;">
+      <td>{{item[field1]}}</td>
+      <td>{{item[field2]}}</td>
+    </tr>
+    </tbody>
+  </table> -->

@@ -21,6 +21,7 @@ require('./routes/authRoutes')(app);
 require('./routes/userRoutes')(app);
 require('./routes/surveyRoutes')(app);
 require('./routes/companyRoutes')(app);
+require('./routes/navRoutes')(app);
 
 // Angular DIST output folder
 app.use(express.static(path.join(__dirname, '/../dist')));

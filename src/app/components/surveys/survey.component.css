@@ -1,0 +1,22 @@
+h4 {
+    display: inline-block;
+}
+
+.rating-wrapper {
+    margin-bottom: 30px;
+}
+
+h1 {
+    color: #FEC42E;
+    font-weight: bold;
+    margin-right: 15px;
+    display: inline-block;
+}
+
+rating {
+    margin-right: 10px;
+}
+
+.overall-rating h4 {
+    margin-right: 10px;
+}

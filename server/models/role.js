@@ -27,6 +27,10 @@ module.exports = (sequelize, DataTypes) => {
       through: models.UserRole,
       as: 'user',
       foreignKey: 'roleId'
+    }),
+    Role.belongsToMany(models.Permission, {
+      through: models.rolePermission,
+      foreignKey: 'roleId'
     })
   };
   return Role;

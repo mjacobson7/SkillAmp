@@ -68,14 +68,44 @@ module.exports = {
   },
 
   getAllUsers: async (req, res) => {
-    const dbInstance = req.app.get('db');
     try {
-      const users = await dbInstance.get_all_users([req.user.companyId]);
+      //todo check if admin or supervisor and return ONLY the users that pertain to their role.  
+      //If they are an admin AND a supervisor, then return all users of the company
+      const users = await User.findAll({ 
+        where: { companyId: req.principal.companyId },
+        include: [{
+          model: Role,
+          as: 'roles',
+          through: { attributes: [] }
+          //include supervisor?
+        }]
+      })
       res.status(200).json(users);
     }
     catch (error) {
       res.status(500).json(error);
     }
+  },
+
+  getUser: async (req, res) => {
+    try {
+      const user = await User.findOne({ 
+        where: { id: req.params.id, companyId: req.principal.companyId },
+        include: [{
+          model: Role,
+          as: 'roles',
+          through: { attributes: [] }
+          //include supervisor?
+        }]
+      })
+      return res.status(200).json(user);
+    }
+    catch (error) {
+      console.log(error);
+      res.status(500).json(error);
+    }
+
+
   },
 
   getMyTeam: async (req, res) => {

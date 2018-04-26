@@ -1,0 +1,19 @@
+<div class="card">
+    <div class="card-title">
+        <h4>Customer Surveys</h4>
+    </div>
+
+    <div class="card-body">
+        <ngx-charts-line-chart
+            [scheme]="colorScheme"
+            [results]="single"
+            [xAxis]="showXAxis"
+            [yAxis]="showYAxis"
+            yScaleMin=0
+            yScaleMax=5
+            [autoScale]="autoScale"
+            (select)="onSelect($event)">
+        </ngx-charts-line-chart>
+    </div>
+ 
+</div>

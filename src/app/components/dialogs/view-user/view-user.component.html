@@ -1,0 +1,32 @@
+<div class="modal-header">
+    <h6 class="modal-title">{{user.firstName}} {{user.lastName}} ({{user.username}})</h6>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+  
+    <ul class="list-group">
+  
+      <li class="list-group-item">
+        <strong>Email:</strong>
+        <span>{{user.email}}</span>
+      </li>
+  
+      <li class="list-group-item">
+        <strong>Supervisor:</strong>
+        <span>TODO: GET SUPERVISOR</span>
+      </li>
+  
+      <li class="list-group-item">
+        <strong>Roles:</strong>
+        <span style="margin-right:5px" class="badge badge-pill badge-secondary" *ngFor="let role of user.roles">{{role.name}}</span>
+      </li>
+  
+    </ul>
+  
+  
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+  </div>

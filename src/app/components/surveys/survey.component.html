@@ -1,0 +1,14 @@
+<div class="container-fluid rating-wrapper">
+  <div class="row">
+    <div class="col-lg-12">
+      <app-survey-filters></app-survey-filters>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <app-review-card [survey]="survey"></app-review-card>
+    </div>
+  </div>
+  <hr>
+  <mat-paginator class="surveyCards" [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize" [pageSizeOptions]="[10, 25, 50, 100]" (page)="pageEvent = onPageEvent($event)"></mat-paginator>
+</div>

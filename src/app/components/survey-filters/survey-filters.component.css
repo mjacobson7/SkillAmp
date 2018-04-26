@@ -1,0 +1,132 @@
+.ratingTotalAndFiltersWrapper {
+    display: flex; 
+    flex-direction: column;
+}
+
+.mat-expansion-panel {
+  margin: 0px, 15px;
+}
+
+.example-additional-selection {
+    opacity: 0.75;
+    font-size: 0.75em;
+  }
+
+.ratingBars {
+    width: 300px;
+}
+
+.totalScore {
+    font-size: 72px;
+    line-height: 1;
+    text-align: center;
+}
+
+.reviewsRatingLabel {
+    font-size: 13px;
+    text-align: center;
+    margin: 0;
+}
+
+.ratingBarAndStarsWrapper {
+    float: left;
+    display: flex;
+    flex-direction: column;
+}
+
+.ratingTotalAndRatingBarWrapper {
+    margin-bottom: 20px;
+}
+
+.ratingBarAndStarsChildWrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+.ratingScoreWrapper {
+    margin-right: 20px;
+    align-self: center;
+    float: left;
+}
+
+.ratingBars {
+    margin: 4px;
+}
+
+.star {
+    font-size: 1.5rem;
+    color: #b0c4de;
+    position: relative;  
+    display: inline-block;
+}
+
+.ratingScoreWrapper .star {
+  padding: 2px;
+}
+
+.full {
+    color: #FDC341;
+}
+.half {
+    position: absolute;
+    display: inline-block;
+    overflow: hidden;
+    color: #FDC341;
+}
+
+.starRatingScale .star {
+    font-size: 1rem;
+}
+
+.percentage {
+    align-self: center;
+    padding-left: 5px;
+    color: #007791;
+    cursor: pointer;
+}
+
+.percentage:hover {
+    color: #003845;
+}
+
+.filters {
+  display: flex;
+  flex-direction: row;
+}
+
+.filters ng-select {
+  width: 200px;
+  margin-right: 10px;
+}
+
+@media only screen and (max-width: 1100px) {
+  .ratingBars {
+    width: 300px;
+}
+}
+
+@media only screen and (max-width: 950px) {
+    .ratingBars {
+        width: 200px;
+    }
+
+    .totalScore {
+        font-size: 50px;
+    }
+
+    .star {
+        font-size: 1rem;        
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .ratingBars {
+        width: 100px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .starRatingScale .star {
+        display: none;
+    }
+}

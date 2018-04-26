@@ -13,4 +13,6 @@ module.exports = (app) => {
   app.get('/getSupervisorDropdown', authController.verifyValidToken, userController.getSupervisorDropdown);
 
   app.get('/getRolesDropdown', authController.verifyValidToken, userController.getRolesDropdown);
+
+  app.get('/getUser/:id', authController.verifyValidToken, userController.getUser);
 };
