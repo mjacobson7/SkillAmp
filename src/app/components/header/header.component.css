@@ -9,6 +9,19 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+.hamburgerMenu {
+    width: 60px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.hamburgerMenu:hover {
+    background-color: #F6F6F6;
+}
+
 .company-logo {
     display: flex;
     justify-content: center;
@@ -16,8 +29,8 @@
 }
 
 .company-logo img {
-    padding: 0 10px;
-    width: 200px;
+    padding: 0 10px 0 0;
+    width: 189px;
     user-select: none;   
 }
 

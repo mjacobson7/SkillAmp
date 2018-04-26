@@ -1,11 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs/Rx';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class NavService {
-    sidenavOpen = new Subject<boolean>();
-    pageHeaderTitle = new Subject<Object>();
+  sidenavStatus = new BehaviorSubject<boolean>(true);
+  pageHeaderTitle = new Subject<Object>();
 
-      constructor() {}
+  constructor(private httpClient: HttpClient) { }
+
+  getSideNavList() {
+    return this.httpClient.get<any>('/sideNavList');
+  }
 
 }

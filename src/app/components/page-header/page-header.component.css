@@ -1,7 +1,6 @@
 .page-header h4 {
     font-weight: lighter;
     margin-bottom: 0;
-    padding-left: 20px;
     color: #FFFFFF;
 }
 
@@ -15,6 +14,7 @@
     flex-direction: row;
     align-items: center;
     /* padding-bottom: 20px; */
-    user-select: none;    
-    /* margin-bottom: 20px; */
+    user-select: none;   
+    padding-left: 25px;
+    padding-right: 25px; 
 }

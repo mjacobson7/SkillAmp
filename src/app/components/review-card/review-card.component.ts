@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FeedbackService } from '../../services/feedback/feedback.service';
+import { SurveyService } from '../../services/survey/survey.service';
 
 @Component({
   selector: 'app-review-card',
@@ -7,9 +7,9 @@ import { FeedbackService } from '../../services/feedback/feedback.service';
   styleUrls: ['./review-card.component.css']
 })
 export class ReviewCardComponent implements OnInit {
-  @Input() feedback;
+  @Input() survey;
 
-  constructor(private feedbackService: FeedbackService) { }
+  constructor(private surveyService: SurveyService) { }
 
   ngOnInit() {}
 

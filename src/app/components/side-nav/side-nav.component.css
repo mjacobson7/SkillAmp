@@ -2,14 +2,14 @@
     z-index: 1;
     position: fixed;
     top: 50px;
-    width: 56px;
+    width: 250px;
     min-height: 100vh;
     overflow-y: hidden;
     background: #23272D;
-    transition: width 0.5s;
+    transition: width 0.25s;
 }
 
-#sidebar-nav {
+.sidebar-nav {
     border-left: 3px solid transparent;        
     text-indent: 8px;
     line-height: 40px;
@@ -22,7 +22,19 @@
     margin: 0;
 }
 
-#sidebar-nav span {
+.sub-sidebar-nav {
+    line-height: 40px;
+    white-space: nowrap;
+    cursor: pointer;   
+    user-select: none; 
+    text-decoration: none;
+    padding: 0;
+    list-style: none;
+    border-left: 3px solid transparent;
+    padding-left: 49px;
+}
+
+.sidebar-nav span, .sub-sidebar-nav span {
     display: inline;
     text-decoration: none;
     color: #808b9c;
@@ -30,41 +42,69 @@
     transition: color 0.25s;
 }
 
-#sidebar-nav:hover {
+.sidebar-nav:hover, .sub-sidebar-nav:hover {
     border-left: 3px solid #00B6EE;
 }
 
-#sidebar-nav:hover #side-nav-menu-item {
+.sidebar-nav:hover .side-nav-menu-item, .sub-sidebar-nav:hover .side-nav-menu-item {
+    color: #FFFFFF;
+}
+
+.sidebar-nav:hover .icon {
     color: #FFFFFF;
 }
 
 #sidebar-wrapper.sideBar {
-    width: 225px;
+    width: 60px;
     transition: width 0.25s;
 }
 
-#icon {
+.icon {
      color: #808b9c;
      font-size: 16px;
      vertical-align: middle;
      padding-bottom: 2px;
-     margin-right: 10px;
+     padding-right: 3px;
+     margin: 0 10px 0 7px;
      transition: color 0.25s;  
-    }
-
-#sidebar-nav:hover #icon {
-    color: #FFFFFF;
 }
 
-.selected-row #icon {
+.selected-row .icon {
     color: #00B6EE !important;
 }
 
-.selected-row #side-nav-menu-item {
+.selected-row .side-nav-menu-item {
     color: #FFFFFF !important;
 }
 
 .selected-row {
     border-left: 3px solid #00B6EE !important;
     background-color: #181b1f !important;   
+}
+
+.subMenu {
+    margin-left: auto;
+    height: 0px;
+    background-color: #353a42;
+    transition: 0.25s;
+    overflow: hidden;
+    box-shadow: inset 0px 5px 4px -4px rgba(24,27,31,1), inset 0px -5px 4px -4px rgba(24,27,31,1)
+}
+
+.subMenuIcon {
+    margin-left: auto;
+}
+
+.supervisorMenu, .systemMenu {
+    height: 80px;
+}
+
+.subItemActive span {
+    transition: color 0.25s;
+    color: #FFFFFF !important;
+}
+
+.subItemActive i {
+    transition: color 0.25s;
+    color: #00B6EE !important;
 }

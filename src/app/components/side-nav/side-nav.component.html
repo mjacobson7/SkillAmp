@@ -1,52 +1,85 @@
-<div id="sidebar-wrapper" [ngClass]="{'sideBar': openSideNav}">
-  
-  <div matTooltip="{{openSideNav ? '' : 'Dashboard'}}" [matTooltipPosition]="position" routerLink="/dashboard" id=sidebar-nav routerLinkActive="selected-row">
-    <i id="icon" class="material-icons md-light">dashboard</i>
-    <span id="side-nav-menu-item" [hidden]="!openSideNav">Dashboard</span>
+<div id="sidebar-wrapper" [ngClass]="{'sideBar': !openSideNav}">
+
+  <div matTooltip="{{openSideNav ? '' : 'Dashboard'}}" [matTooltipPosition]="position" routerLink="/dashboard" class="sidebar-nav"
+    routerLinkActive="selected-row">
+    <i class="fa fa-tachometer fa-fw icon" aria-hidden="true"></i>
+    <span class="side-nav-menu-item" [hidden]="!openSideNav">Dashboard</span>
   </div>
 
-  <div matTooltip="{{openSideNav ? '' : 'Feedback'}}" [matTooltipPosition]="position" routerLink="/feedback" id=sidebar-nav routerLinkActive="selected-row">
-    <i id="icon" class="material-icons md-light">sentiment_very_satisfied</i>
-    <span id="side-nav-menu-item" [hidden]="!openSideNav">Feedback</span>
+  <div matTooltip="{{openSideNav ? '' : 'Survey'}}" [matTooltipPosition]="position" routerLink="/survey" class="sidebar-nav"
+    routerLinkActive="selected-row">
+    <i class="fa fa-comment fa-fw icon" aria-hidden="true"></i>
+    <span class="side-nav-menu-item" [hidden]="!openSideNav">Surveys</span>
   </div>
 
-  <div matTooltip="{{openSideNav ? '' : 'Profile'}}" [matTooltipPosition]="position" routerLink="/profile" id=sidebar-nav routerLinkActive="selected-row">
-    <i id="icon" class="material-icons md-light">person</i>
-    <span id="side-nav-menu-item" [hidden]="!openSideNav">Profile</span>
-  </div>
-  
-  <!-- <div matTooltip="{{openSideNav ? '' : 'Messages'}}" [matTooltipPosition]="position" routerLink="/messages" id=sidebar-nav routerLinkActive="selected-row">
-    <i id="icon" class="material-icons md-light">email</i>
-    <span id="side-nav-menu-item" [hidden]="!openSideNav">Messages</span>
+  <div matTooltip="{{openSideNav ? '' : 'Profile'}}" [matTooltipPosition]="position" routerLink="/profile" class="sidebar-nav"
+    routerLinkActive="selected-row">
+    <i class="fa fa-user fa-fw icon" aria-hidden="true"></i>
+    <span class="side-nav-menu-item" [hidden]="!openSideNav">Profile</span>
   </div>
 
-  <div matTooltip="{{openSideNav ? '' : 'Training'}}" [matTooltipPosition]="position" routerLink="/training" id=sidebar-nav routerLinkActive="selected-row">
-    <i id="icon" class="material-icons md-light">domain</i>
-    <span id="side-nav-menu-item" [hidden]="!openSideNav">Training</span>
+  <!-- <div matTooltip="{{openSideNav ? '' : 'Messages'}}" [matTooltipPosition]="position" routerLink="/messages" class=sidebar-nav routerLinkActive="selected-row">
+    <i class="material-icons md-light">email</i>
+    <span class="side-nav-menu-item" [hidden]="!openSideNav">Messages</span>
   </div>
 
-  <div matTooltip="{{openSideNav ? '' : 'Manage Users'}}" [matTooltipPosition]="position" routerLink="/manage_users" id=sidebar-nav routerLinkActive="selected-row">
-    <i id="icon" class="material-icons md-light">people</i>
-    <span id="side-nav-menu-item" [hidden]="!openSideNav">Manage Users</span>
+  <div matTooltip="{{openSideNav ? '' : 'Training'}}" [matTooltipPosition]="position" routerLink="/training" class=sidebar-nav routerLinkActive="selected-row">
+    <i class="material-icons md-light">domain</i>
+    <span class="side-nav-menu-item" [hidden]="!openSideNav">Training</span>
   </div>
 
-  <div matTooltip="{{openSideNav ? '' : 'Reports'}}" [matTooltipPosition]="position" routerLink="/reports" id=sidebar-nav routerLinkActive="selected-row">
-    <i id="icon" class="material-icons md-light">assignment</i>
-    <span id="side-nav-menu-item" [hidden]="!openSideNav">Reports</span>
+  <div matTooltip="{{openSideNav ? '' : 'Reports'}}" [matTooltipPosition]="position" routerLink="/reports" class=sidebar-nav routerLinkActive="selected-row">
+    <i class="material-icons md-light">assignment</i>
+    <span class="side-nav-menu-item" [hidden]="!openSideNav">Reports</span>
   </div>
 
-  <div matTooltip="{{openSideNav ? '' : 'Account'}}" [matTooltipPosition]="position" routerLink="/account" id=sidebar-nav routerLinkActive="selected-row">
-    <i id="icon" class="material-icons md-light">account_balance</i>
-    <span id="side-nav-menu-item" [hidden]="!openSideNav">Account</span>
+  <div matTooltip="{{openSideNav ? '' : 'Account'}}" [matTooltipPosition]="position" routerLink="/account" class=sidebar-nav routerLinkActive="selected-row">
+    <i class="material-icons md-light">account_balance</i>
+    <span class="side-nav-menu-item" [hidden]="!openSideNav">Account</span>
   </div> -->
 
-  <div matTooltip="{{openSideNav ? '' : 'Training'}}" [matTooltipPosition]="position" routerLink="/settings" id=sidebar-nav routerLinkActive="selected-row">
-    <i id="icon" class="material-icons md-light">settings</i>
-    <span id="side-nav-menu-item" [hidden]="!openSideNav">Settings</span>
+  <div (click)="onSupervisorToolsOpen()" matTooltip="{{openSideNav ? '' : 'Supervisor Tools'}}" [matTooltipPosition]="position"
+    class="sidebar-nav" [ngClass]="{'subItemActive' : manageUsers.isActive || teamSurveys.isActive }">
+    <i class="fa fa-briefcase fa-fw icon" aria-hidden="true"></i>
+    <span class="side-nav-menu-item" [hidden]="!openSideNav">Supervisor Tools</span>
+    <i [ngClass]="supervisorMenuOpen ? 'fa fa-angle-down icon subMenuIcon' : 'fa fa-angle-right icon subMenuIcon' " aria-hidden="true"></i>
   </div>
 
-  
+  <div class="subMenu" [ngClass]="{'supervisorMenu': supervisorMenuOpen}">
+
+    <div matTooltip="{{openSideNav ? '' : 'Team Surveys'}}" [matTooltipPosition]="position" routerLink="/supervisor_tools/team_surveys"
+      routerLinkActive="selected-row" #teamSurveys="routerLinkActive" class="sub-sidebar-nav">
+      <span class="side-nav-menu-item" [hidden]="!openSideNav">Team Surveys</span>
+    </div>
+
+    <div matTooltip="{{openSideNav ? '' : 'Manage Users'}}" [matTooltipPosition]="position" routerLink="/supervisor_tools/manage_users"
+      routerLinkActive="selected-row" #manageUsers="routerLinkActive" class="sub-sidebar-nav">
+      <span class="side-nav-menu-item" [hidden]="!openSideNav">Manage Users</span>
+    </div>
+
+  </div>
+
+  <div (click)="onSystemManagementOpen()" matTooltip="{{openSideNav ? '' : 'Training'}}" [matTooltipPosition]="position" class="sidebar-nav"
+    [ngClass]="{'subItemActive' : notifications.isActive || permissions.isActive}">
+    <i class="fa fa-cogs fa-fw icon" aria-hidden="true"></i>
+    <span class="side-nav-menu-item" [hidden]="!openSideNav">System Management</span>
+    <i [ngClass]="systemManagementOpen ? 'fa fa-angle-down icon subMenuIcon' : 'fa fa-angle-right icon subMenuIcon' " aria-hidden="true"></i>
+  </div>
+
+  <div class="subMenu" [ngClass]="{'systemMenu': systemManagementOpen}">
+
+    <div matTooltip="{{openSideNav ? '' : 'Notifications'}}" [matTooltipPosition]="position" routerLink="/system_management/notifications"
+      routerLinkActive="selected-row" #notifications="routerLinkActive" class="sub-sidebar-nav">
+      <span class="side-nav-menu-item" [hidden]="!openSideNav">Notifications</span>
+    </div>
+
+    <div matTooltip="{{openSideNav ? '' : 'Permissions'}}" [matTooltipPosition]="position" routerLink="/system_management/permissions"
+      routerLinkActive="selected-row" #permissions="routerLinkActive" class="sub-sidebar-nav">
+      <span class="side-nav-menu-item" [hidden]="!openSideNav">Permissions</span>
+    </div>
+
+  </div>
+
+
 
 </div>
-
-

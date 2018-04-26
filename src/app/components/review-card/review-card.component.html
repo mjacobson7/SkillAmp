@@ -1,62 +1,61 @@
 <div class="row">
-  <div class="col-xs-12 col-lg-6 col-xl-6" *ngFor="let review of feedback; let i = index">
+  <div class="col-xs-12 col-lg-6 col-xl-6" *ngFor="let review of survey; let i = index">
+
     <div class="card">
-      <div class="card-header">
-        <div class="card-title">
-          <ngb-rating [rate]="review.rating" [starTemplate]="t" [readonly]="true" max="5">
-            <ng-template #t let-fill="fill">
-              <span class="star" [class.full]="fill === 100">
-                <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
-              </span>
-            </ng-template>
-          </ngb-rating>
-          <span class="text-muted">{{review.customerName}}</span>
-          <br>
-          <span class="text-muted">Posted: {{review.created | date}}</span>
+      <div class="survey">
+
+        <div class="cardHeader">
+          <div class="rating" [ngClass]="{'goodScore': review.rating === 4 || review.rating === 5, 'averageScore': review.rating === 2 || review.rating === 3, 'poorScore': review.rating === 1 }">
+            <span>{{review.rating}}</span>
+            <i class="fa fa-star" aria-hidden="true"></i>
+          </div>
+          <span class="text-muted date">{{review.createdAt | date: 'longDate'}}</span>
         </div>
+
+        <div class="survey-body">
+          <mat-tab-group>
+
+            <mat-tab>
+              <ng-template mat-tab-label>
+                <i matTooltip="What customer liked" class="fa fa-thumbs-up" aria-hidden="true"></i>
+              </ng-template>
+              <div>
+                {{review.like}}
+              </div>
+            </mat-tab>
+
+            <mat-tab>
+              <ng-template mat-tab-label>
+                <i matTooltip="What customer disliked" class="fa fa-thumbs-down" aria-hidden="true"></i>
+              </ng-template>
+              <div>
+                {{review.dislike}}
+              </div>
+            </mat-tab>
+
+            <mat-tab>
+              <ng-template mat-tab-label>
+                <i matTooltip="Advice for agent" class="fa fa-comment" aria-hidden="true"></i>
+              </ng-template>
+              <div>
+                {{review.adviceForAgent}}
+              </div>
+            </mat-tab>
+
+            <mat-tab>
+              <ng-template mat-tab-label>
+                <i matTooltip="Reason for Purchase/Non-Purchase" class="fa fa-shopping-cart" aria-hidden="true"></i>
+              </ng-template>
+              <div>
+                {{review.purchaseReason}}
+              </div>
+            </mat-tab>
+
+          </mat-tab-group>
+
+        </div>
+
       </div>
-      <mat-card-content>
-        <mat-tab-group>
-
-          <mat-tab>
-            <ng-template mat-tab-label>
-              <mat-icon matTooltip="What customer liked">thumb_up</mat-icon>
-            </ng-template>
-            <div>
-              {{review.like}}
-            </div>
-          </mat-tab>
-
-          <mat-tab>
-            <ng-template mat-tab-label>
-              <mat-icon matTooltip="What customer disliked">thumb_down</mat-icon>
-            </ng-template>
-            <div>
-              {{review.dislike}}
-            </div>
-          </mat-tab>
-
-          <mat-tab>
-            <ng-template mat-tab-label>
-              <mat-icon matTooltip="Advice for agent">poll</mat-icon>
-            </ng-template>
-            <div>
-              {{review.agentAdvice}}
-            </div>
-          </mat-tab>
-
-          <mat-tab>
-            <ng-template mat-tab-label>
-              <mat-icon matTooltip="Reason for Purchase/Non-Purchase">attach_money</mat-icon>
-            </ng-template>
-            <div>
-              {{review.purchaseReason}}
-            </div>
-          </mat-tab>
-        </mat-tab-group>
-
-      </mat-card-content>
-
     </div>
 
   </div>

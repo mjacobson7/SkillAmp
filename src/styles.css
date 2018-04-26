@@ -17,7 +17,7 @@
 }
 
 body {
-    background-color: #F7F7F7;
+    background-color: #F6F6F6;
 }
 
 #page-content-wrapper {
@@ -25,11 +25,11 @@ body {
     position: absolute;
     padding: 0px 0px 30px 50px;
     margin-top: 36px;
-    transition: padding 0.5s;
+    transition: padding 0.25s;
 }
 
 #page-content-wrapper.sideBar {
-    padding-left: 225px;
+    padding-left: 250px;
     transition: padding-left 0.25s;
 }
 
@@ -67,12 +67,17 @@ body {
     }
   }
 
-/* Feedback Tabs Size Customization */
-   .mat-tab-label, .mat-tab-label-active{
-    min-width: 0!important;
-    padding: 0 25px!important;
-    margin: 0px!important;
-   }
+/* Survey Tabs Size Customization */
+   .mat-tab-label, .mat-tab-label-active {
+    min-width: 0 !important;
+    padding: 25px !important;
+    margin: 0px 5px 0px 5px !important;
+}
+
+/* Review cards content Customization */
+   .mat-tab-body-content {
+    padding: 10px !important;
+}
 
 /*ng-select component*/
 ng-select {
@@ -89,12 +94,27 @@ ng-select > div > div.single > div.clear, ng-select > div > div.single > div.tog
 }
 
 /* Paginator Color Customizations */
- 
 
 .mat-paginator.leaderboardChart {
     background-color: #FFFFFF;
 }
 
-.mat-paginator.feedbackCards {
+.mat-paginator.surveyCards {
     background-color: #F7F7F7;
 }
+
+/* Table Action Buttons Style */
+
+.actionButton {
+    font-size: 10px;
+    margin: 4px 1px;
+    padding: 6px 4px;
+    border: 1px solid #c3c3c3;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px #DEDEDE;
+    cursor: pointer;
+  }
+
+  .actionButton:active {
+    box-shadow: inset 0 1px 2px #DEDEDE;
+  }

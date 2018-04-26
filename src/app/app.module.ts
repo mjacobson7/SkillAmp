@@ -11,10 +11,20 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppErrorHandler } from './common/app-error-handler';
 import { DataTableModule, SharedModule, FileUploadModule, ChipsModule, TabViewModule, DropdownModule, MultiSelectModule } from 'primeng/primeng';
 import { RatingModule } from 'ngx-rating';
+import { AppRoutingModule } from './app-routing.module';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { CountUpModule } from 'countup.js-angular2';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
+
+// Angular Material Modules
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
-import { AppRoutingModule } from './app-routing.module';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
@@ -25,10 +35,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { NgSelectModule } from '@ng-select/ng-select';
-import { MatDividerModule } from '@angular/material/divider';
-import { CountUpModule } from 'countup.js-angular2';
-import {NgxChartsModule} from '@swimlane/ngx-charts';
+import { MatSortModule } from "@angular/material/sort";
 
 
 
@@ -38,29 +45,29 @@ import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LoginComponent } from './components/login/login.component';
 import { HeaderComponent } from './components/header/header.component';
-import { FeedbackChartComponent } from './components/charts/feedback-chart/feedback-chart.component';
+import { SurveyChartComponent } from './components/charts/survey-chart/survey-chart.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
-import { FeedbackComponent } from './components/feedback/feedback.component';
+import { SurveyComponent } from './components/surveys/survey.component';
 import { TrainingComponent } from './components/training/training.component';
-import { ManageUsersComponent } from './components/manage-users/manage-users.component';
 import { ReportsComponent } from './components/reports/reports.component';
 import { AccountComponent } from './components/account/account.component';
 import { GlobalSettingsComponent } from './components/global-settings/global-settings.component';
-import { TablesComponent } from './components/tables/tables.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { PageHeaderComponent } from './components/page-header/page-header.component';
 import { AddEditUserComponent } from './components/add-edit-user/add-edit-user.component';
 import { ReviewCardComponent } from './components/review-card/review-card.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
-import { ViewAllUsersComponent } from './components/manage-users/view-all-users/view-all-users.component';
-import { FeedbackFiltersComponent } from './components/feedback-filters/feedback-filters.component';
-import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
+import { ManageUsersComponent } from './components/supervisor-tools/manage-users/manage-users.component';
+import { SurveyFiltersComponent } from './components/survey-filters/survey-filters.component';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 import { AuthInterceptor } from './common/auth.interceptor';
-import { FeedbackService } from './services/feedback/feedback.service';
+import { SurveyService } from './services/survey/survey.service';
 import { DashboardService } from './services/dashboard/dashboard.service';
 import { DashboardCardsComponent } from './components/charts/dashboard-cards/dashboard-cards.component';
+import { TableComponent } from './components/table/table.component';
+import { ViewUserComponent } from './components/dialogs/view-user/view-user.component';
+import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 
 @NgModule({
   declarations: [
@@ -70,26 +77,26 @@ import { DashboardCardsComponent } from './components/charts/dashboard-cards/das
     DashboardComponent,
     LoginComponent,
     HeaderComponent,
-    FeedbackChartComponent,
+    SurveyChartComponent,
     UserProfileComponent,
-    FeedbackComponent,
+    SurveyComponent,
     TrainingComponent,
-    ManageUsersComponent,
     ReportsComponent,
     AccountComponent,
     GlobalSettingsComponent,
-    TablesComponent,
     MessagesComponent,
     PageHeaderComponent,
     AddEditUserComponent,
     ReviewCardComponent,
     PageNotFoundComponent,
     NotFoundComponent,
-    ViewAllUsersComponent,
-    FeedbackFiltersComponent,
-    BreadcrumbsComponent,
+    ManageUsersComponent,
+    SurveyFiltersComponent,
     LeaderboardComponent,
-    DashboardCardsComponent
+    DashboardCardsComponent,
+    TableComponent,
+    ViewUserComponent,
+    BreadcrumbComponent
   ],
   imports: [
     BrowserModule,
@@ -106,9 +113,13 @@ import { DashboardCardsComponent } from './components/charts/dashboard-cards/das
     ChipsModule,
     TabViewModule,
     RatingModule,
-    MatTabsModule,
     DropdownModule,
     MultiSelectModule,
+    NgSelectModule,
+    CountUpModule,
+    NgxChartsModule,
+    Ng2SmartTableModule,
+    MatTabsModule,
     MatSelectModule,
     MatMenuModule,
     MatRadioModule,
@@ -121,21 +132,25 @@ import { DashboardCardsComponent } from './components/charts/dashboard-cards/das
     MatIconModule,
     MatTableModule,
     MatPaginatorModule,
-    NgSelectModule,
     MatDividerModule,
-    CountUpModule,
-    NgxChartsModule
+    MatSlideToggleModule,
+    MatCheckboxModule,
+    MatProgressSpinnerModule,
+    MatSortModule
   ],
   providers: [
     UserService,
     NavService,
     AuthService,
     AuthGuardService,
-    FeedbackService,
+    SurveyService,
     DashboardService,
     { provide: ErrorHandler, useClass: AppErrorHandler },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    ViewUserComponent
+  ]
 })
 export class AppModule { }

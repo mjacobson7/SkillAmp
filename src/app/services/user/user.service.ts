@@ -12,6 +12,10 @@ export class UserService {
 
   constructor(private httpClient: HttpClient, private authService: AuthService) { }
 
+  getAllUsers() {
+    return this.httpClient.get<User>('/getAllUsers');
+  }
+
   updateProfile(user: User) {
     return this.httpClient.put<User>('/updateUser', user)
     .map(response => {
@@ -30,6 +34,10 @@ export class UserService {
     return this.httpClient.get<any[]>('/getSupervisorDropdown').map(supervisors => {
       return supervisors;
     })
+  }
+
+  getUser(userId) {
+    return this.httpClient.get<User>('/getUser/' + userId);
   }
 
 }

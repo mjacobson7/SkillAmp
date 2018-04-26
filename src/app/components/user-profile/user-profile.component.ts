@@ -7,6 +7,7 @@ import { User } from '../../models/user.model';
 import {Subscription} from 'rxjs/Subscription';
 import { NgOption } from '@ng-select/ng-select';
 import {Observable} from 'rxjs/Observable';
+import { ActivatedRoute, Params } from '@angular/router';
 
 
 
@@ -32,20 +33,35 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private userService: UserService,
     private navService: NavService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private route: ActivatedRoute) {
     this.navService.pageHeaderTitle.next(this.pageInfo);
   };
 
   ngOnInit() {
-    this.userFormSubscription = this.authService.getUser().subscribe(user => {
-      if(user) {
-        console.log(user);
-        this.user = user;
+    this.route.params.subscribe(
+      (params: Params) => {
+        if(params.id) {
+          console.log("HERE IS THE PARAMETER => ", params['id']);
+          this.userFormSubscription = this.userService.getUser(params['id']).subscribe(user => {
+            console.log("PARAM USER ", user);
+            this.user = user;
+            this.initializeForm();
+          })          
+        } else {
+          this.userFormSubscription = this.authService.getCurrentUser().subscribe(user => {
+            if(user) {
+              console.log("PROFILE USER ", user);
+              this.user = user;
+              this.initializeForm();
+            }
+          });
+        }
         this.supervisorsList = this.userService.getSupervisorDropdown();
         this.rolesList = this.userService.getRolesDropdown();
-        this.initializeForm();
       }
-    });
+    )
+
   }
 
   initializeForm() {

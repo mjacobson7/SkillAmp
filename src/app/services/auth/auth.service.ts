@@ -9,6 +9,7 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Subscription} from 'rxjs/Subscription';
 import {Subject} from 'rxjs/Subject';
 import { Observable } from 'rxjs/Rx';
+import { NavService } from '../nav/nav.service';
 
 @Injectable()
 export class AuthService {
@@ -16,13 +17,13 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient, private router: Router) {
     if(this.router.url !== '/login' && this.isLoggedIn()) {
-      this.getCurrentUser().subscribe(user => this.setUser(user));
+      this.httpClient.get<User>('/getCurrentUser').subscribe(user => this.setUser(user));
     } else {
       this.router.navigate(['/login']);
     }
   }
 
-  getUser(): Observable<User> {
+  getCurrentUser(): Observable<User> {
     return this.user.asObservable();
   }
 
@@ -52,10 +53,6 @@ export class AuthService {
       this.router.navigate(['/login']);
     }
     return tokenNotExpired();
-  }
-
-  getCurrentUser() {
-    return this.httpClient.get<User>('/getCurrentUser');
   }
 
 }
