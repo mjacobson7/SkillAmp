@@ -8,13 +8,20 @@ import { User } from '../../../models/user.model';
   styleUrls: ['./dashboard-cards.component.css']
 })
 export class DashboardCardsComponent implements OnInit {
-  totalReviews:number = 37;
-  averageScore:number = 3.57;
-  teamRank:number = 7;
-  companyRank:number = 27;
+  totalReviews:number = 0;
+  averageScore:number = 0;
+  teamRank:number = 0;
+  companyRank:number = 0;
 
-  constructor() {}
+  constructor(private dashboardService: DashboardService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.dashboardService.getUserWidgetData().subscribe(data => {
+      this.totalReviews = data.userScoreAndCount.reviewCount;
+      this.averageScore = data.userScoreAndCount.averageScore;
+      this.teamRank = data.userTeamRank;
+      this.companyRank = data.userCompanyRank;
+    })
+  }
 
 }

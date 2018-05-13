@@ -1,13 +1,13 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Users', {
+    return queryInterface.createTable('users', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      companyId: {
+      company_id: {
         type: Sequelize.BIGINT,
         allowNull: false
       },
@@ -15,11 +15,11 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      firstName: {
+      first_name: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      lastName: {
+      last_name: {
         type: Sequelize.STRING,
         allowNull: false
       },
@@ -31,24 +31,31 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      supervisorId: {
+      supervisor_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Users',
+          model: 'users',
           key: 'id'
         }
       },
-      createdAt: {
+      archived: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+      },
+      archived_date: {
+        type: Sequelize.DATE
+      },
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE
       }
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Users');
+    return queryInterface.dropTable('users');
   }
 };

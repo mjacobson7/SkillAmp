@@ -5,37 +5,32 @@ import 'rxjs/add/operator/map';
 import { Router } from '@angular/router';
 import { User } from '../../models/user.model';
 import { Company } from '../../models/company.model';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {Subscription} from 'rxjs/Subscription';
-import {Subject} from 'rxjs/Subject';
-import { Observable } from 'rxjs/Rx';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Subscription } from 'rxjs/Subscription';
+import { Subject } from 'rxjs/Subject';
 import { NavService } from '../nav/nav.service';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class AuthService {
-  private user = new BehaviorSubject<User>(null);
+  user: User;
+  permissionsMap: Object = null;
+  constructor(private httpClient: HttpClient, private router: Router) {}
 
-  constructor(private httpClient: HttpClient, private router: Router) {
-    if(this.router.url !== '/login' && this.isLoggedIn()) {
-      this.httpClient.get<User>('/getCurrentUser').subscribe(user => this.setUser(user));
-    } else {
-      this.router.navigate(['/login']);
-    }
+  hasPermission(permissionName: string): boolean {
+    return !!this.permissionsMap[permissionName];
   }
 
-  getCurrentUser(): Observable<User> {
-    return this.user.asObservable();
-  }
-
-  setUser(user:User):void {
-    this.user.next(user);
+  setPermissions(permissions) {
+    this.permissionsMap[permissions] = true;
   }
 
   login(credentials) {
-   return this.httpClient.post<any>('/userAuth', credentials)
+    return this.httpClient.post<any>('/userAuth', credentials)
       .map(result => {
         if (result && result.token) {
-          this.user.next(result.user);
+          this.user = result.user;
+          this.permissionsMap = result.permissions;
           localStorage.setItem('token', result.token);
           return true;
         }

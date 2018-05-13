@@ -5,7 +5,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavService } from '../app/services/nav/nav.service';
 import { AuthService } from './services/auth/auth.service';
 import { UserService } from './services/user/user.service';
-import { AuthGuardService } from '../app/services/auth/auth-guard.service';
+import { UserResolverService } from './services/guards/user-resolver/user-resolver.service';
+import { PermissionResolverService } from './services/guards/permission-resolver/permission-resolver.service';
+import { AuthGuardService } from '../app/services/guards/auth-guard/auth-guard.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppErrorHandler } from './common/app-error-handler';
@@ -16,6 +18,10 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { CountUpModule } from 'countup.js-angular2';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { ErrorService } from './services/error/error.service';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { InputSwitchModule } from 'primeng/inputswitch';
+
 
 // Angular Material Modules
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
@@ -36,6 +42,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from "@angular/material/sort";
+
 
 
 
@@ -136,15 +143,20 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
     MatSlideToggleModule,
     MatCheckboxModule,
     MatProgressSpinnerModule,
-    MatSortModule
+    MatSortModule,
+    NgxDatatableModule,
+    InputSwitchModule
   ],
   providers: [
     UserService,
     NavService,
     AuthService,
     AuthGuardService,
+    UserResolverService,
+    PermissionResolverService,
     SurveyService,
     DashboardService,
+    ErrorService,
     { provide: ErrorHandler, useClass: AppErrorHandler },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],

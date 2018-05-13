@@ -1,4 +1,4 @@
-const Survey = require('../models/index').Survey;
+const Survey = require('../models/index').survey;
 const sequelize = require('sequelize');
 
 module.exports = {

@@ -1,39 +1,39 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('rolePermissions', {
-      companyId: {
+    return queryInterface.createTable('role_permission', {
+      company_id: {
         type: Sequelize.BIGINT,
         allowNull: false,
       },
-      roleId: {
+      role_id: {
         type: Sequelize.BIGINT,
         allowNull: false,
         primaryKey: true,
         references: {
-          model: 'Roles',
+          model: 'roles',
           key: 'id'
         }
       },
-      permissionName: {
+      permission_name: {
         type: Sequelize.STRING,
         allowNull: false,
         primaryKey: true,
         references: {
-          model: 'Permissions',
+          model: 'permissions',
           key: 'name'
         }
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE
       }
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('rolePermissions');
+    return queryInterface.dropTable('role_permission');
   }
 };

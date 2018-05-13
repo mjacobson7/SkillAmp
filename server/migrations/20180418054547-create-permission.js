@@ -1,35 +1,34 @@
-'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Permissions', {
+    return queryInterface.createTable('permissions', {
       name: {
         type: Sequelize.STRING,
         allowNull: false,
         primaryKey: true
       },
-      isAdminPermission: {
+      is_admin_permission: {
         type: Sequelize.BOOLEAN,
         allowNull: false
       },
-      isSupervisorPermission: {
+      is_supervisor_permission: {
         type: Sequelize.BOOLEAN,
         allowNull: false
       },
-      isUserPermission: {
+      is_user_permission: {
         type: Sequelize.BOOLEAN,
         allowNull: false
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE
       }
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Permissions');
+    return queryInterface.dropTable('permissions');
   }
 };

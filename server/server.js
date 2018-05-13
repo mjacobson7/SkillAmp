@@ -6,7 +6,7 @@ const express = require('express'),
       cors = require('cors'),
       massive = require('massive'),
       http = require('http');
-      require('dotenv').config(),
+      require('dotenv').config();
       
 
 
@@ -22,6 +22,7 @@ require('./routes/userRoutes')(app);
 require('./routes/surveyRoutes')(app);
 require('./routes/companyRoutes')(app);
 require('./routes/navRoutes')(app);
+require('./routes/dashboardRoutes')(app);
 
 // Angular DIST output folder
 app.use(express.static(path.join(__dirname, '/../dist')));

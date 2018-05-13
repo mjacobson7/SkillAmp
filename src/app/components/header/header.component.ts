@@ -4,6 +4,7 @@ import { AuthService } from '../../services/auth/auth.service';
 import { User } from '../../models/user.model';
 import { Subscription } from 'rxjs/Subscription';
 import { UserService } from '../../services/user/user.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -17,23 +18,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
   navSubscription: Subscription;
 
 
-  constructor(private navService: NavService, private authService: AuthService, private userService: UserService) {
+  constructor(private route: ActivatedRoute, private navService: NavService, private authService: AuthService, private userService: UserService) {
   }
 
-  ngOnInit() {
+  ngOnInit() {    
+    this.user = this.authService.user;
     this.navSubscription = this.navService.sidenavStatus.subscribe(navStatus => {
       this.openSideNav = navStatus;
-    })
-    this.userSubscription = this.authService.getCurrentUser().subscribe(user => {
-      if (user) {
-        this.user = user;
-      }
     })
   }
 
 
   ngOnDestroy() {
-    this.userSubscription.unsubscribe();
     this.navSubscription.unsubscribe();
   }
 

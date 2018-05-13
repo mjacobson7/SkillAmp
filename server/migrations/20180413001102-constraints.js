@@ -1,20 +1,18 @@
-'use strict';
-
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    queryInterface.addConstraint('Users', ['username', 'companyId'], {
+    queryInterface.addConstraint('users', ['username', 'company_id'], {
       type: 'unique',
       name: 'usernameCompanyIdIdx'
     })
 
-    queryInterface.addConstraint('Companies', ['name'], {
+    queryInterface.addConstraint('company', ['name'], {
       type: 'unique',
       name: 'uniqueCompanyName'
     })
   },
 
   down: (queryInterface, Sequelize) => {
-    queryInterface.removeConstraint('Users', 'usernameCompanyIdIdx');    
-    queryInterface.removeConstraint('Companies', 'uniqueCompanyName');    
+    queryInterface.removeConstraint('users', 'usernameCompanyIdIdx');    
+    queryInterface.removeConstraint('company', 'uniqueCompanyName');    
   }
 };

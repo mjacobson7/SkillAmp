@@ -1,43 +1,43 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Roles', {
+    return queryInterface.createTable('roles', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      companyId: {
+      company_id: {
         type: Sequelize.BIGINT,
-        allowNull: false,
+        allowNull: false
       },
       name: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      isUserRole: {
+      is_user_role: {
         type: Sequelize.BOOLEAN,
         allowNull: false
       },
-      isSupervisorRole: {
+      is_supervisor_role: {
         type: Sequelize.BOOLEAN,
         allowNull: false
       },
-      isAdminRole: {
+      is_admin_role: {
         type: Sequelize.BOOLEAN,
         allowNull: false
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE
       }
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Roles');
+    return queryInterface.dropTable('roles');
   }
 };

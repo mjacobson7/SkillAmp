@@ -3,7 +3,7 @@ const authController = require('../controllers/authController');
 
 module.exports = (app) => {
 
-  app.post('/addSurveys', authController.verifyValidToken, surveyController.addSurveys);
+  app.post('/addSurvey', /*Do some auth check here*/ surveyController.addSurveys);
 
   app.post('/getMySurveys', authController.verifyValidToken, surveyController.getMySurveys);
 

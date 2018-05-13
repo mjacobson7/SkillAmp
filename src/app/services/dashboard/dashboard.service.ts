@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class DashboardService {
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
+
+  getUserWidgetData() {
+    return this.httpClient.get<any>('/getUserWidgetData');
+  }
 
   getSingle() {
     return [

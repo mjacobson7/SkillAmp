@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AuthGuardService } from './services/auth/auth-guard.service';
+import { AuthGuardService } from './services/guards/auth-guard/auth-guard.service';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { MessagesComponent } from './components/messages/messages.component';
@@ -15,28 +15,29 @@ import { GlobalSettingsComponent } from './components/global-settings/global-set
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ManageUsersComponent } from './components/supervisor-tools/manage-users/manage-users.component';
 import {UserProfileComponent} from './components/user-profile/user-profile.component';
+import { UserResolverService } from './services/guards/user-resolver/user-resolver.service';
+import { PermissionResolverService } from './services/guards/permission-resolver/permission-resolver.service';
 
 const appRoutes: Routes = [
     {path: 'login', component: LoginComponent},
     {path: '', pathMatch: 'full', redirectTo: '/login'},
-    {path: '', component: HomeComponent, canActivate: [AuthGuardService], children: [
-        {path: 'profile', component: UserProfileComponent, canActivate: [AuthGuardService]},
-        {path: 'messages', component: MessagesComponent, canActivate: [AuthGuardService]},
-        {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService]},
-        {path: 'survey', component: SurveyComponent, canActivate: [AuthGuardService]},
-        {path: 'training', component: TrainingComponent, canActivate: [AuthGuardService]},
+    {path: '', component: HomeComponent, canActivate: [AuthGuardService], resolve: { user: UserResolverService, permissions: PermissionResolverService }, children: [
+        {path: 'profile', component: UserProfileComponent, canActivate: [AuthGuardService], resolve: { user: UserResolverService, permissions: PermissionResolverService }},
+        {path: 'messages', component: MessagesComponent, canActivate: [AuthGuardService], resolve: { user: UserResolverService, permissions: PermissionResolverService }},
+        {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService], resolve: { user: UserResolverService, permissions: PermissionResolverService }},
+        {path: 'survey', component: SurveyComponent, canActivate: [AuthGuardService], resolve: { user: UserResolverService, permissions: PermissionResolverService }},
+        {path: 'training', component: TrainingComponent, canActivate: [AuthGuardService], resolve: { user: UserResolverService, permissions: PermissionResolverService }},
 
         {path: 'supervisor_tools', children: [
-            {path: 'manage_users', component: ManageUsersComponent, canActivate: [AuthGuardService]},
-            {path: 'manage_users/user/create', component: UserProfileComponent, canActivate: [AuthGuardService]},
-            {path: 'manage_users/user/:id', component: UserProfileComponent, canActivate: [AuthGuardService]},
-            {path: 'team_surveys', component: SurveyComponent, canActivate: [AuthGuardService]},
+            {path: 'manage_users', component: ManageUsersComponent, canActivate: [AuthGuardService], resolve: { user: UserResolverService, permissions: PermissionResolverService }},
+            {path: 'manage_users/user/:id', component: UserProfileComponent, canActivate: [AuthGuardService], resolve: { user: UserResolverService, permissions: PermissionResolverService }},
+            {path: 'team_surveys', component: SurveyComponent, canActivate: [AuthGuardService], resolve: { user: UserResolverService, permissions: PermissionResolverService }},
             {path: '', pathMatch: 'full', redirectTo: 'manage_users'}  
         ]},
 
-        {path: 'reports', component: ReportsComponent, canActivate: [AuthGuardService]},
-        {path: 'account', component: AccountComponent, canActivate: [AuthGuardService]},
-        {path: 'settings', component: GlobalSettingsComponent, canActivate: [AuthGuardService]},
+        {path: 'reports', component: ReportsComponent, canActivate: [AuthGuardService], resolve: { user: UserResolverService, permissions: PermissionResolverService }},
+        {path: 'account', component: AccountComponent, canActivate: [AuthGuardService], resolve: { user: UserResolverService, permissions: PermissionResolverService }},
+        {path: 'settings', component: GlobalSettingsComponent, canActivate: [AuthGuardService], resolve: { user: UserResolverService, permissions: PermissionResolverService }},
     ]},
 
     {path: 'not-found', component: NotFoundComponent},
@@ -45,7 +46,7 @@ const appRoutes: Routes = [
 
 @NgModule({
     imports: [RouterModule.forRoot(appRoutes)],
-    exports: [RouterModule]
+exports: [RouterModule]
 })
 
 export class AppRoutingModule {

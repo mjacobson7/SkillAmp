@@ -12,9 +12,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     openSideNav: boolean;
     sideNavSubscription: Subscription;
 
-    constructor(private authService: AuthService, private navService: NavService) {
-
-    }
+    constructor(private authService: AuthService, private navService: NavService) {}
 
     ngOnInit(): void {
         this.sideNavSubscription = this.navService.sidenavStatus.subscribe(navStatus => {

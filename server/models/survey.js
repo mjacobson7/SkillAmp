@@ -1,12 +1,14 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var Survey = sequelize.define('Survey', {
+  var survey = sequelize.define('survey', {
     companyId: {
       type: DataTypes.BIGINT,
-      allowNull: false
+      allowNull: false,
+      field: 'company_id'
     },
     rating: {
       type: DataTypes.INTEGER,
+      field: 'rating',
       allowNull: false,
       isNumeric: true,
       max: 5,
@@ -15,22 +17,39 @@ module.exports = (sequelize, DataTypes) => {
     like: {
       type: DataTypes.TEXT,
       allowNull: false,
+      field: 'like'
     },
     dislike: {
       type: DataTypes.TEXT,
       allowNull: false,
+      field: 'dislike'
     },
     adviceForAgent: {
       type: DataTypes.TEXT,
       allowNull: false,
+      field: 'advice_for_agent'
     },
     purchaseReason: {
       type: DataTypes.TEXT,
       allowNull: false,
+      field: 'purchase_reason'
+    },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      field: 'created_at'
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      field: 'updated_at'
     }
-  }, {});
-  Survey.associate = function(models) {
+  }, 
+  {
+    timestamps: true
+  });
+  survey.associate = function(models) {
     // associations can be defined here
   };
-  return Survey;
+  return survey;
 };

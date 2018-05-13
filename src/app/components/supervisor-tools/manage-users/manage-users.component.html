@@ -1,20 +1,31 @@
 <div class="card">
-    <p-dataTable [value]="users" [responsive]="true"> 
+    <p-dataTable [value]="users" [responsive]="true">
         <p-header>
             <div class="ui-helper-clearfix">
-                <button [routerLink]="['user/create']" mat-button style="float:right">Add User</button>
+                <button [routerLink]="['user', 'create']" mat-button style="float:right">Add User</button>
             </div>
         </p-header>
         <p-column field="username" header="Username" [filter]="true" [style]="{'width':'30%'}" [sortable]="true"></p-column>
-        <p-column field="firstName" header="First Name" [filter]="true" [style]="{'width':'25%'}" [sortable]="true"></p-column>
-        <p-column field="lastName" header="Last Name" [filter]="true" [style]="{'width':'25%'}" [sortable]="true"></p-column>
-        <!-- <p-column field="active" header="Active" [filter]="true" [sortable]="true"></p-column> -->
+        <p-column field="firstName" header="First Name" [filter]="true" [style]="{'width':'20%'}" [sortable]="true"></p-column>
+        <p-column field="lastName" header="Last Name" [filter]="true" [style]="{'width':'20%'}" [sortable]="true"></p-column>
+
+        <p-column field="active" header="Active" styleClass="col-button" [style]="{'width': '10%'}" [sortable]="true">
+            <ng-template pTemplate="body" let-user="rowData">
+                <p-inputSwitch onLabel=Yes offLabel="No" [(ngModel)]="rowData"></p-inputSwitch>
+            </ng-template>
+        </p-column>
 
         <p-column field="actions" header="Actions" styleClass="col-button" [style]="{'width':'10%'}">
             <ng-template pTemplate="body" let-user="rowData">
-                <button (click)="onViewUser(user.id)" type="button" class="actionButton"><i class="fa fa-fw fa-eye" aria-hidden="true"></i></button>
-                <button [routerLink]="['user', user.id]" type="button" class="actionButton"><i class="fa fa-fw fa-pencil" aria-hidden="true"></i></button>
-                <button type="button" class="actionButton"><i class="fa fa-fw fa-close" aria-hidden="true"></i></button>
+                <button (click)="onViewUser(user.id)" type="button" class="actionButton">
+                    <i class="fa fa-fw fa-eye" aria-hidden="true"></i>
+                </button>
+                <button [routerLink]="['user', user.id]" type="button" class="actionButton">
+                    <i class="fa fa-fw fa-pencil" aria-hidden="true"></i>
+                </button>
+                <button type="button" class="actionButton">
+                    <i class="fa fa-fw fa-close" aria-hidden="true"></i>
+                </button>
             </ng-template>
         </p-column>
     </p-dataTable>

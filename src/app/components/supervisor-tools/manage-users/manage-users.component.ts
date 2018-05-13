@@ -5,7 +5,8 @@ import { NavService } from '../../../services/nav/nav.service';
 import { ViewUserComponent } from '../../dialogs/view-user/view-user.component';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Router, ActivatedRoute } from '@angular/router';
-
+import {SelectionModel} from '@angular/cdk/collections';
+import { MatTableDataSource } from '@angular/material';
 
 
 @Component({
@@ -37,4 +38,3 @@ export class ManageUsersComponent implements OnInit {
   }
 
 }
-

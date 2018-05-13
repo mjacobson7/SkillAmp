@@ -6,7 +6,7 @@ module.exports = (app) => {
 
   app.get('/getCurrentUser', authController.verifyValidToken, userController.getCurrentUser);
 
-  app.get('/getAllUsers', authController.verifyValidToken, userController.getAllUsers);
+  app.get('/getAllUsers', authController.verifyValidToken, authController.hasPermission('CAN_VIEW_MANAGE_USERS_SUB_NAV'), userController.getAllUsers);
 
   app.get('/getMyTeam', authController.verifyValidToken, userController.getMyTeam);
 

@@ -1,4 +1,4 @@
-<form [formGroup]="userForm" (ngSubmit)="onSubmit()" *ngIf="user">
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()" *ngIf="formReady">
   <div class="form-group">
     <label for="username">Username</label>
     <input formControlName="username" type="text" class="form-control form-control-sm" id="username" >

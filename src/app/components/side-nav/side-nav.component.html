@@ -38,8 +38,8 @@
     <span class="side-nav-menu-item" [hidden]="!openSideNav">Account</span>
   </div> -->
 
-  <div (click)="onSupervisorToolsOpen()" matTooltip="{{openSideNav ? '' : 'Supervisor Tools'}}" [matTooltipPosition]="position"
-    class="sidebar-nav" [ngClass]="{'subItemActive' : manageUsers.isActive || teamSurveys.isActive }">
+  <div *ngIf="supervisorToolsNav" (click)="onSupervisorToolsOpen()" matTooltip="{{openSideNav ? '' : 'Supervisor Tools'}}" [matTooltipPosition]="position"
+    class="sidebar-nav" [ngClass]="{'subItemActive' : manageUsers?.isActive || teamSurveys?.isActive }">
     <i class="fa fa-briefcase fa-fw icon" aria-hidden="true"></i>
     <span class="side-nav-menu-item" [hidden]="!openSideNav">Supervisor Tools</span>
     <i [ngClass]="supervisorMenuOpen ? 'fa fa-angle-down icon subMenuIcon' : 'fa fa-angle-right icon subMenuIcon' " aria-hidden="true"></i>
@@ -47,12 +47,12 @@
 
   <div class="subMenu" [ngClass]="{'supervisorMenu': supervisorMenuOpen}">
 
-    <div matTooltip="{{openSideNav ? '' : 'Team Surveys'}}" [matTooltipPosition]="position" routerLink="/supervisor_tools/team_surveys"
+    <div *ngIf="teamSurveysSubNav" matTooltip="{{openSideNav ? '' : 'Team Surveys'}}" [matTooltipPosition]="position" routerLink="/supervisor_tools/team_surveys"
       routerLinkActive="selected-row" #teamSurveys="routerLinkActive" class="sub-sidebar-nav">
       <span class="side-nav-menu-item" [hidden]="!openSideNav">Team Surveys</span>
     </div>
 
-    <div matTooltip="{{openSideNav ? '' : 'Manage Users'}}" [matTooltipPosition]="position" routerLink="/supervisor_tools/manage_users"
+    <div *ngIf="manageUsersSubNav" matTooltip="{{openSideNav ? '' : 'Manage Users'}}" [matTooltipPosition]="position" routerLink="/supervisor_tools/manage_users"
       routerLinkActive="selected-row" #manageUsers="routerLinkActive" class="sub-sidebar-nav">
       <span class="side-nav-menu-item" [hidden]="!openSideNav">Manage Users</span>
     </div>

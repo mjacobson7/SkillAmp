@@ -1,22 +1,21 @@
-'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Feedbacks', {
+    return queryInterface.createTable('surveys', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      companyId: {
+      company_id: {
         type: Sequelize.BIGINT,
         allowNull: false
       },
-      userId: {
+      user_id: {
         type: Sequelize.BIGINT,
         allowNull: false,
         references: {
-          model: 'Users',
+          model: 'users',
           key: 'id'
         }
       },
@@ -35,25 +34,25 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: false,
       },
-      adviceForAgent: {
+      advice_for_agent: {
         type: Sequelize.TEXT,
         allowNull: false,
       },
-      purchaseReason: {
+      purchase_reason: {
         type: Sequelize.TEXT,
         allowNull: false,
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE
       }
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Feedbacks');
+    return queryInterface.dropTable('surveys');
   }
 };

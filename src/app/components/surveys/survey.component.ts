@@ -23,6 +23,7 @@ export class SurveyComponent implements OnInit, OnDestroy {
   survey;
   reviewTotals;
   overallRating;
+  surveysLoaded: Boolean = false;
   surveySubscription: Subscription;
   dateSortSubscription: Subscription;
   ratingSortSubscription: Subscription;
@@ -64,6 +65,7 @@ export class SurveyComponent implements OnInit, OnDestroy {
       .subscribe(survey => {
         this.survey = survey.content;
         this.length = survey.length;
+        this.surveysLoaded = true;
       });
     return event;
   }

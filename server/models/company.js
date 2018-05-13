@@ -1,18 +1,33 @@
-'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var Company = sequelize.define('Company', {
+  var company = sequelize.define('company', {
     name: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      field: 'name'
     },
     hostname: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      field: 'hostname'
+    },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      field: 'created_at'
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      field: 'updated_at'
     }
-  }, {});
+  },
+    {
+      timestamps: true,
+      tableName: 'company'
+    });
 
-  Company.associate = function(models) {
+  company.associate = function (models) {
     // associations can be defined here
   };
-  return Company;
+  return company;
 };

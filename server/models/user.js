@@ -1,45 +1,80 @@
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define('User', {
+  const user = sequelize.define('user', {
     companyId: {
       type: DataTypes.BIGINT,
-      allowNull: false
+      allowNull: false,
+      field: 'company_id'
     },
     username: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      field: 'username'
     },
     firstName: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      field: 'first_name'
     },
     lastName: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      field: 'last_name'
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      field: 'password'
     },
     email: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      field: 'email'
+    },
+    archived: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+      field: 'archived'
+    },
+    archivedDate: {
+      type: DataTypes.DATE,
+      field: 'archived_date'
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      field: 'created_at'
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      field: 'updated_at'
     }
-  }, {});
+  }, 
+  {
+    timestamps: true
+  });
 
-  User.associate = function (models) {
+  user.associate = function (models) {
     // associations can be defined here
-    User.hasOne(models.User, {
+    user.hasOne(models.user, {
       as: 'supervisor',
-      foreignKey: 'supervisorId'
+      foreignKey: {
+        name: 'supervisorId',
+        field: 'supervisor_id'
+      }
     })
-    User.hasMany(models.Survey, {
-      foreignKey: 'userId'
+    user.hasMany(models.survey, {
+      foreignKey: {
+        name: 'userId',
+        field: 'user_id'
+      }
     })
-    User.belongsToMany(models.Role, {
-      through: models.UserRole,
+    user.belongsToMany(models.role, {
+      through: models.userRole,
       as: 'roles',
-      foreignKey: 'userId'
+      foreignKey: {
+        name: 'userId',
+        field: 'user_id'
+      }
     })
   };
-  return User;
+  return user;
 };
