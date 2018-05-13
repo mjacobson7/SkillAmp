@@ -38,7 +38,13 @@ module.exports = {
 
             widgetData.userScoreAndCount = teamAverages.find(x => x.userId = req.principal.id);
 
-
+            if(!widgetData.userScoreAndCount) {
+                widgetData.userScoreAndCount = {
+                    averageScore: 0,
+                    reviewCount: 0
+                }
+            }
+            
             res.status(200).json(widgetData);
         }
         catch (error) {
