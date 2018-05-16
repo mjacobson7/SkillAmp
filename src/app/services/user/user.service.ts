@@ -19,9 +19,15 @@ export class UserService {
     return this.httpClient.get<User>('/getAllUsers').catch(this.errorService.handleError);
   }
 
+  createUser(user: User) {
+    return this.httpClient.post<User>('/createUser', user);
+  }
+
   updateProfile(user: User) {
     return this.httpClient.put<User>('/updateUser', user)
       .map(user => {
+        //here when we update our own profile we want to set the user as shown below, 
+        //but if it's someone elses profile, then no (fix this)
         this.authService.user = user;
         return user;
       });

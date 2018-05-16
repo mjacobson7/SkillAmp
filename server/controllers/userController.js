@@ -7,14 +7,33 @@ const authController = require('../controllers/authController');
 
 module.exports = {
 
+  createUser: async (req, res) => {
+    try {
+      let user = req.body;
+      user.companyId = req.principal.companyId;
+
+      const salt = bcrypt.genSaltSync();
+      user.password = bcrypt.hashSync(user.password, salt);
+
+      let newUser = await User.create(req.body);
+
+      for (let role of user.roles) {
+        await UserRole.create({ companyId: newUser.companyId, userId: newUser.id, roleId: role })
+      }
+
+      res.status(200).json();
+    }
+    catch (error) {
+      console.log(error);
+      res.status(500).json(error);
+    }
+  },
+
   updateUser: async (req, res) => {
     try {
       let user = req.body;
-      console.log(user.password);
-      // Object.keys(user).forEach((key) => (user[key] == null) && delete user[key]);
 
       if (user.password) {
-        console.log("user.password ", user.password)
         const salt = bcrypt.genSaltSync();
         user.password = bcrypt.hashSync(user.password, salt);
       } else {
@@ -22,12 +41,13 @@ module.exports = {
       }
 
       let newUser = await User.update(user, { where: { id: user.id, companyId: user.companyId } })
-      await UserRole.destroy({ where: { userId: user.id, companyId: user.companyId } }).then(() => {
-        user.roles.forEach(role => {
-          UserRole.create({ companyId: user.companyId, userId: user.id, roleId: role })
-        })
-      })
+      await UserRole.destroy({ where: { userId: user.id, companyId: user.companyId } })
 
+      for (let role of user.roles) {
+        await UserRole.create({ companyId: user.companyId, userId: user.id, roleId: role })
+      }
+
+      //is it necessary to send back the updated user??
       const updatedUser = await User.findOne({
         where: { id: user.id, companyId: user.companyId },
         include: [{
@@ -116,12 +136,17 @@ module.exports = {
     try {
       const user = await User.findOne({
         where: { id: req.params.id, companyId: req.principal.companyId },
-        include: [{
-          model: Role,
-          as: 'roles',
-          through: { attributes: [] }
-          //include supervisor?
-        }]
+        include: [
+          {
+            model: Role,
+            as: 'roles',
+            through: { attributes: [] }
+          },
+          {
+            model: User,
+            as: 'supervisor'
+          }
+        ]
       })
       return res.status(200).json(user);
     }

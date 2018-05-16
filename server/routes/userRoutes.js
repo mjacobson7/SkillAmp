@@ -15,4 +15,6 @@ module.exports = (app) => {
   app.get('/getRolesDropdown', authController.verifyValidToken, userController.getRolesDropdown);
 
   app.get('/getUser/:id', authController.verifyValidToken, userController.getUser);
+
+  app.post('/createUser', authController.verifyValidToken, authController.hasPermission('CAN_CREATE_USERS'), userController.createUser);
 };

@@ -19,6 +19,9 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 export class UserProfileComponent implements OnInit, OnDestroy {
   user: User;
   userForm: FormGroup;
+  createUser: Boolean = false;
+  myProfile: Boolean = false;
+  updateUser: Boolean = false;
   passwordLabel = ['Password', 'Confirm password'];
   changePassword: Boolean;
   supervisorsList: Observable<NgOption[]>;
@@ -49,14 +52,17 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       (params: Params) => {
         if (params.id) {
           if (isNaN(params['id'])) {
+            this.createUser = true;
             this.formReady = true;
           } else {
             this.userService.getUser(params['id']).subscribe(user => {
+              this.updateUser = true;
               this.loadUserData(user);
               this.formReady = true;
             })
           }
         } else {
+          this.myProfile = true;
           this.user = this.authService.user;
           this.loadUserData(this.user);
           this.formReady = true;
@@ -74,7 +80,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       lastName: user.lastName,
       passwords: [null, null],
       email: user.email,
-      supervisor: user.supervisor ? user.supervisor : null,
+      supervisorId: user.supervisor ? user.supervisorId : null,
       roles: this.configureUserRoles(user.roles)
     })
   }
@@ -91,7 +97,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       ], this.passwordValidator),
       lastName: [null, Validators.required],
       email: [null, [Validators.required, Validators.email]],
-      supervisor: [{ value: null, disabled: false }],
+      supervisorId: [{ value: null, disabled: false }],
       roles: [{ value: null, disabled: false }]
     });
   }
@@ -121,20 +127,31 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    // make password required (fix this)
     if (this.userForm.value.roles.length < 1) {
-      //throw error
+      // throw error
     }
-    if (this.changePassword) {
+    if (this.changePassword || this.createUser) {
       this.changePassword = false;
       this.userForm.value.password = this.userForm.value.passwords[0];
     } else {
       this.userForm.value.password = null;
       delete this.userForm.value.passwords;
     }
-    this.userService.updateProfile(this.userForm.value)
-      .subscribe(response => {
-        console.log(response);
+    if (this.createUser) {
+      this.userService.createUser(this.userForm.value).subscribe(() => {
+          this.router.navigate(['/supervisor_tools/manage_users']);
+        });
+    } else if(this.updateUser) {
+      this.userService.updateProfile(this.userForm.value).subscribe(response => {
+          this.router.navigate(['/supervisor_tools/manage_users']);
+        });
+    } else if(this.myProfile) {
+      this.userService.updateProfile(this.userForm.value).subscribe(response => {
+        this.router.navigate(['/dashboard']);
       });
+    }
+
   }
 
   changePasswordChecked(event) {
@@ -145,5 +162,5 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy() {}
+  ngOnDestroy() { }
 }

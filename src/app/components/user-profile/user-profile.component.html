@@ -12,14 +12,14 @@
     </small>
   </div><hr>
 
-  <div class="form-group" style="margin-left: 20px">
+  <div *ngIf="!createUser" class="form-group" style="margin-left: 20px">
     <label class="form-check-label" for="changePassword">
       <input type="checkbox" class="form-check-input" id="changePassword" (change)="changePasswordChecked($event)">
       Change Password
     </label>
   </div>
 
-  <div *ngIf="changePassword">
+  <div *ngIf="changePassword || createUser">
     <div formArrayName="passwords">
       <div class="form-group" *ngFor="let control of getControls(); let i = index">
         <label for="password_{{i}}">{{passwordLabel[i]}}</label>
@@ -85,10 +85,10 @@
              placeholder="None"
              [searchable]="true"
              [virtualScroll]="true"
-             formControlName="supervisor">
+             formControlName="supervisorId">
   </ng-select>
   <small
-    *ngIf="userForm.get('supervisor').hasError('required') && userForm.get('supervisor').touched"
+    *ngIf="userForm.get('supervisorId').hasError('required') && userForm.get('supervisorId').touched"
     class="form-text text-muted">Supervisor is required
   </small>
   </div><hr>
