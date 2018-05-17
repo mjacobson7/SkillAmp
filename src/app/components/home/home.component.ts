@@ -3,6 +3,7 @@ import { NavService } from '../../services/nav/nav.service';
 import { Subscription } from 'rxjs/Subscription';
 import { AuthService } from '../../services/auth/auth.service';
 
+
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
@@ -10,9 +11,10 @@ import { AuthService } from '../../services/auth/auth.service';
 })
 export class HomeComponent implements OnInit, OnDestroy {
     openSideNav: boolean;
+    loader: Boolean = false;
     sideNavSubscription: Subscription;
 
-    constructor(private authService: AuthService, private navService: NavService) {}
+    constructor(private authService: AuthService, private navService: NavService) { }
 
     ngOnInit(): void {
         this.sideNavSubscription = this.navService.sidenavStatus.subscribe(navStatus => {

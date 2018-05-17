@@ -1,3 +1,4 @@
+import { User } from './../../../models/user.model';
 import { Component, OnInit, Inject } from '@angular/core';
 import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
@@ -8,6 +9,7 @@ import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./view-user.component.css']
 })
 export class ViewUserComponent implements OnInit {
+  user: User;
 
   constructor(public activeModal: NgbActiveModal) { }
 

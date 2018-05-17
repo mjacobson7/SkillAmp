@@ -2,7 +2,7 @@
   <div (click)="onChangeNav()" class="hamburgerMenu">
     <i class="fa fa-bars fa-lg" aria-hidden="true"></i>
   </div>
-  <a [routerLink]="dashboard" class="company-logo">
+  <a routerLink="/dashboard" class="company-logo">
     <img src="../../../assets/SkillAmp.png" alt="">
   </a>
   <mat-icon routerLink="/messages" matTooltip="Notifications" class="messages">notifications</mat-icon>
@@ -12,6 +12,6 @@
   </button>
   <mat-menu #menu="matMenu">
     <button routerLink="/profile" mat-menu-item>Profile</button>
-    <button mat-menu-item (click)="authService.logout()">Logout</button>
+    <button mat-menu-item (click)="onLogout()">Logout</button>
   </mat-menu>
 </div>

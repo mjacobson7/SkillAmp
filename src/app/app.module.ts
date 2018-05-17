@@ -21,6 +21,9 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { ErrorService } from './services/error/error.service';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+
+
 
 
 // Angular Material Modules
@@ -145,7 +148,8 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
     MatProgressSpinnerModule,
     MatSortModule,
     NgxDatatableModule,
-    InputSwitchModule
+    InputSwitchModule,
+    LoadingBarHttpClientModule
   ],
   providers: [
     UserService,

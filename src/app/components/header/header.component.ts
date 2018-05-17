@@ -38,6 +38,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.navService.sidenavStatus.next(!this.openSideNav);
   }
 
+  onLogout() {
+    this.authService.logout();
+  }
+ 
 
 
 
