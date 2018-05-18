@@ -1,3 +1,4 @@
+import { DashboardService } from './../../services/dashboard/dashboard.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
 
@@ -7,9 +8,14 @@ import {MatPaginator, MatTableDataSource} from '@angular/material';
   styleUrls: ['./leaderboard.component.css']
 })
 export class LeaderboardComponent implements OnInit {
+  leaderboard: any[];
 
-  constructor() { }
+  constructor(private dashboardService: DashboardService) { }
   
-    ngOnInit() {}
+    ngOnInit() {
+      this.dashboardService.getLeaderboard().subscribe(response => {
+        this.leaderboard = response;
+      })
+    }
 }
 

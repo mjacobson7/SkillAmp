@@ -51,6 +51,39 @@ module.exports = {
             console.log(error);
             res.status(500).json(error);
         }
+    },
+
+    getTeamLeaderboard: async (req, res) => {
+         try {
+            let companyAverages = [];
+            let usersInCompany = await User.findAll({
+                where: { companyId: req.principal.companyId },
+                include: { model: Role, as: 'roles', where: { isUserRole: true } },
+                attributes: ['id']
+            })
+
+            for (let user of usersInCompany) {
+                let avgScores = await Survey.find({
+                    where: { userId: user.id, companyId: req.principal.id },
+                    group: ['user.id'],
+                    include: [ { model: User } ],
+                    limit: 5,
+                    attributes: [
+                        [Survey.sequelize.fn('AVG', Survey.sequelize.col('rating')), 'averageScore'],
+                    ]
+                })
+                if (avgScores != null) companyAverages.push(avgScores);
+            }
+
+            companyAverages.sort((a, b) => b.dataValues.averageScore - a.dataValues.averageScore);
+            
+            res.status(200).json(companyAverages);
+
+         }
+         catch(error) {
+             console.log(error);
+             res.status(500).json(error);
+         }
     }
 
 

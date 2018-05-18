@@ -1,5 +1,5 @@
-* {
-  font-size: 13px;
+.card-title h4 {
+  font-size: 14px;
 }
 
 .card {
@@ -7,7 +7,6 @@
   border: 0 solid #e7e7e7;
   border-radius: 5px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-  height: 100%;
 }
 
 .card-body {
@@ -16,6 +15,7 @@
 
 .table {
   margin-bottom: 0;
+  font-size: 11px;
 }
 
 .table > thead > tr > th {
@@ -25,4 +25,8 @@
 
 tbody tr td {
   color: #99abb4;
+}
+
+.table td, .table th {
+  padding: 0.60rem;
 }

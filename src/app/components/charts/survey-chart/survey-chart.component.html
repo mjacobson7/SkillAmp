@@ -4,16 +4,8 @@
     </div>
 
     <div class="card-body">
-        <ngx-charts-line-chart
-            [scheme]="colorScheme"
-            [results]="single"
-            [xAxis]="showXAxis"
-            [yAxis]="showYAxis"
-            yScaleMin=0
-            yScaleMax=5
-            [autoScale]="autoScale"
-            (select)="onSelect($event)">
-        </ngx-charts-line-chart>
+        <p-chart width="40vw" height="120vh" [responsive]=true [options]="options" type="bar" [data]="data" (onDataSelect)="selectData($event)"></p-chart>
     </div>
- 
+
+
 </div>

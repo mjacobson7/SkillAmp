@@ -22,14 +22,16 @@ import { ErrorService } from './services/error/error.service';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+import { ChartModule } from 'primeng/chart';
+
 
 
 
 
 // Angular Material Modules
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDividerModule } from '@angular/material/divider';
@@ -149,7 +151,8 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
     MatSortModule,
     NgxDatatableModule,
     InputSwitchModule,
-    LoadingBarHttpClientModule
+    LoadingBarHttpClientModule,
+    ChartModule
   ],
   providers: [
     UserService,

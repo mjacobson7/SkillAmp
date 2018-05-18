@@ -10,6 +10,10 @@ export class DashboardService {
     return this.httpClient.get<any>('/getUserWidgetData');
   }
 
+  getLeaderboard() {
+    return this.httpClient.get<any>('/team_leaderboard');
+  }
+
   getSingle() {
     return [
       {

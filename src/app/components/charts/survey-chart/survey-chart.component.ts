@@ -10,34 +10,28 @@ import { DashboardService } from '../../../services/dashboard/dashboard.service'
     styleUrls: ['./survey-chart.component.css']
 })
 export class SurveyChartComponent implements OnInit {
-    single: any[];
-    
-    // options
-    showXAxis = true;
-    showYAxis = true;
-  
-    // line, area
-    autoScale = true;
+    data: any;
+    options: any;
 
-
-    colorScheme = {
-        domain: [
-            // 'rgb(89, 218, 213, 0.4)',
-            // 'rgb(252, 97, 128, 0.4)', 
-            'rgb(98, 209, 243, 0.4)', 
-            'rgb(249, 208, 149, 0.4)', 
-            'rgb(141, 175, 249, 0.4)'
-        ]
-    }
-  
-    onSelect(event) {
-      console.log(event);
-    }
-
-    ngOnInit() {}
+    ngOnInit() { }
 
     constructor(private dashboardService: DashboardService) {
-        this.single = this.dashboardService.getSingle();
+        this.data = {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
+            datasets: [
+                {
+                    backgroundColor: '#42A5F5',
+                    borderColor: '#1E88E5',
+                    data: [65, 59, 80, 81, 56, 55, 45, 80, 45, 70, 53, 74]
+                }
+            ]
+        }
+
+        this.options = {
+            legend: {
+                display: false
+            }
+        };
     }
 
 
