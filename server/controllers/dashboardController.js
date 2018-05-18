@@ -1,6 +1,7 @@
 const Survey = require('../models/index').survey;
 const User = require('../models/index').user;
 const Role = require('../models/index').role;
+const UserRole = require('../models/index').userRole;
 
 module.exports = {
 
@@ -38,13 +39,13 @@ module.exports = {
 
             widgetData.userScoreAndCount = teamAverages.find(x => x.userId = req.principal.id);
 
-            if(!widgetData.userScoreAndCount) {
+            if (!widgetData.userScoreAndCount) {
                 widgetData.userScoreAndCount = {
                     averageScore: 0,
                     reviewCount: 0
                 }
             }
-            
+
             res.status(200).json(widgetData);
         }
         catch (error) {
@@ -54,36 +55,53 @@ module.exports = {
     },
 
     getTeamLeaderboard: async (req, res) => {
-         try {
-            let companyAverages = [];
-            let usersInCompany = await User.findAll({
-                where: { companyId: req.principal.companyId },
-                include: { model: Role, as: 'roles', where: { isUserRole: true } },
-                attributes: ['id']
+        try {
+            let { pageIndex } = req.body.params;
+            let teamRankings = [];
+            let count = await User.count({ where: { companyId: req.principal.companyId, supervisorId: req.principal.supervisorId } });
+            let offset = (pageIndex) * 5;
+
+            let usersOnTeam = await User.findAll({
+                where: { companyId: req.principal.companyId, supervisorId: req.principal.supervisorId },
+                attributes: ['id', 'firstName', 'lastName'],
+                include: [
+                    {
+                        model: User,
+                        as: 'supervisor',
+                        attributes: ['id', 'firstName', 'lastName']
+                    }
+                ],
+                offset: offset,
+                limit: 5
             })
 
-            for (let user of usersInCompany) {
-                let avgScores = await Survey.find({
-                    where: { userId: user.id, companyId: req.principal.id },
-                    group: ['user.id'],
-                    include: [ { model: User } ],
-                    limit: 5,
-                    attributes: [
-                        [Survey.sequelize.fn('AVG', Survey.sequelize.col('rating')), 'averageScore'],
-                    ]
+            for(let user of usersOnTeam) {
+                let survey = await Survey.find({
+                    where: { userId: user.id, companyId: req.principal.companyId },
+                    
+                    attributes: [[Survey.sequelize.fn('AVG', Survey.sequelize.col('rating')), 'ratingAvg']]
                 })
-                if (avgScores != null) companyAverages.push(avgScores);
+                if(!survey.dataValues.ratingAvg) survey.dataValues.ratingAvg = 0;
+                let userRank = {
+                    user: user,
+                    ratingAvg: survey.dataValues.ratingAvg
+                }
+                teamRankings.push(userRank);
+            }
+            teamRankings.sort((a, b) => b.ratingAvg - a.ratingAvg);
+            
+            const leaderboard = {
+                rankings: teamRankings,
+                length: count
             }
 
-            companyAverages.sort((a, b) => b.dataValues.averageScore - a.dataValues.averageScore);
-            
-            res.status(200).json(companyAverages);
+            res.status(200).json(leaderboard);
 
-         }
-         catch(error) {
-             console.log(error);
-             res.status(500).json(error);
-         }
+        }
+        catch (error) {
+            console.log(error);
+            res.status(500).json(error);
+        }
     }
 
 

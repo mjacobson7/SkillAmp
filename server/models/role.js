@@ -55,6 +55,8 @@ module.exports = (sequelize, DataTypes) => {
       },
       as: 'permissions'
     });
+
+    role.hasMany(models.userRole);
   };
   return role;
 };

@@ -61,8 +61,7 @@ export class SurveyComponent implements OnInit, OnDestroy {
       ratingSort: this.ratingSort,
       dateSort: this.dateSort
     }
-    this.surveyService.getMySurveys(params)
-      .subscribe(survey => {
+    this.surveyService.getMySurveys(params).subscribe(survey => {
         this.survey = survey.content;
         this.length = survey.length;
         this.surveysLoaded = true;

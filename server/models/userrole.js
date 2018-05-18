@@ -27,6 +27,7 @@ module.exports = (sequelize, DataTypes) => {
         field: 'role_id'
       }
     });
+
   };
   return userRole;
 };

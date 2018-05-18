@@ -62,7 +62,6 @@ module.exports = (sequelize, DataTypes) => {
       }
     })
     user.hasMany(models.survey, {
-      as: 'user',
       foreignKey: {
         name: 'userId',
         field: 'user_id'

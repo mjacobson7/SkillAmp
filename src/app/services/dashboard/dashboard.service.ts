@@ -10,8 +10,8 @@ export class DashboardService {
     return this.httpClient.get<any>('/getUserWidgetData');
   }
 
-  getLeaderboard() {
-    return this.httpClient.get<any>('/team_leaderboard');
+  getLeaderboard(params) {
+    return this.httpClient.post<any>('/team_leaderboard', {params: params});
   }
 
   getSingle() {

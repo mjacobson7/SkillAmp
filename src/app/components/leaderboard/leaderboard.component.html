@@ -14,15 +14,21 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let user of leaderboard; let i = index">
+          <tr *ngFor="let rank of leaderboard; let i = index">
             <td>{{i + 1}}</td>
-            <td>{{user.user.firstName}} {{user.user.lastName}}</td>
-            <td>{{user.averageScore | number : '1.2-2' }}</td>
+            <td>{{rank.user.firstName}} {{rank.user.lastName}}</td>
+            <td>{{rank.ratingAvg | number : '1.2-2' }}</td>
             <!-- <td>Include supervisor here for admins</td> -->
           </tr>
         </tbody>
       </table>
     </div>
   </div>
-  <mat-paginator class="leaderboardChart" [length]="100" [pageSize]="5" [pageSizeOptions]="[5]"></mat-paginator>
+  <mat-paginator 
+    class="leaderboardChart" 
+    [length]="length"
+    [pageSize]="pageSize"  
+    [pageSizeOptions]="[5]"
+    (page)="pageEvent = onPageEvent($event)">
+  </mat-paginator>
 </div>
