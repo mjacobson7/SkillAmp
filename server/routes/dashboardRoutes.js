@@ -4,4 +4,5 @@ const authController = require('../controllers/authController');
 module.exports = (app) => {
     app.get('/getUserWidgetData', authController.verifyValidToken, dashboardController.getUserWidgetData);
     app.post('/team_leaderboard', authController.verifyValidToken, dashboardController.getTeamLeaderboard);
+    app.post('/survey_chart_data', authController.verifyValidToken, dashboardController.getSurveyChartData);
 }

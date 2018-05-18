@@ -12,26 +12,43 @@ import { DashboardService } from '../../../services/dashboard/dashboard.service'
 export class SurveyChartComponent implements OnInit {
     data: any;
     options: any;
+    sort: string = 'YEAR'; //other options are QUARTER and MONTH
+    labels: any[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
+    chartData: number[];
 
     ngOnInit() { }
 
     constructor(private dashboardService: DashboardService) {
-        this.data = {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
-            datasets: [
-                {
-                    backgroundColor: '#42A5F5',
-                    borderColor: '#1E88E5',
-                    data: [65, 59, 80, 81, 56, 55, 45, 80, 45, 70, 53, 74]
-                }
-            ]
-        }
+        this.getSurveyChartData();
+    }
 
-        this.options = {
-            legend: {
-                display: false
+    getSurveyChartData() {
+        let params = {
+            sort: this.sort
+        }
+        this.dashboardService.getSurveyChartData(params).subscribe(response => {
+            console.log(response);
+
+            this.data = {
+                labels: response.labels,
+                datasets: [
+                    {
+                        backgroundColor: '#42A5F5',
+                        borderColor: '#1E88E5',
+                        data: response.data
+                    }
+                ]
             }
-        };
+
+            this.options = {
+                legend: {
+                    display: false
+                },
+                scales: {
+                    yAxes: [{ id: 'y-axis-1', type: 'linear', position: 'left', ticks: { min: 0, max: 5 } }]
+                }
+            };
+        })
     }
 
 

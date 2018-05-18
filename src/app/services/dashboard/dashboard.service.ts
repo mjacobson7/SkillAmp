@@ -11,7 +11,11 @@ export class DashboardService {
   }
 
   getLeaderboard(params) {
-    return this.httpClient.post<any>('/team_leaderboard', {params: params});
+    return this.httpClient.post<any>('/team_leaderboard', { params: params });
+  }
+
+  getSurveyChartData(params) {
+    return this.httpClient.post<any>('/survey_chart_data', params);
   }
 
   getSingle() {

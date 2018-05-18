@@ -75,13 +75,13 @@ module.exports = {
                 limit: 5
             })
 
-            for(let user of usersOnTeam) {
+            for (let user of usersOnTeam) {
                 let survey = await Survey.find({
                     where: { userId: user.id, companyId: req.principal.companyId },
-                    
+
                     attributes: [[Survey.sequelize.fn('AVG', Survey.sequelize.col('rating')), 'ratingAvg']]
                 })
-                if(!survey.dataValues.ratingAvg) survey.dataValues.ratingAvg = 0;
+                if (!survey.dataValues.ratingAvg) survey.dataValues.ratingAvg = 0;
                 let userRank = {
                     user: user,
                     ratingAvg: survey.dataValues.ratingAvg
@@ -89,13 +89,58 @@ module.exports = {
                 teamRankings.push(userRank);
             }
             teamRankings.sort((a, b) => b.ratingAvg - a.ratingAvg);
-            
+
             const leaderboard = {
                 rankings: teamRankings,
                 length: count
             }
 
             res.status(200).json(leaderboard);
+
+        }
+        catch (error) {
+            console.log(error);
+            res.status(500).json(error);
+        }
+    },
+
+    getSurveyChartData: async (req, res) => {
+        try {
+            // let { sort } = req.body.params;
+            let data = [];
+            let labels = [];
+            const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
+            let today = new Date();
+            let day, month, year, monthYear, firstDay, lastDay;
+
+
+            for (var i = 12; i > 0; i -= 1) {
+                d = new Date(today.getFullYear(), today.getMonth() + (1- i), 1);
+                month = monthNames[d.getMonth()];
+                year = "'" + d.getFullYear().toString().substr(-2);
+                monthYear = month + ' ' + year;
+
+                firstDay = new Date(d.getFullYear(), d.getMonth(), 1);
+                lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0);
+
+                labels.push(monthYear);
+
+                let survey = await Survey.find({
+                    where: { 
+                        userId: req.principal.id, 
+                        companyId: req.principal.companyId,
+                        createdAt: {
+                            between: [firstDay, lastDay]
+                        }
+                    },
+                    attributes: [[Survey.sequelize.fn('AVG', Survey.sequelize.col('rating')), 'ratingAvg']]
+                })
+                if(!survey.dataValues.ratingAvg) survey.dataValues.ratingAvg = 0;
+                let avg = parseFloat(survey.dataValues.ratingAvg).toFixed(2);
+                data.push(avg);
+            }
+
+            res.status(200).json({labels: labels, data: data});
 
         }
         catch (error) {
