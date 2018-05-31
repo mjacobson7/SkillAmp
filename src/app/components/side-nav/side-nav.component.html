@@ -1,20 +1,20 @@
-<div id="sidebar-wrapper" [ngClass]="{'sideBar': !openSideNav}">
+<div id="sidebar-wrapper" [ngClass]="{'sideBar': !openSideNav }">
 
   <div matTooltip="{{openSideNav ? '' : 'Dashboard'}}" [matTooltipPosition]="position" routerLink="/dashboard" class="sidebar-nav"
     routerLinkActive="selected-row">
-    <i class="fa fa-tachometer fa-fw icon" aria-hidden="true"></i>
+    <i class="icon-speedometer icon" aria-hidden="true"></i>
     <span class="side-nav-menu-item" [hidden]="!openSideNav">Dashboard</span>
   </div>
 
   <div matTooltip="{{openSideNav ? '' : 'Survey'}}" [matTooltipPosition]="position" routerLink="/survey" class="sidebar-nav"
     routerLinkActive="selected-row">
-    <i class="fa fa-comment fa-fw icon" aria-hidden="true"></i>
+    <i class="icon-bubbles icon" aria-hidden="true"></i>
     <span class="side-nav-menu-item" [hidden]="!openSideNav">Surveys</span>
   </div>
 
   <div matTooltip="{{openSideNav ? '' : 'Profile'}}" [matTooltipPosition]="position" routerLink="/profile" class="sidebar-nav"
     routerLinkActive="selected-row">
-    <i class="fa fa-user fa-fw icon" aria-hidden="true"></i>
+    <i class="icon-user icon" aria-hidden="true"></i>
     <span class="side-nav-menu-item" [hidden]="!openSideNav">Profile</span>
   </div>
 
@@ -40,9 +40,9 @@
 
   <div *ngIf="supervisorToolsNav" (click)="onSupervisorToolsOpen()" matTooltip="{{openSideNav ? '' : 'Supervisor Tools'}}" [matTooltipPosition]="position"
     class="sidebar-nav" [ngClass]="{'subItemActive' : manageUsers?.isActive || teamSurveys?.isActive }">
-    <i class="fa fa-briefcase fa-fw icon" aria-hidden="true"></i>
+    <i class="icon-wrench icon" aria-hidden="true"></i>
     <span class="side-nav-menu-item" [hidden]="!openSideNav">Supervisor Tools</span>
-    <i [ngClass]="supervisorMenuOpen ? 'fa fa-angle-down icon subMenuIcon' : 'fa fa-angle-right icon subMenuIcon' " aria-hidden="true"></i>
+    <i [ngClass]="supervisorMenuOpen ? 'icon-arrow-down icon subMenuIcon' : 'icon-arrow-left icon subMenuIcon' " aria-hidden="true"></i>
   </div>
 
   <div class="subMenu" [ngClass]="{'supervisorMenu': supervisorMenuOpen}">
@@ -61,9 +61,9 @@
 
   <div (click)="onSystemManagementOpen()" matTooltip="{{openSideNav ? '' : 'Training'}}" [matTooltipPosition]="position" class="sidebar-nav"
     [ngClass]="{'subItemActive' : notifications.isActive || permissions.isActive}">
-    <i class="fa fa-cogs fa-fw icon" aria-hidden="true"></i>
+    <i class="icon-settings icon" aria-hidden="true"></i>
     <span class="side-nav-menu-item" [hidden]="!openSideNav">System Management</span>
-    <i [ngClass]="systemManagementOpen ? 'fa fa-angle-down icon subMenuIcon' : 'fa fa-angle-right icon subMenuIcon' " aria-hidden="true"></i>
+    <i [ngClass]="systemManagementOpen ? 'icon-arrow-down icon subMenuIcon' : 'icon-arrow-left icon subMenuIcon' " aria-hidden="true"></i>
   </div>
 
   <div class="subMenu" [ngClass]="{'systemMenu': systemManagementOpen}">

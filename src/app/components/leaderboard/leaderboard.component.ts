@@ -5,7 +5,7 @@ import {MatPaginator, MatTableDataSource} from '@angular/material';
 @Component({
   selector: 'app-leaderboard',
   templateUrl: './leaderboard.component.html',
-  styleUrls: ['./leaderboard.component.css']
+  styleUrls: ['./leaderboard.component.scss']
 })
 export class LeaderboardComponent implements OnInit {
   leaderboard: any[];

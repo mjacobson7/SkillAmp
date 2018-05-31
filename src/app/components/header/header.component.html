@@ -1,17 +1,42 @@
-<div class="header-wrapper">
-  <div (click)="onChangeNav()" class="hamburgerMenu">
-    <i class="fa fa-bars fa-lg" aria-hidden="true"></i>
+<div *ngIf="!mobileView" class="header-wrapper">
+  <div class="logo-wrapper">
+    <img src="../../../assets/skillamp-slim-white.png" alt="">
   </div>
-  <a routerLink="/dashboard" class="company-logo">
-    <img src="../../../assets/SkillAmp.png" alt="">
-  </a>
-  <mat-icon routerLink="/messages" matTooltip="Notifications" class="messages">notifications</mat-icon>
+  <div class="header-sub-wrapper">
+    <div (click)="onChangeNav()" class="hamburger-menu">
+      <span class="icon-menu"></span>
+    </div>
+    <div class="current-user">
+      <button mat-button [matMenuTriggerFor]="menu">
+        {{user?.firstName}} {{user?.lastName}}
+      </button>
+      <mat-menu #menu="matMenu">
+        <button routerLink="/profile" mat-menu-item>Profile</button>
+        <button mat-menu-item (click)="onLogout()">Logout</button>
+      </mat-menu>
+    </div>
+  </div>
+</div>
 
-  <button mat-button [matMenuTriggerFor]="menu">
-    {{user?.firstName}} {{user?.lastName}}
-  </button>
-  <mat-menu #menu="matMenu">
-    <button routerLink="/profile" mat-menu-item>Profile</button>
-    <button mat-menu-item (click)="onLogout()">Logout</button>
-  </mat-menu>
+<div *ngIf="mobileView" class="header-wrapper">
+  <div class="mobile-logo-wrapper">
+    <div (click)="onChangeNav()" class="mobile-hamburger-menu">
+      <span class="icon-menu"></span>
+    </div>
+    <img src="../../../assets/skillamp-slim-white.png" alt="">
+  </div>
+  <!-- <div class="header-sub-wrapper">
+      <div (click)="onChangeNav()" class="hamburger-menu">
+        <span class="icon-menu"></span>
+      </div>
+      <div class="current-user">
+        <button mat-button [matMenuTriggerFor]="menu">
+          {{user?.firstName}} {{user?.lastName}}
+        </button>
+        <mat-menu #menu="matMenu">
+          <button routerLink="/profile" mat-menu-item>Profile</button>
+          <button mat-menu-item (click)="onLogout()">Logout</button>
+        </mat-menu>
+      </div>
+    </div> -->
 </div>

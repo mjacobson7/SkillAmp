@@ -116,14 +116,20 @@ module.exports = {
     try {
       //todo check if admin or supervisor and return ONLY the users that pertain to their role.  
       //If they are an admin AND a supervisor, then return all users of the company
+
       const users = await User.findAll({
         where: { companyId: req.principal.companyId },
-        include: [{
-          model: Role,
-          as: 'roles',
-          through: { attributes: [] }
-          //include supervisor?
-        }]
+        include: [
+          {
+            model: Role,
+            as: 'roles',
+            through: { attributes: [] }
+          },
+          {
+            model: User,
+            as: 'supervisor'
+          }
+        ]
       })
       res.status(200).json(users);
     }

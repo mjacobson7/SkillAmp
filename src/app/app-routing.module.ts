@@ -22,22 +22,26 @@ const appRoutes: Routes = [
     {path: 'login', component: LoginComponent},
     {path: '', pathMatch: 'full', redirectTo: '/login'},
     {path: '', component: HomeComponent, canActivate: [AuthGuardService], resolve: { user: UserResolverService, permissions: PermissionResolverService }, children: [
-        {path: 'profile', component: UserProfileComponent, canActivate: [AuthGuardService], resolve: { user: UserResolverService, permissions: PermissionResolverService }},
-        {path: 'messages', component: MessagesComponent, canActivate: [AuthGuardService], resolve: { user: UserResolverService, permissions: PermissionResolverService }},
-        {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService], resolve: { user: UserResolverService, permissions: PermissionResolverService }},
-        {path: 'survey', component: SurveyComponent, canActivate: [AuthGuardService], resolve: { user: UserResolverService, permissions: PermissionResolverService }},
-        {path: 'training', component: TrainingComponent, canActivate: [AuthGuardService], resolve: { user: UserResolverService, permissions: PermissionResolverService }},
+        {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService], data: { breadcrumbs: 'Dashboard'}, resolve: { user: UserResolverService, permissions: PermissionResolverService }},
+        {path: 'profile', component: UserProfileComponent, canActivate: [AuthGuardService], data: { breadcrumbs: 'My Profile'}, resolve: { user: UserResolverService, permissions: PermissionResolverService }},
+        {path: 'survey', component: SurveyComponent, canActivate: [AuthGuardService], data: { breadcrumbs: 'My Surveys'}, resolve: { user: UserResolverService, permissions: PermissionResolverService }},
+        // {path: 'messages', component: MessagesComponent, canActivate: [AuthGuardService], data: { breadcrumbs: 'Messages'}, resolve: { user: UserResolverService, permissions: PermissionResolverService }},
+        // {path: 'training', component: TrainingComponent, canActivate: [AuthGuardService], data: { breadcrumbs: 'Training'}, resolve: { user: UserResolverService, permissions: PermissionResolverService }},
 
-        {path: 'supervisor_tools', children: [
-            {path: 'manage_users', component: ManageUsersComponent, canActivate: [AuthGuardService], resolve: { user: UserResolverService, permissions: PermissionResolverService }},
-            {path: 'manage_users/user/:id', component: UserProfileComponent, canActivate: [AuthGuardService], resolve: { user: UserResolverService, permissions: PermissionResolverService }},
-            {path: 'team_surveys', component: SurveyComponent, canActivate: [AuthGuardService], resolve: { user: UserResolverService, permissions: PermissionResolverService }},
+        {path: 'supervisor_tools', data: { breadcrumbs: 'Supervisor Tools'}, children: [
+            {path: 'manage_users', canActivate: [AuthGuardService], data: { breadcrumbs: 'Manage Users'}, resolve: { user: UserResolverService, permissions: PermissionResolverService }, children: [
+                {path: '', component: ManageUsersComponent},
+                {path: 'user/:id', component: UserProfileComponent, canActivate: [AuthGuardService], data: { breadcrumbs: 'Edit User'}, resolve: { user: UserResolverService, permissions: PermissionResolverService }},
+            ]},
+            
+
+            {path: 'team_surveys', component: SurveyComponent, canActivate: [AuthGuardService], data: { breadcrumbs: 'Team Surveys'}, resolve: { user: UserResolverService, permissions: PermissionResolverService }},
             {path: '', pathMatch: 'full', redirectTo: 'manage_users'}  
         ]},
 
-        {path: 'reports', component: ReportsComponent, canActivate: [AuthGuardService], resolve: { user: UserResolverService, permissions: PermissionResolverService }},
-        {path: 'account', component: AccountComponent, canActivate: [AuthGuardService], resolve: { user: UserResolverService, permissions: PermissionResolverService }},
-        {path: 'settings', component: GlobalSettingsComponent, canActivate: [AuthGuardService], resolve: { user: UserResolverService, permissions: PermissionResolverService }},
+        // {path: 'reports', component: ReportsComponent, canActivate: [AuthGuardService], resolve: { user: UserResolverService, permissions: PermissionResolverService }},
+        // {path: 'account', component: AccountComponent, canActivate: [AuthGuardService], resolve: { user: UserResolverService, permissions: PermissionResolverService }},
+        // {path: 'settings', component: GlobalSettingsComponent, canActivate: [AuthGuardService], resolve: { user: UserResolverService, permissions: PermissionResolverService }},
     ]},
 
     {path: 'not-found', component: NotFoundComponent},

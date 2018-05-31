@@ -23,6 +23,10 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { ChartModule } from 'primeng/chart';
+import { McBreadcrumbsModule } from 'ngx-breadcrumbs';
+import { ChartsModule } from 'ng2-charts/ng2-charts';
+
+
 
 
 
@@ -152,7 +156,9 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
     NgxDatatableModule,
     InputSwitchModule,
     LoadingBarHttpClientModule,
-    ChartModule
+    ChartModule,
+    McBreadcrumbsModule.forRoot(),
+    ChartsModule
   ],
   providers: [
     UserService,

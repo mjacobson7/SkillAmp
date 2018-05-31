@@ -6,47 +6,34 @@ const UserRole = require('../models/index').userRole;
 module.exports = {
 
     getUserWidgetData: async (req, res) => {
-        let widgetData = {};
-        let companyAverages = [];
-
         try {
-            let usersInCompany = await User.findAll({
-                where: { companyId: req.principal.companyId },
-                include: { model: Role, as: 'roles', where: { isUserRole: true } },
-                attributes: ['id']
+            let widgetInfo = await Survey.findAll({
+                include: { model: User, where: { companyId: req.principal.companyId } },
+                group: ['user.id'],
+                attributes: [
+                    [Survey.sequelize.fn('COUNT', Survey.sequelize.col('rating')), 'count'],
+                    [Survey.sequelize.fn('AVG', Survey.sequelize.col('rating')), 'score']
+                ]
             })
 
-            for (let user of usersInCompany) {
-                let avgAndCount = await Survey.find({
-                    where: { userId: user.id, companyId: req.principal.id },
-                    group: ['userId'],
-                    attributes: [
-                        'userId',
-                        [Survey.sequelize.fn('AVG', Survey.sequelize.col('rating')), 'averageScore'],
-                        [Survey.sequelize.fn('COUNT', Survey.sequelize.col('rating')), 'reviewCount']
-                    ]
-                })
-                if (avgAndCount != null) companyAverages.push(avgAndCount);
+            // Sort company-wide average scores from highest to lowest
+            widgetInfo.sort((a, b) => b.dataValues.score - a.dataValues.score);
+
+            // Find where user ranks in company
+            let companyRank = widgetInfo.findIndex(x => x.user.id === req.principal.id) + 1;
+
+            // Filter users in team (if current user is part of a team)
+            let teamRank = null;
+            if (req.principal.supervisorId) {
+                let team = widgetInfo.filter(x => x.user.supervisorId === req.principal.supervisorId);
+                // Find where user ranks on team
+                teamRank = team.findIndex(x => x.user.id === req.principal.id) + 1;
             }
 
-            //Sort company-wide average scores then find where user ranks
-            companyAverages.sort((a, b) => b.dataValues.averageScore - a.dataValues.averageScore);
-            widgetData.userCompanyRank = companyAverages.findIndex(x => x.userId = req.principal.id) + 1;
-
-            //Sort team-wide average scores then find where user ranks
-            let teamAverages = companyAverages.filter(x => x.supervisorId = req.principal.supervisorId);
-            widgetData.userTeamRank = teamAverages.findIndex(x => x.userId = req.principal) + 1;
-
-            widgetData.userScoreAndCount = teamAverages.find(x => x.userId = req.principal.id);
-
-            if (!widgetData.userScoreAndCount) {
-                widgetData.userScoreAndCount = {
-                    averageScore: 0,
-                    reviewCount: 0
-                }
-            }
-
-            res.status(200).json(widgetData);
+            // Get current user average score and # of surveys
+            let user = widgetInfo.filter(x => x.user.id === req.principal.id);
+            
+            res.status(200).json({ user, teamRank, companyRank });
         }
         catch (error) {
             console.log(error);
@@ -106,42 +93,48 @@ module.exports = {
 
     getSurveyChartData: async (req, res) => {
         try {
-            // let { sort } = req.body.params;
+            let sort = req.body.sort;
             let data = [];
             let labels = [];
-            const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
-            let today = new Date();
-            let day, month, year, monthYear, firstDay, lastDay;
+            let days;
+
+            if (sort === '1M') days = 30;
+            else if (sort === '3M') days = 90;
+            else if (sort === '6M') days = 180;
+            else if (sort === '1Y') days = 365;
+            else if (sort === '5Y') days = 1825;
+            else { /*throw error */ }
 
 
-            for (var i = 12; i > 0; i -= 1) {
-                d = new Date(today.getFullYear(), today.getMonth() + (1- i), 1);
-                month = monthNames[d.getMonth()];
-                year = "'" + d.getFullYear().toString().substr(-2);
-                monthYear = month + ' ' + year;
+            let endDate = new Date();
+            endDate.setHours(23, 59, 59, 999);
+            let startDate = new Date();
+            startDate.setDate(startDate.getDate() - days);
+            startDate.setHours(0, 0, 0, 0);
 
-                firstDay = new Date(d.getFullYear(), d.getMonth(), 1);
-                lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0);
 
-                labels.push(monthYear);
+            let surveys = await Survey.findAll({
+                where: {
+                    userId: req.principal.id,
+                    companyId: req.principal.companyId,
+                    createdAt: { between: [startDate, endDate] }
+                },
+                attributes: ['rating', 'createdAt'],
+                order: [['createdAt', 'ASC']]
 
-                let survey = await Survey.find({
-                    where: { 
-                        userId: req.principal.id, 
-                        companyId: req.principal.companyId,
-                        createdAt: {
-                            between: [firstDay, lastDay]
-                        }
-                    },
-                    attributes: [[Survey.sequelize.fn('AVG', Survey.sequelize.col('rating')), 'ratingAvg']]
-                })
-                if(!survey.dataValues.ratingAvg) survey.dataValues.ratingAvg = 0;
-                let avg = parseFloat(survey.dataValues.ratingAvg).toFixed(2);
-                data.push(avg);
+            })
+
+            for (let survey of surveys) {
+                data.push(survey.rating);
+                let date = new Date(survey.createdAt);
+                let month = date.getMonth() + 1;
+                let day = date.getDate();
+                let year = date.getFullYear();
+                let newdate = month + "/" + day + "/" + year;
+                labels.push(newdate);
             }
 
-            res.status(200).json({labels: labels, data: data});
-
+            res.status(200).json({ labels: labels, data: [{ data: data }] });
         }
         catch (error) {
             console.log(error);

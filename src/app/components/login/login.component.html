@@ -2,34 +2,49 @@
   <div class="row">
     <div class="col-lg-12">
       <div class="login-wrapper">
-        <img class="companyLogo" src="../../../assets/SkillAmp.png" alt="">
-        <div class="alert alert-danger" role="alert" *ngIf="invalidLogin">
-          Invalid username and/or password.
-        </div>
-        <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-          <div class="form-group">
-            <input
-              type="email"
-              class="form-control"
-              id="username"
-              placeholder="Enter Username"
-              ngModel
-              formControlName="username"
-              required>
+        <div class="card login">
+          <h1>Login</h1>
+          <p class="text-muted">Sign In to your account</p>
+          <div class="alert alert-danger" role="alert" *ngIf="invalidLogin">
+            Invalid username and/or password.
           </div>
+          <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+            <div class="form-group">
+              <label class="sr-only" for="username">Username</label>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <span class="icon-user"></span>
+                  </div>
+                </div>
+                <input type="email" class="form-control" id="username" placeholder="Username" ngModel formControlName="username" required>
+              </div>
+              <!-- </div>
 
-          <div class="form-group">
-            <input
-              type="password"
-              class="form-control"
-              id="password"
-              placeholder="Password"
-              ngModel
-              formControlName="password">
-          </div><hr>
+            <div class="form-group"> -->
+              <label class="sr-only" for="password">Username</label>
+              <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <span class="icon-lock"></span>
+                  </div>
+                </div>
+                <input type="password" class="form-control" id="password" placeholder="Password" ngModel formControlName="password">
+              </div>
+            </div>
 
-          <button type="submit" class="btn" >Login</button>
-        </form>
+
+            <div class="action-buttons">
+              <button type="submit" class="btn btn-primary">Login</button>
+              <button type="button" class="btn btn-link forgot-password">Forgot password?</button>
+            </div>
+
+
+          </form>
+        </div>
+        <div *ngIf="!mobileView" class="card logo">
+          <img class="companyLogo" src="../../../assets/skillamp-slim-white.png" alt="">
+        </div>
       </div>
     </div>
   </div>

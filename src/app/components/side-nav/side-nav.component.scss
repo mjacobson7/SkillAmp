@@ -1,7 +1,7 @@
 #sidebar-wrapper {
     z-index: 1;
     position: fixed;
-    top: 50px;
+    top: 60px;
     width: 250px;
     min-height: 100vh;
     overflow-y: hidden;
@@ -10,9 +10,8 @@
 }
 
 .sidebar-nav {
-    border-left: 3px solid transparent;        
     text-indent: 8px;
-    line-height: 40px;
+    line-height: 45px;
     white-space: nowrap;
     cursor: pointer;   
     user-select: none; 
@@ -30,7 +29,6 @@
     text-decoration: none;
     padding: 0;
     list-style: none;
-    border-left: 3px solid transparent;
     padding-left: 49px;
 }
 
@@ -38,12 +36,11 @@
     display: inline;
     text-decoration: none;
     color: #808b9c;
-    font-size: 14px;
     transition: color 0.25s;
 }
 
-.sidebar-nav:hover, .sub-sidebar-nav:hover {
-    border-left: 3px solid #00B6EE;
+.sidebar-nav:hover {
+    background-color: #181b1f;
 }
 
 .sidebar-nav:hover .side-nav-menu-item, .sub-sidebar-nav:hover .side-nav-menu-item {
@@ -55,13 +52,13 @@
 }
 
 #sidebar-wrapper.sideBar {
-    width: 60px;
+    width: 0px;
     transition: width 0.25s;
 }
 
 .icon {
      color: #808b9c;
-     font-size: 16px;
+     font-size: 14px;
      vertical-align: middle;
      padding-bottom: 2px;
      padding-right: 3px;
@@ -78,7 +75,6 @@
 }
 
 .selected-row {
-    border-left: 3px solid #00B6EE !important;
     background-color: #181b1f !important;   
 }
 

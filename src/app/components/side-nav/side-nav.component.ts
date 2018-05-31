@@ -6,14 +6,16 @@ import { Subscription } from 'rxjs/Subscription';
 @Component({
   selector: 'app-side-nav',
   templateUrl: './side-nav.component.html',
-  styleUrls: ['./side-nav.component.css']
+  styleUrls: ['./side-nav.component.scss']
 })
 export class SideNavComponent implements OnInit, OnDestroy {
   openSideNav: boolean;
   position: string = "after";
-  innerWidth: number;
+  sideNavSubscription: Subscription;
   supervisorMenuOpen: boolean = false;
   systemManagementOpen: boolean = false;
+  mobileViewSubscription: Subscription;
+  mobileView: boolean;
 
   //permissions
   supervisorToolsNav: boolean = false;
@@ -21,50 +23,34 @@ export class SideNavComponent implements OnInit, OnDestroy {
   manageUsersSubNav: boolean = false;
 
   constructor(private navService: NavService, private authService: AuthService) {
-    this.navService.sidenavStatus.subscribe(navStatus => {
-      this.openSideNav = navStatus;
-    })
+    this.navService.sidenavStatus.subscribe(navStatus => this.openSideNav = navStatus)
+
+    this.mobileViewSubscription = this.navService.mobileView.subscribe(view => this.mobileView = view)
 
     this.supervisorToolsNav = this.authService.hasPermission('CAN_VIEW_SUPERVISOR_TOOLS_NAV');
     this.manageUsersSubNav = this.authService.hasPermission('CAN_VIEW_MANAGE_USERS_SUB_NAV');
     this.teamSurveysSubNav = this.authService.hasPermission('CAN_VIEW_TEAM_SURVEYS_SUB_NAV');
-    
-    // this.innerWidth = window.innerWidth;
-    // if(this.innerWidth <= 720 && this.openSideNav) {
-    //   this.openSideNav = false;
-    //   this.navService.sidenavStatus.next(this.openSideNav);  
-    // } else if(this.innerWidth >= 721 && !this.openSideNav) {
-    //   this.openSideNav = true;
-    //   this.navService.sidenavStatus.next(this.openSideNav);   
-    // }
-    // this.navService.getSideNavList().subscribe(navs => {
-    //   console.log(navs);
-    // })
+
+    this.navService.getSideNavList().subscribe(navs => {
+      console.log(navs);
+    })
   }
 
   ngOnInit(): void {}
-  
-  // @HostListener ('window:resize', ['$event'])
-  // onResize(event) {
-  //   if(event.target.innerWidth <= 720 && this.openSideNav) {
-  //     this.openSideNav = false;
-  //     this.navService.sidenavStatus.next(this.openSideNav);      
-  //   } else if(event.target.innerWidth >= 721 && !this.openSideNav) {
-  //     this.openSideNav = true;
-  //     this.navService.sidenavStatus.next(this.openSideNav);      
-  //   }
-  // }
-  
+
   onSystemManagementOpen() {
-    if(this.supervisorMenuOpen) this.supervisorMenuOpen = !this.supervisorMenuOpen;
+    if (this.supervisorMenuOpen) this.supervisorMenuOpen = !this.supervisorMenuOpen;
     this.systemManagementOpen = !this.systemManagementOpen;
   }
 
   onSupervisorToolsOpen() {
-    if(this.systemManagementOpen) this.systemManagementOpen = !this.systemManagementOpen;
+    if (this.systemManagementOpen) this.systemManagementOpen = !this.systemManagementOpen;
     this.supervisorMenuOpen = !this.supervisorMenuOpen
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+    if(this.sideNavSubscription) this.sideNavSubscription.unsubscribe();
+    this.mobileViewSubscription.unsubscribe();
+  }
 
 }

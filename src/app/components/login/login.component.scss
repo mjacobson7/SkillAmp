@@ -1,0 +1,54 @@
+@import '~sass/_variables';
+
+.card {
+    padding: 45px;
+    box-shadow: none;
+    border-radius: 0px;
+    width: 380px;
+    min-height: 330px;
+    display: flex;
+    justify-content: center;
+}
+
+.login {
+    border-top: 1px solid #e1e6ef;
+    border-left: 1px solid #e1e6ef;
+    border-bottom: 1px solid #e1e6ef;
+}
+
+.logo {
+    background-color: $primary;
+    border-top: 1px solid #187da0;
+    border-right: 1px solid #187da0;
+    border-bottom: 1px solid #187da0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-body {
+    background-color: $background-color;
+}
+
+.login-wrapper {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.companyLogo {
+    width: 250px;
+    height: auto;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+
+    .forgot-password {
+        margin-right: 0px;
+    }
+}

@@ -19,14 +19,15 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "../node_modules/bootstrap/dist/css/bootstrap.min.css",
         "../node_modules/roboto-fontface/css/roboto/roboto-fontface.css",
         "../node_modules/datatables.net-dt/css/jquery.dataTables.css",
         "../node_modules/font-awesome/css/font-awesome.min.css",
         "../node_modules/primeng/resources/themes/omega/theme.css",
         "../node_modules/primeng/resources/primeng.min.css",
         "../node_modules/font-awesome/css/font-awesome.css",
-        "styles.css"
+        "styles.css",
+        "sass/styles.scss",
+        "../node_modules/@covalent/core/common/platform.scss"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.js",
@@ -63,7 +64,8 @@
     }
   },
   "defaults": {
-    "styleExt": "css",
-    "component": {}
+    "styleExt": "scss",
+    "component": {
+    }
   }
 }

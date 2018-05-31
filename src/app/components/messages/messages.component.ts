@@ -4,7 +4,7 @@ import { NavService } from '../../services/nav/nav.service';
 @Component({
   selector: 'app-messages',
   templateUrl: './messages.component.html',
-  styleUrls: ['./messages.component.css']
+  styleUrls: ['./messages.component.scss']
 })
 export class MessagesComponent implements OnInit {
   pageInfo: {title: string, icon: string} = {

@@ -5,7 +5,7 @@ import { SurveyService } from '../../services/survey/survey.service';
 @Component({
   selector: 'app-survey-filters',
   templateUrl: './survey-filters.component.html',
-  styleUrls: ['./survey-filters.component.css']
+  styleUrls: ['./survey-filters.component.scss']
 })
 export class SurveyFiltersComponent implements OnInit {
   panelOpenState: boolean = false;

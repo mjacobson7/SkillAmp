@@ -11,18 +11,19 @@
 
 
 * {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: lighter;
     outline: none;
 }
 
-body {
-    background-color: #F6F6F6;
-}
+/* body {
+    background-color: #F6F6F6 !important; 
+} */
 
 #page-content-wrapper {
     width: 100%;
     position: absolute;
-    padding: 0px 0px 30px 50px;
+    padding: 0px 0px 30px 0px;
     margin-top: 36px;
     transition: padding 0.25s;
 }
@@ -90,16 +91,6 @@ ng-select div {
 
 ng-select > div > div.single > div.clear, ng-select > div > div.single > div.toggle {
   color: #000000 !important;
-}
-
-/* Paginator Color Customizations */
-
-.mat-paginator.leaderboardChart {
-    background-color: #FFFFFF;
-}
-
-.mat-paginator.surveyCards {
-    background-color: #F7F7F7;
 }
 
 /* Table Action Buttons Style */

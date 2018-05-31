@@ -9,23 +9,25 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   user: User;
   openSideNav: boolean;
+  mobileView: boolean;
   userSubscription: Subscription;
   navSubscription: Subscription;
+  mobileViewSubscription: Subscription;
 
 
-  constructor(private route: ActivatedRoute, private navService: NavService, private authService: AuthService, private userService: UserService) {
+  constructor(private route: ActivatedRoute, private navService: NavService, private authService: AuthService, private userService: UserService) { 
+    this.mobileViewSubscription = this.navService.mobileView.subscribe(view => this.mobileView = view)
   }
 
-  ngOnInit() {    
+  ngOnInit() {
     this.user = this.authService.user;
-    this.navSubscription = this.navService.sidenavStatus.subscribe(navStatus => {
-      this.openSideNav = navStatus;
-    })
+    this.navSubscription = this.navService.sidenavStatus.subscribe(navStatus => this.openSideNav = navStatus)
+    
   }
 
 
@@ -41,7 +43,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   onLogout() {
     this.authService.logout();
   }
- 
+
 
 
 

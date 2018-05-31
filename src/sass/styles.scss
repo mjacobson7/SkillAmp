@@ -1,0 +1,31 @@
+@import '~sass/_variables';
+@import '~sass/_mixins';
+@import "~bootstrap/scss/bootstrap.scss";
+
+$simple-line-font-path: "~simple-line-icons/fonts/";
+@import "~simple-line-icons/scss/simple-line-icons";
+
+html, body {
+    background-color: $background-color !important;
+    font-size: .91rem;
+}
+
+.card {
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Paginator Color Customizations */
+
+.mat-paginator.leaderboardChart {
+    background-color: #FFFFFF;
+}
+
+.mat-paginator.surveyCards {
+    background-color: $background-color;
+}
+
+// Breadcrumb Customization
+
+.breadcrumb {
+    background-color: $background-color;
+}

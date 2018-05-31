@@ -1,10 +1,14 @@
 <ngx-loading-bar [includeSpinner]=false></ngx-loading-bar>
 <app-header></app-header>
 <app-side-nav></app-side-nav>
-<div id="page-content-wrapper" [ngClass]="{'sideBar': openSideNav}">       
+<div id="page-content-wrapper" [ngClass]="{'sideBar': openSideNav}">
     <app-page-header></app-page-header>
-    <app-breadcrumb></app-breadcrumb> 
-    <div class="container-fluid">
+    <div class="container-fluid main-content">
+        <div class="row">
+            <div class="col-xl-12">
+                <mc-breadcrumbs></mc-breadcrumbs>
+            </div>
+        </div>
         <div class="row">
             <div class="col-xl-12">
                 <router-outlet></router-outlet>
@@ -12,4 +16,3 @@
         </div>
     </div>
 </div>
-

@@ -15,8 +15,8 @@ export class UserService {
 
   constructor(private httpClient: HttpClient, private authService: AuthService, private errorService: ErrorService) { }
 
-  getAllUsers() {
-    return this.httpClient.get<User>('/getAllUsers').catch(this.errorService.handleError);
+  getAllUsers(params) {
+    return this.httpClient.post<User>('/getAllUsers', params).catch(this.errorService.handleError);
   }
 
   createUser(user: User) {

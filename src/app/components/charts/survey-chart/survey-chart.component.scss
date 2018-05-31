@@ -1,0 +1,82 @@
+.header {
+    margin-bottom: 10px;
+
+    h3 {
+        font-size: 16px;
+    }
+
+    .button-group {
+        float: right;
+        border: 1px solid #c0cadd;
+        color: #c0cadd;
+        font-size: 14px;
+        display: flex;
+        flex-direction: row;
+        cursor: pointer;
+
+        span {
+            padding: 7px 10px;  
+        }
+
+        .sort-week {
+            border-right: 1px solid #c0cadd;
+
+            &:hover {
+                transition: color .15s ease-in-out, background-color .15s ease-in-out;
+                background-color: #c0cadd;
+                color: #000000;
+            }
+        }
+
+        .sort-month {
+            border-right: 1px solid #c0cadd;
+
+            &:hover {
+                transition: color .15s ease-in-out, background-color .15s ease-in-out;
+
+                background-color: #c0cadd;
+                color: #000000;
+            }
+        }
+
+        .sort-year {
+            border-right: 1px solid #c0cadd;
+
+            &:hover {
+                transition: color .15s ease-in-out, background-color .15s ease-in-out;
+
+                background-color: #c0cadd;
+                color: #000000;
+            }
+        }
+
+        .sort-all {
+            &:hover {
+                transition: color .15s ease-in-out, background-color .15s ease-in-out;
+                
+                background-color: #c0cadd;
+                color: #000000;
+            }
+        }
+    }
+}
+
+.dateFilterActive {
+    transition: color .15s ease-in-out, background-color .15s ease-in-out;
+    background-color: #c0cadd;
+    color: #000000;
+}
+
+.card {
+    font-size: 12px;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.card-body {
+    padding: 0;
+}
+
+canvas {
+    width: 100% !important;
+}

@@ -4,7 +4,7 @@ import { NavService } from '../../services/nav/nav.service';
 @Component({
   selector: 'app-global-settings',
   templateUrl: './global-settings.component.html',
-  styleUrls: ['./global-settings.component.css']
+  styleUrls: ['./global-settings.component.scss']
 })
 export class GlobalSettingsComponent implements OnInit {
   pageInfo: {title: string, icon: string} = {

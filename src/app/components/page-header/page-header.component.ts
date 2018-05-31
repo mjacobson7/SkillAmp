@@ -5,7 +5,7 @@ import { NavService } from '../../services/nav/nav.service';
 @Component({
   selector: 'app-page-header',
   templateUrl: './page-header.component.html',
-  styleUrls: ['./page-header.component.css']
+  styleUrls: ['./page-header.component.scss']
 })
 export class PageHeaderComponent implements OnInit, OnDestroy {
   pageInfo;
