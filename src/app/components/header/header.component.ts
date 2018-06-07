@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   userSubscription: Subscription;
   navSubscription: Subscription;
   mobileViewSubscription: Subscription;
+  userInitials: string;
 
 
   constructor(private route: ActivatedRoute, private navService: NavService, private authService: AuthService, private userService: UserService) { 
@@ -26,6 +27,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.user = this.authService.user;
+    this.userInitials = this.user.firstName.split('')[0] + this.user.lastName.split('')[0];
     this.navSubscription = this.navService.sidenavStatus.subscribe(navStatus => this.openSideNav = navStatus)
     
   }

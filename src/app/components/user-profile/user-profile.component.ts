@@ -26,22 +26,11 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   changePassword: Boolean;
   supervisorsList: Observable<NgOption[]>;
   rolesList: Observable<NgOption[]>;
-  pageInfo: { title: string, icon: string } = {
-    title: 'My Profile',
-    icon: 'person'
-  };
   userFormSubscription: Subscription;
   formReady: Boolean = false;
 
-  constructor(
-    private authService: AuthService,
-    private userService: UserService,
-    private navService: NavService,
-    private fb: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router) {
-    this.navService.pageHeaderTitle.next(this.pageInfo);
-  };
+  constructor(private authService: AuthService, private userService: UserService, private navService: NavService,
+              private fb: FormBuilder, private route: ActivatedRoute, private router: Router) {};
 
   ngOnInit() {
     this.initializeForm();

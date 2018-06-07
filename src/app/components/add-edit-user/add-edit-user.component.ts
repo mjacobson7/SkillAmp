@@ -11,10 +11,6 @@ export class AddEditUserComponent implements OnInit, OnDestroy {
   user;
   userIdSubscription: Subscription;
   // TODO: Make pageInfo title dynamic so it says 'Create New User' or 'Edit User'
-  pageInfo: {title: string, icon: string} = {
-    title: 'User',
-    icon: 'person'
-  };
   username;
 
   constructor(private route: ActivatedRoute) { }

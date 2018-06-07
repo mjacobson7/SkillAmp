@@ -8,19 +8,19 @@ import { User } from '../../../models/user.model';
   styleUrls: ['./dashboard-cards.component.scss']
 })
 export class DashboardCardsComponent implements OnInit {
-  totalSurveys;
-  averageScore;
-  teamRank;
-  companyRank;
+  totalSurveys: number = 0;
+  averageScore: number = 0.00;
+  teamRank = '-';
+  companyRank = '-';
 
   constructor(private dashboardService: DashboardService) { }
 
   ngOnInit() {
     this.dashboardService.getUserWidgetData().subscribe(data => {
-      this.totalSurveys = data.user[0].count;
-      this.averageScore = data.user[0].score;
-      this.teamRank = data.teamRank;
-      this.companyRank = data.companyRank;
+      if(data.user[0].count) this.totalSurveys = data.user[0].count;
+      if(data.user[0].score) this.averageScore = data.user[0].score;
+      if(data.teamRank) this.teamRank = data.teamRank;
+      if(data.companyRank) this.companyRank = data.companyRank;
     })
   }
 

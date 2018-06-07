@@ -17,17 +17,12 @@ import { MatTableDataSource } from '@angular/material';
   styleUrls: ['./manage-users.component.scss']
 })
 export class ManageUsersComponent implements OnInit {
-  pageInfo: { title: string, icon: string } = {
-    title: 'Manage Users',
-    icon: 'people'
-  }
   users: User;
   pageSize: number = 10;
   pageIndex: number = 0;
   length: number;
 
   constructor(private userService: UserService, private navService: NavService, private modalService: NgbModal, private router: Router, private route: ActivatedRoute) {
-    this.navService.pageHeaderTitle.next(this.pageInfo);
     this.getUsers();
   }
 

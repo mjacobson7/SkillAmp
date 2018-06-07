@@ -1,29 +1,27 @@
-.card-title h4 {
-  font-size: 14px;
-}
-
 .card {
-  padding: 20px;
-}
 
-.card-body {
-  padding: 0;
-}
-
-.table {
-  margin-bottom: 0;
-  font-size: 11px;
-}
-
-.table > thead > tr > th {
-  border-bottom: 1px solid #e7e7e7;
-  font-weight: 400;
-}
-
-tbody tr td {
-  color: #99abb4;
-}
-
-.table td, .table th {
-  padding: 0.60rem;
+  .card-header {
+    p {
+      font-size: 14px;
+      margin: 0px;
+    }
+  }
+  
+  .table {
+    margin-bottom: 0;
+    font-size: 11px;
+  }
+  
+  .table > thead > tr > th {
+    border-bottom: 1px solid #e7e7e7;
+    font-weight: 400;
+  }
+  
+  tbody tr td {
+    color: #99abb4;
+  }
+  
+  .table td, .table th {
+    padding: 0.60rem;
+  }
 }

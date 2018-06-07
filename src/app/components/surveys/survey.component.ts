@@ -10,11 +10,6 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['./survey.component.scss']
 })
 export class SurveyComponent implements OnInit, OnDestroy {
-  pageInfo: { title: string, icon: string } = {
-    title: 'Surveys',
-    icon: 'sentiment_very_satisfied'
-  };
-
   pageIndex: number = 0;
   pageSize: number = 10;
   ratingSort: number[] = [1, 2, 3, 4, 5];
@@ -29,7 +24,6 @@ export class SurveyComponent implements OnInit, OnDestroy {
   ratingSortSubscription: Subscription;
 
   constructor(private navService: NavService, private surveyService: SurveyService) {
-    this.navService.pageHeaderTitle.next(this.pageInfo);
     this.getSurveyPage();
     this.surveyService.getDateSort().subscribe(dateSort => {
       this.dateSort = dateSort;

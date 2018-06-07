@@ -1,81 +1,56 @@
-<div id="sidebar-wrapper" [ngClass]="{'sideBar': !openSideNav }">
+<div class="sidebar" [ngClass]="{'sidebar-hidden': !openSideNav }">
 
-  <div matTooltip="{{openSideNav ? '' : 'Dashboard'}}" [matTooltipPosition]="position" routerLink="/dashboard" class="sidebar-nav"
-    routerLinkActive="selected-row">
-    <i class="icon-speedometer icon" aria-hidden="true"></i>
-    <span class="side-nav-menu-item" [hidden]="!openSideNav">Dashboard</span>
+  <div routerLink="/dashboard" class="nav-item" routerLinkActive="selected-row">
+    <i class="icon-speedometer icon"></i>
+    <span class="side-nav-menu-item">Dashboard</span>
   </div>
 
-  <div matTooltip="{{openSideNav ? '' : 'Survey'}}" [matTooltipPosition]="position" routerLink="/survey" class="sidebar-nav"
-    routerLinkActive="selected-row">
-    <i class="icon-bubbles icon" aria-hidden="true"></i>
-    <span class="side-nav-menu-item" [hidden]="!openSideNav">Surveys</span>
+  <div routerLink="/survey" class="nav-item" routerLinkActive="selected-row">
+    <i class="icon-speech icon"></i>
+    <span class="side-nav-menu-item">Surveys</span>
   </div>
 
-  <div matTooltip="{{openSideNav ? '' : 'Profile'}}" [matTooltipPosition]="position" routerLink="/profile" class="sidebar-nav"
-    routerLinkActive="selected-row">
-    <i class="icon-user icon" aria-hidden="true"></i>
-    <span class="side-nav-menu-item" [hidden]="!openSideNav">Profile</span>
+  <div routerLink="/profile" class="nav-item" routerLinkActive="selected-row">
+    <i class="icon-user icon"></i>
+    <span class="side-nav-menu-item">Profile</span>
   </div>
 
-  <!-- <div matTooltip="{{openSideNav ? '' : 'Messages'}}" [matTooltipPosition]="position" routerLink="/messages" class=sidebar-nav routerLinkActive="selected-row">
-    <i class="material-icons md-light">email</i>
-    <span class="side-nav-menu-item" [hidden]="!openSideNav">Messages</span>
+  <div *ngIf="supervisorToolsNav" (click)="onSupervisorToolsOpen()" class="nav-item" [ngClass]="{'subItemActive' : manageUsers?.isActive || teamSurveys?.isActive }">
+    <i class="icon-wrench icon"></i>
+    <span class="side-nav-menu-item">Supervisor Tools</span>
+    <i [ngClass]="supervisorMenuOpen ? 'icon-arrow-down icon dropdown-icon' : 'icon-arrow-left icon dropdown-icon' " aria-hidden="true"></i>
   </div>
 
-  <div matTooltip="{{openSideNav ? '' : 'Training'}}" [matTooltipPosition]="position" routerLink="/training" class=sidebar-nav routerLinkActive="selected-row">
-    <i class="material-icons md-light">domain</i>
-    <span class="side-nav-menu-item" [hidden]="!openSideNav">Training</span>
-  </div>
+  <div class="nav-dropdown-items" [ngClass]="{'supervisorMenu': supervisorMenuOpen}">
 
-  <div matTooltip="{{openSideNav ? '' : 'Reports'}}" [matTooltipPosition]="position" routerLink="/reports" class=sidebar-nav routerLinkActive="selected-row">
-    <i class="material-icons md-light">assignment</i>
-    <span class="side-nav-menu-item" [hidden]="!openSideNav">Reports</span>
-  </div>
-
-  <div matTooltip="{{openSideNav ? '' : 'Account'}}" [matTooltipPosition]="position" routerLink="/account" class=sidebar-nav routerLinkActive="selected-row">
-    <i class="material-icons md-light">account_balance</i>
-    <span class="side-nav-menu-item" [hidden]="!openSideNav">Account</span>
-  </div> -->
-
-  <div *ngIf="supervisorToolsNav" (click)="onSupervisorToolsOpen()" matTooltip="{{openSideNav ? '' : 'Supervisor Tools'}}" [matTooltipPosition]="position"
-    class="sidebar-nav" [ngClass]="{'subItemActive' : manageUsers?.isActive || teamSurveys?.isActive }">
-    <i class="icon-wrench icon" aria-hidden="true"></i>
-    <span class="side-nav-menu-item" [hidden]="!openSideNav">Supervisor Tools</span>
-    <i [ngClass]="supervisorMenuOpen ? 'icon-arrow-down icon subMenuIcon' : 'icon-arrow-left icon subMenuIcon' " aria-hidden="true"></i>
-  </div>
-
-  <div class="subMenu" [ngClass]="{'supervisorMenu': supervisorMenuOpen}">
-
-    <div *ngIf="teamSurveysSubNav" matTooltip="{{openSideNav ? '' : 'Team Surveys'}}" [matTooltipPosition]="position" routerLink="/supervisor_tools/team_surveys"
-      routerLinkActive="selected-row" #teamSurveys="routerLinkActive" class="sub-sidebar-nav">
-      <span class="side-nav-menu-item" [hidden]="!openSideNav">Team Surveys</span>
+    <div *ngIf="teamSurveysSubNav" routerLink="/supervisor_tools/team_surveys" routerLinkActive="selected-row" #teamSurveys="routerLinkActive" class="nav-item">
+      <i class="icon-speech icon"></i>
+      <span class="side-nav-menu-item">Team Surveys</span>
     </div>
 
-    <div *ngIf="manageUsersSubNav" matTooltip="{{openSideNav ? '' : 'Manage Users'}}" [matTooltipPosition]="position" routerLink="/supervisor_tools/manage_users"
-      routerLinkActive="selected-row" #manageUsers="routerLinkActive" class="sub-sidebar-nav">
-      <span class="side-nav-menu-item" [hidden]="!openSideNav">Manage Users</span>
+    <div *ngIf="manageUsersSubNav" routerLink="/supervisor_tools/manage_users" routerLinkActive="selected-row" #manageUsers="routerLinkActive" class="nav-item">
+      <i class="icon-people icon"></i>
+      <span class="side-nav-menu-item">Manage Users</span>
     </div>
 
   </div>
 
-  <div (click)="onSystemManagementOpen()" matTooltip="{{openSideNav ? '' : 'Training'}}" [matTooltipPosition]="position" class="sidebar-nav"
-    [ngClass]="{'subItemActive' : notifications.isActive || permissions.isActive}">
+  <div (click)="onSystemManagementOpen()" class="nav-item" [ngClass]="{'subItemActive' : notifications.isActive || permissions.isActive}">
     <i class="icon-settings icon" aria-hidden="true"></i>
-    <span class="side-nav-menu-item" [hidden]="!openSideNav">System Management</span>
-    <i [ngClass]="systemManagementOpen ? 'icon-arrow-down icon subMenuIcon' : 'icon-arrow-left icon subMenuIcon' " aria-hidden="true"></i>
+    <span class="side-nav-menu-item">System Management</span>
+    <i [ngClass]="systemManagementOpen ? 'icon-arrow-down icon dropdown-icon' : 'icon-arrow-left icon dropdown-icon' " aria-hidden="true"></i>
   </div>
 
-  <div class="subMenu" [ngClass]="{'systemMenu': systemManagementOpen}">
+  <div class="nav-dropdown-items" [ngClass]="{'systemMenu': systemManagementOpen}">
 
-    <div matTooltip="{{openSideNav ? '' : 'Notifications'}}" [matTooltipPosition]="position" routerLink="/system_management/notifications"
-      routerLinkActive="selected-row" #notifications="routerLinkActive" class="sub-sidebar-nav">
-      <span class="side-nav-menu-item" [hidden]="!openSideNav">Notifications</span>
+    <div routerLink="/system_management/notifications" routerLinkActive="selected-row" #notifications="routerLinkActive" class="nav-item">
+      <i class="icon-bell icon"></i>
+      <span class="side-nav-menu-item">Notifications</span>
     </div>
 
-    <div matTooltip="{{openSideNav ? '' : 'Permissions'}}" [matTooltipPosition]="position" routerLink="/system_management/permissions"
-      routerLinkActive="selected-row" #permissions="routerLinkActive" class="sub-sidebar-nav">
-      <span class="side-nav-menu-item" [hidden]="!openSideNav">Permissions</span>
+    <div routerLink="/system_management/permissions" routerLinkActive="selected-row" #permissions="routerLinkActive" class="nav-item">
+      <i class="icon-lock icon"></i>
+      <span class="side-nav-menu-item">Permissions</span>
     </div>
 
   </div>

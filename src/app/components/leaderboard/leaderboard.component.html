@@ -1,34 +1,24 @@
 <div class="card">
-  <div class="card-title">
-    <h4>Leaderboard</h4>
+  <div class="card-header">
+    <p>Leaderboard</p>
   </div>
+
   <div class="card-body">
-    <div class="table-responsive">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Score</th>
-            <!-- <th>Supervisor</th> -->
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let rank of leaderboard; let i = index">
-            <td>{{i + 1}}</td>
-            <td>{{rank.user.firstName}} {{rank.user.lastName}}</td>
-            <td>{{rank.ratingAvg | number : '1.2-2' }}</td>
-            <!-- <td>Include supervisor here for admins</td> -->
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <p-dataTable [value]="leaderboard" [responsive]="true">
+          <p-column field="rank" header="Rank" [filter]="false" [style]="{'width':'20%'}" [sortable]="true"></p-column>      
+          <p-column field="first_name" header="First Name" [filter]="false" [style]="{'width':'20%'}" [sortable]="true"></p-column>
+          <p-column field="last_name" header="Last Name" [filter]="false" [style]="{'width':'20%'}" [sortable]="true"></p-column>
+          <p-column field="average_score" header="Average Score" [filter]="false" [style]="{'width':'20%'}" [sortable]="true"></p-column>
+        </p-dataTable>
+      
+      <mat-paginator 
+        class="leaderboardChart" 
+        [length]="length"
+        [pageSize]="pageSize"  
+        [pageSizeOptions]="[5]"
+        (page)="pageEvent = onPageEvent($event)">
+      </mat-paginator>
   </div>
-  <mat-paginator 
-    class="leaderboardChart" 
-    [length]="length"
-    [pageSize]="pageSize"  
-    [pageSizeOptions]="[5]"
-    (page)="pageEvent = onPageEvent($event)">
-  </mat-paginator>
+  
+
 </div>

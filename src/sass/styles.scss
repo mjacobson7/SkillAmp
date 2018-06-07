@@ -2,16 +2,26 @@
 @import '~sass/_mixins';
 @import "~bootstrap/scss/bootstrap.scss";
 
+@import '~@swimlane/ngx-datatable/release/index.css';
+@import '~@swimlane/ngx-datatable/release/themes/material.css';
+@import '~@swimlane/ngx-datatable/release/assets/icons.css';
+
 $simple-line-font-path: "~simple-line-icons/fonts/";
 @import "~simple-line-icons/scss/simple-line-icons";
+
 
 html, body {
     background-color: $background-color !important;
     font-size: .91rem;
 }
 
-.card {
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+.card-header {
+    font-weight: bold;
+    background-color: #F9F9FA;
+}
+
+.card-footer {
+    background-color: #F9F9FA;
 }
 
 /* Paginator Color Customizations */
@@ -27,5 +37,28 @@ html, body {
 // Breadcrumb Customization
 
 .breadcrumb {
-    background-color: $background-color;
+    padding: 5px 40px;
+    border-radius: 0px;
+    background-color: #D9E0E7;
 }
+
+// Data Table Customization
+
+
+
+/*ng-select component*/
+// ng-select {
+//     background-color: #ffffff !important;
+//   }
+  
+//   ng-select div {
+//     border-radius: .2rem !important;
+//     font-size: .875rem !important;
+//   }
+  
+//   ng-select > div > div.single > div.clear, ng-select > div > div.single > div.toggle {
+//     color: #000000 !important;
+//   }
+
+
+

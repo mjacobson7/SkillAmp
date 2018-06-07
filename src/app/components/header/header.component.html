@@ -6,14 +6,14 @@
     <div (click)="onChangeNav()" class="hamburger-menu">
       <span class="icon-menu"></span>
     </div>
-    <div class="current-user">
-      <button mat-button [matMenuTriggerFor]="menu">
-        {{user?.firstName}} {{user?.lastName}}
-      </button>
-      <mat-menu #menu="matMenu">
-        <button routerLink="/profile" mat-menu-item>Profile</button>
-        <button mat-menu-item (click)="onLogout()">Logout</button>
-      </mat-menu>
+    <div class="navbar">
+      <div ngbDropdown placement="bottom-right">
+        <div id="dropdownBasic1" ngbDropdownToggle class="avatar">{{userInitials}}</div>
+        <div ngbDropdownMenu class="dropdown-menu-right" aria-labelledby="dropdownBasic1">
+          <button class="dropdown-item" routerLink="/profile">Profile</button>
+          <button class="dropdown-item" (click)="onLogout()">Logout</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -24,19 +24,12 @@
       <span class="icon-menu"></span>
     </div>
     <img src="../../../assets/skillamp-slim-white.png" alt="">
+    <div ngbDropdown placement="bottom-right">
+      <div id="dropdownBasic1" ngbDropdownToggle class="mobile-avatar">{{userInitials}}</div>
+      <div ngbDropdownMenu class="dropdown-menu-right" aria-labelledby="dropdownBasic1">
+        <button class="dropdown-item" routerLink="/profile">Profile</button>
+        <button class="dropdown-item" (click)="onLogout()">Logout</button>
+      </div>
+    </div>
   </div>
-  <!-- <div class="header-sub-wrapper">
-      <div (click)="onChangeNav()" class="hamburger-menu">
-        <span class="icon-menu"></span>
-      </div>
-      <div class="current-user">
-        <button mat-button [matMenuTriggerFor]="menu">
-          {{user?.firstName}} {{user?.lastName}}
-        </button>
-        <mat-menu #menu="matMenu">
-          <button routerLink="/profile" mat-menu-item>Profile</button>
-          <button mat-menu-item (click)="onLogout()">Logout</button>
-        </mat-menu>
-      </div>
-    </div> -->
 </div>

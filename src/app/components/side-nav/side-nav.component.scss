@@ -1,64 +1,67 @@
-#sidebar-wrapper {
+@import '~sass/_variables';
+
+.sidebar {
     z-index: 1;
     position: fixed;
     top: 60px;
     width: 250px;
     min-height: 100vh;
     overflow-y: hidden;
-    background: #23272D;
+    background-color: $dark;
     transition: width 0.25s;
+
+    .nav-item {
+        text-indent: 2px;
+        white-space: nowrap;
+        cursor: pointer;   
+        user-select: none; 
+        text-decoration: none;
+        padding: 11px;
+        list-style: none;
+        margin: 0;
+    
+        display: flex;
+        align-items: center;
+    
+        transition: background-color 0.3s;
+    
+        .side-nav-menu-item {
+            color: #a8acb1;
+        }
+    }
 }
 
-.sidebar-nav {
-    text-indent: 8px;
-    line-height: 45px;
-    white-space: nowrap;
-    cursor: pointer;   
-    user-select: none; 
-    text-decoration: none;
-    padding: 0;
-    list-style: none;
-    margin: 0;
-}
-
-.sub-sidebar-nav {
-    line-height: 40px;
-    white-space: nowrap;
-    cursor: pointer;   
-    user-select: none; 
-    text-decoration: none;
-    padding: 0;
-    list-style: none;
-    padding-left: 49px;
-}
-
-.sidebar-nav span, .sub-sidebar-nav span {
-    display: inline;
-    text-decoration: none;
-    color: #808b9c;
-    transition: color 0.25s;
-}
-
-.sidebar-nav:hover {
-    background-color: #181b1f;
-}
-
-.sidebar-nav:hover .side-nav-menu-item, .sub-sidebar-nav:hover .side-nav-menu-item {
-    color: #FFFFFF;
-}
-
-.sidebar-nav:hover .icon {
-    color: #FFFFFF;
-}
-
-#sidebar-wrapper.sideBar {
+.sidebar-hidden {
     width: 0px;
     transition: width 0.25s;
 }
 
+.nav-item span, .sub-sidebar-nav span {
+    display: inline;
+    text-decoration: none;
+    color: #FFFFFF;
+    transition: color 0.25s;
+}
+
+.nav-item:hover {
+    background-color: #5f666c;
+}
+
+.nav-item.selected-row:hover {
+    background-color: #181B21;
+}
+
+.nav-item:hover .side-nav-menu-item, .sub-sidebar-nav:hover .side-nav-menu-item {
+    color: #FFFFFF;
+}
+
+.nav-item:hover .icon {
+    color: #FFFFFF;
+}
+
 .icon {
-     color: #808b9c;
-     font-size: 14px;
+     color: #a8acb1;
+     font-size: 16px;
      vertical-align: middle;
      padding-bottom: 2px;
      padding-right: 3px;
@@ -67,7 +70,7 @@
 }
 
 .selected-row .icon {
-    color: #00B6EE !important;
+    color: $primary !important;
 }
 
 .selected-row .side-nav-menu-item {
@@ -75,24 +78,28 @@
 }
 
 .selected-row {
-    background-color: #181b1f !important;   
+    background-color: #181B21; 
 }
 
-.subMenu {
+.nav-dropdown-items {
     margin-left: auto;
     height: 0px;
     background-color: #353a42;
-    transition: 0.25s;
+    transition: background-color .3s ease-in-out;
+    transition: height .3s ease-in-out;    
     overflow: hidden;
-    box-shadow: inset 0px 5px 4px -4px rgba(24,27,31,1), inset 0px -5px 4px -4px rgba(24,27,31,1)
 }
 
-.subMenuIcon {
+.dropdown-icon {
+    font-size: 10px;
+    font-weight: bold;
+    margin-right: 0px;
     margin-left: auto;
 }
 
 .supervisorMenu, .systemMenu {
-    height: 80px;
+    transition: height .3s ease-in-out;
+    height: 82px;
 }
 
 .subItemActive span {

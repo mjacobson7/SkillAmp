@@ -2,6 +2,7 @@ const Survey = require('../models/index').survey;
 const User = require('../models/index').user;
 const Role = require('../models/index').role;
 const UserRole = require('../models/index').userRole;
+const db = require('../models');
 
 module.exports = {
 
@@ -32,7 +33,7 @@ module.exports = {
 
             // Get current user average score and # of surveys
             let user = widgetInfo.filter(x => x.user.id === req.principal.id);
-            
+
             res.status(200).json({ user, teamRank, companyRank });
         }
         catch (error) {
@@ -44,38 +45,31 @@ module.exports = {
     getTeamLeaderboard: async (req, res) => {
         try {
             let { pageIndex } = req.body.params;
-            let teamRankings = [];
-            let count = await User.count({ where: { companyId: req.principal.companyId, supervisorId: req.principal.supervisorId } });
             let offset = (pageIndex) * 5;
+            let teamRankings = [];
+            let count;
 
-            let usersOnTeam = await User.findAll({
-                where: { companyId: req.principal.companyId, supervisorId: req.principal.supervisorId },
-                attributes: ['id', 'firstName', 'lastName'],
-                include: [
-                    {
-                        model: User,
-                        as: 'supervisor',
-                        attributes: ['id', 'firstName', 'lastName']
-                    }
-                ],
-                offset: offset,
-                limit: 5
-            })
-
-            for (let user of usersOnTeam) {
-                let survey = await Survey.find({
-                    where: { userId: user.id, companyId: req.principal.companyId },
-
-                    attributes: [[Survey.sequelize.fn('AVG', Survey.sequelize.col('rating')), 'ratingAvg']]
-                })
-                if (!survey.dataValues.ratingAvg) survey.dataValues.ratingAvg = 0;
-                let userRank = {
-                    user: user,
-                    ratingAvg: survey.dataValues.ratingAvg
-                }
-                teamRankings.push(userRank);
+            if(req.principal.supervisorId) {
+                count = await User.count({ where: { companyId: req.principal.companyId, supervisorId: req.principal.supervisorId } });
+            } else {
+                count = 0;
             }
-            teamRankings.sort((a, b) => b.ratingAvg - a.ratingAvg);
+
+            teamRankings = await db.sequelize.query(
+                'SELECT dense_rank() OVER (ORDER BY AVG(s.rating) desc NULLS LAST) rank, ' +
+                'round(AVG(s.rating), 2) as "average_score", u.* FROM users u LEFT JOIN surveys s ' +
+                'ON s.user_id = u.id WHERE u.company_id = :companyId AND u.supervisor_id = :supervisorId ' +
+                'GROUP BY u.id LIMIT 5 OFFSET :offset;',
+                { replacements: { companyId: req.principal.companyId, supervisorId: req.principal.supervisorId, offset: offset } }
+            )
+
+            teamRankings = teamRankings[0];
+            
+            for(let userRank of teamRankings) {
+                if(!userRank.average_score) {
+                    userRank.average_score = '-';
+                }
+            }
 
             const leaderboard = {
                 rankings: teamRankings,
@@ -83,7 +77,6 @@ module.exports = {
             }
 
             res.status(200).json(leaderboard);
-
         }
         catch (error) {
             console.log(error);

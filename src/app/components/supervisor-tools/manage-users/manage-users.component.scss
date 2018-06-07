@@ -1,6 +1,12 @@
 .card {
     padding: 20px;
     height: 100%;
+    border: none;
+    border-radius: 2px;
+
+    .add-user {
+        float: right;
+    }
   }
 
   * {

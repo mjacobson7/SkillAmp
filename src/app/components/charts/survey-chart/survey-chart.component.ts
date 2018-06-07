@@ -49,7 +49,6 @@ export class SurveyChartComponent implements OnInit {
             sort: this.sortFilter
         }        
         this.dashboardService.getSurveyChartData(params).subscribe(response => {
-            console.log(response);
             this.lineChartData = response.data;
             this.lineChartLabels = response.labels;               
             this.chartLoaded = true;

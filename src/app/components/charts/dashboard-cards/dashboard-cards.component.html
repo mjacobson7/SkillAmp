@@ -1,37 +1,41 @@
 <div class="dashboardCardsWrapper">
   <div class="row">
-    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
-      <div class="card">
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-3">
+      <div class="card total-reviews">
         <i class="fa fa-list-alt" aria-hidden="true"></i>
         <div class="media-body">
-          <h4 countUp [endVal]="totalSurveys" startVal=0></h4>
+          <!-- <h4 countUp [endVal]="totalSurveys" startVal=0></h4> -->
+          <h4>{{totalSurveys}}</h4>
           <span>Total Reviews</span>
         </div>
       </div>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
-      <div class="card">
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-3">
+      <div class="card average-score">
         <i class="fa fa-star" aria-hidden="true"></i>
         <div class="media-body">
-          <h4 countUp [endVal]="averageScore" decimals=2 startVal=0.00></h4>
+          <!-- <h4 countUp [endVal]="averageScore" decimals=2 startVal=0.00></h4> -->
+          <h4>{{averageScore | number : '1.2-2' }}</h4>
           <span>Average Score</span>
         </div>
       </div>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
-      <div class="card">
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-3">
+      <div class="card team-rank">
         <i class="fa fa-users" aria-hidden="true"></i>
         <div class="media-body">
-          <h4 countUp [endVal]="teamRank"></h4>
+          <!-- <h4 countUp [endVal]="teamRank"></h4> -->
+          <h4>{{teamRank}}</h4>
           <span>Team Rank</span>
         </div>
       </div>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
-      <div class="card">
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-3">
+      <div class="card company-rank">
         <i class="fa fa-building" aria-hidden="true"></i>
         <div class="media-body">
-          <h4 countUp [endVal]="companyRank"></h4>
+          <!-- <h4 countUp [endVal]="companyRank"></h4> -->
+          <h4>{{companyRank}}</h4>
           <span>Company Rank</span>
         </div>
       </div>

@@ -1,28 +1,21 @@
 <div class="card">
+    <div class="card-header">
+        <p>Surveys</p>
+
+        <div class="button-group">
+            <span (click)="onSelectFilter('1M')" class="sort-month" [ngClass]="{'dateFilterActive' : sortFilter === '1M'}">1M</span>
+            <span (click)="onSelectFilter('3M')" class="sort-week" [ngClass]="{'dateFilterActive' : sortFilter === '3M'}">3M</span>
+            <span (click)="onSelectFilter('6M')" class="sort-week" [ngClass]="{'dateFilterActive' : sortFilter === '6M'}">6M</span>
+            <span (click)="onSelectFilter('1Y')" class="sort-year" [ngClass]="{'dateFilterActive' : sortFilter === '1Y'}">1Y</span>
+            <span (click)="onSelectFilter('5Y')" class="sort-all" [ngClass]="{'dateFilterActive' : sortFilter === '5Y'}">5Y</span>
+        </div>
+
+    </div>
     <div class="card-body">
-        <div class="row header">
-            <div class="col-sm-5">
-                <h3>Customer Surveys</h3>
-            </div>
-            <div class="col-sm-7">
-                <div class="button-group">
-                    <span (click)="onSelectFilter('1M')" class="sort-month" [ngClass]="{'dateFilterActive' : sortFilter === '1M'}">1M</span>
-                    <span (click)="onSelectFilter('3M')" class="sort-week" [ngClass]="{'dateFilterActive' : sortFilter === '3M'}">3M</span>
-                    <span (click)="onSelectFilter('6M')" class="sort-week" [ngClass]="{'dateFilterActive' : sortFilter === '6M'}">6M</span>
-                    <span (click)="onSelectFilter('1Y')" class="sort-year" [ngClass]="{'dateFilterActive' : sortFilter === '1Y'}">1Y</span>
-                    <span (click)="onSelectFilter('5Y')" class="sort-all" [ngClass]="{'dateFilterActive' : sortFilter === '5Y'}">5Y</span>
-                </div>
-
-            </div>
+        <div style="height: 300px">
+            <canvas *ngIf="chartLoaded" baseChart height="300" [options]="lineChartOptions" [datasets]="lineChartData" [colors]="lineChartColors"
+                [labels]="lineChartLabels" [chartType]="lineChartType">
+            </canvas>
         </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <canvas *ngIf="chartLoaded" baseChart height="300" [options]="lineChartOptions" [datasets]="lineChartData" [colors]="lineChartColors"
-                    [labels]="lineChartLabels" [chartType]="lineChartType">
-                </canvas>
-            </div>
-
-        </div>
-
     </div>
 </div>

@@ -34,10 +34,6 @@
 }
 
 /* Bootstrap */
-.btn-primary {
-    background-color: #1fb7ec;
-    border: none;
-}
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
     background-color: #434b56 !important;
@@ -77,20 +73,6 @@
 /* Review cards content Customization */
    .mat-tab-body-content {
     padding: 10px !important;
-}
-
-/*ng-select component*/
-ng-select {
-  background-color: #ffffff !important;
-}
-
-ng-select div {
-  border-radius: .2rem !important;
-  font-size: .875rem !important;
-}
-
-ng-select > div > div.single > div.clear, ng-select > div > div.single > div.toggle {
-  color: #000000 !important;
 }
 
 /* Table Action Buttons Style */

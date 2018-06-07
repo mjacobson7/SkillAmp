@@ -1,110 +1,87 @@
-<form [formGroup]="userForm" (ngSubmit)="onSubmit()" *ngIf="formReady">
-  <div class="form-group">
-    <label for="username">Username</label>
-    <input formControlName="username" type="text" class="form-control form-control-sm" id="username" >
-    <small
-      *ngIf="userForm.get('username').hasError('required')"
-      class="form-text text-muted">Username is required
-    </small>
-    <small
-      *ngIf="userForm.get('username').hasError('minlength')"
-      class="form-text text-muted">Username must be at least 8 characters
-    </small>
-  </div><hr>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xl-12">
+      <div class="card">
+        <div class="card-header">Profile</div>
+        <div class="card-body">
+          <form [formGroup]="userForm" (ngSubmit)="onSubmit()" *ngIf="formReady">
+            <div class="form-group mb-4">
+              <label for="username">Username</label>
+              <input formControlName="username" type="text" class="form-control form-control-sm" id="username">
+              <small *ngIf="userForm.get('username').hasError('required')" class="form-text text-muted">Username is required
+              </small>
+              <small *ngIf="userForm.get('username').hasError('minlength')" class="form-text text-muted">Username must be at least 8 characters
+              </small>
+            </div>
 
-  <div *ngIf="!createUser" class="form-group" style="margin-left: 20px">
-    <label class="form-check-label" for="changePassword">
-      <input type="checkbox" class="form-check-input" id="changePassword" (change)="changePasswordChecked($event)">
-      Change Password
-    </label>
-  </div>
+            <div *ngIf="!createUser" class="form-group mb-4" style="margin-left: 20px">
+              <label class="form-check-label" for="changePassword">
+                <input type="checkbox" class="form-check-input" id="changePassword" (change)="changePasswordChecked($event)"> Change Password
+              </label>
+            </div>
 
-  <div *ngIf="changePassword || createUser">
-    <div formArrayName="passwords">
-      <div class="form-group" *ngFor="let control of getControls(); let i = index">
-        <label for="password_{{i}}">{{passwordLabel[i]}}</label>
-        <input
-          type="password"
-          autocomplete="off"
-          id="password_{{i}}"
-          class="form-control form-control-sm"
-          formControlName="{{i}}">
+            <div *ngIf="changePassword || createUser">
+              <div formArrayName="passwords">
+                <div class="form-group mb-4" *ngFor="let control of getControls(); let i = index">
+                  <label for="password_{{i}}">{{passwordLabel[i]}}</label>
+                  <input type="password" autocomplete="off" id="password_{{i}}" class="form-control form-control-sm" formControlName="{{i}}">
+                </div>
+                <small *ngIf="userForm.get('passwords.0').hasError('required') && userForm.get('passwords.0').touched" class="form-text text-muted">Password is required
+                </small>
+                <small *ngIf="!userForm.get('passwords').valid && userForm.get('passwords.0').touched" class="form-text text-muted">Passwords do not match
+                </small>
+                <small *ngIf="userForm.get('passwords.0').hasError('minlength')" class="form-text text-muted">Password must be at least 8 characters
+                </small>
+              </div>
+            </div>
+
+            <div class="form-group mb-4">
+              <label for="firstName">First Name</label>
+              <input formControlName="firstName" type="text" class="form-control form-control-sm" id="firstName">
+              <small *ngIf="userForm.get('firstName').hasError('required')" class="form-text text-muted">First name is required
+              </small>
+            </div>
+
+            <div class="form-group mb-4">
+              <label for="lastName">Last Name</label>
+              <input formControlName="lastName" type="text" class="form-control form-control-sm" id="lastName">
+              <small *ngIf="userForm.get('lastName').hasError('required')" class="form-text text-muted">Last name is required
+              </small>
+            </div>
+
+            <div class="form-group mb-4">
+              <label for="email">Email Address</label>
+              <input formControlName="email" type="email" class="form-control form-control-sm" id="email">
+              <small *ngIf="userForm.get('email').hasError('required')" class="form-text text-muted">Email is required
+              </small>
+              <small *ngIf="userForm.get('email').hasError('email') && userForm.get('email').touched" class="form-text text-muted">Email is invalid
+              </small>
+            </div>
+
+            <div class="form-group mb-4">
+              <label>Supervisor</label>
+              <ng-select [items]="supervisorsList | async" loadingText="Loading..." bindValue="id" bindLabel="name" placeholder="None"
+                [searchable]="true" [virtualScroll]="true" formControlName="supervisorId">
+              </ng-select>
+              <small *ngIf="userForm.get('supervisorId').hasError('required') && userForm.get('supervisorId').touched" class="form-text text-muted">Supervisor is required
+              </small>
+            </div>
+
+            <div class="form-group mb-4">
+              <label for="roles">Role</label>
+              <ng-select [items]="rolesList | async" id="roles" multiple="true" bindLabel="name" bindValue="id" [loading]="loading" formControlName="roles">
+              </ng-select>
+            </div>
+          </form>
+        </div>
+
+        <div class="card-footer">
+          <button [disabled]="!userForm.valid" type="submit" class="btn btn-primary">Save</button>
+          <button routerLink="/dashboard" type="button" class="btn btn-danger">Cancel</button>
+        </div>
+
       </div>
-      <small
-        *ngIf="userForm.get('passwords.0').hasError('required') && userForm.get('passwords.0').touched"
-        class="form-text text-muted">Password is required
-      </small>
-      <small
-        *ngIf="!userForm.get('passwords').valid && userForm.get('passwords.0').touched"
-        class="form-text text-muted">Passwords do not match
-      </small>
-      <small
-        *ngIf="userForm.get('passwords.0').hasError('minlength')"
-        class="form-text text-muted">Password must be at least 8 characters
-      </small>
+
     </div>
-  </div><hr>
-
-  <div class="form-group">
-    <label for="firstName">First Name</label>
-    <input formControlName="firstName" type="text" class="form-control form-control-sm" id="firstName" >
-    <small
-      *ngIf="userForm.get('firstName').hasError('required')"
-      class="form-text text-muted">First name is required
-    </small>
-  </div><hr>
-
-  <div class="form-group">
-    <label for="lastName">Last Name</label>
-    <input formControlName="lastName" type="text" class="form-control form-control-sm" id="lastName" >
-    <small
-      *ngIf="userForm.get('lastName').hasError('required')"
-      class="form-text text-muted">Last name is required
-    </small>
-  </div><hr>
-
-  <div class="form-group">
-    <label for="email">Email Address</label>
-    <input formControlName="email" type="email" class="form-control form-control-sm" id="email" >
-    <small
-      *ngIf="userForm.get('email').hasError('required')"
-      class="form-text text-muted">Email is required
-    </small>
-    <small
-      *ngIf="userForm.get('email').hasError('email') && userForm.get('email').touched"
-      class="form-text text-muted">Email is invalid
-    </small>
-  </div><hr>
-
-  <div class="form-group">
-    <label >Supervisor</label>
-  <ng-select [items]="supervisorsList | async"
-             loadingText="Loading..."
-             bindValue="id"
-             bindLabel="name"
-             placeholder="None"
-             [searchable]="true"
-             [virtualScroll]="true"
-             formControlName="supervisorId">
-  </ng-select>
-  <small
-    *ngIf="userForm.get('supervisorId').hasError('required') && userForm.get('supervisorId').touched"
-    class="form-text text-muted">Supervisor is required
-  </small>
-  </div><hr>
-
-  <div class="form-group" >
-    <label for="roles">Role</label>
-    <ng-select [items]="rolesList | async"
-               id="roles"
-               multiple="true"
-               bindLabel="name"
-               bindValue="id"
-               [loading]="loading"
-               formControlName="roles">
-    </ng-select>
-  </div><hr>
-
-  <button type="submit" class="btn btn-primary">Save</button>
-  <button [disabled]="!userForm.valid" type="button" class="btn btn-danger">Cancel</button>
-</form>
+  </div>
+</div>

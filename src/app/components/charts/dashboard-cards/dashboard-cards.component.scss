@@ -1,37 +1,71 @@
+@import '~sass/_variables';
+
 .card {
-    padding: 15px 30px;
+    // padding: 15px 30px;
     margin-bottom: 20px;
+    border: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 29px;
+}
+
+.total-reviews {
+    background-color: $primary;
+}
+
+.average-score {
+    background-color: #00acac;
+}
+
+.team-rank {
+    background-color: #6c76af;
+}
+
+.company-rank {
+    background-color: #efa64c;
 }
 
 .media-body {
-    text-align: right;
+    text-align: left;
+    padding-left: 20px;
 }
 
 .media-body span {
     font-size: 14px;
-    color: #99abb4;
+    // color: #99abb4;
+    color: #FFF;
 }
 
 .media-body h4 {
     margin: 0;
+    font-size: 35px;
 }
 
 .fa {
-    font-size: 40px;
+    font-size: 48px;
 }
 
 .fa-star {
-    color: #4680ff;
+    // color: #4680ff;
+    color: #FFF;
 }
 
 .fa-list-alt {
-    color: #20c997;
+    // color: #20c997;
+    color: #FFF;
 }
 
 .fa-users {
-    color: #e83e8c;
+    // color: #e83e8c;
+    color: #FFF;
 }
 
 .fa-building {
-    color: #ffc107;
+    // color: #ffc107;
+    color: #FFF;
+}
+
+h4 {
+    color: #FFF;
 }
