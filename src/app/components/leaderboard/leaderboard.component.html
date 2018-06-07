@@ -14,7 +14,8 @@
       <mat-paginator 
         class="leaderboardChart" 
         [length]="length"
-        [pageSizeOptions]="[5]">
+        [pageSizeOptions]="[5]"
+        (page)="onPageEvent($event)">
       </mat-paginator>
   </div>
   

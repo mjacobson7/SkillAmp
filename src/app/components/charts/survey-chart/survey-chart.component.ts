@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 import * as shape from 'd3-shape';
 import { DashboardService } from '../../../services/dashboard/dashboard.service';
 
