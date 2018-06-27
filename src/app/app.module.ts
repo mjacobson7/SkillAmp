@@ -60,7 +60,6 @@ import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { McBreadcrumbsModule } from 'ngx-breadcrumbs';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { SlideToggleModule } from 'ng2-slide-toggle';
-import { SuperTableModule } from 'ngx-super-table';
 import { TableComponent } from './components/table/table.component';
 
 
@@ -117,8 +116,7 @@ import { TableComponent } from './components/table/table.component';
     SlideToggleModule,
     TableModule,
     MatTableModule,
-    MatSortModule,
-    SuperTableModule
+    MatSortModule
   ],
   providers: [
     UserService,

@@ -8,8 +8,6 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 
-import { SuperTable } from 'ngx-super-table';
-
 @Component({
   selector: 'app-manage-users',
   templateUrl: './manage-users.component.html',
