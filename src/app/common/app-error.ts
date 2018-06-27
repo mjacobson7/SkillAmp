@@ -1,3 +1,8 @@
+
 export class AppError {
-    constructor(public originalError?: any) {}
+    constructor(error?: any) {
+        console.log("There was an unexpected error", error);
+    }
 }
+
+//500

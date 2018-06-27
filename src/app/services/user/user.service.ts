@@ -5,18 +5,16 @@ import { User } from '../../models/user.model';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
-import { AppError } from '../../common/app-error';
 import { Forbidden } from '../../common/forbidden';
-import { ErrorService } from '../error/error.service';
 
 
 @Injectable()
 export class UserService {
 
-  constructor(private httpClient: HttpClient, private authService: AuthService, private errorService: ErrorService) { }
+  constructor(private httpClient: HttpClient, private authService: AuthService) { }
 
-  getAllUsers(params) {
-    return this.httpClient.post<User>('/getAllUsers', params).catch(this.errorService.handleError);
+  getUsersPage(params) {
+    return this.httpClient.post<any>('/getUsersPage', params);    
   }
 
   createUser(user: User) {
@@ -48,13 +46,5 @@ export class UserService {
   getUser(userId) {
     return this.httpClient.get<User>('/getUser/' + userId);
   }
-
-  // private handleError(error: Response) {
-  //   if(error.status === 403) {
-  //     return Observable.throw(new Forbidden(error));
-  //   }
-
-  //   return Observable.throw(new AppError(error));
-  // }
 
 }

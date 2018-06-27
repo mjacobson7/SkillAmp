@@ -6,30 +6,28 @@
     
     .top {
         background-color: $background-color;
-        height: 30%;
+        height: 180px;
         display: flex;
         align-items: center;
         justify-content: center;
-
+        
         img {
             width: 100px;
         }
-
     }
 
     .bottom {
-        height: 70%;
+        background-color: $dark;
+        width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
 
         .exception-wrapper {
-            margin: 0 auto;
-            width: 500px;
-            padding: 50px;
+            width: 400px;
+            padding: 50px 25px;
             text-align: center;
-            box-sizing: border-box;
 
             .exception-summary {
                 display: block;
@@ -46,7 +44,7 @@
             }
 
             button {
-                width: 75%;
+                width: 90%;
                 display: block;
                 margin: 0 auto 70px auto;
             }

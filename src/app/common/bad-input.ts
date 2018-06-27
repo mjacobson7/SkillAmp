@@ -1,12 +1,12 @@
 import { AppError } from './app-error';
 
-export class NotFoundError extends AppError {
+export class BadInput extends AppError {
 
     constructor(error?: any) {
         super();
-
-        console.log("Not Found ", error)
+        
+        console.log("Bad Input", error);
     }
 }
 
-//404
+//400

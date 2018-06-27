@@ -1,0 +1,67 @@
+<div class="wrapper">
+  <div class="header">
+    <div class="buttonWrapper" *ngFor="let button of buttonHeader">
+      <button [routerLink]="button.link" class="btn-sm btn-primary">{{button.label}}</button>
+    </div>
+    <div class="filterWrapper">
+      <div class="filter" *ngIf="enableFilter">
+        <input placeholder="Type to filter..." type="text" class="form-control form-control" (keyup)="onFilter(searchText.value)"
+          #searchText>
+      </div>
+      <span class="page-size-options" *ngIf="pageSizeOptions">
+        <span>Show entries:</span>
+        <ng-select [items]="pageSizeOptions" [searchable]="false" [clearable]="false" [(ngModel)]="pageSize" (change)="onPageSizeChange($event)"></ng-select>
+      </span>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th *ngFor="let col of columns" [ngClass]="{'disableHeaderHover' : !col.sortable}" (click)="col.sortable && onSort(col.field)">
+          {{col.label}}
+          <span *ngIf="col.sortable" class="fa" [ngClass]="orderDir === 'ASC' && orderBy === col.field ? 'fa-sort-desc' : orderDir === 'DESC' && orderBy === col.field ? 'fa-sort-asc' : 'fa-sort' ">
+          </span>
+        </th>
+
+        <th *ngIf="actionButtons" class="disableHeaderHover" width="10px;">Actions</th>
+
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let row of rows let odd = odd">
+
+        <td *ngFor="let col of columns" [class.odd]="odd">
+          <span>
+            <label class="mobile-header">{{col.label}}</label>
+            {{row[col.field]}}
+          </span>
+        </td>
+
+
+        <td *ngIf="actionButtons" class="action-button-wrapper" [class.odd]="odd">
+            <div *ngFor="let button of actionButtons" (click)="onButtonClick(row, button.field)" class="action-button">
+              <i class="{{button.icon}}" aria-hidden="true"></i>
+            </div>
+        </td>
+
+
+      </tr>
+    </tbody>
+
+  </table>
+
+  <div class="footer">
+    <div class="page-count">Showing {{begIndex}} to {{endIndex}} of {{length}} entries</div>
+    <div class="pagination-footer">
+      <span [ngClass]="{'disabled' : pageNumber === 1}" class="fa fa-angle-double-left" (click)="pageNumber === 1 || firstClicked()"></span>
+      <span [ngClass]="{'disabled' : pageNumber === 1}" class="fa fa-angle-left" (click)="pageNumber === 1 || previousClicked()"></span>
+
+      <span [ngClass]="{'active' : pageNumber === currPage }" *ngFor="let currPage of pagesArray" (click)="pageNumber === currPage || gotoPage(currPage)">{{currPage}}</span>
+
+      <span [ngClass]="{'disabled' : pageNumber === pagesArray.length }" class="fa fa-angle-right" (click)="pageNumber === pagesArray.length || nextClicked()"></span>
+      <span [ngClass]="{'disabled' : pageNumber === pagesArray.length }" class="fa fa-angle-double-right" (click)="pageNumber === pagesArray.length || lastClicked()"></span>
+    </div>
+  </div>
+</div>

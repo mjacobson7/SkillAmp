@@ -4,20 +4,30 @@
   </div>
 
   <div class="card-body">
-      <p-dataTable [value]="leaderboard" [responsive]="true">
-          <p-column field="rank" header="Rank" [filter]="false" [style]="{'width':'20%'}" [sortable]="true"></p-column>      
-          <p-column field="first_name" header="First Name" [filter]="false" [style]="{'width':'20%'}" [sortable]="true"></p-column>
-          <p-column field="last_name" header="Last Name" [filter]="false" [style]="{'width':'20%'}" [sortable]="true"></p-column>
-          <p-column field="average_score" header="Average Score" [filter]="false" [style]="{'width':'20%'}" [sortable]="true"></p-column>
-        </p-dataTable>
-      
-      <mat-paginator 
-        class="leaderboardChart" 
-        [length]="length"
-        [pageSizeOptions]="[5]"
-        (page)="onPageEvent($event)">
-      </mat-paginator>
+    <app-table 
+      *ngIf="leaderboard" 
+      [rows]="leaderboard"  
+      [columns]="columns"
+      [enableFilter]="false"
+      [pageSizeOptions]="[10,25,50,100]" 
+      [pageSize]="page.pageSize" 
+      [length]="page.length" 
+      [pageNumber]="page.pageNumber" 
+      [orderBy]="page.orderBy" 
+      [orderDir]="page.orderDir" 
+      (pageCallback)="onPage($event)">
+    </app-table>
+
+    <!-- <p-dataTable [value]="leaderboard" [responsive]="true">
+      <p-column field="rank" header="Rank" [filter]="false" [style]="{'width':'20%'}" [sortable]="true"></p-column>
+      <p-column field="first_name" header="First Name" [filter]="false" [style]="{'width':'20%'}" [sortable]="true"></p-column>
+      <p-column field="last_name" header="Last Name" [filter]="false" [style]="{'width':'20%'}" [sortable]="true"></p-column>
+      <p-column field="average_score" header="Average Score" [filter]="false" [style]="{'width':'20%'}" [sortable]="true"></p-column>
+    </p-dataTable>
+
+    <mat-paginator class="leaderboardChart" [length]="length" [pageSizeOptions]="[5]" (page)="onPageEvent($event)">
+    </mat-paginator> -->
   </div>
-  
+
 
 </div>

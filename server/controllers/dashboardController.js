@@ -44,8 +44,22 @@ module.exports = {
 
     getTeamLeaderboard: async (req, res) => {
         try {
+            let { pageSize, length, pageNumber, orderBy, orderDir, searchText } = req.body.params;
+
+            if(searchText !== "") {
+                length = null,
+                pageNumber = 1
+              }
+        
+              let offset = (pageNumber - 1) * pageSize;
+              searchText = '%' + searchText.toLowerCase() + '%';
+              
+
+
+
+
             let { pageIndex } = req.body.params;
-            let offset = (pageIndex) * 5;
+            // let offset = (pageIndex) * 5;
             let teamRankings = [];
             let count;
 
@@ -59,8 +73,8 @@ module.exports = {
                 'SELECT dense_rank() OVER (ORDER BY AVG(s.rating) desc NULLS LAST) rank, ' +
                 'round(AVG(s.rating), 2) as "average_score", u.* FROM users u LEFT JOIN surveys s ' +
                 'ON s.user_id = u.id WHERE u.company_id = :companyId AND u.supervisor_id = :supervisorId ' +
-                'GROUP BY u.id LIMIT 5 OFFSET :offset;',
-                { replacements: { companyId: req.principal.companyId, supervisorId: req.principal.supervisorId, offset: offset } }
+                'GROUP BY u.id LIMIT :pageSize OFFSET :offset;',
+                { replacements: { companyId: req.principal.companyId, supervisorId: req.principal.supervisorId, offset: offset, pageSize: pageSize, searchText: searchText } }
             )
 
             teamRankings = teamRankings[0];

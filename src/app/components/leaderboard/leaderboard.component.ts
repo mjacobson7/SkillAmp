@@ -9,8 +9,22 @@ import {MatPaginator, MatTableDataSource} from '@angular/material';
 })
 export class LeaderboardComponent implements OnInit {
   leaderboard: any[];
-  pageIndex: number = 0;
-  length: number;
+
+  page = {
+    pageSize: 10,
+    length: null,
+    pageNumber: 1,
+    orderBy: 'rank',
+    orderDir: 'ASC',
+    searchText: ''
+  };
+
+  columns = [
+    {label: 'Rank', field: 'rank', sortable: false},
+    {label: 'Username', field: 'username', sortable: false},
+    {label: 'First Name', field: 'first_name', sortable: false},
+    {label: 'Last Name', field: 'last_name', sortable: false}
+  ]
 
   constructor(private dashboardService: DashboardService) { }
   
@@ -18,17 +32,14 @@ export class LeaderboardComponent implements OnInit {
       this.getLeaderboard();
     }
 
-    onPageEvent(event) {
-      this.pageIndex = event.pageIndex;
+    onPage(event) {
+      this.page = event;
       this.getLeaderboard();
     }
 
     getLeaderboard() {
-      let params = {
-        pageIndex: this.pageIndex
-      }
-      this.dashboardService.getLeaderboard(params).subscribe(response => {
-        this.length = response.length;
+      this.dashboardService.getLeaderboard(this.page).subscribe(response => {
+        this.page.length = response.length;
         this.leaderboard = response.rankings;
       })
     }

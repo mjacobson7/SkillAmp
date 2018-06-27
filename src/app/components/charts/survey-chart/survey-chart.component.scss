@@ -1,3 +1,5 @@
+@import '~sass/_variables';
+
 .card-header {
     p {
         display: inline-block;
@@ -15,7 +17,6 @@
         cursor: pointer;
 
         span {
-            // padding: 7px 10px;  
             padding: 5px 8px;              
         }
 
@@ -24,8 +25,8 @@
 
             &:hover {
                 transition: color .15s ease-in-out, background-color .15s ease-in-out;
-                background-color: #c0cadd;
-                color: #000000;
+                background-color: $secondary;
+                color: #FFFFFF;
             }
         }
 
@@ -34,9 +35,8 @@
 
             &:hover {
                 transition: color .15s ease-in-out, background-color .15s ease-in-out;
-
-                background-color: #c0cadd;
-                color: #000000;
+                background-color: $secondary;
+                color: #FFFFFF;
             }
         }
 
@@ -45,18 +45,16 @@
 
             &:hover {
                 transition: color .15s ease-in-out, background-color .15s ease-in-out;
-
-                background-color: #c0cadd;
-                color: #000000;
+                background-color: $secondary;
+                color: #FFFFFF;
             }
         }
 
         .sort-all {
             &:hover {
                 transition: color .15s ease-in-out, background-color .15s ease-in-out;
-                
-                background-color: #c0cadd;
-                color: #000000;
+                background-color: $secondary;
+                color: #FFFFFF;
             }
         }
     }
@@ -64,8 +62,8 @@
 
 .dateFilterActive {
     transition: color .15s ease-in-out, background-color .15s ease-in-out;
-    background-color: #c0cadd;
-    color: #000000;
+    background-color: $primary;
+    color: #FFFFFF;
 }
 
 canvas {

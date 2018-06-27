@@ -5,16 +5,21 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AppErrorHandler } from './common/app-error-handler';
 import { AppRoutingModule } from './app-routing.module';
 
 // Angular Material Modules
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+
 
 // Prime NG Modules
-import { DataTableModule, SharedModule } from 'primeng/primeng';
+import { DataTableModule, SharedModule, CheckboxModule, InputSwitchModule } from 'primeng/primeng';
+import { TableModule } from 'primeng/table';
+
 
 // Components
 import { AppComponent } from './app.component';
@@ -36,6 +41,7 @@ import { LeaderboardComponent } from './components/leaderboard/leaderboard.compo
 import { DashboardCardsComponent } from './components/charts/dashboard-cards/dashboard-cards.component';
 import { ViewUserComponent } from './components/dialogs/view-user/view-user.component';
 
+
 // Services
 import { SurveyService } from './services/survey/survey.service';
 import { DashboardService } from './services/dashboard/dashboard.service';
@@ -46,15 +52,19 @@ import { AuthInterceptor } from './common/auth.interceptor';
 import { UserResolverService } from './services/guards/user-resolver/user-resolver.service';
 import { AuthGuardService } from '../app/services/guards/auth-guard/auth-guard.service';
 import { PermissionResolverService } from './services/guards/permission-resolver/permission-resolver.service';
-import { ErrorService } from './services/error/error.service';
 
 // Miscelaneous Libraries
 import { RatingModule } from 'ngx-rating';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { InputSwitchModule } from 'primeng/inputswitch';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { McBreadcrumbsModule } from 'ngx-breadcrumbs';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { SlideToggleModule } from 'ng2-slide-toggle';
+import { SuperTableModule } from 'ngx-super-table';
+import { TableComponent } from './components/table/table.component';
+
+
+
 
 
 
@@ -79,7 +89,8 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     SurveyFiltersComponent,
     LeaderboardComponent,
     DashboardCardsComponent,
-    ViewUserComponent
+    ViewUserComponent,
+    TableComponent
   ],
   imports: [
     BrowserModule,
@@ -97,10 +108,17 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     MatTabsModule,
     MatTooltipModule,
     MatPaginatorModule,
-    InputSwitchModule,
     LoadingBarHttpClientModule,
     McBreadcrumbsModule.forRoot(),
-    ChartsModule
+    ChartsModule,
+    CheckboxModule,
+    MatSlideToggleModule,
+    InputSwitchModule,
+    SlideToggleModule,
+    TableModule,
+    MatTableModule,
+    MatSortModule,
+    SuperTableModule
   ],
   providers: [
     UserService,
@@ -111,8 +129,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     PermissionResolverService,
     SurveyService,
     DashboardService,
-    ErrorService,
-    { provide: ErrorHandler, useClass: AppErrorHandler },
+    // { provide: ErrorHandler, useClass: ErrorService },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],

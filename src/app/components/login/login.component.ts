@@ -1,10 +1,11 @@
+import { Observable } from 'rxjs/Rx';
 import { NavService } from './../../services/nav/nav.service';
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
-import {FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
-import { AppError } from '../../common/app-error';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { AuthService } from '../../services/auth/auth.service';
 import { Router } from '@angular/router';
-import {Subscription} from 'rxjs/Subscription';
+import { Subscription } from 'rxjs/Subscription';
+
 
 @Component({
   selector: 'app-login',
@@ -20,12 +21,12 @@ export class LoginComponent implements OnInit, OnDestroy {
   innerWidth: number;
   loginSubscription: Subscription;
 
-  constructor(private authService: AuthService, private router: Router, private formBuilder: FormBuilder) { 
+  constructor(private authService: AuthService, private router: Router, private formBuilder: FormBuilder) {
     this.innerWidth = window.innerWidth;
-    if(this.innerWidth <= 990) {
-      this.mobileView = true;  
-    } else if(this.innerWidth >= 991) {
-      this.mobileView = false;   
+    if (this.innerWidth <= 990) {
+      this.mobileView = true;
+    } else if (this.innerWidth >= 991) {
+      this.mobileView = false;
     }
   }
 
@@ -34,31 +35,35 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loginForm = this.formBuilder.group({
       'username': new FormControl(this.username, Validators.required),
       'password': new FormControl(this.password, Validators.required)
-    }); 
+    });
   }
 
   onLogin() {
     this.loginSubscription = this.authService.login(this.loginForm.value)
       .subscribe(result => {
         if (result) {
-          this.router.navigate(['/dashboard']);
           this.invalidLogin = false;
-        } else { this.invalidLogin = true; }
-      });
+          this.router.navigate(['/dashboard']);
+        }
+      },
+      error => {
+        this.invalidLogin = true
+        return Observable.throw(error);
+      } )
   }
 
-  @HostListener ('window:resize', ['$event'])
+  @HostListener('window:resize', ['$event'])
   onResize(event) {
-    if(event.target.innerWidth <= 990) {
-      this.mobileView = true;   
-    } else if(event.target.innerWidth >= 991) {
-      this.mobileView = false;    
+    if (event.target.innerWidth <= 990) {
+      this.mobileView = true;
+    } else if (event.target.innerWidth >= 991) {
+      this.mobileView = false;
     }
   }
 
-    ngOnDestroy() {
-      this.loginSubscription.unsubscribe();
-    }
+  ngOnDestroy() {
+    this.loginSubscription.unsubscribe();
+  }
 
 
 

@@ -17,6 +17,7 @@ module.exports = {
   getMySurveys: async (req, res) => {
     try {
       let { pageIndex, pageSize, ratingSort, dateSort } = req.body.params;
+      
       let count = await Survey.count({
         where: { userId: req.principal.id, companyId: req.principal.companyId, rating: ratingSort }
       })

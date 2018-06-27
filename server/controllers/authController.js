@@ -15,15 +15,16 @@ module.exports = {
       const company = await Company.findOne({
         where: { hostname: req.hostname }
       })
-      if (company) {
-        const user = await User.findOne({
-          where: { username: username, companyId: company.id },
-          include: [
-            { model: Role, as: 'roles', include: [{ model: Permission, as: 'permissions' }] }
-          ]
-          //include supervisor????
-        })
 
+      const user = await User.findOne({
+        where: { username: username, companyId: company.id },
+        include: [
+          { model: Role, as: 'roles', include: [{ model: Permission, as: 'permissions' }] }
+        ]
+        //include supervisor????
+      })
+
+      if (user) {
         let userRoles = await UserRole.findAll({
           where: { companyId: user.companyId, userId: user.id },
           attributes: ['roleId']
@@ -50,18 +51,15 @@ module.exports = {
           }
         });
 
-        if (!user) {
-          res.status(401).json("Unable to login");
+        if (bcrypt.compareSync(password, user.password)) {
+          let token = jwt.sign({ userId: user.id, companyId: user.companyId }, process.env.TOKEN_SECRET, { expiresIn: '24h' });
+          res.status(200).json({ token: token, user: user, permissions: permissionsMap });
         } else {
-          if (bcrypt.compareSync(password, user.password)) {
-            let token = jwt.sign({ userId: user.id, companyId: user.companyId }, process.env.TOKEN_SECRET, { expiresIn: '24h' });
-            res.status(200).json({ token: token, user: user, permissions: permissionsMap });
-          } else {
-            res.status(401).json("Unable to login");
-          }
+          res.status(403).json("The username or password you have entered is invalid.");
         }
+
       } else {
-        res.status(401).json("Unable to login");
+        res.status(403).json("The username or password you have entered is invalid.");
       }
     }
     catch (error) {

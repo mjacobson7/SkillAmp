@@ -84,7 +84,8 @@
 .nav-dropdown-items {
     margin-left: auto;
     height: 0px;
-    background-color: #353a42;
+    background-color: $dark;
+    padding-left: 30px;
     transition: background-color .3s ease-in-out;
     transition: height .3s ease-in-out;    
     overflow: hidden;

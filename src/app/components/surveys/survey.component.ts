@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavService } from '../../services/nav/nav.service';
 import { SurveyService } from '../../services/survey/survey.service';
 import { Subscription } from 'rxjs/Subscription';
@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs/Subscription';
   templateUrl: './survey.component.html',
   styleUrls: ['./survey.component.scss']
 })
-export class SurveyComponent implements OnInit, OnDestroy {
+export class SurveyComponent implements OnInit {
   pageIndex: number = 0;
   pageSize: number = 10;
   ratingSort: number[] = [1, 2, 3, 4, 5];
@@ -19,11 +19,10 @@ export class SurveyComponent implements OnInit, OnDestroy {
   reviewTotals;
   overallRating;
   surveysLoaded: Boolean = false;
-  surveySubscription: Subscription;
-  dateSortSubscription: Subscription;
-  ratingSortSubscription: Subscription;
 
-  constructor(private navService: NavService, private surveyService: SurveyService) {
+  constructor(private navService: NavService, private surveyService: SurveyService) {}
+
+  ngOnInit() { 
     this.getSurveyPage();
     this.surveyService.getDateSort().subscribe(dateSort => {
       this.dateSort = dateSort;
@@ -34,8 +33,6 @@ export class SurveyComponent implements OnInit, OnDestroy {
       this.getSurveyPage();
     })
   }
-
-  ngOnInit() { }
 
   onRatingSort(ratingSort) {
     this.ratingSort = ratingSort;
@@ -60,9 +57,5 @@ export class SurveyComponent implements OnInit, OnDestroy {
         this.length = survey.length;
         this.surveysLoaded = true;
       });
-    return event;
   }
-
-  ngOnDestroy() { }
-
 }

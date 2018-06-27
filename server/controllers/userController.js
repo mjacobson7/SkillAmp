@@ -112,13 +112,33 @@ module.exports = {
     }
   },
 
-  getAllUsers: async (req, res) => {
+  getUsersPage: async (req, res) => {
     try {
       //todo check if admin or supervisor and return ONLY the users that pertain to their role.  
       //If they are an admin AND a supervisor, then return all users of the company
 
+      let { pageSize, length, pageNumber, orderBy, orderDir, searchText } = req.body;
+
+      if(searchText !== "") {
+        length = null,
+        pageNumber = 1
+      }
+
+      let offset = (pageNumber - 1) * pageSize;
+      searchText = searchText.toLowerCase();
+
       const users = await User.findAll({
-        where: { companyId: req.principal.companyId },
+        where: {
+          companyId: req.principal.companyId,
+          $or: [
+            { username: { $ilike: '%' + searchText + '%' } },
+            { firstName: { $ilike: '%' + searchText + '%' } },
+            { lastName: { $ilike: '%' + searchText + '%' } },
+          ]
+        },
+        limit: pageSize,
+        offset: offset,
+        order: [[orderBy, orderDir]],
         include: [
           {
             model: Role,
@@ -131,9 +151,27 @@ module.exports = {
           }
         ]
       })
-      res.status(200).json(users);
+
+      let userCount = 0;
+
+      if(searchText === "") {
+        userCount = await User.count({ where: { companyId: req.principal.companyId } })
+      } else {
+        userCount = users.length;
+      }
+
+    
+
+      let usersPage = {
+        content: users,
+        length: userCount,
+        pageNumber: pageNumber
+      }
+
+      res.status(200).json(usersPage);
     }
     catch (error) {
+      console.log(error);
       res.status(500).json(error);
     }
   },
