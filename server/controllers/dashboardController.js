@@ -1,24 +1,21 @@
-const Survey = require('../models/index').survey;
-const User = require('../models/index').user;
-const Role = require('../models/index').role;
-const UserRole = require('../models/index').userRole;
-const db = require('../models');
+const { raw } = require('objection');
+const Survey = require('../models/schema').Survey;
+const User = require('../models/schema').User
 
 module.exports = {
 
     getUserWidgetData: async (req, res) => {
         try {
-            let widgetInfo = await Survey.findAll({
-                include: { model: User, where: { companyId: req.principal.companyId } },
-                group: ['user.id'],
-                attributes: [
-                    [Survey.sequelize.fn('COUNT', Survey.sequelize.col('rating')), 'count'],
-                    [Survey.sequelize.fn('AVG', Survey.sequelize.col('rating')), 'score']
-                ]
-            })
+            const widgetInfo = await Survey
+                .query()
+                .eager('user')
+                .avg('rating as score')
+                .count('rating')
+                .where('surveys.companyId', req.principal.companyId)
+                .groupBy('surveys.userId')
 
             // Sort company-wide average scores from highest to lowest
-            widgetInfo.sort((a, b) => b.dataValues.score - a.dataValues.score);
+            widgetInfo.sort((a, b) => b.score - a.score);
 
             // Find where user ranks in company
             let companyRank = widgetInfo.findIndex(x => x.user.id === req.principal.id) + 1;
@@ -46,48 +43,54 @@ module.exports = {
         try {
             let { pageSize, length, pageNumber, orderBy, orderDir, searchText } = req.body.params;
 
-            if(searchText !== "") {
+            if (searchText !== "") {
                 length = null,
-                pageNumber = 1
-              }
-        
-              let offset = (pageNumber - 1) * pageSize;
-              searchText = '%' + searchText.toLowerCase() + '%';
-              
+                    pageNumber = 1
+            }
 
-
-
+            let offset = (pageNumber - 1) * pageSize;
+            searchText = '%' + searchText.toLowerCase() + '%';
 
             let { pageIndex } = req.body.params;
-            // let offset = (pageIndex) * 5;
             let teamRankings = [];
             let count;
 
-            if(req.principal.supervisorId) {
-                count = await User.count({ where: { companyId: req.principal.companyId, supervisorId: req.principal.supervisorId } });
+            if (req.principal.supervisorId) {
+                count = await User
+                    .query()
+                    .count()
+                    .where('companyId', req.principal.companyId)
+                    .andWhere('supervisorId', req.principal.supervisorId)
             } else {
-                count = 0;
+                const leaderboard = {
+                    rankings: teamRankings,
+                    length: 0
+                }
+
+                res.status(200).json(leaderboard);
+
             }
 
-            teamRankings = await db.sequelize.query(
-                'SELECT dense_rank() OVER (ORDER BY AVG(s.rating) desc NULLS LAST) rank, ' +
-                'round(AVG(s.rating), 2) as "average_score", u.* FROM users u LEFT JOIN surveys s ' +
-                'ON s.user_id = u.id WHERE u.company_id = :companyId AND u.supervisor_id = :supervisorId ' +
-                'GROUP BY u.id LIMIT :pageSize OFFSET :offset;',
-                { replacements: { companyId: req.principal.companyId, supervisorId: req.principal.supervisorId, offset: offset, pageSize: pageSize, searchText: searchText } }
-            )
+            teamRankings = await User
+                .query()
+                .select(raw('dense_rank() OVER (ORDER BY AVG(surveys.rating) desc NULLS LAST) rank, ' +
+                    'round(AVG(surveys.rating), 2) as "averageScore", users.*'))
+                .joinRaw('left join surveys ON surveys."userId" = users.id')
+                .where(raw('users."companyId" = ??', req.principal.companyId))
+                .andWhere(raw('users."supervisorId" = ??', req.principal.supervisorId))
+                .groupByRaw('users.id')
+                .limit(pageSize)
+                .offset(offset)
 
-            teamRankings = teamRankings[0];
-            
-            for(let userRank of teamRankings) {
-                if(!userRank.average_score) {
-                    userRank.average_score = '-';
+            for (let userRank of teamRankings) {
+                if (!userRank.averageScore) {
+                    userRank.averageScore = '-';
                 }
             }
 
             const leaderboard = {
                 rankings: teamRankings,
-                length: count
+                length: count[0].count
             }
 
             res.status(200).json(leaderboard);
@@ -119,17 +122,24 @@ module.exports = {
             startDate.setDate(startDate.getDate() - days);
             startDate.setHours(0, 0, 0, 0);
 
+            const surveys = await Survey
+                .query()
+                .select('rating', 'createdAt')
+                .where('userId', req.principal.id)
+                .andWhere('companyId', req.principal.companyId)
+                .whereBetween('createdAt', [startDate, endDate])
+                .orderBy('createdAt', 'ASC')
 
-            let surveys = await Survey.findAll({
-                where: {
-                    userId: req.principal.id,
-                    companyId: req.principal.companyId,
-                    createdAt: { between: [startDate, endDate] }
-                },
-                attributes: ['rating', 'createdAt'],
-                order: [['createdAt', 'ASC']]
+            // let surveys = await Survey.findAll({
+            //     where: {
+            //         userId: req.principal.id,
+            //         companyId: req.principal.companyId,
+            //         createdAt: { between: [startDate, endDate] }
+            //     },
+            //     attributes: ['rating', 'createdAt'],
+            //     order: [['createdAt', 'ASC']]
 
-            })
+            // })
 
             for (let survey of surveys) {
                 data.push(survey.rating);

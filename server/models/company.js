@@ -1,33 +1,9 @@
-module.exports = (sequelize, DataTypes) => {
-  var company = sequelize.define('company', {
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      field: 'name'
-    },
-    hostname: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      field: 'hostname'
-    },
-    createdAt: {
-      allowNull: false,
-      type: DataTypes.DATE,
-      field: 'created_at'
-    },
-    updatedAt: {
-      allowNull: false,
-      type: DataTypes.DATE,
-      field: 'updated_at'
-    }
-  },
-    {
-      timestamps: true,
-      tableName: 'company'
-    });
+const { Model } = require('objection')
 
-  company.associate = function (models) {
-    // associations can be defined here
-  };
-  return company;
-};
+class Company extends Model {
+    static get tableName() {
+        return 'company'
+    }
+}
+
+module.exports = Company;

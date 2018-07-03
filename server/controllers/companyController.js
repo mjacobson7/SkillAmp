@@ -1,26 +1,26 @@
 const bcrypt = require('bcrypt');
-const Company = require('../models/index').company;
-const Role = require('../models/index').role;
-const User = require('../models/index').user;
-const UserRole = require('../models/index').userRole;
-const RolePermission = require('../models/index').rolePermission;
-const Permission = require('../models/index').permission;
+const Company = require('../models/schema').Company;
+const Role = require('../models/schema').Role;
+const User = require('../models/schema').User;
+const Permission = require('../models/schema').Permission;
+const RolePermission = require('../models/schema').RolePermission;
+const UserRole = require('../models/schema').UserRole;
 
 module.exports = {
 
   createCompany: async (req, res) => {
     try {
+      let { name, hostname } = req.body;
       const salt = bcrypt.genSaltSync();
-      let company = await Company.create({ name: req.body.name, hostname: req.body.hostname });
-      let roles = [];
-      let userRole = await Role.create({ companyId: company.id, name: 'User', isUserRole: true, isSupervisorRole: false, isAdminRole: false });
-      roles.push(userRole);
-      let supervisorRole = await Role.create({ companyId: company.id, name: 'Supervisor', isUserRole: false, isSupervisorRole: true, isAdminRole: false });
-      roles.push(supervisorRole);
-      let adminRole = await Role.create({ companyId: company.id, name: 'Admin', isUserRole: false, isSupervisorRole: false, isAdminRole: true });
-      roles.push(adminRole);
+      const company = await Company.query().insert({ name: name, hostname: hostname });
 
-      let user = await User.create({
+      const roles = await Role.query().insert([
+        { companyId: company.id, name: 'User', isUserRole: true, isSupervisorRole: false, isAdminRole: false },
+        { companyId: company.id, name: 'Supervisor', isUserRole: false, isSupervisorRole: true, isAdminRole: false },
+        { companyId: company.id, name: 'Admin', isUserRole: false, isSupervisorRole: false, isAdminRole: true }
+      ])
+
+      const user = await User.query().insert({
         companyId: company.id,
         username: 'skillampsupport',
         firstName: 'SkillAmp',
@@ -29,35 +29,34 @@ module.exports = {
         email: 'support@skillamp.io'
       })
 
-      let userPermission = await Permission.findAll({ where: { isUserPermission: true } });
-      let supervisorPermission = await Permission.findAll({ where: { isSupervisorPermission: true } });
-      let adminPermission = await Permission.findAll({ where: { isAdminPermission: true } });
-      
+      const userPermission = await Permission.query().where('isUserPermission', true);
+      const supervisorPermission = await Permission.query().where('isSupervisorPermission', true);
+      const adminPermission = await Permission.query().where('isAdminPermission', true);
 
-      roles.forEach(role => {
-        if(role.isUserRole) {
-          userPermission.forEach(permission => {
-            RolePermission.create({ companyId: company.id, roleId: role.id, permissionName: permission.name })          
-          })
-        } else if(role.isSupervisorRole) {
-          supervisorPermission.forEach(permission => {
-            RolePermission.create({ companyId: company.id, roleId: role.id, permissionName: permission.name })          
-          })
-        } else {
-          adminPermission.forEach(permission => {
-            RolePermission.create({ companyId: company.id, roleId: role.id, permissionName: permission.name })          
-          })
+
+      for (let role of roles) {
+        if (role.isUserRole) {
+          for (let permission of userPermission) {
+            await RolePermission.query().insert({ companyId: company.id, roleId: role.id, permissionName: permission.name })
+          }
+        } else if (role.isSupervisorRole) {
+          for (let permission of supervisorPermission) {
+            await RolePermission.query().insert({ companyId: company.id, roleId: role.id, permissionName: permission.name })
+          }
+        } else if (role.isAdminRole) {
+          for (let permission of adminPermission) {
+            await RolePermission.query().insert({ companyId: company.id, roleId: role.id, permissionName: permission.name })
+          }
         }
-        UserRole.create({ companyId: company.id, userId: user.id, roleId: role.id })
-      }); 
+        await UserRole.query().insert({ companyId: company.id, userId: user.id, roleId: role.id })
+      }
 
-      
-      res.status(200).json("Success"); 
+      res.status(200).json("Company Successfully Created!");
     }
     catch (error) {
       console.log(error);
       res.status(500).json(error);
     }
   },
- 
+
 };

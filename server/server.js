@@ -7,8 +7,6 @@ const express = require('express'),
       http = require('http');
       require('dotenv').config();
       
-
-
 //Express Middleware
 app.use(bodyParser.json());
 app.use(cors());
@@ -22,6 +20,7 @@ require('./routes/surveyRoutes')(app);
 require('./routes/companyRoutes')(app);
 require('./routes/navRoutes')(app);
 require('./routes/dashboardRoutes')(app);
+
 
 // Angular DIST output folder
 app.use(express.static(path.join(__dirname, '/../dist')));

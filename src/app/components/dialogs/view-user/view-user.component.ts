@@ -1,7 +1,6 @@
 import { User } from './../../../models/user.model';
-import { Component, OnInit, Inject } from '@angular/core';
-import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-
+import { Component, OnInit } from '@angular/core';
+import { ModalRef } from '@independer/ng-modal';
 
 @Component({
   selector: 'app-view-user',
@@ -11,11 +10,14 @@ import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 export class ViewUserComponent implements OnInit {
   user: User;
 
-  constructor(public activeModal: NgbActiveModal) { }
+  constructor(private modal: ModalRef) { }
 
   ngOnInit() {
+    console.log(this.user);
   }
 
-
+  close() {
+    this.modal.close();
+  }
 
 }

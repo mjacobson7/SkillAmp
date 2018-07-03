@@ -1,6 +1,4 @@
-const User = require('../models/index').User;
-const UserRole = require('../models/index').UserRole;
-const Role = require('../models/index').Role;
+
 
 module.exports = {
 

@@ -55,7 +55,6 @@ export class SurveyChartComponent implements OnInit {
     }
 
     onSelectFilter(sortBy) {
-        console.log(sortBy);
         this.sortFilter = sortBy;
         this.getSurveyChartData();
     }

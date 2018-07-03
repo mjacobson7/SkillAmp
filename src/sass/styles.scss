@@ -5,12 +5,6 @@
 $simple-line-font-path: "~simple-line-icons/fonts/";
 @import "~simple-line-icons/scss/simple-line-icons";
 
-// NGX-DATATABLE
-@import '~@swimlane/ngx-datatable/release/index.css';
-@import '~@swimlane/ngx-datatable/release/themes/bootstrap.css';
-@import '~@swimlane/ngx-datatable/release/assets/icons.css';
-
-
 html, body {
     background-color: $background-color !important;
     font-size: .91rem;

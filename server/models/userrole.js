@@ -1,33 +1,36 @@
-module.exports = (sequelize, DataTypes) => {
-  var userRole = sequelize.define('userRole', {
-    companyId: {
-      type: DataTypes.BIGINT,
-      allowNull: false,
-      field: 'company_id'
-    },
-    createdAt: {
-      type: DataTypes.DATE,
-      field: 'created_at'
-    },
-    updatedAt: {
-      type: DataTypes.DATE,
-      field: 'updated_at'
+const { Model } = require('objection')
+const Role = require('./Role');
+const User = require('./User');
+
+class UserRole extends Model {
+    static get tableName() {
+        return 'userRoles'
     }
-  }, 
-  {
-    timestamps: true,
-    tableName: 'user_roles'
-  });
 
-  userRole.associate = function(models) {
-    // associations can be defined here
-    userRole.belongsTo(models.role, {
-      foreignKey: {
-        name: 'roleId',
-        field: 'role_id'
-      }
-    });
+    static get idColumn() {
+        return ['userId', 'roleId']
+    }
 
-  };
-  return userRole;
-};
+    static get relationMappings() {
+        return {
+            role: {
+                relation: Model.BelongsToOneRelation,
+                modelClass: Role,
+                join: {
+                    from: 'roles.id',
+                    to: 'userRoles.roleId'
+                }
+            },
+            user: {
+                relation: Model.BelongsToOneRelation,
+                modelClass: User,
+                join: {
+                    from: 'users.id',
+                    to: 'userRoles.userId'
+                }
+            }
+        }
+    }
+}
+
+module.exports = UserRole;

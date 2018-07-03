@@ -76,7 +76,9 @@
           </div>
           <div class="card-footer">
               <button [disabled]="!userForm.valid" type="submit" class="btn btn-primary">Save</button>
-              <button routerLink="/dashboard" type="button" class="btn btn-danger">Cancel</button>
+              <button *ngIf="router.url !== '/profile'" routerLink="/supervisor_tools/manage_users" type="button" class="btn btn-danger">Cancel</button>
+              <button *ngIf="router.url === '/profile'" routerLink="/dashboard" type="button" class="btn btn-danger">Cancel</button>
+              
             </div>
           </form>
 

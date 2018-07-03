@@ -39,7 +39,6 @@ import { ManageUsersComponent } from './components/supervisor-tools/manage-users
 import { SurveyFiltersComponent } from './components/survey-filters/survey-filters.component';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 import { DashboardCardsComponent } from './components/charts/dashboard-cards/dashboard-cards.component';
-import { ViewUserComponent } from './components/dialogs/view-user/view-user.component';
 
 
 // Services
@@ -61,6 +60,10 @@ import { McBreadcrumbsModule } from 'ngx-breadcrumbs';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { SlideToggleModule } from 'ng2-slide-toggle';
 import { TableComponent } from './components/table/table.component';
+import { ModalModule } from '@independer/ng-modal';
+import { ViewUserComponent } from './components/dialogs/view-user/view-user.component';
+
+
 
 
 
@@ -88,8 +91,8 @@ import { TableComponent } from './components/table/table.component';
     SurveyFiltersComponent,
     LeaderboardComponent,
     DashboardCardsComponent,
-    ViewUserComponent,
-    TableComponent
+    TableComponent,
+    ViewUserComponent
   ],
   imports: [
     BrowserModule,
@@ -116,7 +119,8 @@ import { TableComponent } from './components/table/table.component';
     SlideToggleModule,
     TableModule,
     MatTableModule,
-    MatSortModule
+    MatSortModule,
+    ModalModule
   ],
   providers: [
     UserService,
@@ -127,7 +131,6 @@ import { TableComponent } from './components/table/table.component';
     PermissionResolverService,
     SurveyService,
     DashboardService,
-    // { provide: ErrorHandler, useClass: ErrorService },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],

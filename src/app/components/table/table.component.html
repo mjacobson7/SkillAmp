@@ -41,7 +41,7 @@
 
 
         <td *ngIf="actionButtons" class="action-button-wrapper" [class.odd]="odd">
-            <div *ngFor="let button of actionButtons" (click)="onButtonClick(row, button.field)" class="action-button">
+            <div *ngFor="let button of actionButtons" (click)="onButtonClick(row, button.field)" matTooltip="{{button.label}}" class="action-button">
               <i class="{{button.icon}}" aria-hidden="true"></i>
             </div>
         </td>

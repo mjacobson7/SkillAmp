@@ -1,59 +1,65 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const Company = require('../models/index').company;
-const User = require('../models/index').user;
-const UserRole = require('../models/index').userRole;
-const Role = require('../models/index').role;
-const Permission = require('../models/index').permission;
-const RolePermission = require('../models/index').rolePermission;
+
+const Company = require('../models/schema').Company;
+const User = require('../models/schema').User;
+const UserRole = require('../models/schema').UserRole;
+const RolePermission = require('../models/schema').RolePermission;
+
 
 module.exports = {
 
   login: async (req, res) => {
     try {
       const { username, password } = req.body;
-      const company = await Company.findOne({
-        where: { hostname: req.hostname }
-      })
 
-      const user = await User.findOne({
-        where: { username: username, companyId: company.id },
-        include: [
-          { model: Role, as: 'roles', include: [{ model: Permission, as: 'permissions' }] }
-        ]
-        //include supervisor????
-      })
+      const company = await Company
+        .query()
+        .where('hostname', req.hostname);
+
+      const user = await User
+        .query()
+        .eager('[roles, supervisor]')
+        .where('username', username)
+        .andWhere('users.companyId', company[0].id)
 
       if (user) {
-        let userRoles = await UserRole.findAll({
-          where: { companyId: user.companyId, userId: user.id },
-          attributes: ['roleId']
-        })
+        const userRoles = await UserRole
+          .query()
+          .select('roleId')
+          .where('companyId', user[0].companyId)
+          .andWhere('userId', user[0].id)
 
         let userPermissions = [];
         for (let role of userRoles) {
-          let permissions = await RolePermission.findAll({
-            where: { companyId: user.companyId, roleId: role.roleId },
-            attributes: ['permissionName']
-          })
+          const permissions = await RolePermission
+            .query()
+            .select('permissionName')
+            .where('companyId', user[0].companyId)
+            .andWhere('roleId', role.roleId)
+
           if (permissions.length > 0) {
-            permissions.forEach(permission => {
+            for (let permission of permissions) {
               userPermissions.push(permission.permissionName);
-            })
+            }
           }
         }
 
         let permissionsMap = {};
+        for (let currPermission of userPermissions) {
+          permissionsMap[currPermission] = true;
+        }
 
-        userPermissions.forEach(currPermission => {
-          if (userPermissions.includes(currPermission)) {
-            permissionsMap[currPermission] = true;
-          }
-        });
+        //the above code should do the same as this. Figure that out before we remove this code below
+        // userPermissions.forEach(currPermission => {
+        //   if (userPermissions.includes(currPermission)) {
+        //     permissionsMap[currPermission] = true;
+        //   }
+        // });
 
-        if (bcrypt.compareSync(password, user.password)) {
-          let token = jwt.sign({ userId: user.id, companyId: user.companyId }, process.env.TOKEN_SECRET, { expiresIn: '24h' });
-          res.status(200).json({ token: token, user: user, permissions: permissionsMap });
+        if (bcrypt.compareSync(password, user[0].password)) {
+          let token = jwt.sign({ userId: user[0].id, companyId: user[0].companyId }, process.env.TOKEN_SECRET, { expiresIn: '24h' });
+          res.status(200).json({ token: token, user: user[0], permissions: permissionsMap });
         } else {
           res.status(403).json("The username or password you have entered is invalid.");
         }
@@ -66,26 +72,28 @@ module.exports = {
       console.log(error);
       res.status(500).json(error);
     }
-
   },
 
   userPermissions: async (req, res) => {
     try {
-      let userRoles = await UserRole.findAll({
-        where: { companyId: req.principal.companyId, userId: req.principal.id },
-        attributes: ['roleId']
-      })
+      const userRoles = await UserRole
+        .query()
+        .select('roleId')
+        .where('companyId', req.principal.companyId)
+        .andWhere('userId', req.principal.id)
 
       let userPermissions = [];
       for (let role of userRoles) {
-        let permissions = await RolePermission.findAll({
-          where: { companyId: req.principal.companyId, roleId: role.roleId },
-          attributes: ['permissionName']
-        })
+        const permissions = await RolePermission
+          .query()
+          .select('permissionName')
+          .where('companyId', req.principal.companyId)
+          .andWhere('roleId', role.roleId)
+
         if (permissions.length > 0) {
-          permissions.forEach(permission => {
+          for (let permission of permissions) {
             userPermissions.push(permission.permissionName);
-          })
+          }
         }
       }
 
@@ -124,14 +132,14 @@ module.exports = {
     try {
       let decoded = await jwt.verify(req.header('auth'), process.env.TOKEN_SECRET);
       if (decoded) {
-        req.principal = await User.findOne({
-          where: { id: decoded.userId, companyId: decoded.companyId },
-          include: [{
-            model: Role,
-            as: 'roles',
-            through: { attributes: [] }
-          }]
-        })
+        const user = await User
+          .query()
+          .where('id', decoded.userId)
+          .andWhere('companyId', decoded.companyId)
+          .eager('roles')
+
+        req.principal = user[0]
+
         next();
       } else {
         res.status(401).json("Token Expired");
@@ -146,23 +154,20 @@ module.exports = {
   hasPermission: (permissionName) => {
     return async (req, res, next) => {
       try {
-        let permission = await RolePermission.findOne({
-          where: { permissionName: permissionName, companyId: req.principal.companyId },
-          include: [{
-            model: Role,
-            as: 'roles',
-            attributes: ['id']
-          }],
-          attributes: []
-        })
+        const permission = await RolePermission
+          .query()
+          .eager('roles')
+          .where('permissionName', permissionName)
+          .andWhere('companyId', req.principal.companyId)
 
-        let principalRoles = await UserRole.findAll({
-          where: { userId: req.principal.id, companyId: req.principal.companyId },
-          attributes: ['roleId']
-        })
+        const principalRoles = await UserRole
+          .query()
+          .select('roleId')
+          .where('userId', req.principal.id)
+          .andWhere('companyId', req.principal.companyId)
 
         for (role of principalRoles) {
-          if (role.roleId === permission.roles.id) {
+          if (role.roleId === permission[0].roles.id) {
             return next();
           } else {
             continue;

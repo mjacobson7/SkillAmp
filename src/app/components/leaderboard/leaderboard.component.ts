@@ -22,8 +22,8 @@ export class LeaderboardComponent implements OnInit {
   columns = [
     {label: 'Rank', field: 'rank', sortable: false},
     {label: 'Username', field: 'username', sortable: false},
-    {label: 'First Name', field: 'first_name', sortable: false},
-    {label: 'Last Name', field: 'last_name', sortable: false}
+    {label: 'First Name', field: 'firstName', sortable: false},
+    {label: 'Last Name', field: 'lastName', sortable: false}
   ]
 
   constructor(private dashboardService: DashboardService) { }

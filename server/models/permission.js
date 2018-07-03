@@ -1,51 +1,27 @@
-module.exports = (sequelize, DataTypes) => {
-  var permission = sequelize.define('permission', {
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      primaryKey: true,
-      field: 'name'
-    },
-    isAdminPermission: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      field: 'is_admin_permission'
-    },
-    isSupervisorPermission: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      field: 'is_supervisor_permission'
-    },
-    isUserPermission: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      field: 'is_user_permission'
-    },
-    createdAt: {
-      allowNull: false,
-      type: DataTypes.DATE,
-      field: 'created_at'
-    },
-    updatedAt: {
-      allowNull: false,
-      type: DataTypes.DATE,
-      field: 'updated_at'
-    }
-  },
-    {
-      timestamps: true
-    });
+const { Model } = require('objection');
+const Role = require('./Role');
 
-  permission.associate = (models) => {
-    // associations can be defined here
-    permission.belongsToMany(models.role, {
-      through: models.rolePermission,
-      foreignKey: {
-        name: 'permissionName',
-        field: 'permission_name'
-      },
-      as: 'roles'
-    })
-  };
-  return permission;
-};
+class Permission extends Model {
+    static get tableName() {
+        return 'permissions'
+    }
+
+    static get relationMappings() {
+        return {
+            role: {
+                relation: Model.ManyToManyRelation,
+                modelClass: Role,
+                join: {
+                    from: 'permissions.name',
+                    through: {
+                        from: 'rolePermission.permissionName',
+                        to: 'rolePermission.roleId'
+                    },
+                    to: 'roles.id'
+                }
+            }
+        }
+    }
+}
+
+module.exports = Permission;

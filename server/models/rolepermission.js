@@ -1,40 +1,36 @@
-module.exports = (sequelize, DataTypes) => {
-  var rolePermission = sequelize.define('rolePermission', {
-    companyId: {
-      type: DataTypes.BIGINT,
-      allowNull: false,
-      field: 'company_id'
-    },
-    createdAt: {
-      allowNull: false,
-      type: DataTypes.DATE,
-      field: 'created_at'
-    },
-    updatedAt: {
-      allowNull: false,
-      type: DataTypes.DATE,
-      field: 'updated_at'
-    }
-  }, {
-    tableName: 'role_permission',
-    timestamps: true
-  });
+const { Model } = require('objection');
+const Role = require('./Role');
+const Permission = require('./Permission');
 
-  rolePermission.associate = (models) => {
-    // associations can be defined here
-    rolePermission.belongsTo(models.permission, {
-      foreignKey: {
-        name: 'permissionName',
-        field: 'permission_name'
-      }
-    })
-    rolePermission.belongsTo(models.role, {
-      foreignKey: {
-        name: 'roleId',
-        field: 'role_id'
-      }, 
-      as: 'roles'
-    })
-  };
-  return rolePermission;
-};
+class RolePermission extends Model {
+    static get tableName() {
+        return 'rolePermission'
+    }
+
+    static get idColumn() {
+        return ['roleId', 'permissionName'];
+    }
+
+    static get relationMappings() {
+        return {
+            roles: {
+                relation: Model.BelongsToOneRelation,
+                modelClass: Role,
+                join: {
+                    from: 'rolePermission.roleId',
+                    to: 'roles.id'
+                }
+            },
+            permission: {
+                relation: Model.BelongsToOneRelation,
+                modelClass: Permission,
+                join: {
+                    from: 'rolePermission.permissionName',
+                    to: 'permissions.name'
+                }
+            }
+        }
+    }
+}
+
+module.exports = RolePermission;

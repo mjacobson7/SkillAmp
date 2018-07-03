@@ -1,32 +1,35 @@
-<div class="modal-header">
-    <h6 class="modal-title">{{user.firstName}} {{user.lastName}} ({{user.username}})</h6>
-    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-  
-    <ul class="list-group">
-  
-      <li class="list-group-item">
-        <strong>Email:</strong>
-        <span>{{user.email}}</span>
-      </li>
-  
-      <li class="list-group-item">
-        <strong>Supervisor:</strong>
-        <span>TODO: GET SUPERVISOR</span>
-      </li>
-  
-      <li class="list-group-item">
-        <strong>Roles:</strong>
-        <span style="margin-right:5px" class="badge badge-pill badge-secondary" *ngFor="let role of user.roles">{{role.name}}</span>
-      </li>
-  
-    </ul>
-  
-  
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
-  </div>
+<modal [closeOnOutsideClick]="false" [closeOnEscape]="false">
+  <modal-header>
+    <span>{{user.firstName}} {{user.lastName}} ({{user.username}})</span>
+  </modal-header>
+  <modal-content>
+    <div>
+      <strong>Username:</strong>
+      <span>{{user.username}}</span>
+    </div>
+    <div>
+      <strong>First Name:</strong>
+      <span>{{user.firstName}}</span>
+    </div>
+    <div>
+      <strong>Last Name:</strong>
+      <span>{{user.lastName}}</span>
+    </div>
+    <div>
+      <strong>Email:</strong> 
+      <span>{{user.email}}</span>
+    </div>
+    <div>
+      <strong>Supervisor:</strong>
+      <span *ngIf="user.supervisor">{{user.supervisor.firstName}} {{user.supervisor.lastName}} ({{user.supervisor.username}})</span>
+      <span *ngIf="!user.supervisor">None</span>
+    </div>
+    <div>
+      <strong>Role(s):</strong> 
+      <span class="badge badge-secondary" *ngFor="let role of user.roles">{{role.name}}</span>
+    </div>
+  </modal-content>
+  <modal-footer>
+    <button class="btn btn-primary" (click)="close()">close</button>
+  </modal-footer>
+</modal>
