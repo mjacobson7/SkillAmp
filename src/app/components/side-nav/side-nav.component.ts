@@ -16,6 +16,8 @@ export class SideNavComponent implements OnInit, OnDestroy {
   systemManagementOpen: boolean = false;
   mobileViewSubscription: Subscription;
   mobileView: boolean;
+  sideNavList: [any];
+  showSubNav: Object = {};
 
   //permissions
   supervisorToolsNav: boolean = false;
@@ -27,26 +29,16 @@ export class SideNavComponent implements OnInit, OnDestroy {
 
     this.mobileViewSubscription = this.navService.mobileView.subscribe(view => this.mobileView = view)
 
-    this.supervisorToolsNav = this.authService.hasPermission('CAN_VIEW_SUPERVISOR_TOOLS_NAV');
-    this.manageUsersSubNav = this.authService.hasPermission('CAN_VIEW_MANAGE_USERS_SUB_NAV');
-    this.teamSurveysSubNav = this.authService.hasPermission('CAN_VIEW_TEAM_SURVEYS_SUB_NAV');
+    // this.supervisorToolsNav = this.authService.hasPermission('CAN_VIEW_SUPERVISOR_TOOLS_NAV');
+    // this.manageUsersSubNav = this.authService.hasPermission('CAN_VIEW_MANAGE_USERS_SUB_NAV');
+    // this.teamSurveysSubNav = this.authService.hasPermission('CAN_VIEW_TEAM_SURVEYS_SUB_NAV');
 
     this.navService.getSideNavList().subscribe(navs => {
-      console.log(navs);
+      this.sideNavList = navs;
     })
   }
 
   ngOnInit(): void {}
-
-  onSystemManagementOpen() {
-    if (this.supervisorMenuOpen) this.supervisorMenuOpen = !this.supervisorMenuOpen;
-    this.systemManagementOpen = !this.systemManagementOpen;
-  }
-
-  onSupervisorToolsOpen() {
-    if (this.systemManagementOpen) this.systemManagementOpen = !this.systemManagementOpen;
-    this.supervisorMenuOpen = !this.supervisorMenuOpen
-  }
 
   ngOnDestroy(): void {
     if(this.sideNavSubscription) this.sideNavSubscription.unsubscribe();

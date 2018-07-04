@@ -19,11 +19,12 @@
         padding: 11px;
         list-style: none;
         margin: 0;
-    
-        display: flex;
-        align-items: center;
-    
         transition: background-color 0.3s;
+
+        div {
+            display: flex;
+            align-items: center;
+        }
     
         .side-nav-menu-item {
             color: #a8acb1;
@@ -79,13 +80,14 @@
 
 .selected-row {
     background-color: #181B21; 
+    border-left: 3px solid $primary;
+    padding-left: 8px !important;
 }
 
 .nav-dropdown-items {
     margin-left: auto;
     height: 0px;
-    background-color: $dark;
-    padding-left: 30px;
+    background-color: #313840;
     transition: background-color .3s ease-in-out;
     transition: height .3s ease-in-out;    
     overflow: hidden;
@@ -96,11 +98,16 @@
     font-weight: bold;
     margin-right: 0px;
     margin-left: auto;
+    transition: transform .3s ease-in-out;
+}
+
+.rotate {
+    transform: rotate(90deg);
+    transition: transform .3s ease-in-out;
 }
 
 .supervisorMenu, .systemMenu {
     transition: height .3s ease-in-out;
-    height: 82px;
 }
 
 .subItemActive span {

@@ -1,60 +1,28 @@
 <div class="sidebar" [ngClass]="{'sidebar-hidden': !openSideNav }">
 
-  <div routerLink="/dashboard" class="nav-item" routerLinkActive="selected-row">
-    <i class="icon-speedometer icon"></i>
-    <span class="side-nav-menu-item">Dashboard</span>
-  </div>
+  <div *ngFor="let sideNav of sideNavList; let i = index;">
 
-  <div routerLink="/survey" class="nav-item" routerLinkActive="selected-row">
-    <i class="icon-speech icon"></i>
-    <span class="side-nav-menu-item">Surveys</span>
-  </div>
-
-  <div routerLink="/profile" class="nav-item" routerLinkActive="selected-row">
-    <i class="icon-user icon"></i>
-    <span class="side-nav-menu-item">Profile</span>
-  </div>
-
-  <div *ngIf="supervisorToolsNav" (click)="onSupervisorToolsOpen()" class="nav-item" [ngClass]="{'subItemActive' : manageUsers?.isActive || teamSurveys?.isActive }">
-    <i class="icon-wrench icon"></i>
-    <span class="side-nav-menu-item">Supervisor Tools</span>
-    <i [ngClass]="supervisorMenuOpen ? 'icon-arrow-down icon dropdown-icon' : 'icon-arrow-left icon dropdown-icon' " aria-hidden="true"></i>
-  </div>
-
-  <div class="nav-dropdown-items" [ngClass]="{'supervisorMenu': supervisorMenuOpen}">
-
-    <div *ngIf="teamSurveysSubNav" routerLink="/supervisor_tools/team_surveys" routerLinkActive="selected-row" #teamSurveys="routerLinkActive" class="nav-item">
-      <i class="icon-speech icon"></i>
-      <span class="side-nav-menu-item">Team Surveys</span>
+    <div *ngIf="!sideNav.parentNav && !sideNav.childNav" routerLink="{{sideNav.route}}" class="nav-item" routerLinkActive="selected-row">
+      <i class="{{sideNav.icon}} icon"></i>
+      <span class="side-nav-menu-item">{{sideNav.name}}</span>
     </div>
 
-    <div *ngIf="manageUsersSubNav" routerLink="/supervisor_tools/manage_users" routerLinkActive="selected-row" #manageUsers="routerLinkActive" class="nav-item">
-      <i class="icon-people icon"></i>
-      <span class="side-nav-menu-item">Manage Users</span>
+    <div *ngIf="sideNav.parentNav" (click)="sideNav.showSubNav = !sideNav.showSubNav" class="nav-item" [ngClass]="{'subItemActive' : manageUsers?.isActive || teamSurveys?.isActive }">
+      <div *ngIf="sideNav.parentNav">
+        <i class="{{sideNav.icon}} icon"></i>
+        <span class="side-nav-menu-item">{{sideNav.name}}</span>
+        <i [ngClass]="sideNav.showSubNav ? 'icon-arrow-down icon dropdown-icon' : 'rotate icon-arrow-down icon dropdown-icon' " aria-hidden="true"></i>
+      </div>
+    </div>
+
+    <div class="nav-dropdown-items" [ngClass]="{'supervisorMenu': sideNav.showSubNav }" [ngStyle]="{'height': sideNav.showSubNav ? sideNav.children.length * 41 + 'px': '' }">
+      <div *ngFor="let childNav of sideNav.children" routerLink="{{childNav.route}}" routerLinkActive="selected-row" #teamSurveys="routerLinkActive"
+        class="nav-item">
+        <i class="{{childNav.icon}} icon"></i>
+        <span class="side-nav-menu-item">{{childNav.name}}</span>
+      </div>
     </div>
 
   </div>
-
-  <div (click)="onSystemManagementOpen()" class="nav-item" [ngClass]="{'subItemActive' : notifications.isActive || permissions.isActive}">
-    <i class="icon-settings icon" aria-hidden="true"></i>
-    <span class="side-nav-menu-item">System Management</span>
-    <i [ngClass]="systemManagementOpen ? 'icon-arrow-down icon dropdown-icon' : 'icon-arrow-left icon dropdown-icon' " aria-hidden="true"></i>
-  </div>
-
-  <div class="nav-dropdown-items" [ngClass]="{'systemMenu': systemManagementOpen}">
-
-    <div routerLink="/system_management/notifications" routerLinkActive="selected-row" #notifications="routerLinkActive" class="nav-item">
-      <i class="icon-bell icon"></i>
-      <span class="side-nav-menu-item">Notifications</span>
-    </div>
-
-    <div routerLink="/system_management/permissions" routerLinkActive="selected-row" #permissions="routerLinkActive" class="nav-item">
-      <i class="icon-lock icon"></i>
-      <span class="side-nav-menu-item">Permissions</span>
-    </div>
-
-  </div>
-
-
 
 </div>
