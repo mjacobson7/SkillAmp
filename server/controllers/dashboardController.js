@@ -6,8 +6,6 @@ module.exports = {
 
     getUserWidgetData: async (req, res) => {
         try {
-            a
-            sdfasdfasdf
             const widgetInfo = await Survey
                 .query()
                 .eager('user')

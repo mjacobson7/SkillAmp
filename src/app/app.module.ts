@@ -1,4 +1,3 @@
-import { ToasterNotificationService } from './services/toaster-notification/toaster-notification.service';
 // Angular Libraries
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ErrorHandler } from '@angular/core';
@@ -40,6 +39,7 @@ import { ManageUsersComponent } from './components/supervisor-tools/manage-users
 import { SurveyFiltersComponent } from './components/survey-filters/survey-filters.component';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 import { DashboardCardsComponent } from './components/charts/dashboard-cards/dashboard-cards.component';
+import { DeleteUserComponent } from './components/dialogs/delete-user/delete-user.component';
 
 
 // Services
@@ -64,6 +64,8 @@ import { TableComponent } from './components/table/table.component';
 import { ModalModule } from '@independer/ng-modal';
 import { ViewUserComponent } from './components/dialogs/view-user/view-user.component';
 import { ToastrModule } from 'ngx-toastr';
+import { ToasterNotificationService } from './services/toaster-notification/toaster-notification.service';
+
 
 
 
@@ -95,7 +97,8 @@ import { ToastrModule } from 'ngx-toastr';
     LeaderboardComponent,
     DashboardCardsComponent,
     TableComponent,
-    ViewUserComponent
+    ViewUserComponent,
+    DeleteUserComponent
   ],
   imports: [
     BrowserModule,
@@ -144,7 +147,8 @@ import { ToastrModule } from 'ngx-toastr';
   ],
   bootstrap: [AppComponent],
   entryComponents: [
-    ViewUserComponent
+    ViewUserComponent,
+    DeleteUserComponent
   ]
 })
 export class AppModule { }

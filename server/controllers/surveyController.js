@@ -78,7 +78,7 @@ module.exports = {
           .andWhere('rating', ratingQueryCount)
 
         if (ratingAverage[0].sum > 0) {
-          totalPercentages.unshift({ score: ratingQueryCount, percentage: ratingAverage[0].sum / surveyCount[0].count })
+          totalPercentages.unshift({ score: ratingQueryCount, percentage: (ratingAverage[0].sum / ratingQueryCount) / surveyCount[0].count })
         } else {
           totalPercentages.unshift({ score: ratingQueryCount, percentage: 0 })
         }

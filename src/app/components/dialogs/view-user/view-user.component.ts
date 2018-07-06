@@ -12,9 +12,7 @@ export class ViewUserComponent implements OnInit {
 
   constructor(private modal: ModalRef) { }
 
-  ngOnInit() {
-    console.log(this.user);
-  }
+  ngOnInit() {}
 
   close() {
     this.modal.close();

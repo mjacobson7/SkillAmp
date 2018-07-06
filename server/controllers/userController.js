@@ -17,7 +17,6 @@ module.exports = {
       const newUser = await User
         .query()
         .insert(req.body)
-        .debug();
 
       for (let role of user.roles) {
         await UserRole
@@ -52,7 +51,6 @@ module.exports = {
         .update(user)
         .where('id', user.id)
         .andWhere('companyId', user.companyId)
-        .debug();
 
       // let newUser = await User.update(user, { where: { id: user.id, companyId: user.companyId } })
 
@@ -100,6 +98,23 @@ module.exports = {
     catch (error) {
       console.log(error);
       res.status(500).json(error);
+    }
+  },
+
+  deleteUser: async (req, res) => {
+    try {
+      
+
+      await User
+      .query()
+      .deleteById(req.params.id)
+
+      res.status(200).json();
+
+    }
+    catch(error) {
+      console.trace(error.stack);
+      res.status(500).json(error.stack);
     }
   },
 

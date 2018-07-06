@@ -47,4 +47,8 @@ export class UserService {
     return this.httpClient.get<User>('/getUser/' + userId);
   }
 
+  deleteUser(userId) {
+    return this.httpClient.delete<void>('/deleteUser/' + userId);
+  }
+
 }

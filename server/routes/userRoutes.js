@@ -17,4 +17,6 @@ module.exports = (app) => {
   app.get('/getUser/:id', authController.verifyValidToken, authController.hasPermission('CAN_EDIT_USERS'), userController.getUser);
 
   app.post('/createUser', authController.verifyValidToken, authController.hasPermission('CAN_CREATE_USERS'), userController.createUser);
+
+  app.delete('/deleteUser/:id', authController.verifyValidToken, authController.hasPermission('CAN_DELETE_USERS'), userController.deleteUser)
 };

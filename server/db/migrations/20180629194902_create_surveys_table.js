@@ -4,7 +4,7 @@ exports.up = function(knex, Promise) {
         knex.schema.createTable('surveys', table => {
           table.increments('id').primary();
           table.integer('companyId').notNullable();
-          table.integer('userId').references('users.id').notNullable();
+          table.integer('userId').references('users.id').notNullable().onDelete('CASCADE');
           table.integer('rating').notNullable();
           table.text('like');
           table.text('dislike');

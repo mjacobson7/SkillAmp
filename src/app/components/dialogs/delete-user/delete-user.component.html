@@ -1,0 +1,19 @@
+<modal [closeOnOutsideClick]="false" [closeOnEscape]="false">
+  <modal-header>
+    <span>Confirm Delete User</span>
+  </modal-header>
+  <modal-content>
+    <div>
+      <p>Are you sure you want to delete {{user.firstName}} {{user.lastName}}? All data related to this user cannot be recovered.</p>
+      <div class="form-group mb-4">
+        <input  (input)="confirmDelete=confirmDelete.toUpperCase()" [(ngModel)]="confirmDelete" style="text-transform:uppercase" required type="text" autocomplete="off" class="form-control form-control-sm" id="email">
+        <small class="form-text text-muted">Type "DELETE" to confirm, then click 'OK', otherwise, click 'Cancel' to cancel the operation.</small>
+      </div>
+    </div>
+
+  </modal-content>
+  <modal-footer>
+    <button (click)=onDelete(user.id) [disabled]="confirmDelete !== 'DELETE'" class="btn btn-primary">OK</button>
+    <button class="btn btn-secondary" (click)="close()">Cancel</button>
+  </modal-footer>
+</modal>

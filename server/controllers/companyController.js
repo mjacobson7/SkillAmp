@@ -18,7 +18,7 @@ module.exports = {
         { companyId: company.id, name: 'User', isUserRole: true, isSupervisorRole: false, isAdminRole: false },
         { companyId: company.id, name: 'Supervisor', isUserRole: false, isSupervisorRole: true, isAdminRole: false },
         { companyId: company.id, name: 'Admin', isUserRole: false, isSupervisorRole: false, isAdminRole: true }
-      ])
+      ]).returning('*')
 
       const user = await User.query().insert({
         companyId: company.id,
