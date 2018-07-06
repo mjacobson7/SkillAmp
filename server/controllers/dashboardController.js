@@ -6,6 +6,8 @@ module.exports = {
 
     getUserWidgetData: async (req, res) => {
         try {
+            a
+            sdfasdfasdf
             const widgetInfo = await Survey
                 .query()
                 .eager('user')
@@ -34,8 +36,8 @@ module.exports = {
             res.status(200).json({ user, teamRank, companyRank });
         }
         catch (error) {
-            console.log(error);
-            res.status(500).json(error);
+            console.trace(error.stack);
+            res.status(500).json(error.stack);
         }
     },
 

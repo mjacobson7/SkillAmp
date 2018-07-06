@@ -17,8 +17,11 @@ export class DashboardCardsComponent implements OnInit {
 
   ngOnInit() {
     this.dashboardService.getUserWidgetData().subscribe(data => {
-      if(data.user[0].count) this.totalSurveys = data.user[0].count;
-      if(data.user[0].score) this.averageScore = data.user[0].score;
+      if(data.user[0]) {
+        if(data.user[0].count) this.totalSurveys = data.user[0].count;
+        if(data.user[0].score) this.averageScore = data.user[0].score;
+      }
+
       if(data.teamRank) this.teamRank = data.teamRank;
       if(data.companyRank) this.companyRank = data.companyRank;
     })

@@ -26,9 +26,7 @@ class User extends Model {
                 return true;
             }
         }
-
         return false;
-
     }
 
 
@@ -43,8 +41,8 @@ class User extends Model {
                 relation: Model.BelongsToOneRelation,
                 modelClass: User,
                 join: {
-                    from: 'users.id',
-                    to: 'users.supervisorId'
+                    from: 'users.supervisorId',
+                    to: 'users.id'
                 }
             },
             surveys: {

@@ -25,6 +25,10 @@ export class AuthService {
     this.permissionsMap[permissions] = true;
   }
 
+  logError(error, user) {
+    return this.httpClient.post<any>('/logError', {error, user});
+  }
+
   login(credentials) {
     return this.httpClient.post<any>('/userAuth', credentials)
       .map(result => {

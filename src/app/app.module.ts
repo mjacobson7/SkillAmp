@@ -1,3 +1,4 @@
+import { ToasterNotificationService } from './services/toaster-notification/toaster-notification.service';
 // Angular Libraries
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ErrorHandler } from '@angular/core';
@@ -62,6 +63,8 @@ import { SlideToggleModule } from 'ng2-slide-toggle';
 import { TableComponent } from './components/table/table.component';
 import { ModalModule } from '@independer/ng-modal';
 import { ViewUserComponent } from './components/dialogs/view-user/view-user.component';
+import { ToastrModule } from 'ngx-toastr';
+
 
 
 
@@ -120,7 +123,12 @@ import { ViewUserComponent } from './components/dialogs/view-user/view-user.comp
     TableModule,
     MatTableModule,
     MatSortModule,
-    ModalModule
+    ModalModule,
+    ToastrModule.forRoot({
+      preventDuplicates: true,
+      autoDismiss: true,
+      maxOpened: 3
+    })
   ],
   providers: [
     UserService,
@@ -131,7 +139,8 @@ import { ViewUserComponent } from './components/dialogs/view-user/view-user.comp
     PermissionResolverService,
     SurveyService,
     DashboardService,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    ToasterNotificationService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
   entryComponents: [

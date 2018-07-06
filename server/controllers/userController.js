@@ -14,11 +14,10 @@ module.exports = {
       const salt = bcrypt.genSaltSync();
       user.password = bcrypt.hashSync(user.password, salt);
 
-      // let newUser = await User.create(req.body);
-
       const newUser = await User
         .query()
         .insert(req.body)
+        .debug();
 
       for (let role of user.roles) {
         await UserRole
@@ -39,6 +38,8 @@ module.exports = {
     try {
       let user = req.body;
 
+      console.log(user);
+
       if (user.password) {
         const salt = bcrypt.genSaltSync();
         user.password = bcrypt.hashSync(user.password, salt);
@@ -51,6 +52,7 @@ module.exports = {
         .update(user)
         .where('id', user.id)
         .andWhere('companyId', user.companyId)
+        .debug();
 
       // let newUser = await User.update(user, { where: { id: user.id, companyId: user.companyId } })
 
@@ -236,20 +238,7 @@ module.exports = {
         .where('id', req.params.id)
         .andWhere('companyId', req.principal.companyId)
 
-      // const user = await User.findOne({
-      //   where: { id: req.params.id, companyId: req.principal.companyId },
-      //   include: [
-      //     {
-      //       model: Role,
-      //       as: 'roles',
-      //       through: { attributes: [] }
-      //     },
-      //     {
-      //       model: User,
-      //       as: 'supervisor'
-      //     }
-      //   ]
-      // })
+        console.log(user[0]);
       return res.status(200).json(user[0]);
     }
     catch (error) {

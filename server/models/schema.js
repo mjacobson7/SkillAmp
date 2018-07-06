@@ -11,6 +11,7 @@ const UserRole = require('./UserRole');
 const RolePermission = require('./RolePermission');
 const Permission = require('./Permission');
 const Survey = require('./Survey');
+const ErrorDebugInfo = require('./ErrorDebugInfo');
 
 module.exports = {
     User,
@@ -19,6 +20,7 @@ module.exports = {
     Company,
     Permission,
     Survey,
-    UserRole
+    UserRole,
+    ErrorDebugInfo
 }
 

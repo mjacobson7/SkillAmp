@@ -66,6 +66,7 @@
     "ngx-rating": "0.0.9",
     "ngx-smart-modal": "^6.0.4",
     "ngx-super-table": "0.0.2",
+    "ngx-toastr": "^8.8.0",
     "normalize.css": "^7.0.0",
     "objection": "^1.1.10",
     "pg": "^7.4.1",

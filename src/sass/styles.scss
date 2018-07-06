@@ -1,9 +1,10 @@
 @import '~sass/_variables';
 @import '~sass/_mixins';
 @import "~bootstrap/scss/bootstrap.scss";
-
 $simple-line-font-path: "~simple-line-icons/fonts/";
 @import "~simple-line-icons/scss/simple-line-icons";
+@import "~ngx-toastr/toastr.css";
+
 
 html, body {
     background-color: $background-color !important;

@@ -5,7 +5,7 @@ const Company = require('../models/schema').Company;
 const User = require('../models/schema').User;
 const UserRole = require('../models/schema').UserRole;
 const RolePermission = require('../models/schema').RolePermission;
-
+const ErrorDebugInfo = require('../models/schema').ErrorDebugInfo;
 
 module.exports = {
 
@@ -49,13 +49,6 @@ module.exports = {
         for (let currPermission of userPermissions) {
           permissionsMap[currPermission] = true;
         }
-
-        //the above code should do the same as this. Figure that out before we remove this code below
-        // userPermissions.forEach(currPermission => {
-        //   if (userPermissions.includes(currPermission)) {
-        //     permissionsMap[currPermission] = true;
-        //   }
-        // });
 
         if (bcrypt.compareSync(password, user[0].password)) {
           let token = jwt.sign({ userId: user[0].id, companyId: user[0].companyId }, process.env.TOKEN_SECRET, { expiresIn: '24h' });
@@ -113,21 +106,6 @@ module.exports = {
     }
   },
 
-  // createUser: async (req, res) => {
-  //   const dbInstance = req.app.get('db');
-  //   let { username, firstName, lastName, password, email, supervisorId, companyId } = req.body;
-  //   const salt = bcrypt.genSaltSync();
-  //   password = bcrypt.hashSync(password, salt);
-
-  //   try {
-  //     const newUser = await dbInstance.create_user([companyId, username, firstName, lastName, email, password, supervisorId]);
-  //   }
-  //   catch (error) {
-  //     res.status(500).json(error);
-  //   }
-
-  // },
-
   verifyValidToken: async (req, res, next) => {
     try {
       let decoded = await jwt.verify(req.header('auth'), process.env.TOKEN_SECRET);
@@ -138,11 +116,10 @@ module.exports = {
           .andWhere('companyId', decoded.companyId)
           .eager('roles')
 
-        req.principal = user[0]
-
+        req.principal = user[0];
         next();
       } else {
-        res.status(401).json("Token Expired");
+        res.status(403).json("Session has expired");
       }
     }
     catch (error) {
@@ -181,5 +158,23 @@ module.exports = {
         res.status(500).json(error);
       }
     }
+  },
+
+  logError: async (req, res) => {
+    let { user, error } = req.body;
+
+    let uuid = '', i, random;
+    for (i = 0; i < 32; i++) {
+      random = Math.random() * 16 | 0;
+      if (i == 8 || i == 12 || i == 16 || i == 20) { uuid += "-" }
+      uuid += (i == 12 ? 4 : (i == 16 ? (random & 3 | 8) : random)).toString(16);
+    }
+
+    const errorStack = await ErrorDebugInfo
+      .query()
+      .insert({ id: uuid, status: error.status, error: error.error, request: error.url, username: user.username, companyId: user.companyId })
+      .returning('*')
+
+    res.status(200).json(errorStack);
   }
 };

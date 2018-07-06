@@ -30,7 +30,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   formReady: Boolean = false;
 
   constructor(private authService: AuthService, private userService: UserService, private navService: NavService,
-              private fb: FormBuilder, private route: ActivatedRoute, private router: Router) {};
+    private fb: FormBuilder, private route: ActivatedRoute, private router: Router) { };
 
   ngOnInit() {
     this.initializeForm();
@@ -123,19 +123,24 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     if (this.changePassword || this.createUser) {
       this.changePassword = false;
       this.userForm.value.password = this.userForm.value.passwords[0];
+      delete this.userForm.value.passwords;
+      if (this.userForm.value.id === null) {
+        delete this.userForm.value.id;
+      }
     } else {
       this.userForm.value.password = null;
       delete this.userForm.value.passwords;
     }
+
     if (this.createUser) {
       this.userService.createUser(this.userForm.value).subscribe(() => {
-          this.router.navigate(['/supervisor_tools/manage_users']);
-        });
-    } else if(this.updateUser) {
+        this.router.navigate(['/supervisor_tools/manage_users']);
+      });
+    } else if (this.updateUser) {
       this.userService.updateProfile(this.userForm.value).subscribe(response => {
-          this.router.navigate(['/supervisor_tools/manage_users']);
-        });
-    } else if(this.myProfile) {
+        this.router.navigate(['/supervisor_tools/manage_users']);
+      });
+    } else if (this.myProfile) {
       this.userService.updateProfile(this.userForm.value).subscribe(response => {
         this.router.navigate(['/dashboard']);
       });
