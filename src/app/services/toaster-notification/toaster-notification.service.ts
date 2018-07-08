@@ -15,4 +15,11 @@ export class ToasterNotificationService {
     });
   }
 
+  showWarning(message, title) {
+    this.toastr.warning(message, title, {
+      progressBar: true,
+      timeOut: 10000
+    })
+  }
+
 }

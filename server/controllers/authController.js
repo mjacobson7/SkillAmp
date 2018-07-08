@@ -62,8 +62,8 @@ module.exports = {
       }
     }
     catch (error) {
-      console.log(error);
-      res.status(500).json(error);
+      console.trace(error.stack);
+      res.status(500).json(error.stack);
     }
   },
 
@@ -101,8 +101,8 @@ module.exports = {
       res.status(200).json(permissionsMap);
     }
     catch (error) {
-      console.log(error);
-      res.status(500).json(error);
+      console.trace(error.stack);
+      res.status(500).json(error.stack);
     }
   },
 
@@ -123,8 +123,8 @@ module.exports = {
       }
     }
     catch (error) {
-      console.log(error);
-      res.status(500).json(error);
+      console.trace(error.stack);
+      res.status(500).json(error.stack);
     }
   },
 
@@ -150,12 +150,12 @@ module.exports = {
             continue;
           }
         }
-        res.status(403).send();
+        res.status(403).json();
       }
 
       catch (error) {
-        console.log(error);
-        res.status(500).json(error);
+        console.trace(error.stack);
+        res.status(500).json(error.stack);
       }
     }
   },

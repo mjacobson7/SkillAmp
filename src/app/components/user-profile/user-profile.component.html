@@ -4,15 +4,13 @@
       <div class="card">
         <div class="card-header">Profile</div>
         <form [formGroup]="userForm" (ngSubmit)="onSubmit()" *ngIf="formReady">
-            
-        <div class="card-body">
+
+          <div class="card-body">
             <div class="form-group mb-4">
               <label for="username">Username</label>
               <input formControlName="username" type="text" class="form-control form-control-sm" id="username">
-              <small *ngIf="userForm.get('username').hasError('required')" class="form-text text-muted">Username is required
-              </small>
-              <small *ngIf="userForm.get('username').hasError('minlength')" class="form-text text-muted">Username must be at least 8 characters
-              </small>
+              <small *ngIf="userForm.get('username').hasError('required')" class="form-text text-muted">Username is required</small>
+              <small *ngIf="userForm.get('username').hasError('minlength')" class="form-text text-muted">Username must be at least 8 characters</small>
             </div>
 
             <div *ngIf="!createUser" class="form-group mb-4" style="margin-left: 20px">
@@ -27,36 +25,34 @@
                   <label for="password_{{i}}">{{passwordLabel[i]}}</label>
                   <input type="password" autocomplete="off" id="password_{{i}}" class="form-control form-control-sm" formControlName="{{i}}">
                 </div>
-                <small *ngIf="userForm.get('passwords.0').hasError('required') && userForm.get('passwords.0').touched" class="form-text text-muted">Password is required
-                </small>
-                <small *ngIf="!userForm.get('passwords').valid && userForm.get('passwords.0').touched" class="form-text text-muted">Passwords do not match
-                </small>
-                <small *ngIf="userForm.get('passwords.0').hasError('minlength')" class="form-text text-muted">Password must be at least 8 characters
-                </small>
+                <small *ngIf="userForm.get('passwords.0').hasError('required') && userForm.get('passwords.0').touched" class="form-text text-muted">Password is required</small>
+                <small *ngIf="!userForm.get('passwords').valid && userForm.get('passwords.0').touched" class="form-text text-muted">Passwords do not match</small>
+                <small *ngIf="userForm.get('passwords.0').hasError('minlength')" class="form-text text-muted">Password must be at least 8 characters</small>
               </div>
             </div>
 
             <div class="form-group mb-4">
               <label for="firstName">First Name</label>
               <input formControlName="firstName" type="text" class="form-control form-control-sm" id="firstName">
-              <small *ngIf="userForm.get('firstName').hasError('required')" class="form-text text-muted">First name is required
-              </small>
+              <small *ngIf="userForm.get('firstName').hasError('required')" class="form-text text-muted">First name is required</small>
             </div>
 
             <div class="form-group mb-4">
               <label for="lastName">Last Name</label>
               <input formControlName="lastName" type="text" class="form-control form-control-sm" id="lastName">
-              <small *ngIf="userForm.get('lastName').hasError('required')" class="form-text text-muted">Last name is required
-              </small>
+              <small *ngIf="userForm.get('lastName').hasError('required')" class="form-text text-muted">Last name is required</small>
+            </div>
+
+            <div class="form-group mb-4">
+              <label for="active">Active</label>
+              <app-switch [active]="active" formControlName="active" id="active"></app-switch>
             </div>
 
             <div class="form-group mb-4">
               <label for="email">Email Address</label>
               <input formControlName="email" type="email" class="form-control form-control-sm" id="email">
-              <small *ngIf="userForm.get('email').hasError('required')" class="form-text text-muted">Email is required
-              </small>
-              <small *ngIf="userForm.get('email').hasError('email') && userForm.get('email').touched" class="form-text text-muted">Email is invalid
-              </small>
+              <small *ngIf="userForm.get('email').hasError('required')" class="form-text text-muted">Email is required</small>
+              <small *ngIf="userForm.get('email').hasError('email') && userForm.get('email').touched" class="form-text text-muted">Email is invalid</small>
             </div>
 
             <div class="form-group mb-4">
@@ -64,8 +60,7 @@
               <ng-select [items]="supervisorsList | async" loadingText="Loading..." bindValue="id" bindLabel="name" placeholder="None"
                 [searchable]="true" [virtualScroll]="true" formControlName="supervisorId">
               </ng-select>
-              <small *ngIf="userForm.get('supervisorId').hasError('required') && userForm.get('supervisorId').touched" class="form-text text-muted">Supervisor is required
-              </small>
+              <small *ngIf="userForm.get('supervisorId').hasError('required') && userForm.get('supervisorId').touched" class="form-text text-muted">Supervisor is required</small>
             </div>
 
             <div class="form-group mb-4">
@@ -75,12 +70,11 @@
             </div>
           </div>
           <div class="card-footer">
-              <button [disabled]="!userForm.valid" type="submit" class="btn btn-primary">Save</button>
-              <button *ngIf="router.url !== '/profile'" routerLink="/supervisor_tools/manage_users" type="button" class="btn btn-danger">Cancel</button>
-              <button *ngIf="router.url === '/profile'" routerLink="/dashboard" type="button" class="btn btn-danger">Cancel</button>
-              
-            </div>
-          </form>
+            <button [disabled]="!userForm.valid" type="submit" class="btn btn-primary">Save</button>
+            <button *ngIf="router.url !== '/profile'" routerLink="/supervisor_tools/manage_users" type="button" class="btn btn-danger">Cancel</button>
+            <button *ngIf="router.url === '/profile'" routerLink="/dashboard" type="button" class="btn btn-danger">Cancel</button>
+          </div>
+        </form>
 
       </div>
 

@@ -65,6 +65,7 @@ import { ModalModule } from '@independer/ng-modal';
 import { ViewUserComponent } from './components/dialogs/view-user/view-user.component';
 import { ToastrModule } from 'ngx-toastr';
 import { ToasterNotificationService } from './services/toaster-notification/toaster-notification.service';
+import { SwitchComponent } from './components/widgets/switch/switch.component';
 
 
 
@@ -98,7 +99,8 @@ import { ToasterNotificationService } from './services/toaster-notification/toas
     DashboardCardsComponent,
     TableComponent,
     ViewUserComponent,
-    DeleteUserComponent
+    DeleteUserComponent,
+    SwitchComponent
   ],
   imports: [
     BrowserModule,

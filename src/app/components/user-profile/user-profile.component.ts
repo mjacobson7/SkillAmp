@@ -67,6 +67,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       username: user.username,
       firstName: user.firstName,
       lastName: user.lastName,
+      active: user.active,
       passwords: [null, null],
       email: user.email,
       supervisorId: user.supervisor ? user.supervisorId : null,
@@ -80,6 +81,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       companyId: [null],
       username: [null, [Validators.required, Validators.minLength(8)]],
       firstName: [null, Validators.required],
+      active: [null],
       passwords: this.fb.array([
         [null, Validators.compose([Validators.minLength(8)])],
         [null, Validators.compose([Validators.minLength(8)])]

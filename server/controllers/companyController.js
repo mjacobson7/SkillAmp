@@ -54,8 +54,8 @@ module.exports = {
       res.status(200).json("Company Successfully Created!");
     }
     catch (error) {
-      console.log(error);
-      res.status(500).json(error);
+      console.trace(error.stack);
+      res.status(500).json(error.stack);
     }
   },
 

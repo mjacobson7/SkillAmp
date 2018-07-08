@@ -9,8 +9,8 @@ exports.up = function(knex, Promise) {
         table.string('lastName').notNullable();
         table.string('password').notNullable();
         table.string('email').notNullable();
-        table.integer('supervisorId').references('users.id');
-        table.boolean('archived').defaultTo(false);
+        table.integer('supervisorId').references('users.id').onDelete('SET NULL');
+        table.boolean('active').defaultTo(true);
         table.date('archivedDate');
         table.timestamp('createdAt').notNullable().defaultTo(knex.fn.now());
       })

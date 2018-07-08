@@ -11,8 +11,8 @@ module.exports = {
       res.status(200).json("Survey Created!");
     }
     catch (error) {
-      console.log(error);
-      res.status(500).json(error);
+      console.trace(error.stack);
+      res.status(500).json(error.stack);
     }
   },
 
@@ -45,8 +45,8 @@ module.exports = {
       res.status(200).json(mySurveyPage);
     }
     catch (error) {
-      console.log(error);
-      res.status(500).json(error);
+      console.trace(error.stack);
+      res.status(500).json(error.stack);
     }
   },
 
@@ -93,8 +93,8 @@ module.exports = {
       res.status(200).json(total);
     }
     catch (error) {
-      console.log(error);
-      res.status(500).json(error);
+      console.trace(error.stack);
+      res.status(500).json(error.stack);
     }
   },
 

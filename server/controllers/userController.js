@@ -28,16 +28,14 @@ module.exports = {
       res.status(200).json();
     }
     catch (error) {
-      console.log(error);
-      res.status(500).json(error);
+      console.trace(error.stack);
+      res.status(500).json(error.stack);
     }
   },
 
   updateUser: async (req, res) => {
     try {
       let user = req.body;
-
-      console.log(user);
 
       if (user.password) {
         const salt = bcrypt.genSaltSync();
@@ -46,13 +44,17 @@ module.exports = {
         delete user.password;
       }
 
+      if(!user.active && !user.archivedDate) {
+        user.archivedDate = new Date();
+      } else {
+        user.archivedDate = null;
+      }
+
       const newUser = await User
         .query()
         .update(user)
         .where('id', user.id)
         .andWhere('companyId', user.companyId)
-
-      // let newUser = await User.update(user, { where: { id: user.id, companyId: user.companyId } })
 
       await UserRole
         .query()
@@ -96,23 +98,25 @@ module.exports = {
       res.status(200).json(updatedUser[0]);
     }
     catch (error) {
-      console.log(error);
-      res.status(500).json(error);
+      console.trace(error.stack);
+      res.status(500).json(error.stack);
     }
   },
 
   deleteUser: async (req, res) => {
     try {
-      
+      if (req.principal.id == req.params.id) {
+        res.status(400).json("You cannot delete yourself. Please contact an administrator to perform this task.")
 
-      await User
-      .query()
-      .deleteById(req.params.id)
+      } else {
+        await User
+        .query()
+        .deleteById(req.params.id)
 
-      res.status(200).json();
-
+        res.status(200).json();
+      }
     }
-    catch(error) {
+    catch (error) {
       console.trace(error.stack);
       res.status(500).json(error.stack);
     }
@@ -162,8 +166,8 @@ module.exports = {
       res.status(200).json(user[0]);
     }
     catch (error) {
-      console.log(error);
-      res.status(500).json(error);
+      console.trace(error.stack);
+      res.status(500).json(error.stack);
     }
   },
 
@@ -240,8 +244,8 @@ module.exports = {
       res.status(200).json(usersPage);
     }
     catch (error) {
-      console.log(error);
-      res.status(500).json(error);
+      console.trace(error.stack);
+      res.status(500).json(error.stack);
     }
   },
 
@@ -253,12 +257,12 @@ module.exports = {
         .where('id', req.params.id)
         .andWhere('companyId', req.principal.companyId)
 
-        console.log(user[0]);
+      console.log(user[0]);
       return res.status(200).json(user[0]);
     }
     catch (error) {
-      console.log(error);
-      res.status(500).json(error);
+      console.trace(error.stack);
+      res.status(500).json(error.stack);
     }
 
 
@@ -275,7 +279,8 @@ module.exports = {
       res.status(200).json(myTeam);
     }
     catch (error) {
-      res.status(500).json(error);
+      console.trace(error.stack);
+      res.status(500).json(error.stack);
     }
   },
 
@@ -311,8 +316,8 @@ module.exports = {
       res.status(200).json(supervisorList);
     }
     catch (error) {
-      console.log(error);
-      res.status(500).json(error);
+      console.trace(error.stack);
+      res.status(500).json(error.stack);
     }
   },
 
@@ -327,8 +332,8 @@ module.exports = {
       res.status(200).json(roles);
     }
     catch (error) {
-      console.log(error);
-      res.status(500).json(error);
+      console.trace(error.stack);
+      res.status(500).json(error.stack);
     }
 
   }

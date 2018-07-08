@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { AuthService } from './../services/auth/auth.service';
 import { ToasterNotificationService } from './../services/toaster-notification/toaster-notification.service';
 import { AppError } from './app-error';
@@ -12,7 +13,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  constructor(private errorHandler: ErrorHandler, private toasterNotificationService: ToasterNotificationService, private authService: AuthService) { }
+  constructor(private errorHandler: ErrorHandler, private toasterNotificationService: ToasterNotificationService, private authService: AuthService, private router: Router) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (localStorage.getItem('token')) {
@@ -21,7 +22,10 @@ export class AuthInterceptor implements HttpInterceptor {
         .catch((response: any) => {
           if (response instanceof HttpErrorResponse) {
             if (response.status === 400) {
-              this.toasterNotificationService.showError(response.error, response.statusText);
+              this.toasterNotificationService.showWarning(response.error, response.statusText);
+            }
+            else if (response.status === 403) {
+              this.router.navigate(['/login']);
             }
             else if (response.status === 500) {
               this.authService.logError(response, this.authService.user).subscribe(response => {

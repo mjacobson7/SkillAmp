@@ -96,8 +96,8 @@ module.exports = {
             res.status(200).json(leaderboard);
         }
         catch (error) {
-            console.log(error);
-            res.status(500).json(error);
+            console.trace(error.stack);
+            res.status(500).json(error.stack);
         }
     },
 
@@ -154,8 +154,8 @@ module.exports = {
             res.status(200).json({ labels: labels, data: [{ data: data }] });
         }
         catch (error) {
-            console.log(error);
-            res.status(500).json(error);
+            console.trace(error.stack);
+            res.status(500).json(error.stack);
         }
     }
 
