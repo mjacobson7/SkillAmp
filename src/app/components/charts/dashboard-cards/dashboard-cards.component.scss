@@ -1,39 +1,48 @@
 @import '~sass/_variables';
 
 .card {
-    // padding: 15px 30px;
     margin-bottom: 20px;
     border: none;
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 29px;
-}
+    padding: 25px 20px;
+    position: relative;
 
-.total-reviews {
-    background-color: $primary;
-}
+    .widgetIcon {
+        color: #FFFFFF;
+        font-size: 47px;
+    }
 
-.average-score {
-    background-color: #00acac;
-}
+    .infoIcon {
+        position: absolute;
+        top:5px;
+        right:5px;
+        font-size: 15px;
+        color: $background-color;
+        cursor: pointer;
 
-.team-rank {
-    background-color: #6c76af;
-}
+        &:hover {
+            color: #D3D3D3;
+        }
+    }
 
-.company-rank {
-    background-color: #efa64c;
+    h4 {
+        color: #FFF;
+    }
 }
 
 .media-body {
     text-align: left;
     padding-left: 20px;
+
+    span {
+        font-size: 12px;
+    }
 }
 
 .media-body span {
     font-size: 14px;
-    // color: #99abb4;
     color: #FFF;
 }
 
@@ -42,30 +51,3 @@
     font-size: 35px;
 }
 
-.fa {
-    font-size: 48px;
-}
-
-.fa-star {
-    // color: #4680ff;
-    color: #FFF;
-}
-
-.fa-list-alt {
-    // color: #20c997;
-    color: #FFF;
-}
-
-.fa-users {
-    // color: #e83e8c;
-    color: #FFF;
-}
-
-.fa-building {
-    // color: #ffc107;
-    color: #FFF;
-}
-
-h4 {
-    color: #FFF;
-}

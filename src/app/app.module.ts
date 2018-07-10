@@ -66,6 +66,7 @@ import { ViewUserComponent } from './components/dialogs/view-user/view-user.comp
 import { ToastrModule } from 'ngx-toastr';
 import { ToasterNotificationService } from './services/toaster-notification/toaster-notification.service';
 import { SwitchComponent } from './components/widgets/switch/switch.component';
+import { DashboardNavComponent } from './components/dashboard-nav/dashboard-nav.component';
 
 
 
@@ -100,7 +101,8 @@ import { SwitchComponent } from './components/widgets/switch/switch.component';
     TableComponent,
     ViewUserComponent,
     DeleteUserComponent,
-    SwitchComponent
+    SwitchComponent,
+    DashboardNavComponent
   ],
   imports: [
     BrowserModule,

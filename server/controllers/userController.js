@@ -44,7 +44,7 @@ module.exports = {
         delete user.password;
       }
 
-      if(!user.active && !user.archivedDate) {
+      if (!user.active && !user.archivedDate) {
         user.archivedDate = new Date();
       } else {
         user.archivedDate = null;
@@ -110,8 +110,8 @@ module.exports = {
 
       } else {
         await User
-        .query()
-        .deleteById(req.params.id)
+          .query()
+          .deleteById(req.params.id)
 
         res.status(200).json();
       }
@@ -173,10 +173,9 @@ module.exports = {
 
   getUsersPage: async (req, res) => {
     try {
-      //todo check if admin or supervisor and return ONLY the users that pertain to their role.  
-      //If they are an admin AND a supervisor, then return all users of the company
 
       let { pageSize, length, pageNumber, orderBy, orderDir, searchText } = req.body;
+      let users;
 
       if (searchText !== "") {
         length = null
@@ -186,41 +185,34 @@ module.exports = {
       let offset = (pageNumber - 1) * pageSize;
       searchText = searchText.toLowerCase();
 
-      const users = await User
-        .query()
-        .eager('[roles, supervisor]')
-        .where('companyId', req.principal.companyId)
-        .orWhere('username', 'like', '%searchText%')
-        .orWhere('firstName', 'like', '%searchText%')
-        .orWhere('lastName', 'like', '%searchText%')
-        .limit(pageSize)
-        .offset(offset)
-        .orderBy(orderBy, orderDir)
+      if (await req.principal.hasPermission('CAN_ADMIN')) {
+        users = await User
+          .query()
+          .eager('[roles, supervisor]')
+          .where('companyId', req.principal.companyId)
+          .orWhere('username', 'like', '%searchText%')
+          .orWhere('firstName', 'like', '%searchText%')
+          .orWhere('lastName', 'like', '%searchText%')
+          .limit(pageSize)
+          .offset(offset)
+          .orderBy(orderBy, orderDir)
 
-      // const users = await User.findAll({
-      //   where: {
-      //     companyId: req.principal.companyId,
-      //     $or: [
-      //       { username: { $ilike: '%' + searchText + '%' } },
-      //       { firstName: { $ilike: '%' + searchText + '%' } },
-      //       { lastName: { $ilike: '%' + searchText + '%' } },
-      //     ]
-      //   },
-      //   limit: pageSize,
-      //   offset: offset,
-      //   order: [[orderBy, orderDir]],
-      //   include: [
-      //     {
-      //       model: Role,
-      //       as: 'roles',
-      //       through: { attributes: [] }
-      //     },
-      //     {
-      //       model: User,
-      //       as: 'supervisor'
-      //     }
-      //   ]
-      // })
+      } else if (await req.principal.hasPermission('CAN_SUPERVISE')) {
+        users = await User
+          .query()
+          .eager('[roles, supervisor]')
+          .where('companyId', req.principal.companyId)
+          .andWhere('supervisorId', req.principal.id)
+          .orWhere('username', 'like', '%searchText%')
+          .orWhere('firstName', 'like', '%searchText%')
+          .orWhere('lastName', 'like', '%searchText%')
+          .limit(pageSize)
+          .offset(offset)
+          .orderBy(orderBy, orderDir)
+
+      } else {
+        return res.status(403).json();
+      }
 
       let userCount = 0;
 
@@ -230,7 +222,6 @@ module.exports = {
           .count()
           .where('companyId', req.principal.companyId)
         userCount = count[0].count;
-        // userCount = await User.count({ where: { companyId: req.principal.companyId } })
       } else {
         userCount = users[0].length;
       }
@@ -257,7 +248,6 @@ module.exports = {
         .where('id', req.params.id)
         .andWhere('companyId', req.principal.companyId)
 
-      console.log(user[0]);
       return res.status(200).json(user[0]);
     }
     catch (error) {
@@ -285,7 +275,6 @@ module.exports = {
   },
 
   getSupervisorDropdown: async (req, res) => {
-    // req.principal.getRoles();
     try {
       const supervisors = await User
         .query()
@@ -294,16 +283,6 @@ module.exports = {
         .where('users.companyId', req.principal.companyId)
         .andWhere('roles.isSupervisorRole', true) //might want to remove this if we want to allow anyone to be chosen as supervisor
 
-      // const supervisors = await User.findAll({
-      //   where: { companyId: req.principal.companyId },
-      //   attributes: ['id', 'username', 'firstName', 'lastName'],
-      //   include: [{
-      //     model: Role,
-      //     as: 'roles',
-      //     where: { isSupervisorRole: true },
-      //     through: { attributes: [] }
-      //   }]
-      // })
       let supervisorList = [];
       for (let supervisor of supervisors) {
         supervisorList.push(

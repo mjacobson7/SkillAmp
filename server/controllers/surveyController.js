@@ -104,6 +104,7 @@ module.exports = {
       .query()
       .eager('user')
       .where('supervisorId', req.principal.id)
+      .andWhere('users.active', true)
       .andWhere('companyId', req.principal.companyId)
 
     res.status(200).json(surveys);

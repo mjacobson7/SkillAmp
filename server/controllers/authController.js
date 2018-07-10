@@ -21,44 +21,48 @@ module.exports = {
         .query()
         .eager('[roles, supervisor]')
         .where('username', username)
+        .andWhere('active', true)
         .andWhere('users.companyId', company[0].id)
 
-      if (user) {
+      if (user[0]) {
         const userRoles = await UserRole
           .query()
           .select('roleId')
           .where('companyId', user[0].companyId)
           .andWhere('userId', user[0].id)
 
-        let userPermissions = [];
-        for (let role of userRoles) {
-          const permissions = await RolePermission
-            .query()
-            .select('permissionName')
-            .where('companyId', user[0].companyId)
-            .andWhere('roleId', role.roleId)
+        if (userRoles.length > 0) {
+          let userPermissions = [];
+          for (let role of userRoles) {
+            const permissions = await RolePermission
+              .query()
+              .select('permissionName')
+              .where('companyId', user[0].companyId)
+              .andWhere('roleId', role.roleId)
 
-          if (permissions.length > 0) {
-            for (let permission of permissions) {
-              userPermissions.push(permission.permissionName);
+            if (permissions.length > 0) {
+              for (let permission of permissions) {
+                userPermissions.push(permission.permissionName);
+              }
             }
           }
-        }
 
-        let permissionsMap = {};
-        for (let currPermission of userPermissions) {
-          permissionsMap[currPermission] = true;
-        }
+          let permissionsMap = {};
+          for (let currPermission of userPermissions) {
+            permissionsMap[currPermission] = true;
+          }
 
-        if (bcrypt.compareSync(password, user[0].password)) {
-          let token = jwt.sign({ userId: user[0].id, companyId: user[0].companyId }, process.env.TOKEN_SECRET, { expiresIn: '24h' });
-          res.status(200).json({ token: token, user: user[0], permissions: permissionsMap });
+          if (bcrypt.compareSync(password, user[0].password)) {
+            let token = jwt.sign({ userId: user[0].id, companyId: user[0].companyId }, process.env.TOKEN_SECRET, { expiresIn: '24h' });
+            res.status(200).json({ token: token, user: user[0], permissions: permissionsMap });
+          } else {
+            return res.status(403).json();
+          }
         } else {
-          res.status(403).json("The username or password you have entered is invalid.");
+          return res.status(403).json();
         }
-
       } else {
-        res.status(403).json("The username or password you have entered is invalid.");
+        return res.status(403).json();
       }
     }
     catch (error) {
@@ -133,7 +137,6 @@ module.exports = {
       try {
         const permission = await RolePermission
           .query()
-          .eager('roles')
           .where('permissionName', permissionName)
           .andWhere('companyId', req.principal.companyId)
 
@@ -143,13 +146,14 @@ module.exports = {
           .where('userId', req.principal.id)
           .andWhere('companyId', req.principal.companyId)
 
-        for (role of principalRoles) {
-          if (role.roleId === permission[0].roles.id) {
-            return next();
-          } else {
-            continue;
+        for (let i = 0; i < permission.length; i++) {
+          for (let j = 0; j < principalRoles.length; j++) {
+            if (permission[i].roleId === principalRoles[j].roleId) {
+              return next();
+            }
           }
         }
+
         res.status(403).json();
       }
 

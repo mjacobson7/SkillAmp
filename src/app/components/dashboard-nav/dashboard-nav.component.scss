@@ -1,0 +1,17 @@
+@import '~sass/_variables';
+
+.nav-link {
+    color: $primary;
+    cursor: pointer;
+    user-select: none;
+
+    .active {
+        cursor: default !important;
+    }
+
+    &:hover {
+        &:not(.active) {
+            color: #167495;
+        } 
+    }
+}

@@ -1,9 +1,6 @@
 @import '~sass/_variables';
 
-input.ng-invalid {
+input.ng-invalid, ng-select.ng-invalid {
   border: 1px solid $danger;
-}
-
-.card {
-  // padding: 50px;
+  border-radius: 5px; //This is because of the ng-select field.  The red border goes around the existing border for the ng-select and doesn't replace it like it does the other inputs
 }

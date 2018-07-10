@@ -6,10 +6,18 @@ export class DashboardService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getUserWidgetData() {
-    return this.httpClient.get<any>('/getUserWidgetData');
+  getAdminWidgets() {
+    return this.httpClient.get<any>('/getAdminWidgets');
   }
 
+  getSupervisorWidgets() {
+    return this.httpClient.get<any>('/getSupervisorWidgets');
+  }
+
+  getAgentWidgets() {
+    return this.httpClient.get<any>('/getAgentWidgets');
+  }
+ 
   getLeaderboard(params) {
     return this.httpClient.post<any>('/team_leaderboard', { params: params });
   }

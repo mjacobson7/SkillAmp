@@ -13,7 +13,7 @@ class User extends Model {
             .query()
             .select('roleId')
             .where('userId', this.id)
-            .where('companyId', this.companyId)
+            .andWhere('companyId', this.companyId)
 
         for (let userRole of userRoles) {
             let userPermissions = await RolePermission

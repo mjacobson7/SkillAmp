@@ -42,6 +42,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
         if (params.id) {
           if (isNaN(params['id'])) {
             this.createUser = true;
+            this.passwordRequired();
             this.formReady = true;
           } else {
             this.userService.getUser(params['id']).subscribe(user => {
@@ -68,7 +69,8 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       firstName: user.firstName,
       lastName: user.lastName,
       active: user.active,
-      passwords: [null, null],
+      password: null,
+      confirmPassword: null,
       email: user.email,
       supervisorId: user.supervisor ? user.supervisorId : null,
       roles: this.configureUserRoles(user.roles)
@@ -82,14 +84,14 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       username: [null, [Validators.required, Validators.minLength(8)]],
       firstName: [null, Validators.required],
       active: [null],
-      passwords: this.fb.array([
-        [null, Validators.compose([Validators.minLength(8)])],
-        [null, Validators.compose([Validators.minLength(8)])]
-      ], this.passwordValidator),
+      passwords: this.fb.group({
+        password: [null],
+        confirmPassword: [null]
+      }, { validator: this.passwordValidator }),
       lastName: [null, Validators.required],
       email: [null, [Validators.required, Validators.email]],
       supervisorId: [{ value: null, disabled: false }],
-      roles: [{ value: null, disabled: false }]
+      roles: [{ value: null, disabled: false }, [Validators.required]]
     });
   }
 
@@ -110,7 +112,21 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
 
   passwordValidator(array: FormArray): { [s: string]: boolean } {
-    return array.value[0] === array.value[1] ? null : { 'unmatched': true };
+    return array.value.password === array.value.confirmPassword ? null : { 'unmatched': true };
+  }
+
+  passwordRequired() {
+    this.userForm.get(['passwords', 'password']).setValidators([Validators.required, Validators.minLength(8)]);
+    this.userForm.get(['passwords', 'password']).updateValueAndValidity();
+    this.userForm.get(['passwords', 'confirmPassword']).setValidators([Validators.required, Validators.minLength(8)]);
+    this.userForm.get(['passwords', 'confirmPassword']).updateValueAndValidity();
+  }
+
+  passwordNotRequired() {
+    this.userForm.get(['passwords', 'password']).clearValidators();
+    this.userForm.get(['passwords', 'password']).updateValueAndValidity();
+    this.userForm.get(['passwords', 'confirmPassword']).clearValidators();
+    this.userForm.get(['passwords', 'confirmPassword']).updateValueAndValidity();
   }
 
   getControls() {
@@ -119,18 +135,14 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     // make password required (fix this)
-    if (this.userForm.value.roles.length < 1) {
-      // throw error
-    }
     if (this.changePassword || this.createUser) {
       this.changePassword = false;
-      this.userForm.value.password = this.userForm.value.passwords[0];
+      this.userForm.value.password = this.userForm.value.passwords.password;
       delete this.userForm.value.passwords;
       if (this.userForm.value.id === null) {
         delete this.userForm.value.id;
       }
     } else {
-      this.userForm.value.password = null;
       delete this.userForm.value.passwords;
     }
 
@@ -152,9 +164,13 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   changePasswordChecked(event) {
     if (event.target.checked) {
+      this.passwordRequired();
       this.changePassword = true;
     } else {
+      this.passwordNotRequired();
       this.changePassword = false;
+      this.userForm.value.password = null;
+      this.userForm.value.confirmPassword = null;
     }
   }
 

@@ -19,15 +19,15 @@
               </label>
             </div>
 
-            <div *ngIf="changePassword || createUser">
-              <div formArrayName="passwords">
-                <div class="form-group mb-4" *ngFor="let control of getControls(); let i = index">
-                  <label for="password_{{i}}">{{passwordLabel[i]}}</label>
-                  <input type="password" autocomplete="off" id="password_{{i}}" class="form-control form-control-sm" formControlName="{{i}}">
-                </div>
-                <small *ngIf="userForm.get('passwords.0').hasError('required') && userForm.get('passwords.0').touched" class="form-text text-muted">Password is required</small>
-                <small *ngIf="!userForm.get('passwords').valid && userForm.get('passwords.0').touched" class="form-text text-muted">Passwords do not match</small>
-                <small *ngIf="userForm.get('passwords.0').hasError('minlength')" class="form-text text-muted">Password must be at least 8 characters</small>
+            <div *ngIf="changePassword || createUser" formGroupName="passwords">
+              <div class="form-group mb-4">
+                <label for="password">Password</label>
+                <input type="password" autocomplete="off" id="password" class="form-control form-control-sm" formControlName="password">
+              </div>
+              <div class="form-group mb-4">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" autocomplete="off" id="confirmPassword" class="form-control form-control-sm" formControlName="confirmPassword">
+                <small *ngIf="(userForm.get(['passwords', 'confirmPassword']).hasError('required') && userForm.get(['passwords', 'password']).dirty) || userForm.get('passwords').hasError('unmatched')" class="form-text text-muted">Passwords do not match</small>
               </div>
             </div>
 
@@ -65,8 +65,8 @@
 
             <div class="form-group mb-4">
               <label for="roles">Role</label>
-              <ng-select [items]="rolesList | async" id="roles" multiple="true" bindLabel="name" bindValue="id" [loading]="loading" formControlName="roles">
-              </ng-select>
+              <ng-select [items]="rolesList | async" id="roles" multiple="true" bindLabel="name" bindValue="id" [loading]="loading" formControlName="roles"></ng-select>
+              <small *ngIf="userForm.get('roles').hasError('required') && userForm.get('roles').touched" class="form-text text-muted">Role field cannot be empty</small>
             </div>
           </div>
           <div class="card-footer">

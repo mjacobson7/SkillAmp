@@ -1,0 +1,15 @@
+<div class="row mb-3">
+  <div class="col-12">
+    <ul class="nav nav-pills">
+      <li class="nav-item" *ngIf="canAdmin" (click)="navSelected === 'ADMIN' || onNavChange('ADMIN')">
+        <span class="nav-link" [ngClass]="{'active' : navSelected === 'ADMIN'}">Admin</span>
+      </li>
+      <li class="nav-item" *ngIf="canSupervise" (click)="navSelected === 'SUPERVISOR' || onNavChange('SUPERVISOR')">
+        <span class="nav-link" [ngClass]="{'active' : navSelected === 'SUPERVISOR'}">Supervisor</span>
+      </li>
+      <li class="nav-item" (click)="navSelected === 'AGENT' || onNavChange('AGENT')">
+        <span class="nav-link" [ngClass]="{'active' : navSelected === 'AGENT'}">Agent</span>
+      </li>
+    </ul>
+  </div>
+</div>
