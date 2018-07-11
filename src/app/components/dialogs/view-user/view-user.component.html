@@ -3,30 +3,36 @@
     <span>{{user.firstName}} {{user.lastName}} ({{user.username}})</span>
   </modal-header>
   <modal-content>
-    <div>
-      <strong>Username:</strong>
-      <span>{{user.username}}</span>
+    <div class="row mb-2">
+      <strong class="col-3">Username:</strong>
+      <span class="col-9">{{user.username}}</span>
     </div>
-    <div>
-      <strong>First Name:</strong>
-      <span>{{user.firstName}}</span>
+    <div class="row mb-2">
+      <strong class="col-3">First Name:</strong>
+      <span class="col-9">{{user.firstName}}</span>
     </div>
-    <div>
-      <strong>Last Name:</strong>
-      <span>{{user.lastName}}</span>
+    <div class="row mb-2">
+      <strong class="col-3">Last Name:</strong>
+      <span class="col-9">{{user.lastName}}</span>
     </div>
-    <div>
-      <strong>Email:</strong> 
-      <span>{{user.email}}</span>
+    <div class="row mb-2">
+      <strong class="col-3">Email:</strong>
+      <span class="col-9">{{user.email}}</span>
     </div>
-    <div>
-      <strong>Supervisor:</strong>
-      <span *ngIf="user.supervisor">{{user.supervisor.firstName}} {{user.supervisor.lastName}} ({{user.supervisor.username}})</span>
-      <span *ngIf="!user.supervisor">None</span>
+    <div class="row mb-2">
+      <strong class="col-3">Active:</strong>
+      <span class="col-9">{{user.active ? 'Yes' : 'No'}}</span>
     </div>
-    <div>
-      <strong>Role(s):</strong> 
-      <span class="badge badge-secondary" *ngFor="let role of user.roles">{{role.name}}</span>
+    <div class="row mb-2">
+      <strong class="col-3">Supervisor:</strong>
+      <span class="col-9" *ngIf="user.supervisor">{{user.supervisor.firstName}} {{user.supervisor.lastName}} ({{user.supervisor.username}})</span>
+      <span class="col-9" *ngIf="!user.supervisor">None</span>
+    </div>
+    <div class="row mb-2">
+      <strong class="col-3">Role(s):</strong>
+      <span class="col-9">
+          <span class="badge badge-secondary" *ngFor="let role of user.roles">{{role.name}}</span>
+      </span>
     </div>
   </modal-content>
   <modal-footer>

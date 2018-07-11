@@ -74,6 +74,9 @@ export class TableComponent implements OnInit, OnChanges {
       if (frontPage < 1) {
         frontPage = 1;
       }
+      if(this.length < 1) {
+        endPage = 1;
+      }
     }
     for (let currPage = frontPage; currPage <= endPage; currPage++) {
       this.pagesArray.push(currPage);

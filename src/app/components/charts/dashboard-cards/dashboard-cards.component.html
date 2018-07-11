@@ -1,44 +1,3 @@
-<!-- <div class="dashboardCardsWrapper">
-  <div class="row">
-    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-3">
-      <div class="card total-reviews">
-        <i class="fa fa-list-alt" aria-hidden="true"></i>
-        <div class="media-body">
-          <h4>{{totalSurveys}}</h4>
-          <span>Total Surveys</span>
-        </div>
-      </div>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-3">
-      <div class="card average-score">
-        <i class="fa fa-star" aria-hidden="true"></i>
-        <div class="media-body">
-          <h4>{{averageScore | number : '1.2-2' }}</h4>
-          <span>Average Score</span>
-        </div>
-      </div>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-3">
-      <div class="card team-rank">
-        <i class="fa fa-users" aria-hidden="true"></i>
-        <div class="media-body">
-          <h4>{{teamRank}}</h4>
-          <span>Team Rank</span>
-        </div>
-      </div>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-3">
-      <div class="card company-rank">
-        <i class="fa fa-building" aria-hidden="true"></i>
-        <div class="media-body">
-          <h4>{{companyRank}}</h4>
-          <span>Company Rank</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> -->
-
 <div class="dashboardCardsWrapper">
   <app-dashboard-nav (navCallback)="getWidgetData($event)"></app-dashboard-nav>
   <div class="row">
@@ -49,7 +8,9 @@
           <h4>{{widget.data}}</h4>
           <span>{{widget.label}}</span>
         </div>
-        <span matTooltip="{{widget.info}}" class="infoIcon"><i class="fa fa-info-circle" aria-hidden="true"></i></span>        
+        <span matTooltip="{{widget.info}}" class="infoIcon">
+          <i class="fa fa-info-circle" aria-hidden="true"></i>
+        </span>
       </div>
     </div>
   </div>

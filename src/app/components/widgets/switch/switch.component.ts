@@ -11,6 +11,7 @@ import { Component, Input } from '@angular/core';
 })
 export class SwitchComponent implements ControlValueAccessor {
   @Input() active: boolean = true;
+  @Input() readOnly: boolean = false;
   
   private onChange: (value: boolean) => void
 

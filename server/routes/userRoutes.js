@@ -19,4 +19,6 @@ module.exports = (app) => {
   app.post('/createUser', authController.verifyValidToken, authController.hasPermission('CAN_CREATE_USERS'), userController.createUser);
 
   app.delete('/deleteUser/:id', authController.verifyValidToken, authController.hasPermission('CAN_DELETE_USERS'), userController.deleteUser)
+
+  app.get('/defaultUserRole', authController.verifyValidToken, userController.defaultUserRole);
 };

@@ -14,7 +14,7 @@ export class UserService {
   constructor(private httpClient: HttpClient, private authService: AuthService) { }
 
   getUsersPage(params) {
-    return this.httpClient.post<any>('/getUsersPage', params);    
+    return this.httpClient.post<any>('/getUsersPage', params);
   }
 
   createUser(user: User) {
@@ -24,10 +24,12 @@ export class UserService {
   updateProfile(user: User) {
     return this.httpClient.put<User>('/updateUser', user)
       .map(user => {
+        if (user) {
+          this.authService.user = user;
+        }
         //here when we update our own profile we want to set the user as shown below, 
         //but if it's someone elses profile, then no (fix this)
-        this.authService.user = user;
-        return user;
+
       });
   }
 
@@ -45,6 +47,10 @@ export class UserService {
 
   getUser(userId) {
     return this.httpClient.get<User>('/getUser/' + userId);
+  }
+
+  getDefaultUserRole() {
+    return this.httpClient.get<any>('/defaultUserRole');
   }
 
   deleteUser(userId) {

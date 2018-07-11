@@ -30,7 +30,10 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   formReady: Boolean = false;
 
   constructor(private authService: AuthService, private userService: UserService, private navService: NavService,
-    private fb: FormBuilder, private route: ActivatedRoute, private router: Router) { };
+    private fb: FormBuilder, private route: ActivatedRoute, private router: Router) { 
+
+      
+    };
 
   ngOnInit() {
     this.initializeForm();
@@ -43,7 +46,10 @@ export class UserProfileComponent implements OnInit, OnDestroy {
           if (isNaN(params['id'])) {
             this.createUser = true;
             this.passwordRequired();
-            this.formReady = true;
+            this.userService.getDefaultUserRole().subscribe(defaultRole => {
+              this.userForm.patchValue({ active: true, roles: this.configureUserRoles(defaultRole) });
+              this.formReady = true;
+            })
           } else {
             this.userService.getUser(params['id']).subscribe(user => {
               this.updateUser = true;
@@ -134,7 +140,6 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    // make password required (fix this)
     if (this.changePassword || this.createUser) {
       this.changePassword = false;
       this.userForm.value.password = this.userForm.value.passwords.password;
@@ -146,12 +151,14 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       delete this.userForm.value.passwords;
     }
 
+    this.userForm.value.username = this.userForm.value.username.toLowerCase();
+
     if (this.createUser) {
       this.userService.createUser(this.userForm.value).subscribe(() => {
         this.router.navigate(['/supervisor_tools/manage_users']);
       });
     } else if (this.updateUser) {
-      this.userService.updateProfile(this.userForm.value).subscribe(response => {
+      this.userService.updateProfile(this.userForm.value).subscribe(() => {
         this.router.navigate(['/supervisor_tools/manage_users']);
       });
     } else if (this.myProfile) {

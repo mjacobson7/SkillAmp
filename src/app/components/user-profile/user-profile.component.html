@@ -27,7 +27,8 @@
               <div class="form-group mb-4">
                 <label for="confirmPassword">Confirm Password</label>
                 <input type="password" autocomplete="off" id="confirmPassword" class="form-control form-control-sm" formControlName="confirmPassword">
-                <small *ngIf="(userForm.get(['passwords', 'confirmPassword']).hasError('required') && userForm.get(['passwords', 'password']).dirty) || userForm.get('passwords').hasError('unmatched')" class="form-text text-muted">Passwords do not match</small>
+                <small *ngIf="(userForm.get(['passwords', 'confirmPassword']).hasError('required') && userForm.get(['passwords', 'password']).dirty) || userForm.get('passwords').hasError('unmatched')"
+                  class="form-text text-muted">Passwords do not match</small>
               </div>
             </div>
 
@@ -65,14 +66,15 @@
 
             <div class="form-group mb-4">
               <label for="roles">Role</label>
-              <ng-select [items]="rolesList | async" id="roles" multiple="true" bindLabel="name" bindValue="id" [loading]="loading" formControlName="roles"></ng-select>
+              <ng-select [items]="rolesList | async" id="roles" [clearable]="false" multiple="true" bindLabel="name" bindValue="id" [loading]="loading" formControlName="roles"></ng-select>
+              <small class="form-text text-muted">System assigned Roles cannot be removed or added manually</small>
               <small *ngIf="userForm.get('roles').hasError('required') && userForm.get('roles').touched" class="form-text text-muted">Role field cannot be empty</small>
             </div>
           </div>
           <div class="card-footer">
             <button [disabled]="!userForm.valid" type="submit" class="btn btn-primary">Save</button>
-            <button *ngIf="router.url !== '/profile'" routerLink="/supervisor_tools/manage_users" type="button" class="btn btn-danger">Cancel</button>
-            <button *ngIf="router.url === '/profile'" routerLink="/dashboard" type="button" class="btn btn-danger">Cancel</button>
+            <button *ngIf="router.url !== '/profile'" routerLink="/supervisor_tools/manage_users" type="button" class="btn btn-secondary">Cancel</button>
+            <button *ngIf="router.url === '/profile'" routerLink="/dashboard" type="button" class="btn btn-primary">Cancel</button>
           </div>
         </form>
 

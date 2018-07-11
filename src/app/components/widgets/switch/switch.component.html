@@ -1,5 +1,5 @@
 <div class="switch">
-  <input type="checkbox" [checked]="active" (click)="selectValue()">
+  <input [disabled]="readOnly" type="checkbox" [checked]="active" (click)="selectValue()">
   <label>
     <span class="fontawesome-ok"></span>
     <span class="fontawesome-remove"></span>

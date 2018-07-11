@@ -28,15 +28,17 @@ export class DashboardNavComponent implements OnInit {
 
 
   checkPermissions() {
-    if(this.authService.hasPermission('CAN_ADMIN')) {
+    if (this.authService.hasPermission('CAN_ADMIN')) {
       this.canAdmin = true;
       this.navSelected = 'ADMIN';
     }
-    if(this.authService.hasPermission('CAN_SUPERVISE')) {
+    if (this.authService.hasPermission('CAN_SUPERVISE')) {
       this.canSupervise = true;
-      if(!this.authService.hasPermission('CAN_ADMIN')) {
+      if (!this.authService.hasPermission('CAN_ADMIN')) {
         this.navSelected = 'SUPERVISOR';
       }
+    } else {
+      this.navSelected = 'AGENT';
     }
   }
 
