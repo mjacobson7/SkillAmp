@@ -1,11 +1,11 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
-const Company = require('../models/schema').Company;
-const User = require('../models/schema').User;
-const UserRole = require('../models/schema').UserRole;
-const RolePermission = require('../models/schema').RolePermission;
 const ErrorDebugInfo = require('../models/schema').ErrorDebugInfo;
+
+const userService = require('../services/userService');
+const companyService = require('../services/companyService');
+const rolesService = require('../services/rolesService');
 
 module.exports = {
 
@@ -13,33 +13,16 @@ module.exports = {
     try {
       const { username, password } = req.body;
 
-      const company = await Company
-        .query()
-        .where('hostname', req.hostname);
+      const company = await companyService.getCompanyByHostname(req.hostname);
+      const user = await userService.getUserByUsername(username, company.id);
 
-      const user = await User
-        .query()
-        .eager('[roles, supervisor]')
-        .where('username', username)
-        .andWhere('active', true)
-        .andWhere('users.companyId', company[0].id)
-
-      if (user[0]) {
-        const userRoles = await UserRole
-          .query()
-          .select('roleId')
-          .where('companyId', user[0].companyId)
-          .andWhere('userId', user[0].id)
+      if (user) {
+        const userRoles = await rolesService.getUserRoles(user.id, user.companyId)
 
         if (userRoles.length > 0) {
           let userPermissions = [];
           for (let role of userRoles) {
-            const permissions = await RolePermission
-              .query()
-              .select('permissionName')
-              .where('companyId', user[0].companyId)
-              .andWhere('roleId', role.roleId)
-
+            let permissions = await rolesService.getPermissionsByRoleId(role.roleId, user.companyId);
             if (permissions.length > 0) {
               for (let permission of permissions) {
                 userPermissions.push(permission.permissionName);
@@ -52,9 +35,9 @@ module.exports = {
             permissionsMap[currPermission] = true;
           }
 
-          if (bcrypt.compareSync(password, user[0].password)) {
-            let token = jwt.sign({ userId: user[0].id, companyId: user[0].companyId }, process.env.TOKEN_SECRET, { expiresIn: '24h' });
-            res.status(200).json({ token: token, user: user[0], permissions: permissionsMap });
+          if (bcrypt.compareSync(password, user.password)) {
+            let token = jwt.sign({ userId: user.id, companyId: user.companyId }, process.env.TOKEN_SECRET, { expiresIn: '24h' });
+            res.status(200).json({ token: token, user: user, permissions: permissionsMap });
           } else {
             return res.status(403).json();
           }
@@ -73,19 +56,11 @@ module.exports = {
 
   userPermissions: async (req, res) => {
     try {
-      const userRoles = await UserRole
-        .query()
-        .select('roleId')
-        .where('companyId', req.principal.companyId)
-        .andWhere('userId', req.principal.id)
+      const userRoles = await rolesService.getUserRoles(req.principal.id, req.principal.companyId);
 
       let userPermissions = [];
       for (let role of userRoles) {
-        const permissions = await RolePermission
-          .query()
-          .select('permissionName')
-          .where('companyId', req.principal.companyId)
-          .andWhere('roleId', role.roleId)
+        let permissions = await rolesService.getPermissionsByRoleId(role.roleId, req.principal.companyId);
 
         if (permissions.length > 0) {
           for (let permission of permissions) {
@@ -114,13 +89,7 @@ module.exports = {
     try {
       let decoded = await jwt.verify(req.header('auth'), process.env.TOKEN_SECRET);
       if (decoded) {
-        const user = await User
-          .query()
-          .where('id', decoded.userId)
-          .andWhere('companyId', decoded.companyId)
-          .eager('roles')
-
-        req.principal = user[0];
+        req.principal = await userService.getUserById(decoded.userId, decoded.companyId);
         next();
       } else {
         res.status(403).json("Session has expired");
@@ -135,28 +104,18 @@ module.exports = {
   hasPermission: (permissionName) => {
     return async (req, res, next) => {
       try {
-        const permission = await RolePermission
-          .query()
-          .where('permissionName', permissionName)
-          .andWhere('companyId', req.principal.companyId)
+        const permission = await rolesService.getPermissionByPermissionName(permissionName, req.principal.companyId);
+        const principalRoles = await rolesService.getUserRoles(req.principal.id, req.principal.companyId);
 
-        const principalRoles = await UserRole
-          .query()
-          .select('roleId')
-          .where('userId', req.principal.id)
-          .andWhere('companyId', req.principal.companyId)
-
-        for (let i = 0; i < permission.length; i++) {
-          for (let j = 0; j < principalRoles.length; j++) {
-            if (permission[i].roleId === principalRoles[j].roleId) {
+        if (permission != null) {
+          for (let i = 0; i < principalRoles.length; i++) {
+            if (permission.roleId === principalRoles[i].roleId) {
               return next();
             }
           }
         }
-
         res.status(403).json();
       }
-
       catch (error) {
         console.trace(error.stack);
         res.status(500).json(error.stack);
@@ -173,7 +132,8 @@ module.exports = {
       if (i == 8 || i == 12 || i == 16 || i == 20) { uuid += "-" }
       uuid += (i == 12 ? 4 : (i == 16 ? (random & 3 | 8) : random)).toString(16);
     }
-
+    
+    //service for this or nah?
     const errorStack = await ErrorDebugInfo
       .query()
       .insert({ id: uuid, status: error.status, error: error.error, request: error.url, username: user.username, companyId: user.companyId })

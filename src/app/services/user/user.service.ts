@@ -17,6 +17,10 @@ export class UserService {
     return this.httpClient.post<any>('/getUsersPage', params);
   }
 
+  getTeamPage(params) {
+    return this.httpClient.post<any>('/getTeamPage', params);
+  }
+
   createUser(user: User) {
     return this.httpClient.post<User>('/createUser', user);
   }

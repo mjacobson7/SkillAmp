@@ -1,10 +1,10 @@
 const bcrypt = require('bcrypt');
-const Company = require('../models/schema').Company;
-const Role = require('../models/schema').Role;
-const User = require('../models/schema').User;
 const Permission = require('../models/schema').Permission;
 const RolePermission = require('../models/schema').RolePermission;
 const UserRole = require('../models/schema').UserRole;
+
+const companyService = require('../services/companyService');
+const userService = require('../services/userService');
 
 module.exports = {
 
@@ -12,15 +12,10 @@ module.exports = {
     try {
       let { name, hostname } = req.body;
       const salt = bcrypt.genSaltSync();
-      const company = await Company.query().insert({ name: name, hostname: hostname });
+      const company = await companyService.createCompany(name, hostname);
+      const roles = await companyService.insertCompanyDefaultRoles(company.id);
 
-      const roles = await Role.query().insert([
-        { companyId: company.id, name: 'User', isUserRole: true, isSupervisorRole: false, isAdminRole: false },
-        { companyId: company.id, name: 'Supervisor', isUserRole: false, isSupervisorRole: true, isAdminRole: false },
-        { companyId: company.id, name: 'Admin', isUserRole: false, isSupervisorRole: false, isAdminRole: true }
-      ]).returning('*')
-
-      const user = await User.query().insert({
+      const user = await userService.createUser({
         companyId: company.id,
         username: 'skillampsupport',
         firstName: 'SkillAmp',

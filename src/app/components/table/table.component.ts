@@ -27,7 +27,7 @@ export class TableComponent implements OnInit, OnChanges {
   searchText: string = "";
 
   //Header Buttons
-  @Input() buttonHeader: [any];
+  @Input() headerButton: [any];
 
   //Action Buttons
   @Input() actionButtons: [any];

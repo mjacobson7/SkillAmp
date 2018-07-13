@@ -6,9 +6,9 @@ module.exports = (app) => {
 
   app.get('/getCurrentUser', authController.verifyValidToken, userController.getCurrentUser);
 
-  app.post('/getUsersPage', authController.verifyValidToken, authController.hasPermission('CAN_VIEW_MANAGE_USERS_SUB_NAV'), userController.getUsersPage);
+  app.post('/getUsersPage', authController.verifyValidToken, userController.getUsersPage);
 
-  app.get('/getMyTeam', authController.verifyValidToken, userController.getMyTeam); // we need dis?
+  app.post('/getTeamPage', authController.verifyValidToken, authController.hasPermission('CAN_SUPERVISE'), userController.getTeamPage);
 
   app.get('/getSupervisorDropdown', authController.verifyValidToken, userController.getSupervisorDropdown);
 

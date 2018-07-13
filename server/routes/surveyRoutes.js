@@ -9,6 +9,6 @@ module.exports = (app) => {
 
   app.get('/getMySurveyScore', authController.verifyValidToken, surveyController.getMySurveyScore);
 
-  app.get('/getTeamSurveys', authController.verifyValidToken, authController.hasPermission('CAN_VIEW_TEAM_SURVEYS_SUB_NAV'), surveyController.getTeamSurveys);
+  app.get('/getTeamSurveys', authController.verifyValidToken, authController.hasPermission('CAN_SUPERVISE'), surveyController.getTeamSurveys);
 
 };

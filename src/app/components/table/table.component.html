@@ -1,6 +1,6 @@
 <div class="wrapper">
   <div class="header">
-    <div class="buttonWrapper" *ngFor="let button of buttonHeader">
+    <div class="buttonWrapper" *ngFor="let button of headerButton">
       <button [routerLink]="button.link" class="btn-sm btn-primary">{{button.label}}</button>
     </div>
     <div class="filterWrapper">

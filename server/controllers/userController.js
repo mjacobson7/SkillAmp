@@ -4,6 +4,9 @@ const User = require('../models/schema').User
 const UserRole = require('../models/schema').UserRole;
 const Role = require('../models/schema').Role;
 
+const rolesService = require('../services/rolesService');
+const userService = require('../services/userService');
+
 module.exports = {
 
   createUser: async (req, res) => {
@@ -78,8 +81,8 @@ module.exports = {
 
         if (existingUser[0].supervisorId !== null) {
           const supervisorRole = await Role.query()
-          .select('id')
-          .where({ isSupervisorRole: true })
+            .select('id')
+            .where({ isSupervisorRole: true })
 
           const supervisorTeam = await User.query()
             .where({ supervisorId: existingUser[0].supervisorId })
@@ -215,56 +218,25 @@ module.exports = {
   getUsersPage: async (req, res) => {
     try {
 
-      let { pageSize, length, pageNumber, orderBy, orderDir, searchText } = req.body;
-      let users;
+      let { pageSize, pageNumber, orderBy, orderDir, searchText } = req.body;
 
       if (searchText !== "") {
-        length = null
         pageNumber = 1
       }
 
       let offset = (pageNumber - 1) * pageSize;
       searchText = searchText.toLowerCase();
 
-      if (await req.principal.hasPermission('CAN_ADMIN')) {
-        users = await User
-          .query()
-          .eager('[roles, supervisor]')
-          .where('companyId', req.principal.companyId)
-          .andWhere('username', 'like', '%' + searchText + '%')
-          .orWhere('firstName', 'like', '%' + searchText + '%')
-          .orWhere('lastName', 'like', '%' + searchText + '%')
-          .limit(pageSize)
-          .offset(offset)
-          .orderBy(orderBy, orderDir)
+      const users = await userService.getAllUsersPage(req.principal.companyId, searchText, pageSize, offset, orderBy, orderDir);
 
-      } else if (await req.principal.hasPermission('CAN_SUPERVISE')) {
-        users = await User
-          .query()
-          .eager('[roles, supervisor]')
-          .where('companyId', req.principal.companyId)
-          .andWhere('supervisorId', req.principal.id)
-          .orWhere('username', 'like', '%' + searchText + '%')
-          .orWhere('firstName', 'like', '%' + searchText + '%')
-          .orWhere('lastName', 'like', '%' + searchText + '%')
-          .limit(pageSize)
-          .offset(offset)
-          .orderBy(orderBy, orderDir)
-
-      } else {
-        return res.status(403).json();
-      }
 
       let userCount = 0;
 
       if (searchText === "") {
-        count = await User
-          .query()
-          .count()
-          .where('companyId', req.principal.companyId)
-        userCount = count[0].count;
+        const count = await userService.getAllUsersCount(req.principal.companyId);
+        userCount = count.count;
       } else {
-        userCount = users[0].length;
+        userCount = users.length;
       }
 
       let usersPage = {
@@ -283,31 +255,46 @@ module.exports = {
 
   getUser: async (req, res) => {
     try {
-      const user = await User
-        .query()
-        .eager('[roles, supervisor]')
-        .where('id', req.params.id)
-        .andWhere('companyId', req.principal.companyId)
-
-      return res.status(200).json(user[0]);
+      const user = await userService.getUserById(req.params.id, req.principal.companyId);
+      return res.status(200).json(user);
     }
     catch (error) {
       console.trace(error.stack);
       res.status(500).json(error.stack);
     }
-
-
   },
 
-  getMyTeam: async (req, res) => {
-    // const dbInstance = req.app.get('db');
+  getTeamPage: async (req, res) => {
     try {
-      const myTeam = await User
-        .query()
-        .where('supervisorId', req.principal.id)
-        .andWhere('companyId', req.principal.companyId)
-      // const myTeam = await dbInstance.get_my_team([req.user.companyId, req.user.id]);
-      res.status(200).json(myTeam);
+      // const myTeam = await userService.getAgentsInTeam(req.principal.id, req.principal.companyId);
+      let { pageSize, length, pageNumber, orderBy, orderDir, searchText } = req.body;
+
+      if (searchText !== "") {
+        length = null
+        pageNumber = 1
+      }
+
+      let offset = (pageNumber - 1) * pageSize;
+      searchText = searchText.toLowerCase();
+
+      const users = await userService.getTeamPage(req.principal.id, req.principal.companyId, searchText, pageSize, offset, orderBy, orderDir);
+
+      let userCount = 0;
+
+      if (searchText === "") {
+        const count = await userService.getAgentsInTeamCount(req.principal.id, req.principal.companyId);
+        userCount = count.count;
+      } else {
+        userCount = users.length;
+      }
+
+      let usersPage = {
+        content: users,
+        length: userCount,
+        pageNumber: pageNumber
+      }
+
+      res.status(200).json(usersPage);
     }
     catch (error) {
       console.trace(error.stack);
@@ -317,10 +304,7 @@ module.exports = {
 
   getSupervisorDropdown: async (req, res) => {
     try {
-      const supervisors = await User
-        .query()
-        .select('users.id', 'username', 'firstName', 'lastName')
-        .where({ companyId: req.principal.companyId })
+      const supervisors = await userService.getUsersByCompanyId(req.principal.companyId);
 
       let supervisorList = [];
       for (let supervisor of supervisors) {
@@ -341,10 +325,7 @@ module.exports = {
 
   getRolesDropdown: async (req, res) => {
     try {
-      const roles = await Role
-        .query()
-        .select('id', 'name', 'isUserRole', 'isSupervisorRole')
-        .where('companyId', req.principal.companyId)
+      const roles = await rolesService.getRolesByCompanyId(req.principal.companyId);
 
       for (let role of roles) {
         if (role.isUserRole || role.isSupervisorRole) {

@@ -1,13 +1,13 @@
 const Survey = require('../models/schema').Survey;
 const authController = require('../controllers/authController');
 
+const surveyService = require('../services/surveyService');
+
 module.exports = {
 
   addSurveys: async (req, res) => {
     try {
-      await Survey
-        .query()
-        .insert(req.body)
+      await surveyService.createSurvey(req.body);
       res.status(200).json("Survey Created!");
     }
     catch (error) {
@@ -20,27 +20,15 @@ module.exports = {
     try {
       const { pageIndex, pageSize, ratingSort, dateSort } = req.body.params;
 
-      const count = await Survey
-        .query()
-        .count()
-        .whereIn('rating', ratingSort)
-        .andWhere('userId', req.principal.id)
-        .andWhere('companyId', req.principal.companyId)
+      const surveyCount = await surveyService.getAgentSurveyPageCount(req.principal.id, ratingSort, req.principal.companyId);
 
       let offset = (pageIndex) * pageSize;
 
-      const mySurveys = await Survey
-        .query()
-        .whereIn('rating', ratingSort)
-        .andWhere('userId', req.principal.id)
-        .andWhere('companyId', req.principal.companyId)
-        .orderBy('createdAt', dateSort)
-        .offset(offset)
-        .limit(pageSize)
+      const mySurveys = await surveyService.getAgentSurveyPage(req.principal.id, ratingSort, dateSort, offset, pageSize, req.principal.companyId);
 
       const mySurveyPage = {
         content: mySurveys,
-        length: count[0].count
+        length: surveyCount.count
       }
       res.status(200).json(mySurveyPage);
     }
@@ -52,33 +40,18 @@ module.exports = {
 
   getMySurveyScore: async (req, res) => {
     try {
-      const averageScore = await Survey
-        .query()
-        .avg('rating')
-        .where('userId', req.principal.id)
-        .andWhere('companyId', req.principal.companyId)
+      const averageScore = await surveyService.getAverageAgentScore(req.principal.id, req.principal.companyId);
+      const surveyCount = await surveyService.getAgentSurveysCount(req.principal.id, req.principal.companyId);
 
-      const surveyCount = await Survey
-        .query()
-        .count('rating')
-        .where('userId', req.principal.id)
-        .andWhere('companyId', req.principal.companyId)
-
-      !averageScore[0].avg ? averageScore[0].avg = 0 : '';
+      !averageScore.avg ? averageScore.avg = 0 : '';
 
       let totalPercentages = [];
       let ratingQueryCount = 1;
 
       for (let i = 0; i < 5; i++) {
-        let ratingAverage = await Survey
-          .query()
-          .sum('rating')
-          .where('userId', req.principal.id)
-          .andWhere('companyId', req.principal.companyId)
-          .andWhere('rating', ratingQueryCount)
-
-        if (ratingAverage[0].sum > 0) {
-          totalPercentages.unshift({ score: ratingQueryCount, percentage: (ratingAverage[0].sum / ratingQueryCount) / surveyCount[0].count })
+        let ratingAverage = await surveyService.getSurveyCountByRating(req.principal.id, ratingQueryCount, req.principal.companyId);
+        if (ratingAverage.sum > 0) {
+          totalPercentages.unshift({ score: ratingQueryCount, percentage: (ratingAverage.sum / ratingQueryCount) / surveyCount.count })
         } else {
           totalPercentages.unshift({ score: ratingQueryCount, percentage: 0 })
         }
@@ -86,8 +59,8 @@ module.exports = {
       }
 
       const total = {
-        averageScore: averageScore[0].avg,
-        totalReviews: surveyCount[0].count,
+        averageScore: averageScore.avg,
+        totalReviews: surveyCount.count,
         totalPercentages: totalPercentages
       }
       res.status(200).json(total);
@@ -100,14 +73,14 @@ module.exports = {
 
   getTeamSurveys: async (req, res) => {
 
-    const surveys = await Survey
-      .query()
-      .eager('user')
-      .where('supervisorId', req.principal.id)
-      .andWhere('users.active', true)
-      .andWhere('companyId', req.principal.companyId)
+    // const surveys = await Survey
+    //   .query()
+    //   .eager('user')
+    //   .where('supervisorId', req.principal.id)
+    //   .andWhere('users.active', true)
+    //   .andWhere('companyId', req.principal.companyId)
 
-    res.status(200).json(surveys);
+    // res.status(200).json(surveys);
   }
 
 };

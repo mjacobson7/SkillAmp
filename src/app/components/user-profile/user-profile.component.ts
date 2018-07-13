@@ -155,18 +155,36 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
     if (this.createUser) {
       this.userService.createUser(this.userForm.value).subscribe(() => {
-        this.router.navigate(['/supervisor_tools/manage_users']);
+        if(this.route.snapshot.data['isAdmin']) {
+          this.router.navigate(['/admin_tools/manage_users']);
+        }
+        else if(this.route.snapshot.data['isSupervisor']) {
+          this.router.navigate(['/supervisor_tools/my_team']);
+        }
       });
     } else if (this.updateUser) {
       this.userService.updateProfile(this.userForm.value).subscribe(() => {
-        this.router.navigate(['/supervisor_tools/manage_users']);
+        if(this.route.snapshot.data['isAdmin']) {
+          this.router.navigate(['/admin_tools/manage_users']);
+        }
+        else if(this.route.snapshot.data['isSupervisor']) {
+          this.router.navigate(['/supervisor_tools/my_team']);
+        }
       });
     } else if (this.myProfile) {
       this.userService.updateProfile(this.userForm.value).subscribe(response => {
         this.router.navigate(['/dashboard']);
       });
     }
+  }
 
+  onCancel() {
+    if(this.route.snapshot.data['isAdmin']) {
+      this.router.navigate(['/admin_tools/manage_users']);
+    }
+    else if(this.route.snapshot.data['isSupervisor']) {
+      this.router.navigate(['/supervisor_tools/my_team']);
+    }
   }
 
   changePasswordChecked(event) {

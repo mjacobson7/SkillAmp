@@ -1,17 +1,41 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
     "configurations": [
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
-            "program": "${workspaceFolder}/server/controllers/dashboardController.js",
-            "preLaunchTask": "tsc: build - tsconfig.json",
+            "name": "Server",
+            "program": "${workspaceRoot}/server/server.js",
+            "sourceMaps": true,
             "outFiles": [
-                "${workspaceFolder}/dist/out-tsc/**/*.js"
+                "${workspaceRoot}/dist/**/*.js",
+                "${workspaceRoot}/dist/*.js"
+            ],
+            "env": {
+                "SUPPORT_PASSWORD": "$killAmp$upp0rt2018",
+                "TOKEN_SECRET": "1$tImpre$$ionAppToken$ecret",
+                "DB_NAME": "firstImpression",
+                "DB_USERNAME": "postgres",
+                "DB_PASSWORD": "null",
+                "DB_HOST": "localhost"
+            },
+            "protocol": "auto"
+        },
+        {
+            "name": "Client",
+            "type": "chrome",
+            "request": "attach",
+            "url": "http://localhost:3000/",
+            "sourceMaps": true,
+            "webRoot": "${workspaceRoot}",
+            "userDataDir": "${workspaceRoot}/.vscode/chrome"
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Server/Client",
+            "configurations": [
+                "Server",
+                "Client"
             ]
         }
     ]

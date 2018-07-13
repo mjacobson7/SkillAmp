@@ -22,11 +22,19 @@ const appRoutes: Routes = [
         {path: 'profile', component: UserProfileComponent, canActivate: [AuthGuardService], data: { breadcrumbs: 'My Profile'}, resolve: { user: UserResolverService, permissions: PermissionResolverService }},
         {path: 'survey', component: SurveyComponent, canActivate: [AuthGuardService], data: { breadcrumbs: 'My Surveys'}, resolve: { user: UserResolverService, permissions: PermissionResolverService }},
         {path: 'supervisor_tools', data: { breadcrumbs: 'Supervisor Tools'}, children: [
-            {path: 'manage_users', canActivate: [AuthGuardService], data: { breadcrumbs: 'Manage Users'}, resolve: { user: UserResolverService, permissions: PermissionResolverService }, children: [
+            {path: 'my_team', canActivate: [AuthGuardService], data: { breadcrumbs: 'My Team', isSupervisor: true}, resolve: { user: UserResolverService, permissions: PermissionResolverService }, children: [
                 {path: '', component: ManageUsersComponent},
                 {path: 'user/:id', component: UserProfileComponent, canActivate: [AuthGuardService], data: { breadcrumbs: 'Edit User'}, resolve: { user: UserResolverService, permissions: PermissionResolverService }},
             ]},
             {path: 'team_surveys', component: SurveyComponent, canActivate: [AuthGuardService], data: { breadcrumbs: 'Team Surveys'}, resolve: { user: UserResolverService, permissions: PermissionResolverService }},
+            {path: '', pathMatch: 'full', redirectTo: 'my_team'}  
+        ]},
+        {path: 'admin_tools', data: { breadcrumbs: 'Admin Tools'}, children: [
+            {path: 'manage_users', canActivate: [AuthGuardService], data: { breadcrumbs: 'Manage Users', isAdmin: true}, resolve: { user: UserResolverService, permissions: PermissionResolverService }, children: [
+                {path: '', component: ManageUsersComponent},
+                {path: 'user/:id', component: UserProfileComponent, canActivate: [AuthGuardService], data: { breadcrumbs: 'Edit User'}, resolve: { user: UserResolverService, permissions: PermissionResolverService }},
+            ]},
+            {path: 'agent_surveys', component: SurveyComponent, canActivate: [AuthGuardService], data: { breadcrumbs: 'Agent Surveys'}, resolve: { user: UserResolverService, permissions: PermissionResolverService }},
             {path: '', pathMatch: 'full', redirectTo: 'manage_users'}  
         ]}
     ]},

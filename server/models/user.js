@@ -4,7 +4,7 @@ class User extends Model {
     static get tableName() {
         return 'users'
     }
-
+  
     async hasPermission(permissionName) {
         const RolePermission = require('./RolePermission');
         const UserRole = require('./UserRole');
@@ -28,8 +28,6 @@ class User extends Model {
         }
         return false;
     }
-
-
 
     static get relationMappings() {
         const Survey = require('./Survey');
@@ -67,6 +65,32 @@ class User extends Model {
             }
         }
     }
+
+    getId() { return this.id; }
+    setId(id) { this.id = id; }
+
+    getFirstName() { return this.firstName; }
+    setFirstName(name) { this.firstName = name; }
+
+    getLastName() { return this.lastName; }
+    setLastName(name) { this.lastName = lastName; }
+
+    getEmail() { return this.email; }
+    setEmail(email) { this.email = email; }
+
+    getSupervisorId() { return this.superVisorId; }
+    setSupervisorId(id) { this.superVisorId = id; }
+
+    getIsActive() { return this.active; }
+    setActive(active) { this.active = active; }
+
+    getArchivedDate() { return this.archivedDate; }
+    setArchivedDate(date) { this.archivedDate = date; }
+
+    getCreatedAt() { return this.createdAt; }
+    setCreatedAt(date) { this.createdAt = date; }
+
+
 }
 
 module.exports = User;

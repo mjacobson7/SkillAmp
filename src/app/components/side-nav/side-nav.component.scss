@@ -4,9 +4,9 @@
     z-index: 1;
     position: fixed;
     top: 60px;
+    bottom: 0px;
     width: 250px;
-    min-height: 100vh;
-    overflow-y: hidden;
+    overflow-y: scroll;
     background-color: $dark;
     transition: width 0.25s;
 

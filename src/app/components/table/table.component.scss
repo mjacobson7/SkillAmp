@@ -217,6 +217,7 @@ table th:hover {
         tbody {
             .action-button-wrapper {
                 display: flex;
+                justify-content: center;
                 border: none;
 
                 .action-button {
