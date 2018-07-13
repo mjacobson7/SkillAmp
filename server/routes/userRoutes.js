@@ -6,7 +6,7 @@ module.exports = (app) => {
 
   app.get('/getCurrentUser', authController.verifyValidToken, userController.getCurrentUser);
 
-  app.post('/getUsersPage', authController.verifyValidToken, userController.getUsersPage);
+  app.post('/getUsersPage', authController.verifyValidToken, authController.hasPermission('CAN_ADMIN'), userController.getUsersPage);
 
   app.post('/getTeamPage', authController.verifyValidToken, authController.hasPermission('CAN_SUPERVISE'), userController.getTeamPage);
 

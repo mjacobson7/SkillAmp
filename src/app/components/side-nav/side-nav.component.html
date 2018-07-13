@@ -7,7 +7,7 @@
       <span class="side-nav-menu-item">{{sideNav.name}}</span>
     </div>
 
-    <div *ngIf="sideNav.parentNav" (click)="sideNav.showSubNav = !sideNav.showSubNav" class="nav-item" [ngClass]="{'subItemActive' : manageUsers?.isActive || teamSurveys?.isActive }">
+    <div *ngIf="sideNav.parentNav" (click)="sideNav.showSubNav = !sideNav.showSubNav" class="nav-item">
       <div *ngIf="sideNav.parentNav">
         <i class="{{sideNav.icon}} icon"></i>
         <span class="side-nav-menu-item">{{sideNav.name}}</span>

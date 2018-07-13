@@ -109,13 +109,3 @@
 .supervisorMenu, .systemMenu {
     transition: height .3s ease-in-out;
 }
-
-.subItemActive span {
-    transition: color 0.25s;
-    color: #FFFFFF !important;
-}
-
-.subItemActive i {
-    transition: color 0.25s;
-    color: #00B6EE !important;
-}
