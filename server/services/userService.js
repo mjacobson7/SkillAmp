@@ -1,4 +1,6 @@
 const User = require('../models/schema').User;
+const { raw } = require('objection');
+
 
 module.exports = {
 
@@ -25,7 +27,7 @@ module.exports = {
     },
 
     getAgentsInTeamCount: (supervisorId, companyId) => {
-        return User.query().count().where({ companyId: companyId, supervisorId: supervisorId })
+        return User.query().count().where({ companyId: companyId, supervisorId: supervisorId }).then(count => count[0])
     },
 
     getUsersByCompanyId: (companyId) => {
@@ -35,9 +37,12 @@ module.exports = {
     getAllUsersPage: (companyId, searchText, pageSize, offset, orderBy, orderDir) => {
         return User.query().eager('[roles, supervisor]')
             .where({ companyId: companyId })
-            .andWhere('username', 'like', '%' + searchText + '%')
-            .orWhere('firstName', 'like', '%' + searchText + '%')
-            .orWhere('lastName', 'like', '%' + searchText + '%')
+            .whereIn('id',
+                User.query().select('id')
+                    .where('username', 'like', '%' + searchText + '%')
+                    .orWhere('firstName', 'like', '%' + searchText + '%')
+                    .orWhere('lastName', 'like', '%' + searchText + '%')
+            )
             .limit(pageSize)
             .offset(offset)
             .orderBy(orderBy, orderDir)
@@ -47,12 +52,15 @@ module.exports = {
         return User.query().count().where({ companyId: companyId }).then(count => count[0])
     },
 
-    getTeamPage: (supervisorId, companyId, searchText, pageSize, offset, orderBy, orderDir) => {
+    getTeamPage: async (supervisorId, companyId, searchText, pageSize, offset, orderBy, orderDir) => {
         return User.query().eager('[roles, supervisor]')
             .where({ companyId: companyId, supervisorId: supervisorId })
-            .andWhere('username', 'like', '%' + searchText + '%')
-            .orWhere('firstName', 'like', '%' + searchText + '%')
-            .orWhere('lastName', 'like', '%' + searchText + '%')
+            .whereIn('id',
+                User.query().select('id')
+                    .where('username', 'like', '%' + searchText + '%')
+                    .orWhere('firstName', 'like', '%' + searchText + '%')
+                    .orWhere('lastName', 'like', '%' + searchText + '%')
+            )
             .limit(pageSize)
             .offset(offset)
             .orderBy(orderBy, orderDir)

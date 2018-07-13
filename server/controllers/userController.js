@@ -266,17 +266,14 @@ module.exports = {
 
   getTeamPage: async (req, res) => {
     try {
-      // const myTeam = await userService.getAgentsInTeam(req.principal.id, req.principal.companyId);
-      let { pageSize, length, pageNumber, orderBy, orderDir, searchText } = req.body;
+      let { pageSize, pageNumber, orderBy, orderDir, searchText } = req.body;
 
       if (searchText !== "") {
-        length = null
-        pageNumber = 1
+        pageNumber = 1;
       }
 
       let offset = (pageNumber - 1) * pageSize;
       searchText = searchText.toLowerCase();
-
       const users = await userService.getTeamPage(req.principal.id, req.principal.companyId, searchText, pageSize, offset, orderBy, orderDir);
 
       let userCount = 0;

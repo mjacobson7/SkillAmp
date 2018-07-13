@@ -14,7 +14,7 @@ module.exports = {
     insertCompanyDefaultRoles: (companyId) => {
         return Role.query().insert([
             { companyId: companyId, name: 'User', isUserRole: true, isSupervisorRole: false, isAdminRole: false },
-            { companyId: companyId, name: 'Supervisor', isUserRole: false, isSupervisorRole: true, isAdminRole: false },
+            // { companyId: companyId, name: 'Supervisor', isUserRole: false, isSupervisorRole: true, isAdminRole: false }, //This is a system assigned role that is only given to supervisors
             { companyId: companyId, name: 'Admin', isUserRole: false, isSupervisorRole: false, isAdminRole: true }
           ]).returning('*')
     }
