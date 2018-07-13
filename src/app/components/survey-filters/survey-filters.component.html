@@ -1,5 +1,4 @@
 <div>
-
   <div class="ratingTotalAndFiltersWrapper">
     <div class="ratingTotalAndRatingBarWrapper">
       <div class="ratingScoreWrapper">
@@ -38,7 +37,7 @@
       <label>Filter By</label>
       <div class="filters">
         <ng-select [searchable]="false" [clearable]="false" [(ngModel)]=ratingSort (change)="onChangeRatingSort($event)">
-          <ng-option value="1,2,3,4,5">All Stars</ng-option>
+          <ng-option value="1,2,3,4,5">All Ratings</ng-option>
           <ng-option value=5>5 star only</ng-option>
           <ng-option value=4>4 star only</ng-option>
           <ng-option value=3>3 star only</ng-option>
@@ -49,6 +48,7 @@
           <ng-option value="DESC">Newest</ng-option>
           <ng-option value="ASC">Oldest</ng-option>
         </ng-select>
+        <ng-select *ngIf="canSortByAgent" [items]="agents" bindLabel="name" bindValue="id" [searchable]="false" [clearable]="true" placeholder="Agent Filter" [(ngModel)]="agentSort" (change)="onChangeAgentSort(agentSort)"></ng-select>
       </div>
     </div>
   </div>

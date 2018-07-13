@@ -337,6 +337,40 @@ module.exports = {
       res.status(500).json(error.stack);
     }
 
+  },
+
+  getAllAgentsDropdown: async (req, res) => {
+    try {
+      const agents = await userService.getUsersWithAgentRoleByCompanyId(req.principal.companyId);
+      let dropdownConfig = [];
+
+      for (let agent of agents) {
+        dropdownConfig.push({ id: agent.id, name: agent.firstName + ' ' + agent.lastName })
+      }
+
+      res.status(200).json(dropdownConfig);
+    }
+    catch (error) {
+      console.trace(error.stack);
+      res.status(500).json(error.stack);
+    }
+  },
+
+  getTeamDropdown: async (req, res) => {
+    try {
+      const agents = await userService.getUsersWithAgentRoleBySupervisorIDAndCompanyId(req.principal.id, req.principal.companyId);
+      let dropdownConfig = [];
+
+      for (let agent of agents) {
+        dropdownConfig.push({ id: agent.id, name: agent.firstName + ' ' + agent.lastName })
+      }
+
+      res.status(200).json(dropdownConfig);
+    }
+    catch (error) {
+      console.trace(error.stack);
+      res.status(500).json(error.stack);
+    }
   }
 
 

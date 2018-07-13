@@ -34,6 +34,14 @@ module.exports = {
         return User.query().where({ companyId: companyId });
     },
 
+    getUsersWithAgentRoleByCompanyId: (companyId) => {
+        return User.query().joinRelation('roles').where({ 'roles.isUserRole': true, 'users.companyId': companyId })
+    },
+
+    getUsersWithAgentRoleBySupervisorIDAndCompanyId: (supervisorId, companyId) => {
+        return User.query().joinRelation('roles').where({ 'roles.isUserRole': true, 'users.companyId': companyId, 'users.supervisorId': supervisorId })
+    },
+
     getAllUsersPage: (companyId, searchText, pageSize, offset, orderBy, orderDir) => {
         return User.query().eager('[roles, supervisor]')
             .where({ companyId: companyId })

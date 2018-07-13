@@ -9,7 +9,7 @@
             <span>{{review.rating}}</span>
             <i class="fa fa-star" aria-hidden="true"></i>
           </div>
-          <div class="agentName">Ryan Gray</div>
+          <div class="agentName">{{review.user?.firstName}} {{review.user?.lastName}}</div>
           <span class="text-muted date">{{review.createdAt | date: 'longDate'}}</span>
         </div>
 

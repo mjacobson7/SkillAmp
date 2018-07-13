@@ -67,11 +67,11 @@ module.exports = {
             widgetData = [];
 
             //totalAgentSurveys
-            const totalAgentSurveys = await surveyService.getAgentSurveysCount(req.principal.id, req.principal.companyId);
+            const totalAgentSurveys = await surveyService.getAgentSurveysCountById(req.principal.id, req.principal.companyId);
             widgetData.push({ label: 'Total Surveys', icon: 'fa-list-alt', cardColor: '#20a8d8', data: parseInt(totalAgentSurveys.count), info: 'The total number of surveys you have received' })
 
             //averageAgentScore
-            const averageAgentScore = await surveyService.getAverageAgentScore(req.principal.id, req.principal.companyId);
+            const averageAgentScore = await surveyService.getAverageAgentScoreById(req.principal.id, req.principal.companyId);
             widgetData.push({ label: 'Average Score', icon: 'fa-star', cardColor: '#00acac', data: Math.ceil(averageAgentScore.avg * 100) / 100, info: 'The combined average score for all your surveys' })
 
             //agentRankInTeam

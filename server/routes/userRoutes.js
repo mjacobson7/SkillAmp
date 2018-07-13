@@ -14,6 +14,10 @@ module.exports = (app) => {
 
   app.get('/getRolesDropdown', authController.verifyValidToken, userController.getRolesDropdown);
 
+  app.get('/getAllAgentsDropdown', authController.verifyValidToken, authController.hasPermission('CAN_ADMIN'), userController.getAllAgentsDropdown)
+
+  app.get('/getTeamDropdown', authController.verifyValidToken, authController.hasPermission('CAN_SUPERVISE'), userController.getTeamDropdown)
+
   app.get('/getUser/:id', authController.verifyValidToken, authController.hasPermission('CAN_EDIT_USERS'), userController.getUser);
 
   app.post('/createUser', authController.verifyValidToken, authController.hasPermission('CAN_CREATE_USERS'), userController.createUser);

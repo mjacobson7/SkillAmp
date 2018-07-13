@@ -31,9 +31,6 @@ export class UserService {
         if (user) {
           this.authService.user = user;
         }
-        //here when we update our own profile we want to set the user as shown below, 
-        //but if it's someone elses profile, then no (fix this)
-
       });
   }
 
@@ -47,6 +44,14 @@ export class UserService {
     return this.httpClient.get<any[]>('/getSupervisorDropdown').map(supervisors => {
       return supervisors;
     })
+  }
+
+  getAllAgentsDropdown() {
+    return this.httpClient.get<any[]>('/getAllAgentsDropdown');
+  }
+
+  getTeamDropdown() {
+    return this.httpClient.get<any[]>('/getTeamDropdown');
   }
 
   getUser(userId) {

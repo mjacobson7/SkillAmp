@@ -5,10 +5,16 @@ module.exports = (app) => {
 
   app.post('/addSurvey', /*Do some auth check here*/ surveyController.addSurveys);
 
-  app.post('/getMySurveys', authController.verifyValidToken, surveyController.getMySurveys);
-
   app.get('/getMySurveyScore', authController.verifyValidToken, surveyController.getMySurveyScore);
 
-  app.get('/getTeamSurveys', authController.verifyValidToken, authController.hasPermission('CAN_SUPERVISE'), surveyController.getTeamSurveys);
+  app.get('/getTeamSurveyScore', authController.verifyValidToken, surveyController.getTeamSurveyScore);
+
+  app.get('/getAllSurveyScore', authController.verifyValidToken, surveyController.getAllSurveyScore);
+
+  app.post('/getMySurveysPage', authController.verifyValidToken, surveyController.getMySurveysPage);
+
+  app.post('/getTeamSurveysPage', authController.verifyValidToken, authController.hasPermission('CAN_SUPERVISE'), surveyController.getTeamSurveysPage);
+
+  app.post('/getAllSurveysPage', authController.verifyValidToken, authController.hasPermission('CAN_ADMIN'), surveyController.getAllSurveysPage);
 
 };
