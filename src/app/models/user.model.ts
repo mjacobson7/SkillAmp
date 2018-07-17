@@ -7,6 +7,7 @@ export interface User {
   firstName: string;
   lastName: string;
   email: string;
+  active: boolean;
   supervisorId: number;
   supervisor: User;
   roles: Role[];

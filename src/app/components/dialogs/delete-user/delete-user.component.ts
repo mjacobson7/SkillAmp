@@ -11,6 +11,7 @@ import { ModalRef } from '@independer/ng-modal';
 })
 export class DeleteUserComponent implements OnInit {
   user: User;
+  confirmDelete;
 
   constructor(private modal: ModalRef, private userService: UserService) { }
 
