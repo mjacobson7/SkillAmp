@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const config = require('../config');
 const Permission = require('../models/schema').Permission;
 const RolePermission = require('../models/schema').RolePermission;
 const UserRole = require('../models/schema').UserRole;
@@ -20,7 +21,7 @@ module.exports = {
         username: 'skillampsupport',
         firstName: 'SkillAmp',
         lastName: 'Support',
-        password: bcrypt.hashSync(process.env.SUPPORT_PASSWORD, salt),
+        password: bcrypt.hashSync(config.tokenSecret, salt),
         email: 'support@skillamp.io'
       })
 

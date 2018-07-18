@@ -1,12 +1,13 @@
 const Knex = require('knex');
+const config = require('./config');
 
 module.exports = {
     client: 'pg',
     connection: {
-        host: process.env.DB_HOST,
-        user: process.env.DB_USERNAME,
-        password: process.env.DB_PASSWORD,
-        database: process.env.DB_NAME
+        host: config.host,
+        user: config.user,
+        password: config.password,
+        database: config.database
     },
     migrations: { directory: './db/migrations' },
     seeds: { directory: './db/seeds' },

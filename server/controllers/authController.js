@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const config = require('../config');
 
 const ErrorDebugInfo = require('../models/schema').ErrorDebugInfo;
 
@@ -36,7 +37,7 @@ module.exports = {
           }
 
           if (bcrypt.compareSync(password, user.password)) {
-            let token = jwt.sign({ userId: user.id, companyId: user.companyId }, process.env.TOKEN_SECRET, { expiresIn: '24h' });
+            let token = jwt.sign({ userId: user.id, companyId: user.companyId }, config.tokenSecret, { expiresIn: '24h' });
             res.status(200).json({ token: token, user: user, permissions: permissionsMap });
           } else {
             return res.status(403).json();
@@ -87,7 +88,7 @@ module.exports = {
 
   verifyValidToken: async (req, res, next) => {
     try {
-      let decoded = await jwt.verify(req.header('auth'), process.env.TOKEN_SECRET);
+      let decoded = await jwt.verify(req.header('auth'), config.tokenSecret);
       if (decoded) {
         req.principal = await userService.getUserById(decoded.userId, decoded.companyId);
         next();
