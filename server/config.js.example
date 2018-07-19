@@ -1,0 +1,10 @@
+let config = {
+    host: '',
+    user: '',
+    password: '',
+    database: '',
+    tokenSecret: '',
+    supportPassword: ''
+}
+
+module.exports = config;
