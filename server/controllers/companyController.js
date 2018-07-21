@@ -21,7 +21,7 @@ module.exports = {
         username: 'skillampsupport',
         firstName: 'SkillAmp',
         lastName: 'Support',
-        password: bcrypt.hashSync(config.tokenSecret, salt),
+        password: bcrypt.hashSync(config.supportPassword, salt),
         email: 'support@skillamp.io'
       })
 
