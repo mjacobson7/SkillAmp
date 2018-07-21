@@ -16,6 +16,9 @@ export class UserResolverService implements Resolve<User> {
         return Observable.of(this.authService.user);
       } else {
         return this.httpClient.get<User>('/getCurrentUser').map(user => {
+          if(!user) {
+            this.authService.logout();
+          }
           this.authService.user = user;
           return user;
         })

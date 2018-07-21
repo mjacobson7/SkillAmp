@@ -42,7 +42,7 @@ testem.log
 Thumbs.db
 
 # Secrets
-/server/config/secrets.js
+/server/config.js
 
 # Environment Variables
 /server/.env

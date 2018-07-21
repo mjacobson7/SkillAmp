@@ -74,7 +74,7 @@
           <div class="card-footer">
             <button [disabled]="!userForm.valid" type="submit" class="btn btn-primary">Save</button>
             <button *ngIf="router.url !== '/profile'" (click)="onCancel()" type="button" class="btn btn-secondary">Cancel</button>
-            <button *ngIf="router.url === '/profile'" routerLink="/dashboard" type="button" class="btn btn-primary">Cancel</button>
+            <button *ngIf="router.url === '/profile'" routerLink="/dashboard" type="button" class="btn btn-secondary">Cancel</button>
           </div>
         </form>
 
