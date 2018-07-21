@@ -89,7 +89,7 @@
     "@types/jasmine": "^2.8.8",
     "@types/jasminewd2": "~2.0.2",
     "@types/jquery": "^3.3.4",
-    "@types/noden": "^8.10.21",
+    "@types/noden": "8.10.21",
     "codelyzer": "^4.4.2",
     "jasmine-core": "~2.8.0",
     "jasmine-spec-reporter": "~4.2.1",
