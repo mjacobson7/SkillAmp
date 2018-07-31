@@ -1,15 +1,20 @@
 <div class="container-fluid">
     <div class="row">
+        <div class="col-12">
+            <app-dashboard-nav (onDashboardViewChange)="onDashboardViewChange($event)"></app-dashboard-nav>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            <app-dashboard-cards></app-dashboard-cards>
+            <app-dashboard-cards [dashboardView]="dashboardView"></app-dashboard-cards>
         </div>
     </div>
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 survey">
-            <app-survey-chart></app-survey-chart>
+            <app-survey-chart [dashboardView]="dashboardView"></app-survey-chart>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 leaderboard">
-            <app-leaderboard></app-leaderboard>
+            <app-leaderboard [dashboardView]="dashboardView"></app-leaderboard>
         </div>
     </div>
 </div>

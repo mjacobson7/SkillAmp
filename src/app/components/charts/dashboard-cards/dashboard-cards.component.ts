@@ -1,36 +1,34 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { DashboardService } from '../../../services/dashboard/dashboard.service';
-import { User } from '../../../models/user.model';
 
 @Component({
   selector: 'app-dashboard-cards',
   templateUrl: './dashboard-cards.component.html',
   styleUrls: ['./dashboard-cards.component.scss']
 })
-export class DashboardCardsComponent implements OnInit {
+export class DashboardCardsComponent implements OnInit, OnChanges {
   widgetData;
-  navType: string;
+  @Input() dashboardView;
 
   constructor(private dashboardService: DashboardService) { }
 
   ngOnInit() {}
 
-  getWidgetData(nav) {
-    if (nav === 'ADMIN') {
-      this.dashboardService.getAdminWidgets().subscribe(data => {
-        this.navType = 'ADMIN';
-        this.widgetData = data;
-      })
-    } else if (nav === 'SUPERVISOR') {
-      this.dashboardService.getSupervisorWidgets().subscribe(data => {
-        this.navType = 'SUPERVISOR';
-        this.widgetData = data;
-      })
-    } else {
-      this.dashboardService.getAgentWidgets().subscribe(data => {
-        this.navType = 'AGENT';
-        this.widgetData = data;
-      })
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.dashboardView !== undefined && changes.dashboardView.previousValue !== changes.dashboardView.currentValue) {
+      if (changes.dashboardView.currentValue === 'ADMIN') {
+        this.dashboardService.getAdminWidgets().subscribe(data => {
+          this.widgetData = data;
+        });
+      } else if (changes.dashboardView.currentValue === 'SUPERVISOR') {
+        this.dashboardService.getSupervisorWidgets().subscribe(data => {
+          this.widgetData = data;
+        });
+      } else if (changes.dashboardView.currentValue === 'AGENT') {
+        this.dashboardService.getAgentWidgets().subscribe(data => {
+          this.widgetData = data;
+        });
+      }
     }
   }
 

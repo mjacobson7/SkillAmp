@@ -6,6 +6,6 @@ module.exports = (app) => {
     app.get('/getSupervisorWidgets', authController.verifyValidToken, authController.hasPermission('CAN_SUPERVISE'), dashboardController.getSupervisorWidgets);
     app.get('/getAgentWidgets', authController.verifyValidToken, dashboardController.getAgentWidgets);
 
-    app.post('/team_leaderboard', authController.verifyValidToken, dashboardController.getTeamLeaderboard);
-    app.post('/survey_chart_data', authController.verifyValidToken, dashboardController.getSurveyChartData);
+    app.post('/teamLeaderboard', authController.verifyValidToken, dashboardController.getTeamLeaderboard);
+    app.post('/surveyChartData', authController.verifyValidToken, dashboardController.getSurveyChartData);
 }

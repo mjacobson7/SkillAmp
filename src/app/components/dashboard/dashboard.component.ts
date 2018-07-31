@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DashboardService } from '../../services/dashboard/dashboard.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -6,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  dashboardView: string;
 
-  constructor() {}
+  constructor() { }
 
-ngOnInit() {}
+  ngOnInit() { }
+
+  onDashboardViewChange(view) {
+    this.dashboardView = view;
+  }
+
 
 }

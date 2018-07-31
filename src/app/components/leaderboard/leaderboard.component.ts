@@ -1,5 +1,5 @@
 import { DashboardService } from './../../services/dashboard/dashboard.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 
 @Component({
@@ -7,8 +7,9 @@ import { MatPaginator, MatTableDataSource } from '@angular/material';
   templateUrl: './leaderboard.component.html',
   styleUrls: ['./leaderboard.component.scss']
 })
-export class LeaderboardComponent implements OnInit {
+export class LeaderboardComponent implements OnInit, OnChanges {
   leaderboard: any[];
+  @Input() dashboardView;
 
   page = {
     pageSize: 10,
@@ -25,24 +26,28 @@ export class LeaderboardComponent implements OnInit {
     { label: 'Username', field: 'username', sortable: false },
     { label: 'First Name', field: 'firstName', sortable: false },
     { label: 'Last Name', field: 'lastName', sortable: false }
-  ]
+  ];
 
   constructor(private dashboardService: DashboardService) { }
 
-  ngOnInit() {
-    this.getLeaderboard();
+  ngOnInit() {}
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.dashboardView !== undefined && changes.dashboardView.previousValue !== changes.dashboardView.currentValue) {
+        this.getLeaderboard(changes.dashboardView.currentValue);
+    }
   }
 
   onPage(event) {
     this.page = event;
-    this.getLeaderboard();
+    this.getLeaderboard(this.dashboardView);
   }
 
-  getLeaderboard() {
-    this.dashboardService.getLeaderboard(this.page).subscribe(response => {
+  getLeaderboard(view) {
+    this.dashboardService.getLeaderboard(view, this.page).subscribe(response => {
       this.page.length = response.length;
       this.leaderboard = response.rankings;
-    })
+    });
   }
 
 

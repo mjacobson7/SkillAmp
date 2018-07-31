@@ -37,13 +37,13 @@ export class UserService {
   getRolesDropdown() {
     return this.httpClient.get<any[]>('/getRolesDropdown').map(roles => {
       return roles;
-    })
+    });
   }
 
   getSupervisorDropdown() {
     return this.httpClient.get<any[]>('/getSupervisorDropdown').map(supervisors => {
       return supervisors;
-    })
+    });
   }
 
   getAllAgentsDropdown() {

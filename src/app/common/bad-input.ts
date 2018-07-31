@@ -4,9 +4,9 @@ export class BadInput extends AppError {
 
     constructor(error?: any) {
         super();
-        
-        console.log("Bad Input", error);
+
+        console.log('Bad Input', error);
     }
 }
 
-//400
+// 400

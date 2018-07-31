@@ -4,59 +4,26 @@
     p {
         display: inline-block;
         font-size: 14px;
-        line-height: 31px;
+        line-height: 36px;
         margin: 0px;
     }
 
     .button-group {
         float: right;
-        border: 1px solid #c0cadd;
-        color: #c0cadd;
         display: flex;
         flex-direction: row;
-        cursor: pointer;
 
-        span {
-            padding: 5px 8px;              
+        p {
+            margin-right: 5px;
         }
 
-        .sort-week {
-            border-right: 1px solid #c0cadd;
-
-            &:hover {
-                transition: color .15s ease-in-out, background-color .15s ease-in-out;
-                background-color: $secondary;
-                color: #FFFFFF;
+        .ng-select {
+            .selectFilter {
+                min-height: 28px;
             }
         }
 
-        .sort-month {
-            border-right: 1px solid #c0cadd;
 
-            &:hover {
-                transition: color .15s ease-in-out, background-color .15s ease-in-out;
-                background-color: $secondary;
-                color: #FFFFFF;
-            }
-        }
-
-        .sort-year {
-            border-right: 1px solid #c0cadd;
-
-            &:hover {
-                transition: color .15s ease-in-out, background-color .15s ease-in-out;
-                background-color: $secondary;
-                color: #FFFFFF;
-            }
-        }
-
-        .sort-all {
-            &:hover {
-                transition: color .15s ease-in-out, background-color .15s ease-in-out;
-                background-color: $secondary;
-                color: #FFFFFF;
-            }
-        }
     }
 }
 

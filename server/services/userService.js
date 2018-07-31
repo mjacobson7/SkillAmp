@@ -30,6 +30,10 @@ module.exports = {
         return User.query().count().where({ companyId: companyId, supervisorId: supervisorId }).then(count => count[0])
     },
 
+    getAgentsInCompanyCount: (companyId) => {
+        return User.query().joinRelation('roles').count().where({ 'users.companyId': companyId, 'roles.isUserRole': true }).then(count => count[0])
+    },
+
     getUsersByCompanyId: (companyId) => {
         return User.query().where({ companyId: companyId });
     },

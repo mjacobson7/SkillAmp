@@ -17,13 +17,13 @@ export class DashboardService {
   getAgentWidgets() {
     return this.httpClient.get<any>('/getAgentWidgets');
   }
- 
-  getLeaderboard(params) {
-    return this.httpClient.post<any>('/team_leaderboard', { params: params });
+
+  getLeaderboard(view, params) {
+    return this.httpClient.post<any>('/teamLeaderboard', { params: params, view: view });
   }
 
-  getSurveyChartData(params) {
-    return this.httpClient.post<any>('/survey_chart_data', params);
+  getSurveyChartData(view, daysFilter) {
+    return this.httpClient.post<any>('/surveyChartData', { view, daysFilter });
   }
 
 }

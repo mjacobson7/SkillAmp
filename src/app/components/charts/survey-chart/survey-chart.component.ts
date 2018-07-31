@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, SimpleChanges, OnChanges, Input } from '@angular/core';
 import * as shape from 'd3-shape';
 import { DashboardService } from '../../../services/dashboard/dashboard.service';
 
@@ -9,8 +9,17 @@ import { DashboardService } from '../../../services/dashboard/dashboard.service'
     templateUrl: './survey-chart.component.html',
     styleUrls: ['./survey-chart.component.scss']
 })
-export class SurveyChartComponent implements OnInit {
-    sortFilter: string = '1M';
+export class SurveyChartComponent implements OnInit, OnChanges {
+    daysFilterList: Object[] = [
+        { label: '7 Days', value: 7 },
+        { label: '30 Days', value: 30 },
+        { label: '3 Months', value: 90 },
+        { label: '6 Months', value: 180 },
+        { label: '1 Year', value: 365 }
+    ];
+    daysFilter = 7;
+    @Input() dashboardView;
+
     chartLoaded: boolean = false;
 
     lineChartData: Array<any> = [{ data: [] }];
@@ -25,7 +34,7 @@ export class SurveyChartComponent implements OnInit {
         pointBorderColor: '#fff',
         pointHoverBackgroundColor: '#fff',
         pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    }]
+    }];
 
     lineChartOptions: any = {
         responsive: true,
@@ -38,26 +47,27 @@ export class SurveyChartComponent implements OnInit {
     };
 
     ngOnInit() { }
-    
-    constructor(private dashboardService: DashboardService) {
-        this.getSurveyChartData();
+
+    constructor(private dashboardService: DashboardService) { }
+
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes.dashboardView !== undefined && changes.dashboardView.previousValue !== changes.dashboardView.currentValue) {
+            this.getSurveyChartData(changes.dashboardView.currentValue);
+        }
     }
 
-    getSurveyChartData() {
-        let params = {
-            sort: this.sortFilter
-        }        
-        this.dashboardService.getSurveyChartData(params).subscribe(response => {
+    getSurveyChartData(view) {
+        this.dashboardService.getSurveyChartData(view, this.daysFilter).subscribe(response => {
             this.lineChartData = response.data;
-            this.lineChartLabels = response.labels;               
+            this.lineChartLabels = response.labels;
             this.chartLoaded = true;
-        })
+        });
     }
 
     onSelectFilter(sortBy) {
-        this.sortFilter = sortBy;
-        this.getSurveyChartData();
+        this.daysFilter = sortBy;
+        this.getSurveyChartData(this.dashboardView);
     }
 
 
-} //end component
+} // end component

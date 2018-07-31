@@ -1,15 +1,10 @@
 <div class="card">
     <div class="card-header">
         <p>Surveys</p>
-
         <div class="button-group">
-            <span (click)="onSelectFilter('1M')" class="sort-month" [ngClass]="{'dateFilterActive' : sortFilter === '1M'}">1M</span>
-            <span (click)="onSelectFilter('3M')" class="sort-week" [ngClass]="{'dateFilterActive' : sortFilter === '3M'}">3M</span>
-            <span (click)="onSelectFilter('6M')" class="sort-week" [ngClass]="{'dateFilterActive' : sortFilter === '6M'}">6M</span>
-            <span (click)="onSelectFilter('1Y')" class="sort-year" [ngClass]="{'dateFilterActive' : sortFilter === '1Y'}">1Y</span>
-            <span (click)="onSelectFilter('5Y')" class="sort-all" [ngClass]="{'dateFilterActive' : sortFilter === '5Y'}">5Y</span>
+            <p>Results for past:</p>
+            <ng-select bindValue="value" bindLabel="label" [searchable]="false" [clearable]="false" [items]="daysFilterList" (change)="onSelectFilter(daysFilter)" [(ngModel)]="daysFilter"></ng-select>
         </div>
-
     </div>
     <div class="card-body">
         <div style="height: 300px">

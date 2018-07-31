@@ -1,4 +1,5 @@
 const Survey = require('../models/schema').Survey;
+const User = require('../models/schema').User;
 const { raw } = require('objection');
 
 
@@ -67,14 +68,14 @@ module.exports = {
     },
 
     getTeamSurveyPage: async (supervisorId, ratingSort, dateSort, offset, pageSize, agentSort, companyId) => {
-        if(!agentSort) agentSort = undefined;
+        if (!agentSort) agentSort = undefined;
         return await Survey.query().eager('user').joinRelation('user').whereIn('rating', ratingSort).skipUndefined()
             .andWhere({ 'user.supervisorId': supervisorId, 'user.companyId': companyId, 'user.id': agentSort })
             .orderBy('createdAt', dateSort).offset(offset).limit(pageSize)
     },
 
     getAllSurveysPage: (ratingSort, dateSort, offset, pageSize, agentSort, companyId) => {
-        if(!agentSort) agentSort = undefined;
+        if (!agentSort) agentSort = undefined;
         return Survey.query().eager('user').whereIn('rating', ratingSort).skipUndefined()
             .andWhere({ companyId: companyId, userId: agentSort })
             .orderBy('createdAt', dateSort).offset(offset).limit(pageSize)
@@ -94,5 +95,43 @@ module.exports = {
     getSurveyCountByRatingAndCompanyId: (ratingQueryCount, companyId) => {
         return Survey.query().sum('rating').where({ companyId: companyId, rating: ratingQueryCount })
             .then(ratingCount => ratingCount[0]);
+    },
+
+    getTeamRankings: (companyId, supervisorId, pageSize, offset) => {
+        return User.query()
+            .select(raw('dense_rank() OVER (ORDER BY AVG(surveys.rating) desc NULLS LAST) rank, ' +
+                'round(AVG(surveys.rating), 2) as "averageScore", users.*'))
+            .joinRaw('left join surveys ON surveys."userId" = users.id')
+            .where(raw('users."companyId" = ??', companyId))
+            .andWhere(raw('users."supervisorId" = ??', supervisorId))
+            .groupByRaw('users.id')
+            .limit(pageSize)
+            .offset(offset)
+    },
+
+    getCompanyRankings: (companyId, pageSize, offset) => {
+        return User.query()
+            .select(raw('dense_rank() OVER (ORDER BY AVG(surveys.rating) desc NULLS LAST) rank, ' +
+                'round(AVG(surveys.rating), 2) as "averageScore", users.*'))
+            .joinRaw('left join surveys ON surveys."userId" = users.id')
+            .where(raw('users."companyId" = ??', companyId))
+            .groupByRaw('users.id')
+            .limit(pageSize)
+            .offset(offset)
+    },
+
+    getAgentChartSurveys: (companyId, userId, startDate, endDate) => {
+        return Survey.query().select('rating', 'createdAt')
+            .where({ userId: userId, companyId: companyId })
+            .whereBetween('createdAt', [startDate, endDate])
+            .orderBy('createdAt', 'ASC')
+    },
+
+    getSupervisorChartSurveys: (companyId, supervisorId, startDate, endDate) => {
+        return Survey.query().select('rating', 'surveys.createdAt')
+            .joinRelation('user')
+            .where({ 'user.supervisorId': supervisorId, 'user.companyId': companyId })
+            .whereBetween('surveys.createdAt', [startDate, endDate])
+            .orderBy('surveys.createdAt', 'ASC')
     }
 }

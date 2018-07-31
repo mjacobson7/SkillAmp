@@ -1,5 +1,4 @@
 <div class="dashboardCardsWrapper">
-  <app-dashboard-nav (navCallback)="getWidgetData($event)"></app-dashboard-nav>
   <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-3" *ngFor="let widget of widgetData">
       <div class="card" [style.background-color]="widget.cardColor">

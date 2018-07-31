@@ -1,6 +1,6 @@
 import { AuthService } from './../../services/auth/auth.service';
 import { DashboardService } from './../../services/dashboard/dashboard.service';
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-dashboard-nav',
@@ -11,10 +11,10 @@ export class DashboardNavComponent implements OnInit {
   canSupervise: boolean = false;
   canAdmin: boolean = false;
   navSelected: string;
-  @Output() navCallback = new EventEmitter()
+  @Output() onDashboardViewChange = new EventEmitter<string>();
 
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private dashboardService: DashboardService) { }
 
   ngOnInit() {
     this.checkPermissions();
@@ -23,7 +23,7 @@ export class DashboardNavComponent implements OnInit {
 
   onNavChange(navItem) {
     this.navSelected = navItem;
-    this.navCallback.emit(navItem);
+    this.onDashboardViewChange.emit(this.navSelected);
   }
 
 

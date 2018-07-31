@@ -87,8 +87,10 @@ module.exports = {
             }
 
             //userCompanyRank
-            widgetData.push({ label: 'Company Rank', icon: 'fa-building', cardColor: '#efa64c', data: agentRank
-            .findIndex(x => x.user.id === req.principal.id) + 1, info: 'Where you currently rank against all other agents in the company' })
+            widgetData.push({
+                label: 'Company Rank', icon: 'fa-building', cardColor: '#efa64c', data: agentRank
+                    .findIndex(x => x.user.id === req.principal.id) + 1, info: 'Where you currently rank against all other agents in the company'
+            })
 
             res.status(200).json(widgetData);
         }
@@ -100,7 +102,8 @@ module.exports = {
 
     getTeamLeaderboard: async (req, res) => {
         try {
-            let { pageSize, length, pageNumber, orderBy, orderDir, searchText } = req.body.params;
+            let { pageSize, length, pageNumber, orderBy, orderDir, searchText, pageIndex } = req.body.params;
+            let view = req.body.view;
 
             if (searchText !== "") {
                 length = null,
@@ -110,33 +113,37 @@ module.exports = {
             let offset = (pageNumber - 1) * pageSize;
             searchText = '%' + searchText.toLowerCase() + '%';
 
-            let { pageIndex } = req.body.params;
             let teamRankings = [];
             let count;
 
-            //for agent
-            if (req.principal.supervisorId) {
-                count = await userService.getAgentsInTeamCount(req.principal.supervisorId, req.principal.companyId);
-
-            } else {
-                const leaderboard = {
-                    rankings: teamRankings,
-                    length: 0
+            if (view == 'AGENT') {
+                if (req.principal.supervisorId) {
+                    count = await userService.getAgentsInTeamCount(req.principal.supervisorId, req.principal.companyId);
+                    teamRankings = await surveyService.getTeamRankings(req.principal.companyId, req.principal.supervisorId, pageSize, offset);
+                } else {
+                    const leaderboard = {
+                        rankings: teamRankings,
+                        length: 0
+                    }
+                    return res.status(200).json(leaderboard);
                 }
-                return res.status(200).json(leaderboard);
+
+            } else if (view == 'SUPERVISOR') {
+                if (await req.principal.hasPermission('CAN_SUPERVISE')) {
+                    count = await userService.getAgentsInTeamCount(req.principal.id, req.principal.companyId);
+                    teamRankings = await surveyService.getTeamRankings(req.principal.companyId, req.principal.id, pageSize, offset);
+                } else {
+                    return res.status(403).json();
+                }
+
+            } else if (view == 'ADMIN') {
+                if (await req.principal.hasPermission('CAN_ADMIN')) {
+                    count = await userService.getAgentsInCompanyCount(req.principal.companyId);
+                    teamRankings = await surveyService.getCompanyRankings(req.principal.companyId, pageSize, offset);
+                } else {
+                    return res.status(403).json();
+                }
             }
-
-            teamRankings = await User
-                .query()
-                .select(raw('dense_rank() OVER (ORDER BY AVG(surveys.rating) desc NULLS LAST) rank, ' +
-                    'round(AVG(surveys.rating), 2) as "averageScore", users.*'))
-                .joinRaw('left join surveys ON surveys."userId" = users.id')
-                .where(raw('users."companyId" = ??', req.principal.companyId))
-                .andWhere(raw('users."supervisorId" = ??', req.principal.supervisorId))
-                .groupByRaw('users.id')
-                .limit(pageSize)
-                .offset(offset)
-
 
             for (let userRank of teamRankings) {
                 if (!userRank.averageScore) {
@@ -146,7 +153,7 @@ module.exports = {
 
             const leaderboard = {
                 rankings: teamRankings,
-                length: count[0].count
+                length: count.count
             }
 
             res.status(200).json(leaderboard);
@@ -159,32 +166,33 @@ module.exports = {
 
     getSurveyChartData: async (req, res) => {
         try {
-            let sort = req.body.sort;
+            let { view, daysFilter } = req.body;
+
             let data = [];
             let labels = [];
-            let days;
-
-            if (sort === '1M') days = 30;
-            else if (sort === '3M') days = 90;
-            else if (sort === '6M') days = 180;
-            else if (sort === '1Y') days = 365;
-            else if (sort === '5Y') days = 1825;
-            else { /*throw error */ }
-
+            let surveys = [];
 
             let endDate = new Date();
             endDate.setHours(23, 59, 59, 999);
             let startDate = new Date();
-            startDate.setDate(startDate.getDate() - days);
+            startDate.setDate(startDate.getDate() - daysFilter);
             startDate.setHours(0, 0, 0, 0);
 
-            const surveys = await Survey
-                .query()
-                .select('rating', 'createdAt')
-                .where('userId', req.principal.id)
-                .andWhere('companyId', req.principal.companyId)
-                .whereBetween('createdAt', [startDate, endDate])
-                .orderBy('createdAt', 'ASC')
+            if (view == 'AGENT') {
+                surveys = await surveyService.getAgentChartSurveys(req.principal.companyId, req.principal.id, startDate, endDate);
+            } else if (view == 'SUPERVISOR') {
+                if (await req.principal.hasPermission('CAN_SUPERVISE')) {
+                    surveys = await surveyService.getSupervisorChartSurveys(req.principal.companyId, req.principal.id, startDate, endDate);
+                } else {
+                    return res.status(403).json();
+                }
+            } else if (view == 'ADMIN') {
+                if (await req.principal.hasPermission('CAN_ADMIN')) {
+
+                } else {
+                    return res.status(403).json();
+                }
+            }
 
             for (let survey of surveys) {
                 data.push(survey.rating);
