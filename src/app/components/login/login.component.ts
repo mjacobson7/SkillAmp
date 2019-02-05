@@ -1,10 +1,10 @@
-import { Observable } from 'rxjs/Rx';
+
+import {throwError as observableThrowError,  Observable ,  Subscription } from 'rxjs';
 import { NavService } from './../../services/nav/nav.service';
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { AuthService } from '../../services/auth/auth.service';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
 
 
 @Component({
@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       },
       error => {
         this.invalidLogin = true
-        return Observable.throw(error);
+        return observableThrowError(error);
       } )
   }
 

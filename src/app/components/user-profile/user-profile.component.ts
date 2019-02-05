@@ -4,9 +4,8 @@ import { AuthService } from '../../services/auth/auth.service';
 import { UserService } from '../../services/user/user.service';
 import { NavService } from '../../services/nav/nav.service';
 import { User } from '../../models/user.model';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription ,  Observable } from 'rxjs';
 import { NgOption } from '@ng-select/ng-select';
-import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 

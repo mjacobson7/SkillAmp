@@ -1,21 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { tokenNotExpired } from 'angular2-jwt';
 import { Injectable } from '@angular/core';
-import 'rxjs/add/operator/map';
+
 import { Router } from '@angular/router';
 import { User } from '../../models/user.model';
-import { Company } from '../../models/company.model';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Subscription } from 'rxjs/Subscription';
-import { Subject } from 'rxjs/Subject';
-import { NavService } from '../nav/nav.service';
-import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class AuthService {
   user: User;
   permissionsMap: Object = null;
-  constructor(private httpClient: HttpClient, private router: Router) {}
+  constructor(private httpClient: HttpClient, private router: Router) { }
 
   hasPermission(permissionName: string): boolean {
     return !!this.permissionsMap[permissionName];
@@ -26,12 +21,12 @@ export class AuthService {
   }
 
   logError(error, user) {
-    return this.httpClient.post<any>('/logError', {error, user});
+    return this.httpClient.post<any>('/logError', { error, user });
   }
 
   login(credentials) {
     return this.httpClient.post<any>('/userAuth', credentials)
-      .map(result => {
+      .pipe(map(result => {
         if (result && result.token) {
           this.user = result.user;
           this.permissionsMap = result.permissions;
@@ -39,7 +34,7 @@ export class AuthService {
           return true;
         }
         return false;
-      })
+      }));
   }
 
   logout() {

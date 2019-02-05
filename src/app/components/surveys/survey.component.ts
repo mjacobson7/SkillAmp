@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavService } from '../../services/nav/nav.service';
 import { SurveyService } from '../../services/survey/survey.service';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
 

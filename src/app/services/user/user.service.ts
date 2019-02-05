@@ -2,10 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../auth/auth.service';
 import { User } from '../../models/user.model';
-import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import 'rxjs/add/operator/map';
-import { Forbidden } from '../../common/forbidden';
+import { map } from 'rxjs/operators';
 
 
 @Injectable()
@@ -26,24 +23,26 @@ export class UserService {
   }
 
   updateProfile(user: User) {
-    return this.httpClient.put<User>('/updateUser', user)
-      .map(user => {
-        if (user) {
-          this.authService.user = user;
+    return this.httpClient.put<User>('/updateUser', user).pipe(
+      map(retVal => {
+        if (retVal) {
+          this.authService.user = retVal;
         }
-      });
+      })
+    );
+
   }
 
   getRolesDropdown() {
-    return this.httpClient.get<any[]>('/getRolesDropdown').map(roles => {
+    return this.httpClient.get<any[]>('/getRolesDropdown').pipe(map(roles => {
       return roles;
-    });
+    }));
   }
 
   getSupervisorDropdown() {
-    return this.httpClient.get<any[]>('/getSupervisorDropdown').map(supervisors => {
+    return this.httpClient.get<any[]>('/getSupervisorDropdown').pipe(map(supervisors => {
       return supervisors;
-    });
+    }));
   }
 
   getAllAgentsDropdown() {
